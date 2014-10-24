@@ -1,5 +1,8 @@
 package Server;
 
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ExceptionEvent;
@@ -8,7 +11,8 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 
 public class SocketServerHandler extends SimpleChannelHandler
 {	
-
+	public static ConcurrentHashMap<Channel, Long> m_pUnknownConnections = new ConcurrentHashMap<Channel, Long>();
+	
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) 
 	{
@@ -16,12 +20,15 @@ public class SocketServerHandler extends SimpleChannelHandler
         // Convert to a String first.
         String request = (String) e.getMessage();
         //MessageObject m = (MessageObject) e.getMessage();
-        System.out.println("Client sent: " +request);
+        System.out.println("Client sent: " +request + " channel:" + e.getChannel().toString());
+        
         
         if (request.toLowerCase().equals("bye"))
         {
         	e.getChannel().close();
         }
+        
+        
         //e.getChannel().close();
 	}	
 //	@Override
@@ -40,9 +47,12 @@ public class SocketServerHandler extends SimpleChannelHandler
 	}
 	
 	@Override
-	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) 
+	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception 
 	{
 		System.out.println("Channel connected");
+
+        Channel channel = e.getChannel();
+        addNewConnection(channel);
 	}
 	
 	 @Override
@@ -56,5 +66,11 @@ public class SocketServerHandler extends SimpleChannelHandler
 	 public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) 
 	 {
 		 System.out.println("Channel disconnected");
+		 m_pUnknownConnections.remove(e.getChannel());
+	 }
+	 
+	 public static void addNewConnection(Channel channel) throws Exception
+	 {	 
+		 m_pUnknownConnections.put(channel, System.currentTimeMillis());
 	 }
 }
