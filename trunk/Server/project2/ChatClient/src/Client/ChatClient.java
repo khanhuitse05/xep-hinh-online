@@ -48,7 +48,7 @@ public class ChatClient
     		
     		if (message.toLowerCase().equals("bye"))
     		{
-    			channel.getCloseFuture().awaitUninterruptibly();
+    			channel.close();
     			break;
     		}
         	// Send       	
