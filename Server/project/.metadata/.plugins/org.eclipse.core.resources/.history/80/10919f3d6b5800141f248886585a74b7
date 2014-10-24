@@ -1,0 +1,17 @@
+package Server;
+
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.ChannelStateEvent;
+import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.channel.SimpleChannelHandler;
+
+public class SocketServerHandler extends SimpleChannelHandler
+{	
+	@Override
+	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) 
+	{
+        MessageObject m = (MessageObject) e.getMessage();
+        System.out.println("Server: " + m.getContent());        
+        e.getChannel().close();
+	}
+}

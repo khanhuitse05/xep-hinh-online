@@ -1,0 +1,33 @@
+package Server;
+
+import java.nio.charset.Charset;
+
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.channel.Channel;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.handler.codec.frame.FrameDecoder;
+
+public class SocketServerDecoder extends FrameDecoder
+{
+	@Override
+	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception
+	{
+		System.out.println("Decode" + buffer.readerIndex());
+		if (buffer.readableBytes() < 10) 
+		{
+			System.out.println("<10");
+			return null; 
+		}
+		System.out.println("Out");
+		buffer.markReaderIndex();
+		
+		String str = "empty";
+		System.out.println("Decode 1 " + buffer.toString());        
+		str = buffer.toString(Charset.forName("UTF-8"));
+		
+		System.out.println("Decode 2 " + str);
+		buffer.resetReaderIndex();
+		return new MessageObject(str);
+	}
+}
+	

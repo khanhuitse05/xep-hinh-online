@@ -1,0 +1,18 @@
+package Client;
+
+import org.jboss.netty.channel.ChannelPipeline;
+import org.jboss.netty.channel.ChannelPipelineFactory;
+import org.jboss.netty.channel.Channels;
+
+public class ClientPipelineFactory implements ChannelPipelineFactory
+{
+	public ChannelPipeline getPipeline() throws Exception
+	{
+		ChannelPipeline pipeline = Channels.pipeline(new ClientHandler());
+        
+        TimeEncoder encoder = new TimeEncoder();
+		pipeline.addLast("encoder", new StringEncoder());
+		
+		return pipeline;
+	}
+}
