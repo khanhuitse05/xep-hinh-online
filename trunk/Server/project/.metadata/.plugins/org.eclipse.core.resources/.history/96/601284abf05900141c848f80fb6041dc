@@ -1,0 +1,33 @@
+package Server;
+
+import java.io.UnsupportedEncodingException;
+
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.channel.Channel;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.handler.codec.frame.FrameDecoder;
+
+public class SocketServerDecoder extends FrameDecoder
+{
+	@Override
+	protected Object decode(
+		ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer)
+		{
+			if (buffer.readableBytes() < 1) 
+			{
+				return null; 
+			}
+			byte[] temp = null;
+			buffer.readBytes(temp);
+			String str = "empty";
+			try
+			{
+				str = new String(temp, "UTF-8");
+			} catch (UnsupportedEncodingException e) 
+			{				
+				e.printStackTrace();
+			}
+			return new MessageObject(str);
+		}
+}
+	
