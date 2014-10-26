@@ -93,7 +93,7 @@ Void Login_obj::onTransitionOutComplete( ){
 		HX_STACK_THIS(this)
 		HX_STACK_LINE(31)
 		this->super::onTransitionOutComplete();
-		HX_STACK_LINE(33)
+		HX_STACK_LINE(32)
 		::game::tnk::Game_obj::server->removeEventListener(::game::network::Server_obj::SERVER_DATA,this->onServerData_dyn(),null());
 	}
 return null();

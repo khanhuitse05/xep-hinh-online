@@ -69,7 +69,7 @@ bool showDarkBg = __o_showDarkBg.Default(true);
 		HX_STACK_LINE(26)
 		this->get_graphics()->beginFill((int)0,0.6);
 		HX_STACK_LINE(27)
-		this->get_graphics()->drawRect((int)0,(int)0,(int)480,(int)800);
+		this->get_graphics()->drawRect((int)0,(int)0,(int)540,(int)960);
 		HX_STACK_LINE(28)
 		this->get_graphics()->endFill();
 	}

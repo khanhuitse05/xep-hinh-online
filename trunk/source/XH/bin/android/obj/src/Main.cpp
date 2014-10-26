@@ -63,12 +63,12 @@
 
 Void Main_obj::__construct()
 {
-HX_STACK_FRAME("Main","new",0x6616a5cb,"Main.new","Main.hx",45,0x087e5c05)
+HX_STACK_FRAME("Main","new",0x6616a5cb,"Main.new","Main.hx",47,0x087e5c05)
 HX_STACK_THIS(this)
 {
-	HX_STACK_LINE(46)
+	HX_STACK_LINE(48)
 	super::__construct();
-	HX_STACK_LINE(47)
+	HX_STACK_LINE(49)
 	this->addEventListener(::openfl::_v2::events::Event_obj::ADDED_TO_STAGE,this->added_dyn(),null(),null(),null());
 }
 ;
@@ -90,12 +90,12 @@ Dynamic Main_obj::__Create(hx::DynamicArray inArgs)
 
 Void Main_obj::resize( Dynamic e){
 {
-		HX_STACK_FRAME("Main","resize",0x39257969,"Main.resize","Main.hx",24,0x087e5c05)
+		HX_STACK_FRAME("Main","resize",0x39257969,"Main.resize","Main.hx",26,0x087e5c05)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(e,"e")
-		HX_STACK_LINE(24)
+		HX_STACK_LINE(26)
 		if ((!(this->inited))){
-			HX_STACK_LINE(24)
+			HX_STACK_LINE(26)
 			this->init();
 		}
 	}
@@ -107,14 +107,14 @@ HX_DEFINE_DYNAMIC_FUNC1(Main_obj,resize,(void))
 
 Void Main_obj::init( ){
 {
-		HX_STACK_FRAME("Main","init",0xea732345,"Main.init","Main.hx",29,0x087e5c05)
+		HX_STACK_FRAME("Main","init",0xea732345,"Main.init","Main.hx",31,0x087e5c05)
 		HX_STACK_THIS(this)
-		HX_STACK_LINE(30)
+		HX_STACK_LINE(32)
 		if ((this->inited)){
-			HX_STACK_LINE(30)
+			HX_STACK_LINE(32)
 			return null();
 		}
-		HX_STACK_LINE(31)
+		HX_STACK_LINE(33)
 		this->inited = true;
 	}
 return null();
@@ -125,25 +125,25 @@ HX_DEFINE_DYNAMIC_FUNC0(Main_obj,init,(void))
 
 Void Main_obj::added( Dynamic e){
 {
-		HX_STACK_FRAME("Main","added",0x98771aeb,"Main.added","Main.hx",51,0x087e5c05)
+		HX_STACK_FRAME("Main","added",0x98771aeb,"Main.added","Main.hx",53,0x087e5c05)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(e,"e")
-		HX_STACK_LINE(52)
-		this->removeEventListener(::openfl::_v2::events::Event_obj::ADDED_TO_STAGE,this->added_dyn(),null());
-		HX_STACK_LINE(53)
-		this->addEventListener(::openfl::_v2::events::Event_obj::ENTER_FRAME,this->gameLoop_dyn(),null(),null(),null());
 		HX_STACK_LINE(54)
+		this->removeEventListener(::openfl::_v2::events::Event_obj::ADDED_TO_STAGE,this->added_dyn(),null());
+		HX_STACK_LINE(55)
+		this->addEventListener(::openfl::_v2::events::Event_obj::ENTER_FRAME,this->gameLoop_dyn(),null(),null(),null());
+		HX_STACK_LINE(56)
 		this->get_stage()->addEventListener(::openfl::_v2::events::Event_obj::RESIZE,this->resize_dyn(),null(),null(),null());
-		HX_STACK_LINE(58)
+		HX_STACK_LINE(60)
 		this->init();
-		HX_STACK_LINE(67)
+		HX_STACK_LINE(63)
 		::openfl::_v2::display::Stage _g = this->get_stage();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(67)
+		HX_STACK_LINE(63)
 		::game::tnk::Game_obj::initialize(_g,hx::ObjectPtr<OBJ_>(this));
-		HX_STACK_LINE(69)
+		HX_STACK_LINE(65)
 		::game::tnk::Game_obj::server->connect(HX_CSTRING("127.0.0.1"),(int)8087);
-		HX_STACK_LINE(71)
-		::game::tnk::Game_obj::displayManager->toScreen(::core::display::screen::ScreenID_obj::LOGIN);
+		HX_STACK_LINE(67)
+		::game::tnk::Game_obj::displayManager->toScreen(::core::display::screen::ScreenID_obj::LOADFIST);
 	}
 return null();
 }
@@ -153,7 +153,7 @@ HX_DEFINE_DYNAMIC_FUNC1(Main_obj,added,(void))
 
 Void Main_obj::gameLoop( ::openfl::_v2::events::Event e){
 {
-		HX_STACK_FRAME("Main","gameLoop",0xfae64e2b,"Main.gameLoop","Main.hx",78,0x087e5c05)
+		HX_STACK_FRAME("Main","gameLoop",0xfae64e2b,"Main.gameLoop","Main.hx",74,0x087e5c05)
 		HX_STACK_THIS(this)
 		HX_STACK_ARG(e,"e")
 	}
@@ -165,14 +165,14 @@ HX_DEFINE_DYNAMIC_FUNC1(Main_obj,gameLoop,(void))
 
 Void Main_obj::main( ){
 {
-		HX_STACK_FRAME("Main","main",0xed0e206e,"Main.main","Main.hx",83,0x087e5c05)
-		HX_STACK_LINE(85)
+		HX_STACK_FRAME("Main","main",0xed0e206e,"Main.main","Main.hx",79,0x087e5c05)
+		HX_STACK_LINE(81)
 		::openfl::_v2::Lib_obj::get_current()->get_stage()->set_align(::openfl::display::StageAlign_obj::TOP_LEFT);
-		HX_STACK_LINE(86)
+		HX_STACK_LINE(82)
 		::openfl::_v2::Lib_obj::get_current()->get_stage()->set_scaleMode(::openfl::display::StageScaleMode_obj::NO_SCALE);
-		HX_STACK_LINE(87)
+		HX_STACK_LINE(83)
 		::Main _g = ::Main_obj::__new();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(87)
+		HX_STACK_LINE(83)
 		::openfl::_v2::Lib_obj::get_current()->addChild(_g);
 	}
 return null();

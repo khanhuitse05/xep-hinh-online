@@ -28,8 +28,7 @@ class Login extends SceneBase
 
     override private function onTransitionOutComplete():Void 
     {
-        super.onTransitionOutComplete();
-        
+        super.onTransitionOutComplete();        
         Game.server.removeEventListener(Server.SERVER_DATA, onServerData);
     }
 }

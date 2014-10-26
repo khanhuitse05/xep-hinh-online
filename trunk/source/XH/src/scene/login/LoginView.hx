@@ -1,12 +1,17 @@
 package scene.login;
+import core.display.ex.Lable;
+import core.display.ex.SimpleButton;
 import core.display.scene.*;
+import core.display.screen.ScreenID;
+import core.resource.Defines;
 import core.util.Log;
+import game.tnk.Game;
 import openfl.Assets;
 import openfl.display.Bitmap;
-import openfl.display.DisplayObject;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
+import openfl.text.Font;
 import openfl.text.TextField;
 import openfl.text.TextFieldType;
 import openfl.text.TextFormat;
@@ -19,9 +24,9 @@ class LoginView extends SceneView
 {
 
 	private var testBtn : Sprite = new Sprite();
-	private var loginBtn : Sprite = new Sprite();
+	private var loginBtn : SimpleButton = new SimpleButton();
 	
-	private var testTf : TextField = new TextField();
+	private var mNoteText : Lable;
 	private var testInfoTf : TextField = new TextField();
 	private var nameInputTf : TextField = new TextField();
 	
@@ -33,20 +38,15 @@ class LoginView extends SceneView
 		testBtn.addChild(new Bitmap(Assets.getBitmapData("img/btn.png")));
 		testBtn.buttonMode =  true;
 		testBtn.x = 120;
-		testBtn.y = 120;
+		testBtn.y = 250;
 		this.addChild(testBtn);		
 		testBtn.addEventListener(MouseEvent.CLICK, onClick);
 		
-		var textFM:TextFormat;
-		testInfoTf.x = 70;
-		testInfoTf.y = 60;
-		testInfoTf.width = 200;
-		textFM = new TextFormat();
-		textFM.size = 25;
-		testInfoTf.text = "Info";
-		
-		testInfoTf.setTextFormat(textFM);
-		this.addChild(testInfoTf);
+		// note
+		mNoteText = new Lable();
+		mNoteText.setFont(30, 0x000000);
+		mNoteText.setSysTextInfo(10, 10, "loading...");
+        this.addChild(mNoteText);
 		//
 		
 		nameInputTf.width = 200;
@@ -57,18 +57,21 @@ class LoginView extends SceneView
 		nameInputTf.type = TextFieldType.INPUT;
 		nameInputTf.border =  true;
 		nameInputTf.background =  true;
-		nameInputTf.backgroundColor =  0xff929292;
+		nameInputTf.backgroundColor =  0xff9292;
 		nameInputTf.maxChars = 12;
+		var textFM:TextFormat;
+		var pFont:Font = Assets.getFont("img/fonts/arial.ttf");
 		textFM = new TextFormat();
 		textFM.size = 25;
+		textFM.font = pFont.fontName;		
 		nameInputTf.text = "LoginName";
 		nameInputTf.setTextFormat(textFM);
 		this.addChild(nameInputTf);
 		//
-		loginBtn.addChild(new Bitmap(Assets.getBitmapData("img/btn.png")));
-		loginBtn.buttonMode = true;
-		loginBtn.x = 220;
-		loginBtn.y = 220 ;
+		loginBtn = new SimpleButton();
+		loginBtn.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_SINGLE));
+		loginBtn.x = 100;
+		loginBtn.y = 400;
 		loginBtn.addEventListener(MouseEvent.CLICK, onLogin);
 		this.addChild(loginBtn);
 		
@@ -77,13 +80,13 @@ class LoginView extends SceneView
 	
 	private function onLogin(e:Event):Void 
 	{
-		
+		Game.displayManager.toScreen(ScreenID.HOME);
 	}
 	
 	
 	private function onClick(e:Event):Void 
 	{
-		//Game.displayManager.toScreen(ScreenID.HOME);
+		Game.displayManager.toScreen(ScreenID.HOME);
 	}
 	
 	//public function getRegisterName() : String

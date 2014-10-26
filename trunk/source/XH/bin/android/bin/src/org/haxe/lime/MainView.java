@@ -714,6 +714,9 @@ class MainView extends GLSurfaceView {
 		public void onSurfaceChanged (GL10 gl, int width, int height) {
 			
 			
+			Log.v("VIEW","onSurfaceChanged " + width +"," + height);
+			Log.v("VIEW", "Thread = " + java.lang.Thread.currentThread ().getId ());
+			
 			
 			mMainView.HandleResult (Lime.onResize (width, height));
 			
@@ -730,6 +733,9 @@ class MainView extends GLSurfaceView {
 			
 			mMainView.isPollImminent = false;
 			mMainView.renderPending = false;
+			
+			Log.v("VIEW","onSurfaceCreated");
+			Log.v("VIEW", "Thread = " + java.lang.Thread.currentThread ().getId ());
 			
 			mMainView.HandleResult (Lime.onContextLost ());
 			

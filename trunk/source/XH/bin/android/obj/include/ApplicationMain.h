@@ -43,6 +43,9 @@ class HXCPP_CLASS_ATTRIBUTES  ApplicationMain_obj : public hx::Object{
 		static Void main( );
 		static Dynamic main_dyn();
 
+		static Void applyScale( Dynamic _);
+		static Dynamic applyScale_dyn();
+
 };
 
 

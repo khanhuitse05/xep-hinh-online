@@ -1,11 +1,13 @@
 package ;
 
+import core.sprites.Animx;
 import core.display.screen.ScreenID;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.Lib;
 import game.tnk.Game;
 import game.tnk.GameConfig;
+import openfl.display.StageScaleMode;
 import scene.login.LoginView;
 
 /**
@@ -62,7 +64,7 @@ class Main extends Sprite
 		
         Game.server.connect(GameConfig.SERVER, GameConfig.PORT);
         // Goto login screen
-        Game.displayManager.toScreen(ScreenID.LOGIN);
+        Game.displayManager.toScreen(ScreenID.LOADFIST);
 	}
 	/**
 	 * 

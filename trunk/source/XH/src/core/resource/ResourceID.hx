@@ -6,6 +6,7 @@ package core.resource;
 
 enum ResourceID 
 {
-	BTN_LOGIN;
+	LOADING_BG;
 	BG_LOGIN;
+	BTN_LOGIN;
 }

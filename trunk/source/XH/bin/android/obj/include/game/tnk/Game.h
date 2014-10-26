@@ -8,6 +8,7 @@
 HX_DECLARE_CLASS0(Main)
 HX_DECLARE_CLASS2(core,display,DisplayManager)
 HX_DECLARE_CLASS2(core,resource,ResourceManager)
+HX_DECLARE_CLASS2(game,data,DataCenter)
 HX_DECLARE_CLASS2(game,network,Server)
 HX_DECLARE_CLASS2(game,tnk,Game)
 HX_DECLARE_CLASS3(openfl,_v2,display,DisplayObject)
@@ -48,6 +49,7 @@ class HXCPP_CLASS_ATTRIBUTES  Game_obj : public hx::Object{
 		static ::game::network::Server server;
 		static ::core::resource::ResourceManager resource;
 		static ::core::display::DisplayManager displayManager;
+		static ::game::data::DataCenter data;
 		static Void initialize( ::openfl::_v2::display::Stage gStage,::Main main);
 		static Dynamic initialize_dyn();
 

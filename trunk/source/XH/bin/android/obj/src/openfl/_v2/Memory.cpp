@@ -75,8 +75,13 @@ return null();
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Memory_obj,select,(void))
 
 int Memory_obj::getByte( int addr){
-	HX_STACK_FRAME("openfl._v2.Memory","getByte",0x95a30082,"openfl._v2.Memory.getByte","openfl/_v2/Memory.hx",220,0xce104b0a)
+	HX_STACK_FRAME("openfl._v2.Memory","getByte",0x95a30082,"openfl._v2.Memory.getByte","openfl/_v2/Memory.hx",217,0xce104b0a)
 	HX_STACK_ARG(addr,"addr")
+	HX_STACK_LINE(219)
+	if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+		HX_STACK_LINE(219)
+		HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+	}
 	HX_STACK_LINE(220)
 	return ::__hxcpp_memory_get_byte(addr);
 }
@@ -85,8 +90,13 @@ int Memory_obj::getByte( int addr){
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Memory_obj,getByte,return )
 
 Float Memory_obj::getDouble( int addr){
-	HX_STACK_FRAME("openfl._v2.Memory","getDouble",0x9021df0b,"openfl._v2.Memory.getDouble","openfl/_v2/Memory.hx",228,0xce104b0a)
+	HX_STACK_FRAME("openfl._v2.Memory","getDouble",0x9021df0b,"openfl._v2.Memory.getDouble","openfl/_v2/Memory.hx",225,0xce104b0a)
 	HX_STACK_ARG(addr,"addr")
+	HX_STACK_LINE(227)
+	if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+		HX_STACK_LINE(227)
+		HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+	}
 	HX_STACK_LINE(228)
 	return ::__hxcpp_memory_get_double(addr);
 }
@@ -95,8 +105,13 @@ Float Memory_obj::getDouble( int addr){
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Memory_obj,getDouble,return )
 
 Float Memory_obj::getFloat( int addr){
-	HX_STACK_FRAME("openfl._v2.Memory","getFloat",0x9dfc2ee2,"openfl._v2.Memory.getFloat","openfl/_v2/Memory.hx",236,0xce104b0a)
+	HX_STACK_FRAME("openfl._v2.Memory","getFloat",0x9dfc2ee2,"openfl._v2.Memory.getFloat","openfl/_v2/Memory.hx",233,0xce104b0a)
 	HX_STACK_ARG(addr,"addr")
+	HX_STACK_LINE(235)
+	if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+		HX_STACK_LINE(235)
+		HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+	}
 	HX_STACK_LINE(236)
 	return ::__hxcpp_memory_get_float(addr);
 }
@@ -105,8 +120,13 @@ Float Memory_obj::getFloat( int addr){
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Memory_obj,getFloat,return )
 
 int Memory_obj::getI32( int addr){
-	HX_STACK_FRAME("openfl._v2.Memory","getI32",0x066e450e,"openfl._v2.Memory.getI32","openfl/_v2/Memory.hx",244,0xce104b0a)
+	HX_STACK_FRAME("openfl._v2.Memory","getI32",0x066e450e,"openfl._v2.Memory.getI32","openfl/_v2/Memory.hx",241,0xce104b0a)
 	HX_STACK_ARG(addr,"addr")
+	HX_STACK_LINE(243)
+	if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+		HX_STACK_LINE(243)
+		HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+	}
 	HX_STACK_LINE(244)
 	return ::__hxcpp_memory_get_i32(addr);
 }
@@ -115,8 +135,13 @@ int Memory_obj::getI32( int addr){
 STATIC_HX_DEFINE_DYNAMIC_FUNC1(Memory_obj,getI32,return )
 
 int Memory_obj::getUI16( int addr){
-	HX_STACK_FRAME("openfl._v2.Memory","getUI16",0xa20d6793,"openfl._v2.Memory.getUI16","openfl/_v2/Memory.hx",252,0xce104b0a)
+	HX_STACK_FRAME("openfl._v2.Memory","getUI16",0xa20d6793,"openfl._v2.Memory.getUI16","openfl/_v2/Memory.hx",249,0xce104b0a)
 	HX_STACK_ARG(addr,"addr")
+	HX_STACK_LINE(251)
+	if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+		HX_STACK_LINE(251)
+		HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+	}
 	HX_STACK_LINE(252)
 	return ::__hxcpp_memory_get_ui16(addr);
 }
@@ -126,9 +151,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC1(Memory_obj,getUI16,return )
 
 Void Memory_obj::setByte( int addr,int v){
 {
-		HX_STACK_FRAME("openfl._v2.Memory","setByte",0x88a4918e,"openfl._v2.Memory.setByte","openfl/_v2/Memory.hx",260,0xce104b0a)
+		HX_STACK_FRAME("openfl._v2.Memory","setByte",0x88a4918e,"openfl._v2.Memory.setByte","openfl/_v2/Memory.hx",257,0xce104b0a)
 		HX_STACK_ARG(addr,"addr")
 		HX_STACK_ARG(v,"v")
+		HX_STACK_LINE(259)
+		if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+			HX_STACK_LINE(259)
+			HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+		}
 		HX_STACK_LINE(260)
 		::__hxcpp_memory_set_byte(addr,v);
 	}
@@ -140,9 +170,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Memory_obj,setByte,(void))
 
 Void Memory_obj::setDouble( int addr,Float v){
 {
-		HX_STACK_FRAME("openfl._v2.Memory","setDouble",0x7372cb17,"openfl._v2.Memory.setDouble","openfl/_v2/Memory.hx",268,0xce104b0a)
+		HX_STACK_FRAME("openfl._v2.Memory","setDouble",0x7372cb17,"openfl._v2.Memory.setDouble","openfl/_v2/Memory.hx",265,0xce104b0a)
 		HX_STACK_ARG(addr,"addr")
 		HX_STACK_ARG(v,"v")
+		HX_STACK_LINE(267)
+		if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+			HX_STACK_LINE(267)
+			HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+		}
 		HX_STACK_LINE(268)
 		::__hxcpp_memory_set_double(addr,v);
 	}
@@ -154,9 +189,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Memory_obj,setDouble,(void))
 
 Void Memory_obj::setFloat( int addr,Float v){
 {
-		HX_STACK_FRAME("openfl._v2.Memory","setFloat",0x4c598856,"openfl._v2.Memory.setFloat","openfl/_v2/Memory.hx",276,0xce104b0a)
+		HX_STACK_FRAME("openfl._v2.Memory","setFloat",0x4c598856,"openfl._v2.Memory.setFloat","openfl/_v2/Memory.hx",273,0xce104b0a)
 		HX_STACK_ARG(addr,"addr")
 		HX_STACK_ARG(v,"v")
+		HX_STACK_LINE(275)
+		if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+			HX_STACK_LINE(275)
+			HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+		}
 		HX_STACK_LINE(276)
 		::__hxcpp_memory_set_float(addr,v);
 	}
@@ -168,9 +208,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Memory_obj,setFloat,(void))
 
 Void Memory_obj::setI16( int addr,int v){
 {
-		HX_STACK_FRAME("openfl._v2.Memory","setI16",0xd2b697c8,"openfl._v2.Memory.setI16","openfl/_v2/Memory.hx",284,0xce104b0a)
+		HX_STACK_FRAME("openfl._v2.Memory","setI16",0xd2b697c8,"openfl._v2.Memory.setI16","openfl/_v2/Memory.hx",281,0xce104b0a)
 		HX_STACK_ARG(addr,"addr")
 		HX_STACK_ARG(v,"v")
+		HX_STACK_LINE(283)
+		if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+			HX_STACK_LINE(283)
+			HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+		}
 		HX_STACK_LINE(284)
 		::__hxcpp_memory_set_i16(addr,v);
 	}
@@ -182,9 +227,14 @@ STATIC_HX_DEFINE_DYNAMIC_FUNC2(Memory_obj,setI16,(void))
 
 Void Memory_obj::setI32( int addr,int v){
 {
-		HX_STACK_FRAME("openfl._v2.Memory","setI32",0xd2b69982,"openfl._v2.Memory.setI32","openfl/_v2/Memory.hx",292,0xce104b0a)
+		HX_STACK_FRAME("openfl._v2.Memory","setI32",0xd2b69982,"openfl._v2.Memory.setI32","openfl/_v2/Memory.hx",289,0xce104b0a)
 		HX_STACK_ARG(addr,"addr")
 		HX_STACK_ARG(v,"v")
+		HX_STACK_LINE(291)
+		if (((bool((addr < (int)0)) || bool((addr >= ::openfl::_v2::Memory_obj::len))))){
+			HX_STACK_LINE(291)
+			HX_STACK_DO_THROW(HX_CSTRING("Bad address"));
+		}
 		HX_STACK_LINE(292)
 		::__hxcpp_memory_set_i32(addr,v);
 	}
