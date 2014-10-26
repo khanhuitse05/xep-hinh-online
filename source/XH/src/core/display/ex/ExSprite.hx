@@ -42,16 +42,4 @@ class ExSprite extends Sprite
             child = null;
         }
     }
-/*	
-	override public function addChild(child:DisplayObject):DisplayObject
-	{
-		if (m_pChilds == null)
-        {
-            m_pChilds = new Array<DisplayObject>();
-        }
-        m_pChilds.push(child);
-		super.addChild(child);
-		return child;
-	}
-*/
 }

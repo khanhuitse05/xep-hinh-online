@@ -9,6 +9,9 @@
 #ifndef INCLUDED_core_resource_ResourceManager
 #include <core/resource/ResourceManager.h>
 #endif
+#ifndef INCLUDED_game_data_DataCenter
+#include <game/data/DataCenter.h>
+#endif
 #ifndef INCLUDED_game_network_Server
 #include <game/network/Server.h>
 #endif
@@ -72,25 +75,31 @@ int Game_obj::GAME_HEIGHT;
 
 ::core::display::DisplayManager Game_obj::displayManager;
 
+::game::data::DataCenter Game_obj::data;
+
 Void Game_obj::initialize( ::openfl::_v2::display::Stage gStage,::Main main){
 {
-		HX_STACK_FRAME("game.tnk.Game","initialize",0x78d8f4f3,"game.tnk.Game.initialize","game/tnk/Game.hx",24,0x19322371)
+		HX_STACK_FRAME("game.tnk.Game","initialize",0x78d8f4f3,"game.tnk.Game.initialize","game/tnk/Game.hx",25,0x19322371)
 		HX_STACK_ARG(gStage,"gStage")
 		HX_STACK_ARG(main,"main")
-		HX_STACK_LINE(25)
+		HX_STACK_LINE(26)
 		::game::tnk::Game_obj::stage = gStage;
-		HX_STACK_LINE(26)
+		HX_STACK_LINE(27)
 		::game::network::Server _g = ::game::network::Server_obj::__new();		HX_STACK_VAR(_g,"_g");
-		HX_STACK_LINE(26)
+		HX_STACK_LINE(27)
 		::game::tnk::Game_obj::server = _g;
-		HX_STACK_LINE(27)
+		HX_STACK_LINE(28)
 		::core::resource::ResourceManager _g1 = ::core::resource::ResourceManager_obj::__new();		HX_STACK_VAR(_g1,"_g1");
-		HX_STACK_LINE(27)
+		HX_STACK_LINE(28)
 		::game::tnk::Game_obj::resource = _g1;
-		HX_STACK_LINE(28)
+		HX_STACK_LINE(29)
 		::core::display::DisplayManager _g2 = ::core::display::DisplayManager_obj::__new(main);		HX_STACK_VAR(_g2,"_g2");
-		HX_STACK_LINE(28)
+		HX_STACK_LINE(29)
 		::game::tnk::Game_obj::displayManager = _g2;
+		HX_STACK_LINE(30)
+		::game::data::DataCenter _g3 = ::game::data::DataCenter_obj::__new();		HX_STACK_VAR(_g3,"_g3");
+		HX_STACK_LINE(30)
+		::game::tnk::Game_obj::data = _g3;
 	}
 return null();
 }
@@ -106,6 +115,9 @@ Game_obj::Game_obj()
 Dynamic Game_obj::__Field(const ::String &inName,bool inCallProp)
 {
 	switch(inName.length) {
+	case 4:
+		if (HX_FIELD_EQ(inName,"data") ) { return data; }
+		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"stage") ) { return stage; }
 		break;
@@ -127,6 +139,9 @@ Dynamic Game_obj::__Field(const ::String &inName,bool inCallProp)
 Dynamic Game_obj::__SetField(const ::String &inName,const Dynamic &inValue,bool inCallProp)
 {
 	switch(inName.length) {
+	case 4:
+		if (HX_FIELD_EQ(inName,"data") ) { data=inValue.Cast< ::game::data::DataCenter >(); return inValue; }
+		break;
 	case 5:
 		if (HX_FIELD_EQ(inName,"stage") ) { stage=inValue.Cast< ::openfl::_v2::display::Stage >(); return inValue; }
 		break;
@@ -154,6 +169,7 @@ static ::String sStaticFields[] = {
 	HX_CSTRING("server"),
 	HX_CSTRING("resource"),
 	HX_CSTRING("displayManager"),
+	HX_CSTRING("data"),
 	HX_CSTRING("initialize"),
 	String(null()) };
 
@@ -172,6 +188,7 @@ static void sMarkStatics(HX_MARK_PARAMS) {
 	HX_MARK_MEMBER_NAME(Game_obj::server,"server");
 	HX_MARK_MEMBER_NAME(Game_obj::resource,"resource");
 	HX_MARK_MEMBER_NAME(Game_obj::displayManager,"displayManager");
+	HX_MARK_MEMBER_NAME(Game_obj::data,"data");
 };
 
 #ifdef HXCPP_VISIT_ALLOCS
@@ -183,6 +200,7 @@ static void sVisitStatics(HX_VISIT_PARAMS) {
 	HX_VISIT_MEMBER_NAME(Game_obj::server,"server");
 	HX_VISIT_MEMBER_NAME(Game_obj::resource,"resource");
 	HX_VISIT_MEMBER_NAME(Game_obj::displayManager,"displayManager");
+	HX_VISIT_MEMBER_NAME(Game_obj::data,"data");
 };
 
 #endif
@@ -205,8 +223,8 @@ void Game_obj::__register()
 
 void Game_obj::__boot()
 {
-	GAME_WIDTH= (int)480;
-	GAME_HEIGHT= (int)800;
+	GAME_WIDTH= (int)540;
+	GAME_HEIGHT= (int)960;
 }
 
 } // end namespace game

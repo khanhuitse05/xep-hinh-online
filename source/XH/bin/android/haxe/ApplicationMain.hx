@@ -21,16 +21,14 @@ class ApplicationMain {
 		
 		#if ios
 		flash.display.Stage.shouldRotateInterface = function (orientation:Int):Bool {
-			return (orientation == flash.display.Stage.OrientationLandscapeLeft || orientation == flash.display.Stage.OrientationLandscapeRight);
+			return (orientation == flash.display.Stage.OrientationPortrait || orientation == flash.display.Stage.OrientationPortraitUpsideDown);
 			
 		}
 		#end
 		
 		
 		
-		#if tizen
-		flash.display.Stage.setFixedOrientation (flash.display.Stage.OrientationLandscapeRight);
-		#end
+		
 		
 		flash.Lib.create (function () {
 				
@@ -38,7 +36,24 @@ class ApplicationMain {
 				flash.Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
 				flash.Lib.current.loaderInfo = flash.display.LoaderInfo.create (null);
 				
+				#if mobile
 				
+				forceWidth = 540;
+				forceHeight = 960;
+				
+				container = new flash.display.Sprite ();
+				barA = new flash.display.Sprite ();
+				barB = new flash.display.Sprite ();
+				
+				flash.Lib.current.stage.addChild (container);
+				container.addChild (flash.Lib.current);
+				container.addChild (barA);
+				container.addChild (barB);
+				
+				applyScale ();
+				flash.Lib.current.stage.addEventListener (flash.events.Event.RESIZE, applyScale);
+				
+				#end
 				
 				#if windows
 				try {
@@ -89,28 +104,76 @@ class ApplicationMain {
 				}
 				
 			},
-			0, 0, 
+			540, 960, 
 			60, 
-			16773120,
+			16777200,
 			(true ? flash.Lib.HARDWARE : 0) |
 			(true ? flash.Lib.ALLOW_SHADERS : 0) |
 			(true ? flash.Lib.REQUIRE_SHADERS : 0) |
 			(false ? flash.Lib.DEPTH_BUFFER : 0) |
 			(false ? flash.Lib.STENCIL_BUFFER : 0) |
 			(true ? flash.Lib.RESIZABLE : 0) |
-			(false ? flash.Lib.BORDERLESS : 0) |
+			(true ? flash.Lib.BORDERLESS : 0) |
 			(false ? flash.Lib.VSYNC : 0) |
 			(true ? flash.Lib.FULLSCREEN : 0) |
 			(0 == 4 ? flash.Lib.HW_AA_HIRES : 0) |
 			(0 == 2 ? flash.Lib.HW_AA : 0),
 			"XH",
 			null
-			
+			#if mobile, ScaledStage #end
 		);
 		
 	}
 	
-	
+	#if mobile
+	public static function applyScale (?_) {
+		var scaledStage:ScaledStage = cast flash.Lib.current.stage;
+		
+		var xScale:Float = scaledStage.__stageWidth / forceWidth;
+		var yScale:Float = scaledStage.__stageHeight / forceHeight;
+		
+		if (xScale < yScale) {
+			
+			flash.Lib.current.scaleX = xScale;
+			flash.Lib.current.scaleY = xScale;
+			flash.Lib.current.x = (scaledStage.__stageWidth - (forceWidth * xScale)) / 2;
+			flash.Lib.current.y = (scaledStage.__stageHeight - (forceHeight * xScale)) / 2;
+			
+		} else {
+			
+			flash.Lib.current.scaleX = yScale;
+			flash.Lib.current.scaleY = yScale;
+			flash.Lib.current.x = (scaledStage.__stageWidth - (forceWidth * yScale)) / 2;
+			flash.Lib.current.y = (scaledStage.__stageHeight - (forceHeight * yScale)) / 2;
+			
+		}
+		
+		if (flash.Lib.current.x > 0) {
+			
+			barA.graphics.clear ();
+			barA.graphics.beginFill (0x000000);
+			barA.graphics.drawRect (0, 0, flash.Lib.current.x, scaledStage.__stageHeight);
+			
+			barB.graphics.clear ();
+			barB.graphics.beginFill (0x000000);
+			var x = flash.Lib.current.x + (forceWidth * flash.Lib.current.scaleX);
+			barB.graphics.drawRect (x, 0, scaledStage.__stageWidth - x, scaledStage.__stageHeight);
+			
+		} else {
+			
+			barA.graphics.clear ();
+			barA.graphics.beginFill (0x000000);
+			barA.graphics.drawRect (0, 0, scaledStage.__stageWidth, flash.Lib.current.y);
+			
+			barB.graphics.clear ();
+			barB.graphics.beginFill (0x000000);
+			var y = flash.Lib.current.y + (forceHeight * flash.Lib.current.scaleY);
+			barB.graphics.drawRect (0, y, scaledStage.__stageWidth, scaledStage.__stageHeight - y);
+			
+		}
+		
+	}
+	#end
 	
 	
 	#if neko
@@ -131,7 +194,50 @@ class ApplicationMain {
 @:keep class DocumentClass extends Main {}
 
 
-
+#if mobile
+class ScaledStage extends flash.display.Stage {
+	
+	
+	public var __stageHeight (get, null):Int;
+	public var __stageWidth (get, null):Int;
+	
+	
+	public function new (inHandle:Dynamic, inWidth:Int, inHeight:Int) {
+		
+		super (inHandle, 0, 0);
+		
+	}
+	
+	
+	private function get___stageHeight ():Int {
+		
+		return super.get_stageHeight ();
+		
+	}
+	
+	
+	private function get___stageWidth():Int {
+		
+		return super.get_stageWidth ();
+		
+	}
+	
+	
+	private override function get_stageHeight ():Int {
+		
+		return 960;
+	
+	}
+	
+	private override function get_stageWidth ():Int {
+		
+		return 540;
+	
+	}
+	
+	
+}
+#end
 
 
 #elseif macro
@@ -196,11 +302,11 @@ class ApplicationMain {
 		wx.App.boot (function () {
 			
 			
-			frame = wx.Frame.create (null, null, "XH", null, { width: 0, height: 0 });
+			frame = wx.Frame.create (null, null, "XH", null, { width: 540, height: 960 });
 			
 			
 			#if openfl
-			var stage = wx.NMEStage.create (frame, null, null, { width: 0, height: 0 });
+			var stage = wx.NMEStage.create (frame, null, null, { width: 540, height: 960 });
 			#end
 			
 			var hasMain = false;

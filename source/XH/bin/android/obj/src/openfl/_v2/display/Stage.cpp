@@ -149,6 +149,21 @@ HX_STACK_ARG(height,"height")
 	::haxe::ds::IntMap _g1 = ::haxe::ds::IntMap_obj::__new();		HX_STACK_VAR(_g1,"_g1");
 	HX_STACK_LINE(121)
 	this->__joyAxisData = _g1;
+
+	HX_BEGIN_LOCAL_FUNC_S0(hx::LocalFunc,_Function_1_1)
+	Void run(::String message){
+		HX_STACK_FRAME("*","_Function_1_1",0x5200ed37,"*._Function_1_1","openfl/_v2/display/Stage.hx",124,0xd25d2a60)
+		HX_STACK_ARG(message,"message")
+		{
+			HX_STACK_LINE(124)
+			HX_STACK_DO_THROW(message);
+		}
+		return null();
+	}
+	HX_END_LOCAL_FUNC1((void))
+
+	HX_STACK_LINE(124)
+	::__hxcpp_set_critical_error_handler( Dynamic(new _Function_1_1()));
 }
 ;
 	return null();

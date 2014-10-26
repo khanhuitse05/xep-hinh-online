@@ -7,6 +7,8 @@
 
 #include <core/display/scene/SceneView.h>
 HX_DECLARE_CLASS3(core,display,ex,ExSprite)
+HX_DECLARE_CLASS3(core,display,ex,Lable)
+HX_DECLARE_CLASS3(core,display,ex,SimpleButton)
 HX_DECLARE_CLASS3(core,display,scene,SceneView)
 HX_DECLARE_CLASS3(core,display,screen,ScreenView)
 HX_DECLARE_CLASS3(openfl,_v2,display,DisplayObject)
@@ -46,8 +48,8 @@ class HXCPP_CLASS_ATTRIBUTES  LoginView_obj : public ::core::display::scene::Sce
 		::String __ToString() const { return HX_CSTRING("LoginView"); }
 
 		::openfl::_v2::display::Sprite testBtn;
-		::openfl::_v2::display::Sprite loginBtn;
-		::openfl::_v2::text::TextField testTf;
+		::core::display::ex::SimpleButton loginBtn;
+		::core::display::ex::Lable mNoteText;
 		::openfl::_v2::text::TextField testInfoTf;
 		::openfl::_v2::text::TextField nameInputTf;
 		virtual Void onLogin( ::openfl::_v2::events::Event e);

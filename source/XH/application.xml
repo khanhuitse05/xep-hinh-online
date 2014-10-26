@@ -8,9 +8,10 @@
 	<!-- output -->
 	<app main="Main" file="XH" path="bin" />
 	
-	<window background="#fff000" fps="60" />
-	<window width="800" height="480" unless="mobile" />
-	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
+	<window background="#fffff0" fps="60" />
+	<window width="540" height="960"/>
+	<window fullscreen="true" resizable="true" borderless="true" vsync="false" />
+	<window orientation="portrait" />
 	
 	<!-- classpath, haxe libs -->
 	<source path="src" />

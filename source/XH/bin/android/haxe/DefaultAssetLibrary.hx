@@ -46,14 +46,79 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#if flash
 		
+		path.set ("img/animloading.png", "img/animloading.png");
+		type.set ("img/animloading.png", AssetType.IMAGE);
+		path.set ("img/Battles.png", "img/Battles.png");
+		type.set ("img/Battles.png", AssetType.IMAGE);
+		path.set ("img/BattlesBackground.png", "img/BattlesBackground.png");
+		type.set ("img/BattlesBackground.png", AssetType.IMAGE);
+		path.set ("img/bghome.png", "img/bghome.png");
+		type.set ("img/bghome.png", AssetType.IMAGE);
 		path.set ("img/btn.png", "img/btn.png");
 		type.set ("img/btn.png", AssetType.IMAGE);
+		path.set ("img/btnback.png", "img/btnback.png");
+		type.set ("img/btnback.png", AssetType.IMAGE);
+		path.set ("img/fonts/arial.ttf", "img/fonts/arial.ttf");
+		type.set ("img/fonts/arial.ttf", AssetType.FONT);
+		path.set ("img/fonts/arialbd.ttf", "img/fonts/arialbd.ttf");
+		type.set ("img/fonts/arialbd.ttf", AssetType.FONT);
+		path.set ("img/Mission.png", "img/Mission.png");
+		type.set ("img/Mission.png", AssetType.IMAGE);
+		path.set ("img/MissionBackground.png", "img/MissionBackground.png");
+		type.set ("img/MissionBackground.png", AssetType.IMAGE);
+		path.set ("img/Single player.png", "img/Single player.png");
+		type.set ("img/Single player.png", AssetType.IMAGE);
+		path.set ("img/SinglePlayer background.png", "img/SinglePlayer background.png");
+		type.set ("img/SinglePlayer background.png", AssetType.IMAGE);
+		path.set ("img/With friend.png", "img/With friend.png");
+		type.set ("img/With friend.png", AssetType.IMAGE);
+		path.set ("img/WithfriendBackground.png", "img/WithfriendBackground.png");
+		type.set ("img/WithfriendBackground.png", AssetType.IMAGE);
 		
 		
 		#elseif html5
 		
 		var id;
+		id = "img/animloading.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/Battles.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/BattlesBackground.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/bghome.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "img/btn.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/btnback.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/fonts/arial.ttf";
+		path.set (id, id);
+		type.set (id, AssetType.FONT);
+		id = "img/fonts/arialbd.ttf";
+		path.set (id, id);
+		type.set (id, AssetType.FONT);
+		id = "img/Mission.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/MissionBackground.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/Single player.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/SinglePlayer background.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/With friend.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/WithfriendBackground.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		
@@ -63,6 +128,19 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		
 		
@@ -684,7 +762,33 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #elseif html5
+
+
+
+
+
+
+
+@:keep class __ASSET__img_fonts_arial_ttf extends flash.text.Font { #if (!openfl_html5_dom) public function new () { super (); fontName = "img/fonts/arial.ttf"; } #end }
+@:keep class __ASSET__img_fonts_arialbd_ttf extends flash.text.Font { #if (!openfl_html5_dom) public function new () { super (); fontName = "img/fonts/arialbd.ttf"; } #end }
+
+
+
+
 
 
 

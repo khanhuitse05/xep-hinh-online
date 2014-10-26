@@ -53,8 +53,8 @@
 #include <openfl/_v2/utils/ArrayBufferView.h>
 #include <openfl/_v2/ui/Keyboard.h>
 #include <openfl/_v2/text/TextLineMetrics.h>
+#include <openfl/_v2/text/TextFormatAlign.h>
 #include <openfl/_v2/text/TextFormat.h>
-#include <openfl/_v2/text/TextField.h>
 #include <openfl/_v2/text/FontType.h>
 #include <openfl/_v2/text/FontStyle.h>
 #include <openfl/_v2/text/Font.h>
@@ -94,9 +94,6 @@
 #include <openfl/_v2/display/OpenGLView.h>
 #include <openfl/_v2/display/MovieClip.h>
 #include <openfl/_v2/display/ManagedStage.h>
-#include <openfl/_v2/display/Stage.h>
-#include <openfl/_v2/events/TouchEvent.h>
-#include <openfl/_v2/events/MouseEvent.h>
 #include <openfl/_v2/display/LoaderInfo.h>
 #include <openfl/_v2/net/URLLoader.h>
 #include <openfl/_v2/display/Loader.h>
@@ -171,6 +168,11 @@
 #include <game/network/packet/PacketHeader.h>
 #include <game/network/packet/Command.h>
 #include <game/network/Server.h>
+#include <game/data/PlayerData.h>
+#include <game/data/InventoryData.h>
+#include <game/data/DataCenter.h>
+#include <game/data/DTItem.h>
+#include <game/const/EnumConsts.h>
 #include <cpp/vm/Thread.h>
 #include <cpp/vm/Mutex.h>
 #include <cpp/rtti/FieldNumericIntegerLookup.h>
@@ -180,12 +182,27 @@
 #include <openfl/_v2/utils/IDataInput.h>
 #include <openfl/_v2/utils/IMemoryRange.h>
 #include <openfl/_v2/utils/IDataOutput.h>
+#include <core/sprites/Animx.h>
+#include <core/resource/ResourcePath.h>
 #include <core/resource/ResourceManager.h>
+#include <core/resource/ResourceID.h>
+#include <core/resource/Defines.h>
 #include <core/event/EventEx.h>
-#include <openfl/_v2/events/Event.h>
 #include <core/display/screen/ScreenID.h>
+#include <scene/singleplay/SinglePlayView.h>
+#include <scene/singleplay/SinglePlay.h>
+#include <scene/mission/MissionView.h>
+#include <scene/mission/Mission.h>
 #include <scene/login/LoginView.h>
 #include <scene/login/Login.h>
+#include <scene/loading/LoadFistView.h>
+#include <scene/loading/LoadFist.h>
+#include <scene/home/HomeView.h>
+#include <scene/home/Home.h>
+#include <scene/friendplay/FriendPlayView.h>
+#include <scene/friendplay/FriendPlay.h>
+#include <scene/battle/BattleView.h>
+#include <scene/battle/Battle.h>
 #include <core/display/scene/SceneView.h>
 #include <core/display/scene/SceneID.h>
 #include <core/display/scene/SceneBase.h>
@@ -197,6 +214,9 @@
 #include <core/display/screen/ScreenView.h>
 #include <core/display/layer/LayerManager.h>
 #include <core/display/layer/Layer.h>
+#include <core/display/ex/SimpleButton.h>
+#include <core/display/ex/Lable.h>
+#include <openfl/_v2/text/TextField.h>
 #include <core/display/ex/ExSprite.h>
 #include <core/display/dialog/DialogManager.h>
 #include <core/display/screen/ScreenManager.h>
@@ -211,6 +231,11 @@
 #include <DefaultAssetLibrary.h>
 #include <openfl/_v2/AssetLibrary.h>
 #include <Date.h>
+#include <ScaledStage.h>
+#include <openfl/_v2/display/Stage.h>
+#include <openfl/_v2/events/TouchEvent.h>
+#include <openfl/_v2/events/MouseEvent.h>
+#include <openfl/_v2/events/Event.h>
 #include <DocumentClass.h>
 #include <Main.h>
 #include <openfl/_v2/display/Sprite.h>
@@ -291,8 +316,8 @@ hx::RegisterResources( hx::GetResources() );
 ::openfl::_v2::utils::ArrayBufferView_obj::__register();
 ::openfl::_v2::ui::Keyboard_obj::__register();
 ::openfl::_v2::text::TextLineMetrics_obj::__register();
+::openfl::_v2::text::TextFormatAlign_obj::__register();
 ::openfl::_v2::text::TextFormat_obj::__register();
-::openfl::_v2::text::TextField_obj::__register();
 ::openfl::_v2::text::FontType_obj::__register();
 ::openfl::_v2::text::FontStyle_obj::__register();
 ::openfl::_v2::text::Font_obj::__register();
@@ -332,9 +357,6 @@ hx::RegisterResources( hx::GetResources() );
 ::openfl::_v2::display::OpenGLView_obj::__register();
 ::openfl::_v2::display::MovieClip_obj::__register();
 ::openfl::_v2::display::ManagedStage_obj::__register();
-::openfl::_v2::display::Stage_obj::__register();
-::openfl::_v2::events::TouchEvent_obj::__register();
-::openfl::_v2::events::MouseEvent_obj::__register();
 ::openfl::_v2::display::LoaderInfo_obj::__register();
 ::openfl::_v2::net::URLLoader_obj::__register();
 ::openfl::_v2::display::Loader_obj::__register();
@@ -409,6 +431,11 @@ hx::RegisterResources( hx::GetResources() );
 ::game::network::packet::PacketHeader_obj::__register();
 ::game::network::packet::Command_obj::__register();
 ::game::network::Server_obj::__register();
+::game::data::PlayerData_obj::__register();
+::game::data::InventoryData_obj::__register();
+::game::data::DataCenter_obj::__register();
+::game::data::DTItem_obj::__register();
+::game::_const::EnumConsts_obj::__register();
 ::cpp::vm::Thread_obj::__register();
 ::cpp::vm::Mutex_obj::__register();
 ::cpp::rtti::FieldNumericIntegerLookup_obj::__register();
@@ -418,12 +445,27 @@ hx::RegisterResources( hx::GetResources() );
 ::openfl::_v2::utils::IDataInput_obj::__register();
 ::openfl::_v2::utils::IMemoryRange_obj::__register();
 ::openfl::_v2::utils::IDataOutput_obj::__register();
+::core::sprites::Animx_obj::__register();
+::core::resource::ResourcePath_obj::__register();
 ::core::resource::ResourceManager_obj::__register();
+::core::resource::ResourceID_obj::__register();
+::core::resource::Defines_obj::__register();
 ::core::event::EventEx_obj::__register();
-::openfl::_v2::events::Event_obj::__register();
 ::core::display::screen::ScreenID_obj::__register();
+::scene::singleplay::SinglePlayView_obj::__register();
+::scene::singleplay::SinglePlay_obj::__register();
+::scene::mission::MissionView_obj::__register();
+::scene::mission::Mission_obj::__register();
 ::scene::login::LoginView_obj::__register();
 ::scene::login::Login_obj::__register();
+::scene::loading::LoadFistView_obj::__register();
+::scene::loading::LoadFist_obj::__register();
+::scene::home::HomeView_obj::__register();
+::scene::home::Home_obj::__register();
+::scene::friendplay::FriendPlayView_obj::__register();
+::scene::friendplay::FriendPlay_obj::__register();
+::scene::battle::BattleView_obj::__register();
+::scene::battle::Battle_obj::__register();
 ::core::display::scene::SceneView_obj::__register();
 ::core::display::scene::SceneID_obj::__register();
 ::core::display::scene::SceneBase_obj::__register();
@@ -435,6 +477,9 @@ hx::RegisterResources( hx::GetResources() );
 ::core::display::screen::ScreenView_obj::__register();
 ::core::display::layer::LayerManager_obj::__register();
 ::core::display::layer::Layer_obj::__register();
+::core::display::ex::SimpleButton_obj::__register();
+::core::display::ex::Lable_obj::__register();
+::openfl::_v2::text::TextField_obj::__register();
 ::core::display::ex::ExSprite_obj::__register();
 ::core::display::dialog::DialogManager_obj::__register();
 ::core::display::screen::ScreenManager_obj::__register();
@@ -449,6 +494,11 @@ hx::RegisterResources( hx::GetResources() );
 ::DefaultAssetLibrary_obj::__register();
 ::openfl::_v2::AssetLibrary_obj::__register();
 ::Date_obj::__register();
+::ScaledStage_obj::__register();
+::openfl::_v2::display::Stage_obj::__register();
+::openfl::_v2::events::TouchEvent_obj::__register();
+::openfl::_v2::events::MouseEvent_obj::__register();
+::openfl::_v2::events::Event_obj::__register();
 ::DocumentClass_obj::__register();
 ::Main_obj::__register();
 ::openfl::_v2::display::Sprite_obj::__register();
@@ -495,6 +545,11 @@ hx::RegisterResources( hx::GetResources() );
 ::openfl::_v2::display::Sprite_obj::__boot();
 ::Main_obj::__boot();
 ::DocumentClass_obj::__boot();
+::openfl::_v2::events::Event_obj::__boot();
+::openfl::_v2::events::MouseEvent_obj::__boot();
+::openfl::_v2::events::TouchEvent_obj::__boot();
+::openfl::_v2::display::Stage_obj::__boot();
+::ScaledStage_obj::__boot();
 ::Date_obj::__boot();
 ::openfl::_v2::AssetLibrary_obj::__boot();
 ::DefaultAssetLibrary_obj::__boot();
@@ -509,6 +564,9 @@ hx::RegisterResources( hx::GetResources() );
 ::core::display::screen::ScreenManager_obj::__boot();
 ::core::display::dialog::DialogManager_obj::__boot();
 ::core::display::ex::ExSprite_obj::__boot();
+::openfl::_v2::text::TextField_obj::__boot();
+::core::display::ex::Lable_obj::__boot();
+::core::display::ex::SimpleButton_obj::__boot();
 ::core::display::layer::Layer_obj::__boot();
 ::core::display::layer::LayerManager_obj::__boot();
 ::core::display::screen::ScreenView_obj::__boot();
@@ -520,18 +578,38 @@ hx::RegisterResources( hx::GetResources() );
 ::core::display::scene::SceneBase_obj::__boot();
 ::core::display::scene::SceneID_obj::__boot();
 ::core::display::scene::SceneView_obj::__boot();
+::scene::battle::Battle_obj::__boot();
+::scene::battle::BattleView_obj::__boot();
+::scene::friendplay::FriendPlay_obj::__boot();
+::scene::friendplay::FriendPlayView_obj::__boot();
+::scene::home::Home_obj::__boot();
+::scene::home::HomeView_obj::__boot();
+::scene::loading::LoadFist_obj::__boot();
+::scene::loading::LoadFistView_obj::__boot();
 ::scene::login::Login_obj::__boot();
 ::scene::login::LoginView_obj::__boot();
+::scene::mission::Mission_obj::__boot();
+::scene::mission::MissionView_obj::__boot();
+::scene::singleplay::SinglePlay_obj::__boot();
+::scene::singleplay::SinglePlayView_obj::__boot();
 ::core::display::screen::ScreenID_obj::__boot();
-::openfl::_v2::events::Event_obj::__boot();
 ::core::event::EventEx_obj::__boot();
+::core::resource::Defines_obj::__boot();
+::core::resource::ResourceID_obj::__boot();
 ::core::resource::ResourceManager_obj::__boot();
+::core::resource::ResourcePath_obj::__boot();
+::core::sprites::Animx_obj::__boot();
 ::openfl::_v2::utils::IDataOutput_obj::__boot();
 ::openfl::_v2::utils::IMemoryRange_obj::__boot();
 ::openfl::_v2::utils::IDataInput_obj::__boot();
 ::openfl::_v2::utils::ByteArray_obj::__boot();
 ::core::util::ByteArrayEx_obj::__boot();
 ::core::util::Log_obj::__boot();
+::game::_const::EnumConsts_obj::__boot();
+::game::data::DTItem_obj::__boot();
+::game::data::DataCenter_obj::__boot();
+::game::data::InventoryData_obj::__boot();
+::game::data::PlayerData_obj::__boot();
 ::game::network::Server_obj::__boot();
 ::game::network::packet::Command_obj::__boot();
 ::game::network::packet::PacketHeader_obj::__boot();
@@ -605,9 +683,6 @@ hx::RegisterResources( hx::GetResources() );
 ::openfl::_v2::display::Loader_obj::__boot();
 ::openfl::_v2::net::URLLoader_obj::__boot();
 ::openfl::_v2::display::LoaderInfo_obj::__boot();
-::openfl::_v2::events::MouseEvent_obj::__boot();
-::openfl::_v2::events::TouchEvent_obj::__boot();
-::openfl::_v2::display::Stage_obj::__boot();
 ::openfl::_v2::display::ManagedStage_obj::__boot();
 ::openfl::_v2::display::MovieClip_obj::__boot();
 ::openfl::_v2::display::OpenGLView_obj::__boot();
@@ -647,8 +722,8 @@ hx::RegisterResources( hx::GetResources() );
 ::openfl::_v2::text::Font_obj::__boot();
 ::openfl::_v2::text::FontStyle_obj::__boot();
 ::openfl::_v2::text::FontType_obj::__boot();
-::openfl::_v2::text::TextField_obj::__boot();
 ::openfl::_v2::text::TextFormat_obj::__boot();
+::openfl::_v2::text::TextFormatAlign_obj::__boot();
 ::openfl::_v2::text::TextLineMetrics_obj::__boot();
 ::openfl::_v2::ui::Keyboard_obj::__boot();
 ::openfl::_v2::utils::ArrayBufferView_obj::__boot();

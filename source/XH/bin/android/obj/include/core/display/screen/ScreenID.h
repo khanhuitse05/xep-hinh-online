@@ -34,6 +34,12 @@ class HXCPP_CLASS_ATTRIBUTES  ScreenID_obj : public hx::Object{
 		::String __ToString() const { return HX_CSTRING("ScreenID"); }
 
 		static ::core::display::scene::SceneID LOGIN;
+		static ::core::display::scene::SceneID LOADFIST;
+		static ::core::display::scene::SceneID HOME;
+		static ::core::display::scene::SceneID BATTLE;
+		static ::core::display::scene::SceneID SINGLEPLAY;
+		static ::core::display::scene::SceneID FRIENDPLAY;
+		static ::core::display::scene::SceneID MISSION;
 };
 
 } // end namespace core
