@@ -3,6 +3,7 @@ import core.display.ex.SimpleButton;
 import core.display.scene.*;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
+import game.gameobject.board.Board;
 import game.gameobject.brick.Brick;
 import game.tnk.Game;
 import openfl.events.MouseEvent;
@@ -15,6 +16,8 @@ import openfl.events.Event;
  */
 class SinglePlayView extends SceneView
 {
+	public static var BOARD_X:Int = 100;
+	public static var BOARD_Y:Int = 100;
 	private var mBg:Sprite;
 	
 	private var btnBack:SimpleButton;
@@ -41,9 +44,10 @@ class SinglePlayView extends SceneView
 		btnBack.addEventListener(MouseEvent.CLICK, onBack);		
 		this.addChild(btnBack);
 		
-		var _brick:Brick = new Brick();
-		this.addChild(_brick);
-		_brick.falling();
+		var _board:Board = new Board();
+		_board.x = 100;
+		_board.y = 10;
+		this.addChild(_board);
 	}	
 	
 	private function gameLoop(e:Event):Void 

@@ -1,5 +1,6 @@
 package core.resource ;
 import core.sprites.Animx;
+import core.util.Log;
 import openfl.display.Bitmap;
 import openfl.Assets;
 import openfl.display.BitmapData;
@@ -84,6 +85,13 @@ class ResourceManager
 		sMission_btn.addChild(new Bitmap(Assets.getBitmapData(ResourcePath.GFX_BTN_MISSION)));
 		sBack_btn = new Sprite();
 		sBack_btn.addChild(new Bitmap(Assets.getBitmapData(ResourcePath.GFX_BTN_BACK)));
+		///
+		sBoard001 = new Sprite();
+		sBoard001.addChild(new Bitmap(Assets.getBitmapData(ResourcePath.GFX_BOARD_001)));
+		sBoard002 = new Sprite();
+		sBoard002.addChild(new Bitmap(Assets.getBitmapData(ResourcePath.GFX_BOARD_002)));
+		sBoard003 = new Sprite();
+		sBoard003.addChild(new Bitmap(Assets.getBitmapData(ResourcePath.GFX_BOARD_003)));
 	}
 	private function initAudio():Void
 	{
@@ -127,6 +135,12 @@ class ResourceManager
 				return sMission_btn;
 			case Defines.GFX_BTN_BACK:
 				return sBack_btn;
+			case Defines.GFX_BOARD_001:
+				return sBoard001;
+			case Defines.GFX_BOARD_002:
+				return sBoard002;
+			case Defines.GFX_BOARD_003:
+				return sBoard003;
 			default:
 		}
 		return null;
