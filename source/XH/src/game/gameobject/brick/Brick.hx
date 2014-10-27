@@ -15,7 +15,7 @@ import openfl.events.Event;
  */
 class Brick extends Sprite
 {
-	private var type:Int;
+	public var type:Int;
 	private var state:Int;
 	public var column:Int;
 	public var row:Int;
@@ -42,6 +42,12 @@ class Brick extends Sprite
 		}
 		
 	}
+	public function setValue(_x:Int, _y:Int, _type:Int):Void
+	{
+		this.x = _x;
+		this.y = _y;
+		this.type = _type;
+	}
 	/**
 	 * 
 	 * @param	e
@@ -53,8 +59,11 @@ class Brick extends Sprite
 	private function gameDraw():Void 
     {
 		//drawtiles
-		this.graphics.clear();
-		this.tilesheet.drawTiles(this.graphics, [0,0,type-1]);
+		if (type > 0) 
+		{
+			this.graphics.clear();
+			this.tilesheet.drawTiles(this.graphics, [0, 0, type-1]);
+		}
     }
 	/**
 	 * effect move

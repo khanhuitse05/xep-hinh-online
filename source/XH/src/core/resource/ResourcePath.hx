@@ -25,7 +25,7 @@ class ResourcePath
 	inline public static var GFX_BOARD_001:String = "img/gfx/game/board001.png";
 	inline public static var GFX_BOARD_002:String = "img/gfx/game/board002.png";
 	inline public static var GFX_BOARD_003:String = "img/gfx/game/board003.png";
-	inline public static var GFX_BRICK_001:String = "img/gfx/game/board001.png";
-	inline public static var GFX_BRICK_002:String = "img/gfx/game/board001.png";
-	inline public static var GFX_BRICK_003:String = "img/gfx/game/board001.png";	
+	inline public static var GFX_BRICK_001:String = "img/gfx/game/brick001.png";
+	inline public static var GFX_BRICK_002:String = "img/gfx/game/brick002.png";
+	inline public static var GFX_BRICK_003:String = "img/gfx/game/brick003.png";	
 }
