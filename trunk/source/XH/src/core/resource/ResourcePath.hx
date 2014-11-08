@@ -6,26 +6,51 @@ package core.resource ;
  */
 class ResourcePath
 {
-	inline public static var GFX_LOADING_ANIM:String = "img/gfx/animloading.png";
-	
-	inline public static var GFX_LOADING_BG:String = "img/gfx/bghome.png";
-	inline public static var GFX_HOME_BG:String = "img/gfx/bghome.png";
-	inline public static var GFX_BATTLES_BG:String = "img/gfx/BattlesBackground.png";
-	inline public static var GFX_MISSION_BG:String = "img/gfx/MissionBackground.png";
-	inline public static var GFX_P_SIGLE_BG:String = "img/gfx/SinglePlayer background.png";
-	inline public static var GFX_P_FRIEND_BG:String = "img/gfx/WithfriendBackground.png";
-	
-	inline public static var GFX_BTN_SINGLE:String = "img/gfx/Single player.png";
-	inline public static var GFX_BTN_BATTLES:String = "img/gfx/Battles.png";
-	inline public static var GFX_BTN_FRIEND:String = "img/gfx/With friend.png";
-	inline public static var GFX_BTN_MISSION:String = "img/gfx/Mission.png";
-	
-	inline public static var GFX_BTN_BACK:String = "img/gfx/btnback.png";
-	//
-	inline public static var GFX_BOARD_001:String = "img/gfx/game/board001.png";
-	inline public static var GFX_BOARD_002:String = "img/gfx/game/board002.png";
-	inline public static var GFX_BOARD_003:String = "img/gfx/game/board003.png";
-	inline public static var GFX_BRICK_001:String = "img/gfx/game/brick001.png";
-	inline public static var GFX_BRICK_002:String = "img/gfx/game/brick002.png";
-	inline public static var GFX_BRICK_003:String = "img/gfx/game/brick003.png";	
+	public static var SPRITE_PATH =
+    [
+		"",
+		"img/gfx/bghome.png",
+		"img/gfx/bghome.png",
+		"img/gfx/SinglePlayer background.png",
+		"img/gfx/BattlesBackground.png",
+		"img/gfx/WithfriendBackground.png",
+		"img/gfx/MissionBackground.png",		
+		"img/gfx/Single player.png",
+		"img/gfx/Battles.png",
+		"img/gfx/With friend.png",
+		"img/gfx/Mission.png",
+		"img/gfx/btnback.png",
+		"img/gfx/game/board001.png",
+		"img/gfx/game/board002.png",
+		"img/gfx/game/board003.png",
+		"img/gfx/Spriteeffect.png",
+		"img/gfx/background/bg01.png",
+		"img/gfx/background/bg01.png",
+		"img/gfx/background/bg01.png",
+		"img/gfx/background/effect01.png",
+		"img/gfx/background/effect01.png",
+		"img/gfx/background/effect01.png",
+		"img/gfx/game/Gridboder2.png",
+		"img/gfx/game/leftbox2.png",
+		"img/gfx/game/rightbox2.png",
+		"img/gfx/game/lightpointgodown.png",
+		"img/gfx/game/lightpointgoleft.png",
+		"img/gfx/game/lightpointgoright.png",
+		"img/gfx/game/lightpointgoup.png",
+    ];
+	public static var BITMAPDATA_PATH =
+    [
+		"img/gfx/game/brick001.png",
+		"img/gfx/game/brick002.png",
+		"img/gfx/game/brick003.png",	
+    ];
+	public static var ANIMX_PATH =
+    [		
+        "img/gfx/animloading.png",
+		"img/gfx/game/Spriteeffect.png",
+    ];
+	public static var AUDIO_PATH =
+    [
+        "",
+    ];
 }

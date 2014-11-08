@@ -1,13 +1,12 @@
 package game.gameobject.brick;
 
 import game.tnk.Game;
-import motion.Actuate;
 import openfl.display.Tilesheet;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import openfl.geom.Rectangle;
-import motion.easing.Quad;
 import openfl.events.Event;
+import tweenx909.TweenX;
 
 /**
  * ...
@@ -15,26 +14,25 @@ import openfl.events.Event;
  */
 class Brick extends Sprite
 {
-	public var type:Int;
-	private var state:Int;
+	public var mType:Int;
+	private var mState:Int;
 	public var column:Int;
 	public var row:Int;
+	
 	public var special:Int;
-	public var isMoving:Bool;	
-	public var X:Float;
-	public var Y:Float;
+	public var isMoving:Bool;
 	private var tilesheet:Tilesheet;
 	
 	public function new() 
 	{
 		super();
-		type = 1;
+		this.mType = 1;
 		init();
 		addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	public function init():Void
 	{
-		var _bitmap:BitmapData = Game.resource.getBitmap(Game.data.playerData.brickID);
+		var _bitmap:BitmapData = Game.resource.getBitmap(Game.data.playerData.mBrickID);
 		tilesheet = new Tilesheet (_bitmap);
 		for (i in 0...10) 
 		{			
@@ -46,7 +44,7 @@ class Brick extends Sprite
 	{
 		this.x = _x;
 		this.y = _y;
-		this.type = _type;
+		this.mType = _type;
 	}
 	/**
 	 * 
@@ -59,33 +57,38 @@ class Brick extends Sprite
 	private function gameDraw():Void 
     {
 		//drawtiles
-		if (type > 0) 
+		if (this.mType > 0) 
 		{
 			this.graphics.clear();
-			this.tilesheet.drawTiles(this.graphics, [0, 0, type-1]);
+			this.tilesheet.drawTiles(this.graphics, [0, 0, mType - 1]);
+		}else 
+		{
+			this.graphics.clear();			
 		}
     }
 	/**
 	 * effect move
 	 */
-	private var _onMoveComplete : Void->Void;
-	public function MoveTo (duration:Float, delay:Float, targetX:Float, targetY:Float, onComplete : Void -> Void = null):Void 
+	public function MoveTo (duration:Float, delay:Float, targetX:Float, targetY:Float):Void 
 	{
-		this._onMoveComplete = onComplete;
 		isMoving = true;
-		Actuate.tween (this, duration, { x: targetX, y: targetY } ).delay(delay).ease (Quad.easeOut).onComplete (OnMoveToComplete);		
+		TweenX.to(this, { x: targetX, y: targetY }, duration);
 	}
 	public function falling(onComplete : Void -> Void = null):Void 
 	{
-		this._onMoveComplete = onComplete;
 		isMoving = true;
-		Actuate.tween (this, 0.5, { x: x, y: y + Game.BRICK_HEIGHT} ).delay(0).ease (Quad.easeOut).onComplete (OnMoveToComplete);		
+		TweenX.to(this, { x: x, y: y + Game.BRICK_HEIGHT}, 0.3);	
 	}
-	public function OnMoveToComplete():Void
+	
+	
+	function set_column(value:Int):Int 
 	{
-		isMoving = false;
-		this.Y = this.y;
-		if (this._onMoveComplete != null)
-			this._onMoveComplete();
+		return column = value;
+	}
+	
+	
+	function set_row(value:Int):Int 
+	{
+		return row = value;
 	}
 }

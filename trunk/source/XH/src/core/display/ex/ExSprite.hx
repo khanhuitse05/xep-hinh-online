@@ -42,4 +42,20 @@ class ExSprite extends Sprite
             child = null;
         }
     }
+	/**
+     * 
+     * @param  
+     */
+    public function removeAllAndDelChild():Void
+    {
+		if (m_pChilds != null) 
+		{
+			for (i in 0...m_pChilds.length) 
+			{
+				super.removeChild(m_pChilds[i]);
+				m_pChilds[i] = null;
+			}
+			m_pChilds = null;
+		}
+    }
 }

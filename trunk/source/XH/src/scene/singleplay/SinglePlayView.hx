@@ -5,6 +5,7 @@ import core.display.screen.ScreenID;
 import core.resource.Defines;
 import game.gameobject.board.Board;
 import game.gameobject.brick.Brick;
+import game.gameobject.gameplay.GamePlay;
 import game.tnk.Game;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
@@ -44,10 +45,10 @@ class SinglePlayView extends SceneView
 		btnBack.addEventListener(MouseEvent.CLICK, onBack);		
 		this.addChild(btnBack);
 		
-		var _board:Board = new Board();
-		_board.x = 100;
-		_board.y = 10;
-		this.addChild(_board);
+		var _gamePlay:GamePlay = new GamePlay();
+		_gamePlay.x = 0;
+		_gamePlay.y = 0;
+		this.addChild(_gamePlay);
 	}	
 	
 	private function gameLoop(e:Event):Void 

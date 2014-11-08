@@ -3,8 +3,8 @@ package core.display.screen;
 
 import core.display.ex.*;
 import openfl.events.EventDispatcher;
-import motion.Actuate;
 import openfl.events.Event;
+import tweenx909.TweenX;
 
 /**
  * ...
@@ -21,8 +21,8 @@ class ScreenView extends ExSprite
     {
         super();
         
-        //this.alpha = 0;
-        //this.visible = false;
+        this.alpha = 0;
+        this.visible = false;
     }
 
     /**
@@ -34,7 +34,7 @@ class ScreenView extends ExSprite
         this.alpha = 0;
         mouseChildren = false;
         mouseEnabled = false;
-        Actuate.tween(this, 0.4, { alpha: 1} ).onComplete (transitionInComplete);
+		TweenX.to(this, { alpha: 1 }, 0.4).onFinish(transitionInComplete);
     }
 
     /**
@@ -55,7 +55,7 @@ class ScreenView extends ExSprite
         this.alpha = 1;
         mouseChildren = false;
         mouseEnabled = false;
-        Actuate.tween(this, 0.3, {alpha: 0} ).onComplete (transitionOutComplete);
+		TweenX.to(this, {alpha: 0}, 0.4).onFinish(transitionOutComplete);
     }
 
     /**

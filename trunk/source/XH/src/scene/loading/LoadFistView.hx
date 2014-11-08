@@ -52,7 +52,7 @@ class LoadFistView extends SceneView
 	private function gameLoop(e:Event):Void 
 	{
 		mCount++;
-		if (mCount > 100) 
+		if (mCount > 30) 
 		{
 			this.removeEventListener(Event.ENTER_FRAME, gameLoop);			
 			Game.displayManager.toScreen(ScreenID.HOME);
