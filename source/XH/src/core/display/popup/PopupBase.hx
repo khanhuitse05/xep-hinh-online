@@ -3,11 +3,9 @@ import core.display.screen.ScreenBase;
 import core.display.screen.ScreenView;
 import flash.events.Event;
 import game.tnk.Game;
-import motion.Actuate;
-import motion.easing.Elastic.ElasticEaseInOut;
-import motion.easing.Quad;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
+import tweenx909.TweenX;
 
 /**
  * ...
@@ -39,7 +37,7 @@ class PopupBase extends ScreenView
         this.alpha = 0;
         mouseChildren = false;
         mouseEnabled = false;
-        Actuate.tween(this, 0.4, { alpha: 1 } ).onComplete (transitionInComplete);
+		TweenX.to(this, { alpha: 1 }, 0, 4).onFinish(transitionInComplete);
     }
     
     override public function transitionInComplete():Void {
@@ -52,7 +50,7 @@ class PopupBase extends ScreenView
         this.alpha = 1;
         mouseChildren = false;
         mouseEnabled = false;
-        Actuate.tween(this, 0.3, {alpha: 0} ).onComplete (transitionOutComplete);
+		TweenX.to(this, {alpha: 0}, 0, 4).onFinish(transitionOutComplete);
     }
     
     override public function transitionOutComplete():Void
