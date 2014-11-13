@@ -6,6 +6,8 @@ import core.resource.Defines;
 import core.util.Log;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.board.CBlock;
+import game.gameobject.brick.BlockDirect;
+import game.gameobject.brick.BlockType;
 import game.tnk.Game;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -18,10 +20,10 @@ class HudRight extends ExSprite
 {
 	public static var POS_X = 0;
 	public static var POS_Y = 0;
-	public static var POS_OFFSET = 180;
+	public static var POS_OFFSET = 130;
 	
-	public static var BLOCK_OFFSET_X = 15;
-	public static var BLOCK_OFFSET_Y = 70;
+	public static var BLOCK_OFFSET_X = 20;
+	public static var BLOCK_OFFSET_Y = 90;
 	
 	// các khối gạch kế tiếp
 	private var mStackBlock:Array<InfoBlock>;
@@ -31,7 +33,6 @@ class HudRight extends ExSprite
 	private var mX:Int;
 		
 	private var mListBlock:Array<CBlock>;
-	private var mListPlan:Array<Sprite>;
 	private var mXExpText:Lable;
 	public function new() 
 	{
@@ -51,36 +52,45 @@ class HudRight extends ExSprite
 	{
 		
 		mListBlock = new Array<CBlock>();
-		mListPlan = new Array<Sprite>();
+		var _plan:Sprite;
+		switch (mMaxStack) 
+		{
+			case 1:
+				_plan = Game.resource.getSprite(Defines.GFX_BOX_1);
+			case 2:
+				_plan = Game.resource.getSprite(Defines.GFX_BOX_2);
+			case 3:
+				_plan = Game.resource.getSprite(Defines.GFX_BOX_3);
+			default:
+				_plan = Game.resource.getSprite(Defines.GFX_BOX_4);
+		}
+		this.addChild(_plan);
 		for (i in 0...mMaxStack) 
 		{
-			// plan
-			var _plan:Sprite = new Sprite();
-			_plan = Game.resource.getSprite(Defines.GFX_RIGHTBOX2);
-			_plan.x = POS_X;
-			_plan.y = POS_Y + i * POS_OFFSET;
-			mListPlan[i] = _plan;
-			this.addChild(mListPlan[i]);
 			// block
-			var _block:CBlock = new CBlock(mStackBlock[i].mType, mStackBlock[i].mDirect);
+			var _block:CBlock = new CBlock(mStackBlock[i].mType, BlockDirect.RIGHT);
 			_block.scaleX = 0.5;
 			_block.scaleY = 0.5;
 			_block.x = POS_X + BLOCK_OFFSET_X;
 			_block.y = POS_Y + i * POS_OFFSET + BLOCK_OFFSET_Y;
+			if (_block.mBlock.mType == BlockType.I) 
+			{
+				_block.x -= 18;
+			}
 			mListBlock[i] = _block;
 			this.addChildForDel(mListBlock[i]);
 		}
 		// plan
-		var _plan:Sprite = Game.resource.getSprite(Defines.GFX_RIGHTBOX2);
+		var _plan:Sprite = Game.resource.getSprite(Defines.GFX_BOX_1);
 		_plan.x = POS_X;
-		_plan.y = POS_Y + mMaxStack * POS_OFFSET;
-		mListPlan[mMaxStack] = _plan;
-		this.addChild(mListPlan[mMaxStack]);
+		_plan.y = POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 70;
+		this.addChild(_plan);
 		// text XX
 		// note
 		mXExpText = new Lable();
-		mXExpText.setFont(30, 0xffffff);
-		mXExpText.setSysTextInfo(POS_X + 25, POS_Y + mMaxStack * POS_OFFSET + 40, "X"+mX);
+		mXExpText.setFont(50, 0xffffff);
+		mXExpText.setSysTextInfo(POS_X + 15,
+					POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 70 + 40, "x"+mX);
         this.addChild(mXExpText);
 	}
 	/**
@@ -94,6 +104,7 @@ class HudRight extends ExSprite
 				Update();
 				Game.data.playerData.mDTingame.isUpdateStack = false;
 		}
+		mXExpText.setSysText("x" + Game.data.playerData.mDTingame.mX);
 	}
 	private function Update():Void
 	{
@@ -104,11 +115,15 @@ class HudRight extends ExSprite
 		for (i in 0...mMaxStack) 
 		{
 			// block
-			var _block:CBlock = new CBlock(mStackBlock[i].mType, mStackBlock[i].mDirect);
+			var _block:CBlock = new CBlock(mStackBlock[i].mType, BlockDirect.RIGHT);
 			_block.scaleX = 0.5;
 			_block.scaleY = 0.5;
 			_block.x = POS_X + BLOCK_OFFSET_X;
-			_block.y = POS_Y + i * POS_OFFSET + BLOCK_OFFSET_Y;
+			_block.y = POS_Y + i * POS_OFFSET + BLOCK_OFFSET_Y;			
+			if (_block.mBlock.mType == BlockType.I) 
+			{
+				_block.x -= 18;
+			}
 			mListBlock[i] = _block;
 			this.addChildForDel(mListBlock[i]);
 		}

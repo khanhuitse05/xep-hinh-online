@@ -18,7 +18,7 @@ import openfl.utils.Endian;
 
 /**
  * ...
- * @author anhtinh
+ * @author KhanhTN
  */
 class Server extends EventDispatcher
 {

@@ -4,7 +4,6 @@ import core.display.scene.*;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
 import core.sprites.Animx;
-import game.const.EnumConsts;
 import game.tnk.Game;
 import openfl.events.Event;
 import openfl.text.TextFieldAutoSize;
