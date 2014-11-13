@@ -26,7 +26,7 @@ class Defines
 	inline public static var GFX_BOARD_001:Int 			= 12;
 	inline public static var GFX_BOARD_002:Int 			= 13;
 	inline public static var GFX_BOARD_003:Int 			= 14;
-	inline public static var TEMP2:Int			 		= 15;	
+	inline public static var GFX_ROW_CLEAR:Int			= 15;	
 	inline public static var GFX_MAIN_BG_001:Int 		= 16;
 	inline public static var GFX_MAIN_BG_002:Int 		= 17;
 	inline public static var GFX_MAIN_BG_003:Int 		= 18;
@@ -34,13 +34,21 @@ class Defines
 	inline public static var GFX_EFFECT_BG_002:Int 		= 20;
 	inline public static var GFX_EFFECT_BG_003:Int 		= 21;
 	inline public static var GFX_BOARD_BODER:Int 		= 22;
-	inline public static var GFX_LEFTBOX2:Int 			= 23;
-	inline public static var GFX_RIGHTBOX2:Int	 		= 24;
+	inline public static var TEMP3:Int 			= 23;
+	inline public static var TEMP4:Int	 		= 24;
 	inline public static var GFX_LIGHTPOINT_DOWN:Int	= 25;
 	inline public static var GFX_LIGHTPOINT_LEFT:Int	= 26;
 	inline public static var GFX_LIGHTPOINT_RIGHT:Int	= 27;
 	inline public static var GFX_LIGHTPOINT_UP:Int	 	= 28;
-	inline public static var MAX_SPRITE:Int 			= 29;
+	inline public static var GFX_TIME200:Int			= 29;
+	inline public static var GFX_TIME1:Int				= 30;
+	inline public static var GFX_TIME2:Int	 			= 31;
+	inline public static var GFX_TIME3:Int	 			= 32;
+	inline public static var GFX_BOX_1:Int	 			= 33;
+	inline public static var GFX_BOX_2:Int	 			= 34;
+	inline public static var GFX_BOX_3:Int	 			= 35;
+	inline public static var GFX_BOX_4:Int	 			= 36;
+	inline public static var MAX_SPRITE:Int 			= 37;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int = 0;
 	inline public static var GFX_BRICK_002:Int = 1;

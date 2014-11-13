@@ -17,8 +17,8 @@ class VirtualBlock extends Sprite
 	private var mDirect:Int;	
 	public var mBlock:Block;
 		
-	private var mColumn:Int;
-	private var mRow:Int;
+	public var mColumn:Int;
+	public var mRow:Int;
 	
 	public function new(_type:Int, _direct:Int)
 	{
@@ -46,7 +46,6 @@ class VirtualBlock extends Sprite
 		mBlock.setDirect(mDirect);
 		this.addChild(mBlock);
 		mBlock.setTypeBrick(BrickType.NON);
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		this.addEventListener(MouseEvent.MOUSE_DOWN, onTap);
 
 		
@@ -55,12 +54,9 @@ class VirtualBlock extends Sprite
 	 * 
 	 * @param	e
 	 */
-	private function gameLoop(e:Event):Void 
-    {
-		
-	}
 	public function onTap(e:Event):Void
-	{
+	{		
+		this.removeEventListener(MouseEvent.MOUSE_DOWN, onTap);
 		var _info:InfoBlock = new InfoBlock(mType, mDirect);
 		_info.mColumn = mColumn;
 		_info.mRow = mRow;

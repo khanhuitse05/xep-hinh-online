@@ -15,18 +15,17 @@ import openfl.display.Sprite;
  */
 class GamePlay extends Sprite
 {
-	public static var Board_X = 110;
-	public static var Board_Y = 160;
+	public static var Board_X = 121;
+	public static var Board_Y = 142;
 	
-	public static var HUD_Y = 210;
-	public static var HUDLEFT_X = 0;
-	public static var HUDRIGHT_X = 443;
+	public static var HUD_Y = 172;
+	public static var HUDLEFT_X = 7;
+	public static var HUDRIGHT_X = Game.GAME_WIDTH - 101 - 7;
 	
 	private var mHudLeft:HudLeft;
 	private var mHudRight:HudRight;
-	private var mBoder:Sprite;
 	
-	private var mBackground:Background;
+	private var mBackground:BGPlay;
 	private var mBoard:Board;
 	
 	public function new() 
@@ -38,8 +37,7 @@ class GamePlay extends Sprite
 	}
 	private function init():Void
 	{
-		mBackground = new Background();
-		mBackground.addEventListener(MouseEvent.MOUSE_DOWN, onCycle);
+		mBackground = new BGPlay();
 		this.addChild(mBackground);
 		
 		mHudRight = new HudRight();
@@ -51,18 +49,15 @@ class GamePlay extends Sprite
 		mHudLeft.x = HUDLEFT_X;
 		mHudLeft.y = HUD_Y;
 		this.addChild(mHudLeft);
-		
-		mBoder = Game.resource.getSprite(Defines.GFX_BOARD_BODER);
-		mBackground.addChild(mBoder);
-		
+				
 		mBoard = new Board();
 		mBoard.x = Board_X;
 		mBoard.y = Board_Y;
 		this.addChild(mBoard);
 		
+		var _countdown:CountDown = new CountDown();
+		this.addChild(_countdown);
+		
 	}
-	public function onCycle(e:Event):Void
-	{
-		Game.data.playerData.mDTingame.isCycle = true;
-	}
+	
 }

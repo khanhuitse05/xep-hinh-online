@@ -11,12 +11,12 @@ import openfl.display.Stage;
  */
 class Game
 {
-    public static inline var GAME_WIDTH : Int = 540;
-    public static inline var GAME_HEIGHT : Int = 960;
+    public static inline var GAME_WIDTH : Int = 720;
+    public static inline var GAME_HEIGHT : Int = 1280;
     public static inline var BOARD_WIDTH : Int = 10;
     public static inline var BOARD_HEIGHT : Int = 22;
-    public static inline var BRICK_WIDTH : Int = 32;
-    public static inline var BRICK_HEIGHT : Int = 32;
+    public static inline var BRICK_WIDTH : Int = 48;
+    public static inline var BRICK_HEIGHT : Int = 48;
     
     public static var stage : Stage;
     

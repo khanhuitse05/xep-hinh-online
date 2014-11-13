@@ -9,7 +9,7 @@
 	<app main="Main" file="XH" path="bin" />
 	
 	<window background="#fffff0" fps="60" />
-	<window width="540" height="960"/>
+	<window width="720" height="1280"/>
 	<window fullscreen="true" resizable="true" borderless="true" vsync="false" />
 	<window orientation="portrait" />
 	

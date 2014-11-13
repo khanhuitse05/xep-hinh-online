@@ -5,7 +5,6 @@ import core.display.screen.ScreenID;
 import core.resource.Defines;
 import core.resource.ResourceID;
 import core.sprites.Animx;
-import game.const.EnumConsts;
 import game.tnk.Game;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;

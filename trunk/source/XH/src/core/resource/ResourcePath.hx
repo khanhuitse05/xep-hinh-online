@@ -8,7 +8,7 @@ class ResourcePath
 {
 	public static var SPRITE_PATH =
     [
-		"",
+		"0",
 		"img/gfx/bghome.png",
 		"img/gfx/bghome.png",
 		"img/gfx/SinglePlayer background.png",
@@ -23,7 +23,7 @@ class ResourcePath
 		"img/gfx/game/board001.png",
 		"img/gfx/game/board002.png",
 		"img/gfx/game/board003.png",
-		"img/gfx/Spriteeffect.png",
+		"img/gfx/game/cleareffect.png",
 		"img/gfx/background/bg01.png",
 		"img/gfx/background/bg01.png",
 		"img/gfx/background/bg01.png",
@@ -31,12 +31,20 @@ class ResourcePath
 		"img/gfx/background/effect01.png",
 		"img/gfx/background/effect01.png",
 		"img/gfx/game/Gridboder2.png",
-		"img/gfx/game/leftbox2.png",
-		"img/gfx/game/rightbox2.png",
+		"",
+		"",
 		"img/gfx/game/lightpointgodown.png",
 		"img/gfx/game/lightpointgoleft.png",
 		"img/gfx/game/lightpointgoright.png",
 		"img/gfx/game/lightpointgoup.png",
+		"img/gfx/game/countdown200.png",
+		"img/gfx/game/countdown1.png",
+		"img/gfx/game/countdown2.png",
+		"img/gfx/game/countdown3.png",
+		"img/gfx/game/box101x137.png",
+		"img/gfx/game/box101x283.png",
+		"img/gfx/game/box101x374.png",
+		"img/gfx/game/box101x476.png",
     ];
 	public static var BITMAPDATA_PATH =
     [

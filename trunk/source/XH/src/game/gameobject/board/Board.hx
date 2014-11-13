@@ -6,6 +6,9 @@ import core.sprites.Animx;
 import core.util.Log;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.brick.*;
+import game.gameobject.gameplay.EffectClear;
+import game.gameobject.gameplay.ScoreEffect;
+import game.gameobject.gameplay.Xeffect;
 import game.tnk.Game;
 import openfl.geom.ColorTransform;
 import openfl.events.MouseEvent;
@@ -22,10 +25,13 @@ class Board extends Sprite
 	public static var STATE_PREPARE = 0;
 	public static var STATE_START = 1;
 	public static var STATE_NORMAL = 2;
-	public static var STATE_END = 3;
+	public static var STATE_EFFECT = 3;
+	public static var STATE_END = 4;
 	
 	public static var TIME_FALL = 0.05;
 	public static var TIME_CLEAR = 3;
+	
+	public static var COUNT_FALL = 400;
 	
 	private var mMaxCount:Int;
 	private var mCount:Int;
@@ -43,6 +49,7 @@ class Board extends Sprite
 	private var mListCase:Array<VirtualBlock>;
 	private var mCaseBG:ExSprite;
 	private var mClearBG:ExSprite;
+	private var mMask:Sprite;
 	
 	/**
 	 * 
@@ -50,12 +57,11 @@ class Board extends Sprite
 	public function new() 
 	{
 		super();
+		mCount = 0;
 		mState = STATE_PREPARE;
 		mState = STATE_START;
 		init();
 		initData();
-		//setBrickBeging();
-		TweenX.to(this, { }, 2.5).onFinish(onStartGame); 
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	/**
@@ -81,6 +87,14 @@ class Board extends Sprite
 		mCaseBG.y = 0;
 		mBoard.addChild(mCaseBG);
 		
+		mMask = new Sprite();
+		mMask.graphics.beginFill(0, 0.0001);
+		mMask.graphics.drawRect(0, 0, Game.BOARD_WIDTH * Game.BRICK_WIDTH, 
+							Game.BOARD_HEIGHT * Game.BRICK_HEIGHT);
+		mMask.graphics.endFill();
+		mMask.cacheAsBitmap = true;
+		this.addChild(mMask);
+		
 		mCurentBlock = new CBlock(BlockType.O, BlockDirect.TOP);
 		mListCase = new Array<VirtualBlock>();
 	}
@@ -89,13 +103,33 @@ class Board extends Sprite
 	 * @param	e
 	 */
 	private function gameLoop(e:Event):Void 
-    {
-		if (mState == STATE_NORMAL) 
+    {		
+		if (mState == STATE_START) 
 		{
+			if (Game.data.playerData.mDTingame.isFinishCountDown == true) 
+			{
+				Game.data.playerData.mDTingame.isFinishCountDown = false;
+				onStartGame();
+			}
+		}
+		else if (mState == STATE_NORMAL) 
+		{
+			mCount++;
+			if (mCount > COUNT_FALL) 
+			{
+				mCount = 0;
+				var _columnfall = Std.random(mListRow.length);
+				var _info:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, mListRow[_columnfall][0].mDirect);
+				_info.mColumn = mListRow[_columnfall][0].mColumn;
+				_info.mRow = mListRow[_columnfall][0].mRow;
+				Game.data.playerData.mDTingame.onClickVirtual(_info);
+			}
 			if (Game.data.playerData.mDTingame.isChose == true) 
 			{
+				mState = STATE_EFFECT;
 				ApplyEffect();
 				Game.data.playerData.mDTingame.isChose = false;
+				Game.data.playerData.mDTingame.chooseScore = Game.data.playerData.mDTingame.mConstScore[0];
 			}
 			if (Game.data.playerData.mDTingame.isCycle == true) 
 			{
@@ -181,8 +215,12 @@ class Board extends Sprite
 		}
 	}
 	public function onStartGame()
+	{		
+		setBrickBeging();
+		TweenX.to(this, { }, 2.5).onFinish(onFistBlock); 
+	}
+	public function onFistBlock()
 	{
-		mState = STATE_NORMAL;
 		NextBlock();
 	}
 	/**
@@ -209,6 +247,7 @@ class Board extends Sprite
 	 */
 	private function NextBlock():Void
 	{
+		mCount = 0;
 		if (mBoard.contains(mCurentBlock) == true) 
 		{
 			mBoard.removeChild(mCurentBlock);
@@ -216,13 +255,30 @@ class Board extends Sprite
 		// nextBlock
 		Game.data.playerData.mDTgameplay.NextBlock();
 		// 
-		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.TOP);
+		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.RIGHT);
+		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
-		mCurentBlock.setGrid(3, 17);
+		mCurentBlock.setGrid(4, 19);
 		
 		SetListRowCurrent();
 		SetCase();		
 		Game.data.playerData.mDTingame.isUpdateStack = true;
+		mListID = new Array<Array<Int>>();
+		for (i in 0...Game.BOARD_HEIGHT) 
+		{
+			mListID[i] = new Array<Int>();
+			for (j in 0...Game.BOARD_WIDTH) 
+			{
+				mListID[i][j] = mListBrick[i][j].mType;
+			}
+		}
+		
+		Log.info("Arrayyyyyyyyyy");
+		for (i in 0...Game.BOARD_HEIGHT) 
+		{
+			Log.info(mListID[i].toString());
+		}		
+		mState = STATE_NORMAL;
 	}
 	/**
 	 * 
@@ -425,9 +481,12 @@ class Board extends Sprite
 				{
 					var _row:Int = i + Game.data.playerData.mDTingame.infoChose.mRow + 1;
 					var _column:Int = j + Game.data.playerData.mDTingame.infoChose.mColumn;
-					mListBrick[_row][_column].mType = mCurentBlock.mBlock.mType;
-					mListBrick[_row][_column].x = 0 + _column * Game.BRICK_WIDTH;
-					mListBrick[_row][_column].y = (Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( _row * Game.BRICK_HEIGHT );
+					if (_row < Game.BOARD_HEIGHT) 
+					{
+						mListBrick[_row][_column].mType = mCurentBlock.mBlock.mType;
+						mListBrick[_row][_column].x = 0 + _column * Game.BRICK_WIDTH;
+						mListBrick[_row][_column].y = (Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( _row * Game.BRICK_HEIGHT );
+					}
 				}
 			}
 		}
@@ -451,12 +510,27 @@ class Board extends Sprite
 			NextBlock();
 		}else
 		{
-			TweenX.to(this, { }, 0.3).onFinish(onBrickDown);
-			TweenX.to(this, { }, 0.3).onFinish(onRemoveEffect);
+			var _score:Int = Game.data.playerData.mDTingame.mConstScore[mListClear.length] * Game.data.playerData.mDTingame.mX;
+			var _scoreeffect:ScoreEffect = new ScoreEffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH,
+														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
+														_score);
+			this.addChild(_scoreeffect);
+			if (mListClear.length > 3) 
+			{
+				var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
+														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
+														Game.data.playerData.mDTingame.mX + mListClear.length - 3);
+				this.addChild(_Xeffect);
+			}
+			TweenX.to(this, { }, EffectClear.TIME_LIVE).onFinish(onBrickDown);
 		}
 	}
 	public function CheckClearRow(_row:Int):Bool
 	{
+		if (_row >= Game.BOARD_HEIGHT) 
+		{
+			return false;
+		}
 		for (i in 0...Game.BOARD_WIDTH) 
 		{
 			if (mListBrick[_row][i].mType == 0) 
@@ -469,17 +543,10 @@ class Board extends Sprite
 	public function createEffectClear(_row:Int):Void
 	{
 		//createEffectClear
-		var _clear:Animx = Game.resource.getAnim(Defines.GFX_ROW_CLEAER_ANIM);
-		_clear.animate4(TIME_CLEAR, 0, 6, 0);
-		_clear.x = 0;
-		_clear.y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (_row + 1)* Game.BRICK_HEIGHT;
-		mClearBG.addChildForDel(_clear);
+		var _clear:EffectClear = new EffectClear(_row);
+		this.addChild(_clear);
 		//visible row brick
 		visibleRow(_row);
-	}
-	public function onRemoveEffect():Void
-	{
-		mClearBG.removeAllAndDelChild();
 	}
 	public function onBrickDown():Void
 	{
@@ -500,6 +567,14 @@ class Board extends Sprite
 	}
 	public function onBrickDownAt(_row:Int):Void
 	{
+		for (k in 0...Game.BOARD_WIDTH) 
+		{
+			if (mBoard.contains(mListBrick[_row][k])) 
+			{
+				mBoard.removeChild(mListBrick[_row][k]);
+			}	
+		}
+		// down
 		for (i in _row...Game.BOARD_HEIGHT - 1) 
 		{
 			for (j in 0...Game.BOARD_WIDTH) 
@@ -507,6 +582,14 @@ class Board extends Sprite
 				mListBrick[i][j] = mListBrick[i + 1][j];
 				TweenX.to(mListBrick[i][j], { y:mListBrick[i][j].y + Game.BRICK_HEIGHT }, TIME_FALL);
 			}
+		}
+		// init row top
+		for (k in 0...Game.BOARD_WIDTH) 
+		{		
+			var _brick:Brick = new Brick();
+			_brick.setValue(0 + k * Game.BRICK_WIDTH, 0, 0);
+			mListBrick[Game.BOARD_HEIGHT - 1][k] = _brick;
+			mBoard.addChild(_brick);
 		}
 	}
 	public function visibleRow(_row:Int):Void

@@ -28,8 +28,8 @@ class BoardBG extends Sprite
 	}
 	private function init():Void
 	{		
-		mColor = 0;
-		//TweenX.to(this, { mColor: 0xffffff }, 333333).repeat( 0 ).yoyo().zigzag();
+		mColor = 0xffff00;
+		TweenX.to(this, { mColor: 0xffffff }, 333333).repeat( 0 );
 		mBack = new Sprite();
 		this.addChild(mBack);
 		mBack.graphics.beginFill(0, 1);

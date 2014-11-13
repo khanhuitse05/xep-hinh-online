@@ -52,7 +52,7 @@ class Tblock extends Block
 						[
 							[0, 1],
 							[1, 1],
-							[0, 1]
+							[0, 1],
 						];
 					UpdateDirect();
 					mDirect = BlockDirect.LEFT;
@@ -63,7 +63,7 @@ class Tblock extends Block
 						[
 							[1, 0],
 							[1, 1],
-							[1, 0]
+							[1, 0],
 						];
 					UpdateDirect();
 					mDirect = BlockDirect.RIGHT;
@@ -77,7 +77,7 @@ class Tblock extends Block
 				mData = 
 					[
 						[1, 1, 1],
-						[0, 1, 0]
+						[0, 1, 0],
 					];
 				UpdateDirect();
 				mDirect = BlockDirect.TOP;			
@@ -90,7 +90,7 @@ class Tblock extends Block
 				mData = 
 					[
 						[0, 1, 0],
-						[1, 1, 1]
+						[1, 1, 1],
 					];
 				UpdateDirect();
 				mDirect = BlockDirect.BOTTOM;

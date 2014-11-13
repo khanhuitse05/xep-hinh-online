@@ -22,7 +22,6 @@ class Oblock extends Block
 				[1, 1],
 			];
 		mListChild = new Array<Brick>();
-		var _index = 0;
 		for (i in 0...mData.length) 
 		{
 			for (j in 0...mData[0].length) 
@@ -33,7 +32,6 @@ class Oblock extends Block
 					_brick.setValue(j * Game.BRICK_WIDTH, 0 - (i + 1) * Game.BRICK_HEIGHT, mType);
 					mListChild.push(_brick);
 					this.addChild(_brick);
-					_index++;
 				}
 			}
 		}

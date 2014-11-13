@@ -6,6 +6,7 @@ import core.resource.Defines;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.board.CBlock;
 import game.gameobject.brick.BlockDirect;
+import game.gameobject.brick.BlockType;
 import game.tnk.Game;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
@@ -55,15 +56,15 @@ class HudLeft extends Sprite
 		{
 			// plan
 			var _plan:ExSprite = new ExSprite();
-			_plan.addChild(Game.resource.getSprite(Defines.GFX_LEFTBOX2));
+			_plan.addChild(Game.resource.getSprite(Defines.GFX_BOX_1));
 			_plan.x = POS_X;
 			_plan.y = POS_Y + i * POS_OFFSET;
 			mListPlan[i] = _plan;
 			this.addChild(mListPlan[i]);
 			// lable
 			var _lable:Lable = new Lable();
-			_lable.setFont(30, 0xffffff);
-			_lable.setSysTextInfo(POS_X, POS_Y + 150,"HOLD");
+			_lable.setFont(25, 0xffffff);
+			_lable.setSysTextInfo(POS_X + 25, POS_Y + 138 + i * POS_OFFSET,"HOLD");
 			this.addChild(_lable);
 		}		
 		if (mMaxHold == 2) 
@@ -83,8 +84,13 @@ class HudLeft extends Sprite
 		{
 			Game.data.playerData.mDTingame.isHolded = false;
 			var _block:CBlock = new CBlock(Game.data.playerData.mDTingame.infoHold.mType, BlockDirect.TOP);
-			_block.x = POS_X + 30;
-			_block.y = POS_Y + 80;
+			_block.x = POS_X + 20;
+			_block.y = POS_Y + 100;
+			if (_block.mBlock.mType == BlockType.I) 
+			{
+				_block.x += 15;
+				_block.y += 15;
+			}
 			_block.scaleX = 0.5;
 			_block.scaleY = 0.5;
 			if (Game.data.playerData.mDTingame.indexHold == 0) 
