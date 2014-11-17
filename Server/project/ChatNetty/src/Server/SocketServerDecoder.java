@@ -1,5 +1,7 @@
 package Server;
 
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.nio.charset.Charset;
 
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -11,20 +13,49 @@ public class SocketServerDecoder extends FrameDecoder
 {
 	@Override
 	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception
-	{
-		if (buffer.readableBytes() > 1) 
+	{		
+		MessageObject object2 = null;
+		if (buffer.readableBytes() > 0) 
 		{
+			
+
+			System.out.println("Haxe send " + buffer.readInt());     
+			
+            buffer.markReaderIndex();
 			String str = "empty";
 			System.out.println("Decode 1 " + buffer.toString());        
-			str = buffer.toString(Charset.forName("UTF-8"));
+			//str = buffer.toString(Charset.forName("UTF-8"));
 
-			int index = buffer.readInt();
-			System.out.println("Decode 2 " + str + " - " + index);
-			return new MessageObject(str);
-		}
-		
+			ByteArrayInputStream in = new ByteArrayInputStream(buffer.array());
 
-		return null; 
+			System.out.println("Decode 2 " + buffer.toString());
+
+			ObjectInputStream is = new ObjectInputStream(in);
+
+			System.out.println("Decode 3 " + buffer.toString());        
+
+			MessageObject object =(MessageObject)is.readObject();
+			
+
+			System.out.println("Decode 4 " + buffer.toString());        
+
+			int index = buffer.readUnsignedByte();
+			int nMsgLen = buffer.readableBytes();
+			if (nMsgLen > 0)
+            {
+                //message = buffer.copy(buffer.readerIndex(), nMsgLen);
+                buffer.skipBytes(nMsgLen);
+            }
+            else
+            {
+                buffer.resetReaderIndex();
+            }
+			
+			System.out.println("Decode 2 " + object.getContent() + " - ");
+			return object;
+		}		
+
+		return object2; 
 	}
 }
 	

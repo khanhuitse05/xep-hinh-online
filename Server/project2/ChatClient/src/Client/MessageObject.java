@@ -1,9 +1,12 @@
 package Client;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MessageObject 
+public class MessageObject implements Serializable
 {
+	private static final long serialVersionUID = 1L;  
+	 
 	private final String content;
 	private final int time;
 	
