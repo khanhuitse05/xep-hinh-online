@@ -9,6 +9,8 @@ import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
+import Client.MessageObject;
+
 public class SocketServerHandler extends SimpleChannelHandler
 {	
 	public static ConcurrentHashMap<Channel, Long> m_pUnknownConnections = new ConcurrentHashMap<Channel, Long>();
@@ -16,14 +18,16 @@ public class SocketServerHandler extends SimpleChannelHandler
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) 
 	{
-        System.out.println("Server: ");        
+        System.out.println("Server: ");
         // Convert to a String first.
-        String request = (String) e.getMessage();
-        //MessageObject m = (MessageObject) e.getMessage();
-        System.out.println("Client sent: " +request + " channel:" + e.getChannel().toString());
+        //String request = (String) e.getMessage();
+        MessageObject m = (Client.MessageObject) e.getMessage();
+        //System.out.println("Client sent: " +request + " channel:" + e.getChannel().toString());
         
+        System.out.println("Client sent: " + m.getContent() + " channel:" + e.getChannel().toString());
         
-        if (request.toLowerCase().equals("bye"))
+        //if (request.toLowerCase().equals("bye"))
+        if (m.getContent().toLowerCase().equals("bye"))
         {
         	e.getChannel().close();
         }
@@ -60,6 +64,7 @@ public class SocketServerHandler extends SimpleChannelHandler
 	 {
 		 e.getCause().printStackTrace();
 		 e.getChannel().close();
+		 System.out.println(e.toString());
 	 }
 	 
 	 @Override

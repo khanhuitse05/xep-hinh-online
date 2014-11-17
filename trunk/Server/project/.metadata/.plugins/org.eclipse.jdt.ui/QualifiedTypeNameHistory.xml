@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
 <fullyQualifiedTypeName name="PongSerializeServer"/>
 <fullyQualifiedTypeName name="PongPipelineFactory"/>
 <fullyQualifiedTypeName name="java.nio.channels.Channels"/>
 <fullyQualifiedTypeName name="java.util.logging.Logger"/>
 <fullyQualifiedTypeName name="java.util.concurrent.atomic.AtomicInteger"/>
 <fullyQualifiedTypeName name="java.util.concurrent.atomic.AtomicLong"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="PingPong"/>
 <fullyQualifiedTypeName name="PongHandler"/>
 <fullyQualifiedTypeName name="java.nio.channels.Channel"/>
@@ -46,10 +44,7 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.Channel"/>
-<fullyQualifiedTypeName name="Server.MessageObject"/>
-<fullyQualifiedTypeName name="Client.MessageObject"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.SimpleChannelHandler"/>
-<fullyQualifiedTypeName name="org.jboss.netty.channel.Channels"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory"/>
 <fullyQualifiedTypeName name="org.jboss.netty.buffer.ChannelBuffer"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
@@ -57,4 +52,12 @@
 <fullyQualifiedTypeName name="org.jboss.netty.channel.ChannelFuture"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.ServerChannelFactory"/>
 <fullyQualifiedTypeName name="org.jboss.netty.handler.codec.string.StringDecoder"/>
+<fullyQualifiedTypeName name="Server.SocketServerDecoder"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="Server.MessageObject"/>
+<fullyQualifiedTypeName name="java.lang.ClassLoader"/>
+<fullyQualifiedTypeName name="java.lang.Class"/>
+<fullyQualifiedTypeName name="org.jboss.netty.channel.Channels"/>
+<fullyQualifiedTypeName name="Client.MessageObject"/>
+<fullyQualifiedTypeName name="Server.SocketServer"/>
 </qualifiedTypeNameHistroy>

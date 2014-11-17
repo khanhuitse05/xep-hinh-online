@@ -2,16 +2,18 @@ package Server;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelPipeline;
+import org.jboss.netty.channel.ChannelPipelineFactory;
+import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
-import org.jboss.netty.handler.codec.string.StringDecoder;
-import org.jboss.netty.handler.execution.ExecutionHandler;
-import org.jboss.netty.handler.execution.OrderedMemoryAwareThreadPoolExecutor;
+import org.jboss.netty.handler.codec.serialization.ClassResolvers;
+import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
+
+import Client.MessageObject;
 
 public class SocketServer 
 {
@@ -22,8 +24,7 @@ public class SocketServer
 	{  
 		final long SERVER_CHANNEL_MEMORY_LIMIT = 99999;
 		int port = 8080;
-		String ip = "192.168.1.197";
-		
+		String ip = "192.168.1.168";		
 		
 		 // Configure the server.
 		ChannelFactory factory = new NioServerSocketChannelFactory(
@@ -31,25 +32,38 @@ public class SocketServer
 				Executors.newCachedThreadPool());
 
         ServerBootstrap bootstrap = new ServerBootstrap(factory);
+        bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
+        	  public ChannelPipeline getPipeline() throws Exception {
+        		   return Channels.pipeline(
+        		    //new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(SocketServer.class.getClassLoader())),
+        			new SocketServerDecoder(),
+        		    new SocketServerHandler()
+        		   );
+        		  };
+        		 });
+        
         // Set up the pipeline factory.
         int threadPoolSize = Runtime.getRuntime().availableProcessors() << 3; // 8x
         long globalMemLimit = Runtime.getRuntime().maxMemory() >> 2;
-        ChannelPipeline pipeline = bootstrap.getPipeline();
-        pipeline.addLast("executor",
-                            new ExecutionHandler
-                            (
-                                new OrderedMemoryAwareThreadPoolExecutor
-                                (
-                                    threadPoolSize,
-                                    SERVER_CHANNEL_MEMORY_LIMIT,
-                                    globalMemLimit,
-                                    0, TimeUnit.MILLISECONDS
-                                )
-                            )
-                        );
-        pipeline.addLast("decoder", new StringDecoder());
-        pipeline.addLast("handler", new SocketServerHandler());
-
+        
+//        ChannelPipeline pipeline = bootstrap.getPipeline();
+//        pipeline.addLast("executor",
+//                            new ExecutionHandler
+//                            (
+//                                new OrderedMemoryAwareThreadPoolExecutor
+//                                (
+//                                    threadPoolSize,
+//                                    SERVER_CHANNEL_MEMORY_LIMIT,
+//                                    globalMemLimit,
+//                                    0, TimeUnit.MILLISECONDS
+//                                )
+//                            )
+//                        );
+        //pipeline.addLast("decoder", new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(null)));
+        //pipeline.addLast("decoder", new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(SocketServer.class.getClassLoader())));
+        //pipeline.addLast("handler", new SocketServerHandler());
+        //pipeline.addLast("decoder", new SocketServerDecoder());
+        
         //tcp option
         bootstrap.setOption("child.keepAlive", true);
         bootstrap.setOption("child.tcpNoDelay", true);
