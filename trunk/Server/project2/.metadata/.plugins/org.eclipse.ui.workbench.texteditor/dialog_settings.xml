@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="DataBuffer" key="selection"/>
+		<item value="Info" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Info"/>
+			<item value="pStrID"/>
+			<item value="UserInfo"/>
 			<item value="DataBuffer"/>
 			<item value="m_n"/>
 			<item value="m_p"/>
 			<item value="m_pUser"/>
 			<item value="pOutBuff"/>
-			<item value="m_nLastCheckDumpConnection"/>
-			<item value="UnknownConnections"/>
-			<item value="&#x09;@Override"/>
 		</list>
 		<list key="replacehistory">
+			<item value="UserInfo"/>
 			<item value=""/>
 			<item value="CurrentUser"/>
 			<item value="outBuff"/>
