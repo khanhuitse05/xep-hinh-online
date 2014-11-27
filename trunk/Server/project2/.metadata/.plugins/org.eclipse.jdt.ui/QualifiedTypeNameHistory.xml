@@ -13,7 +13,7 @@
 <fullyQualifiedTypeName name="org.jboss.netty.channel.ExceptionEvent"/>
 <fullyQualifiedTypeName name="Client.TimeEncoder"/>
 <fullyQualifiedTypeName name="org.jboss.netty.handler.codec.serialization.ObjectEncoder"/>
-<fullyQualifiedTypeName name="org.jboss.netty.channel.Channel"/>
 <fullyQualifiedTypeName name="org.jboss.netty.util.internal.ConcurrentHashMap"/>
 <fullyQualifiedTypeName name="UserData.UserData"/>
+<fullyQualifiedTypeName name="org.jboss.netty.channel.Channel"/>
 </qualifiedTypeNameHistroy>

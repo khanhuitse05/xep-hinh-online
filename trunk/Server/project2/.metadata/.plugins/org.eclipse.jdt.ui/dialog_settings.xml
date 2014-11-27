@@ -12,6 +12,10 @@
 	<item value="8" key="org.eclipse.jdt.uiformatter_page.modify_dialog_tab_page.last_focus_index"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 	</section>
+	<section name="RefactoringWizard.preview">
+		<item value="600" key="width"/>
+		<item value="400" key="height"/>
+	</section>
 	<section name="FatJarPackageWizard">
 		<item value="D:\study\Final\Server\project2" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
 		<item value="ChatClient - ChatClient" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
