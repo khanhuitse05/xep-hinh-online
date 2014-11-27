@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.jboss.netty.buffer.ChannelBuffer"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.ChannelPipelineFactory"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.ChannelPipeline"/>
@@ -8,7 +7,6 @@
 <fullyQualifiedTypeName name="org.jboss.netty.channel.ChannelFuture"/>
 <fullyQualifiedTypeName name="org.jboss.netty.handler.codec.string.StringEncoder"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.Channels"/>
-<fullyQualifiedTypeName name="org.jboss.netty.buffer.ChannelBuffers"/>
 <fullyQualifiedTypeName name="Client.ClientHandler"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.ExceptionEvent"/>
 <fullyQualifiedTypeName name="Client.TimeEncoder"/>
@@ -16,4 +14,8 @@
 <fullyQualifiedTypeName name="org.jboss.netty.util.internal.ConcurrentHashMap"/>
 <fullyQualifiedTypeName name="UserData.UserData"/>
 <fullyQualifiedTypeName name="org.jboss.netty.channel.Channel"/>
+<fullyQualifiedTypeName name="Connection.ConnectionManager"/>
+<fullyQualifiedTypeName name="Player.Player"/>
+<fullyQualifiedTypeName name="org.jboss.netty.buffer.ChannelBuffer"/>
+<fullyQualifiedTypeName name="org.jboss.netty.buffer.ChannelBuffers"/>
 </qualifiedTypeNameHistroy>
