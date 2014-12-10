@@ -3,6 +3,7 @@ import core.event.EventEx;
 import core.resource.Defines;
 import game.data.gameplay.DTgameplay;
 import game.data.gameplay.DTingame;
+import game.data.pvp.DTPVP;
 import game.data.user.DTUserInfo;
 import game.network.Server;
 import game.tnk.Game;
@@ -21,6 +22,7 @@ class PlayerData extends EventDispatcher
 	public var mDTingame:DTingame;
 	public var mUserInfo:DTUserInfo;
 	public var dataGame:DTGame;
+	public var dataPVP:DTPVP;
 	
     public function new() 
     {
@@ -29,6 +31,7 @@ class PlayerData extends EventDispatcher
 		mDTingame = new DTingame();
 		mUserInfo = new DTUserInfo();
 		dataGame = new DTGame();
+		dataPVP = new DTPVP();
         Game.server.addEventListener(Server.SERVER_DATA, onServerData);
     }
     
