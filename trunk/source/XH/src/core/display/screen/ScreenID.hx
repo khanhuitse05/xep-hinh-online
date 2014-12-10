@@ -2,8 +2,7 @@
 package core.display.screen;
 
 import core.display.scene.SceneID;
-import scene.battle.Battle;
-import scene.battle.BattleView;
+import scene.battle.*;
 import scene.friendplay.FriendPlay;
 import scene.friendplay.FriendPlayView;
 import scene.home.Home;

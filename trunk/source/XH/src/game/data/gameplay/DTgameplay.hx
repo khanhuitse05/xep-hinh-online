@@ -2,6 +2,7 @@ package game.data.gameplay;
 import game.gameobject.brick.Block;
 import game.gameobject.brick.BlockDirect;
 import game.gameobject.skill.SkillType;
+import game.tnk.Game;
 
 /**
  * ...
@@ -56,7 +57,10 @@ class DTgameplay
 		mTimeCurrent = 120;
 		mX = 1;
 		mSkillCurrent = new Array<Int>();
-		mListSkill = new Array<Int>();				
+		mListSkill = new Array<Int>();
+		mListSkill.push(SkillType.CLEAR);
+		mListSkill.push(SkillType.MAGNET);
+		mListSkill.push(SkillType.TIME);
 		mSkillEndGame = SkillType.FINISH;
 	}
 	
@@ -88,11 +92,19 @@ class DTgameplay
 	public function NextBlock()
 	{
 		mcurrentBlock.mType = mStackBlock[0].mType;
+		mcurrentBlock.mSkill = mStackBlock[0].mSkill;
 		for (i in 0...3) 
 		{
 			mStackBlock[i].mType = mStackBlock[i + 1].mType;
+			mStackBlock[i].mSkill = mStackBlock[i + 1].mSkill;
 		}
 		mStackBlock[3].mType = Std.random(7) + 1;
+		mStackBlock[3].mSkill = -1;
+		var _skill:Int = Std.random(10);
+		if (_skill < Game.data.playerData.mDTgameplay.mListSkill.length) 
+		{			
+			mStackBlock[3].mSkill =Game.data.playerData.mDTgameplay.mListSkill[_skill];
+		}
 	}
 	public function HoldBlock(_index:Int)
 	{

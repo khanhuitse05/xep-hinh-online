@@ -19,7 +19,8 @@ class Lable extends TextField
 	 */
 	public function new() 
 	{
-		super();		
+		super();	
+		setFont(25, 0xff0000);
 	}
 	/**
 	 * 
@@ -77,6 +78,15 @@ class Lable extends TextField
     public function setSysTextInfo(x:Float, y:Float, str:String):Void
     {
         setSysText(str);
+        this.x = x;
+        this.y = y;
+    }
+	/**
+     * 
+     * @param 
+     */
+    public function setPosition(x:Float, y:Float):Void
+    {
         this.x = x;
         this.y = y;
     }

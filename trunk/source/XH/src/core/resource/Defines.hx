@@ -53,7 +53,14 @@ class Defines
 	inline public static var GFX_ULTIMATE_002:Int		= 39;
 	inline public static var GFX_ULTIMATE_003:Int		= 40;
 	inline public static var GFX_ULTIMATE_004:Int		= 41;
-	inline public static var MAX_SPRITE:Int 			= 42;
+	inline public static var GFX_SKILL:Int				= 42;
+	inline public static var GFX_SKILL_X:Int			= 43;
+	inline public static var GFX_SKILL_TIME:Int			= 44;
+	inline public static var GFX_SKILL_MAGNET:Int		= 45;
+	inline public static var GFX_SKILL_CLEAR:Int		= 46;
+	inline public static var GFX_SKILL_RAIN:Int			= 47;
+	inline public static var GFX_SKILL_001:Int			= 48;
+	inline public static var MAX_SPRITE:Int 			= 49;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int = 0;
 	inline public static var GFX_BRICK_002:Int = 1;

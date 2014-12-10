@@ -3,9 +3,8 @@ package game.gameobject.gameplay;
 import core.resource.Defines;
 import core.sprites.Animx;
 import game.tnk.Game;
+import motion.Actuate;
 import openfl.display.Sprite;
-import tweenx909.EaseX;
-import tweenx909.TweenX;
 
 /**
  * ...
@@ -43,12 +42,11 @@ class EffectClear extends Sprite
 	{
 		for (i in 0...Game.BOARD_WIDTH) 
 		{
-			TweenX.to(mAnim[i], { x:mAnim[i].x + Game.BRICK_WIDTH / 2,
-									y:mAnim[i].y + Game.BRICK_HEIGHT / 2,
-									scaleX:0,
-									scaleY:0 }, TIME_LIVE);
+			Actuate.tween(mAnim[i], TIME_LIVE, { x:mAnim[i].x + Game.BRICK_WIDTH / 2,
+												y:mAnim[i].y + Game.BRICK_HEIGHT / 2,
+												scaleX:0, scaleY:0 });
 		}
-		TweenX.to(this, { }, TIME_LIVE + 0.01).onFinish(onClose);
+		Actuate.tween(this, TIME_LIVE + 0.01, { }).onComplete(onClose);
 	}
 	public function onClose():Void
 	{

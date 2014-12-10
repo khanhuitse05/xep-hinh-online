@@ -42,16 +42,28 @@ class DTingame
 	public var isFinishCountDown:Bool;
 	public var isUpdateTime:Bool;
 	
+	public var timeIsRuningOut:Bool;	
+	public var listSkill:Array<Int>;
+	
+	// case
+	public var listCase:Array<InfoBlock>;
+	public var isSetCase:Bool;
+	public var isRemoveCase:Bool;
+	
 	public function new() 
 	{
 		mX = 1;
 		isFinishCountDown = false;
+		timeIsRuningOut = false;
 		isUpdateTime = false;
 		inScore = 0;
 		chooseScore = 0;		
 		mConstScore = new Array<Int>();
+		listSkill = new Array<Int>();
 		stateGame = STATE_START;
 		isChose = false;
+		isSetCase = false;
+		isRemoveCase = false;
 		for (i in 0...20) 
 		{
 			mConstScore[i] = (i + 1) * 400;
@@ -68,6 +80,7 @@ class DTingame
 		isChose = false;
 		isHolded = false;
 		mConstScore = new Array<Int>();
+		listSkill = new Array<Int>();
 		for (i in 0...20) 
 		{
 			mConstScore[i] = (i + 1) * 400;
@@ -90,5 +103,17 @@ class DTingame
 		isHolding = true;
 		indexHold = _i;
 		infoHold = _info;
+	}
+	public function setCase(_list:Array<InfoBlock> = null) {
+		if (_list == null) 
+		{
+			isRemoveCase = true;
+			isSetCase = false;
+		}else 
+		{
+			isRemoveCase = false;
+			isSetCase = true;
+			listCase = _list;
+		}
 	}
 }

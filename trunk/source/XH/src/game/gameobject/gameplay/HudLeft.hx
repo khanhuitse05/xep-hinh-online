@@ -84,6 +84,7 @@ class HudLeft extends Sprite
 		{
 			Game.data.playerData.mDTingame.isHolded = false;
 			var _block:CBlock = new CBlock(Game.data.playerData.mDTingame.infoHold.mType, BlockDirect.TOP);
+			_block.mBlock.setSkill(Game.data.playerData.mDTingame.infoHold.mSkill);
 			_block.x = POS_X + 20;
 			_block.y = POS_Y + 100;
 			if (_block.mBlock.mType == BlockType.I) 
@@ -124,7 +125,9 @@ class HudLeft extends Sprite
 			Game.data.playerData.mDTingame.onClickHold(null, 0);
 		}else
 		{
-			var _info:InfoBlock = new InfoBlock(mListBlock[0].mBlock.mType, mListBlock[0].mBlock.mDirect);
+			var _info:InfoBlock = new InfoBlock(mListBlock[0].mBlock.mType,
+											mListBlock[0].mBlock.mDirect,
+											mListBlock[0].mBlock.mSkill);
 			Game.data.playerData.mDTingame.onClickHold(_info, 0);
 		}
 	}
@@ -139,7 +142,9 @@ class HudLeft extends Sprite
 			Game.data.playerData.mDTingame.onClickHold(null, 1);
 		}else
 		{
-			var _info:InfoBlock = new InfoBlock(mListBlock[1].mBlock.mType, mListBlock[1].mBlock.mDirect);
+			var _info:InfoBlock = new InfoBlock(mListBlock[1].mBlock.mType, 
+											mListBlock[1].mBlock.mDirect,			
+											mListBlock[1].mBlock.mSkill);
 			Game.data.playerData.mDTingame.onClickHold(_info, 1);
 		}
 	}

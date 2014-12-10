@@ -24,21 +24,6 @@ class ByteArrayEx extends ByteArray
         return this.readUTF();
     }
     
-    /*override public function readByte() : Int
-    {
-        nIndex += 1;
-        return super.readByte();
-    }
-    override public function readShort() : Int
-    {
-        nIndex += 2;
-        return super.readShort();
-    }
-    override public function readInt() : Int
-    {
-        nIndex += 4;
-        return super.readInt();
-    }*/
     public function readLong() : Float
     {
         var uintH : UInt = this.readUnsignedInt();

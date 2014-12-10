@@ -2,9 +2,9 @@ package game.gameobject.background;
 
 import core.resource.Defines;
 import game.tnk.Game;
+import motion.Actuate;
+import motion.easing.Quad;
 import openfl.display.Sprite;
-import tweenx909.EaseX;
-import tweenx909.TweenX;
 
 /**
  * ...
@@ -31,7 +31,7 @@ class Background extends Sprite
 		mFront = Game.resource.getSprite(Defines.GFX_MAIN_BG_001);
 		this.addChild(mFront);
 		mMid.y = Game.GAME_HEIGHT;
-		TweenX.to(mMid, { y: -10 }, 1.0).ease( EaseX.quartOut ).repeat( 0);
+		Actuate.tween(mMid, 1.0, { y: -10 }).ease( Quad.easeOut).repeat();
 	}
 	
 }

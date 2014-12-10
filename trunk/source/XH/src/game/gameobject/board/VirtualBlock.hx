@@ -59,6 +59,7 @@ class VirtualBlock extends Sprite
 	{		
 		this.removeEventListener(MouseEvent.MOUSE_DOWN, onTap);
 		var _info:InfoBlock = new InfoBlock(mType, mDirect);
+		//_info.mSkill = mBlock.mSkill;
 		_info.mColumn = mColumn;
 		_info.mRow = mRow;
 		Game.data.playerData.mDTingame.onClickVirtual(_info);

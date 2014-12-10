@@ -12,10 +12,10 @@ import tweenx909.TweenX;
  */
 class Block extends Sprite
 {
-	// create border very easy. late
 	public static var DURATION:Float = 0.4;
 	
 	public var mType:Int;
+	public var mSkill:Int;
 	public var isBorder:Bool;
 	private var mTypeBrick:Int;
 	public var mDirect:Int;	
@@ -35,6 +35,7 @@ class Block extends Sprite
 		super();
 		setColumn(_x);
 		setRow(_y);
+		mSkill = -1;
 		isBorder = false;
 		mData = new Array<Array<Int>>();
 		mListDirect = new Array<Int>();
@@ -160,6 +161,39 @@ class Block extends Sprite
 		}
 		return _temp;
 	}
+	public function getMinHold()
+	{
+		var _temp = 0;
+		for (i in 0...mData[0].length) 
+		{
+			if (mData[0][i] == 0) 
+			{
+				_temp++;
+			}
+		}
+		return _temp;
+	}
+	public function getMaxHold()
+	{
+		var _temp = 0;
+		for (i in 0...mData[0].length) 
+		{
+			_temp += getHoldColumn(i);
+		}
+		return _temp;
+	}
+	public function setSkill(_skill:Int)
+	{
+		mSkill = _skill;
+		mListChild[0].mSkill = _skill;
+		mListChild[1].mSkill = _skill;
+		mListChild[2].mSkill = _skill;
+		mListChild[3].mSkill = _skill;
+	}
+	/**
+	 * 
+	 * @param	e
+	 */
 	public function onTap(e:Event):Void
 	{
 		setDirect((mDirect + 1) % 4);
@@ -175,7 +209,6 @@ class Block extends Sprite
 	 */
 	public function setColumn(value:Int):Void 
 	{
-		//this.x = value * Game.BRICK_WIDTH;
 		this.column = value;
 	}
 	public function getColumn():Int 
@@ -188,7 +221,6 @@ class Block extends Sprite
 	 */
 	public function setRow(value:Int):Void 
 	{
-		//this.y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - ( value * Game.BRICK_HEIGHT );
 		this.row = value;		
 	}
 	public function getRow():Int 

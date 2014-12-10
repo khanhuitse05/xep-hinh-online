@@ -22,7 +22,7 @@ import openfl.events.Event;
  * ...
  * @author KhanhTN
  */
-class Board extends Sprite
+class Enemy extends Sprite
 {
 	public static var STATE_PREPARE = 0;
 	public static var STATE_START = 1;
@@ -31,14 +31,9 @@ class Board extends Sprite
 	public static var STATE_SKILL = 4;
 	public static var STATE_END = 5;
 	
-	public static var TIME_CLEAR = 3;
 	
-	public static var COUNT_FALL = 500;
-	
-	private var mMaxCount:Int;
-	private var mCount:Int;
 	private var mState:Int;
-	private var mListSkill:Array<ConstSkill>;
+	private var mListSkill:Array<Int>;
 	private var mBg:BoardBG;
 	private var mBoard:Sprite;
 	private var mListID:Array<Array<Int>>;
@@ -48,9 +43,6 @@ class Board extends Sprite
 	private var mListClear:Array<Int>;
 	
 	private var mCurentBlock:CBlock;
-	//private var mCaseBG:ExSprite;
-	private var mClearBG:ExSprite;
-	private var mMask:Sprite;
 	
 	/**
 	 * 
@@ -61,14 +53,31 @@ class Board extends Sprite
 		mCount = 0;
 		mState = STATE_PREPARE;
 		mState = STATE_START;
-		mListSkill = new Array<ConstSkill>();
 		init();
 		initData();
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	/**
 	 * init
 	 */
+	private function initData():Void
+	{
+		mListSkill = new Array<Int>();
+		mListID = new Array<Array<Int>>();
+		mListBrick = new Array<Array<Brick>();
+		for (i in 0...Game.BOARD_HEIGHT) 
+		{
+			mListID[i] = new Array<Int>();
+			mListBrick[i] = new Array<Brick>();
+			for (j in 0...Game.BOARD_WIDTH ) 
+			{
+				mListID[i][j] = 0;
+				mListBrick[i][j] = new Brick();
+				mListBrick[i][j].setValue(0 + j * Game.BRICK_WIDTH,
+								(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( i * Game.BRICK_HEIGHT ),
+								0);
+			}
+		}
+	}
 	private function init():Void
 	{
 		mBg = new BoardBG();
@@ -78,258 +87,12 @@ class Board extends Sprite
 		mBoard.x = 0;
 		mBoard.y = 0;
 		this.addChild(mBoard);
+	}
+	private function onSkill():Void
+	{
 		
-		mClearBG = new ExSprite();
-		mClearBG.x = 0;
-		mClearBG.y = 0;
-		mBoard.addChild(mClearBG);
-		
-		//mCaseBG = new ExSprite();
-		//mCaseBG.x = 0;
-		//mCaseBG.y = 0;
-		//mBoard.addChild(mCaseBG);
-		
-		mMask = new Sprite();
-		mMask.graphics.beginFill(0, 0.0001);
-		mMask.graphics.drawRect(0, 0, Game.BOARD_WIDTH * Game.BRICK_WIDTH, 
-							Game.BOARD_HEIGHT * Game.BRICK_HEIGHT);
-		mMask.graphics.endFill();
-		mMask.cacheAsBitmap = true;
-		this.addChild(mMask);
-		
-		mCurentBlock = new CBlock(BlockType.O, BlockDirect.TOP);
 	}
-	/**
-	 * 
-	 * @param	e
-	 */
-	private function gameLoop(e:Event):Void 
-    {		
-		if (mState == STATE_START) 
-		{
-			if (Game.data.playerData.mDTingame.isFinishCountDown == true) 
-			{
-				Game.data.playerData.mDTingame.isFinishCountDown = false;
-				onStartGame();
-			}
-		}
-		else if (mState == STATE_NORMAL) 
-		{
-			if (UsingSkill()) 
-			{
-				return;
-			}
-			mCount++;
-			if (mCount > COUNT_FALL) 
-			{
-				mCount = 0;
-				var _columnfall = Std.random(mListRow.length);
-				var _info:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, mListRow[_columnfall][0].mDirect, mCurentBlock.mBlock.mSkill);
-				_info.mColumn = mListRow[_columnfall][0].mColumn;
-				_info.mRow = mListRow[_columnfall][0].mRow;
-				Game.data.playerData.mDTingame.onClickVirtual(_info);
-			}
-			if (Game.data.playerData.mDTingame.isChose == true)
-			{
-				mState = STATE_EFFECT;
-				ApplyEffect();
-				Game.data.playerData.mDTingame.isChose = false;
-				Game.data.playerData.mDTingame.chooseScore = Game.data.playerData.mDTingame.mConstScore[0];
-			}
-			if (Game.data.playerData.mDTingame.isCycle == true) 
-			{
-				//mCaseBG.removeAllAndDelChild();
-				//Game.data.playerData.mDTingame.setCase();
-				SetCase();
-				Game.data.playerData.mDTingame.isCycle = false;
-			}
-			if (Game.data.playerData.mDTingame.stateGame == DTingame.STATE_TIMEOUT) 
-			{
-				if (mBoard.contains(mCurentBlock) == true) 
-				{
-					mBoard.removeChild(mCurentBlock);
-				}
-				//mCaseBG.removeAllAndDelChild();
-				Game.data.playerData.mDTingame.setCase();
-				mState = STATE_END;				
-				var _time:TimeOut = new TimeOut();
-				this.addChild(_time);
-				mBg.effectMid(1);
-			}
-			if (Game.data.playerData.mDTingame.isHolding == true) 
-			{
-				Game.data.playerData.mDTingame.isHolding = false;
-				Game.data.playerData.mDTingame.isHolded = true;
-				
-				if (Game.data.playerData.mDTingame.infoHold == null) 
-				{
-					Game.data.playerData.mDTingame.infoHold
-								= new InfoBlock(this.mCurentBlock.mBlock.mType, BlockDirect.TOP, mCurentBlock.mBlock.mSkill);
-					Game.data.playerData.mDTingame.setCase();
-					//mCaseBG.removeAllAndDelChild();
-					NextBlock();
-				}else 
-				{
-					var _infoHold:InfoBlock
-								= new InfoBlock(this.mCurentBlock.mBlock.mType, BlockDirect.TOP, mCurentBlock.mBlock.mSkill);
-					ChangeBlock(Game.data.playerData.mDTingame.infoHold);
-					Game.data.playerData.mDTingame.infoHold = _infoHold;
-				}
-			}
-		}else if (mState == STATE_END) 
-		{			
-			if (Game.data.playerData.mDTingame.stateGame == DTingame.STATE_LASTHUMEN) 
-			{
-				Game.data.playerData.mDTingame.stateGame = DTingame.STATE_SHOW_LASTHUMEN;
-				lastHuman();
-			}
-			if (Game.data.playerData.mDTingame.stateGame == DTingame.STATE_ULTIMATE_SKILL) 
-			{
-				Game.data.playerData.mDTingame.stateGame = DTingame.STATE_ULTIMATE;				
-				SkillFinish();
-			}
-		}else if (mState == STATE_SKILL) 
-		{
-			
-		}
-    }
-	private function addSkill(_skill:ConstSkill):Void
-	{
-		for (item in mListSkill) 
-		{
-			if (item.skill == _skill.skill) 
-			{
-				return;
-			}
-		}
-		mListSkill.push(_skill);
-	}
-	private function UsingSkill():Bool
-	{
-		if (mListSkill.length <= 0) 
-		{
-			return false;
-		}
-		mState = STATE_SKILL;
-		var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
-		this.addChild(_skill);
-		switch (mListSkill[0].skill) 
-		{
-			case SkillType.X:
-				actSkillX();				
-			case SkillType.TIME:
-				actSkillX();
-			case SkillType.CLEAR:
-				actSkillX();
-			case SkillType.MAGNET:
-				actSkillX();
-			case SkillType.RAIN:
-				actSkillX();
-			case SkillType.NON:
-				actSkillX();				
-			default:
-				actSkillX();
-				
-		}
-		mListSkill.remove(mListSkill[0]);
-		return true;
-	}
-	/**
-	 * Khởi tạo mãng 2 chiều
-	 */
-	private function initData():Void
-	{
-		mListID = new Array<Array<Int>>();
-		mListBrick = new Array<Array<Brick>>();
-		for (i in 0...Game.BOARD_HEIGHT) 
-		{
-			mListID[i] = new Array<Int>();
-			mListBrick[i] = new Array<Brick>();
-			for (j	in 0...Game.BOARD_WIDTH) 
-			{
-				mListID[i][j] = 0;				
-				var _brick:Brick = new Brick();
-				_brick.setValue(0 + j * Game.BRICK_WIDTH,
-								(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( i * Game.BRICK_HEIGHT ),
-								0);
-				mListBrick[i][j] = _brick;
-				mBoard.addChild(_brick);
-			}
-		}
-	}
-	/**
-	 * tao lớp gách đầu game
-	 */
-	public function setBrickBeging():Void
-	{
-		var _col = Std.random(10);
-		var _tempY:Float = 0;
-		var _V:Float = 0;
-		for (i in 0... Game.BOARD_WIDTH)
-		{
-			if (i != _col) 
-			{
-				for (j in 0...Std.random(4) + 5)
-				{
-					mListID[j][i] = Std.random(8) + 1;
-					mListBrick[j][i].mType = mListID[j][i];
-					if (j == 0) 
-					{
-						mListBrick[j][i].y = 0 - Std.random(100);
-						_tempY = mListBrick[j][i].y;
-						_V = Std.random(10) / 20;
-					}else 
-					{
-						mListBrick[j][i].y = _tempY - Std.random(100) - 100;
-						_tempY = mListBrick[j][i].y;
-						_V = _V + Std.random(10) / 40;
-					}
-					mListBrick[j][i].MoveTo(0.4 + _V, mListBrick[j][i].x, (Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - j * Game.BRICK_HEIGHT);
-					
-				}
-			}
-		}
-	}
-	public function onStartGame()
-	{		
-		setBrickBeging();
-		Actuate.tween(this,2.5, { }).onComplete(onFistBlock); 
-	}
-	/**
-	 * 
-	 */
-	public function onExit()
-	{
-		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
-	}
-	/**
-	 * 
-	 */
-	public function onFistBlock()
-	{
-		NextBlock();
-	}
-	/**
-	 * 
-	 */
-	private function ChangeBlock(_info:InfoBlock):Void
-	{
-		//mCaseBG.removeAllAndDelChild();
-		Game.data.playerData.mDTingame.setCase();
-		if (mBoard.contains(mCurentBlock) == true) 
-		{
-			mBoard.removeChild(mCurentBlock);
-		}
-		// nextBlock
-		// 
-		mCurentBlock = new CBlock(_info.mType, BlockDirect.TOP);
-		mCurentBlock.mBlock.setSkill(_info.mSkill);
-		mBoard.addChild(mCurentBlock);
-		mCurentBlock.setGrid(4, 19);
-		mCurentBlock.mask = mMask;
-		SetListRowCurrent();
-		SetCase();		
-	}
+	
 	/**
 	 * 
 	 */
@@ -345,49 +108,21 @@ class Board extends Sprite
 		// 
 		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.mDTgameplay.mcurrentBlock.mSkill);
-		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
 		mCurentBlock.setGrid(4, 19);
 		SetListRowCurrent();
-		SetCase();		
+		SetCase();
 		Game.data.playerData.mDTingame.isUpdateStack = true;
 		mState = STATE_NORMAL;
 	}
+	
 	/**
 	 * 
 	 */
-	private function SetCase():Void
+	public function onExit()
 	{
-		mMinRow %= 3;
-		var _listCase = new Array<InfoBlock>();
-		if (mCurentBlock.mBlock.mType != BlockType.I) 
-		{
-			for (i in 0...3) 
-			{
-				if (mMinRow + i*3 < mListRow.length) 
-				{
-					var _index = Std.random(mListRow[mMinRow + i * 3].length);
-					_listCase.push(mListRow[mMinRow + i * 3][_index]);
-				}
-			}
-			mMinRow = (mMinRow + 1) % 3;
-		}
-		else 
-		{
-			for (i in 0...5) 
-			{
-				var _infoBlock = new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.TOP);
-				var _colum = mMinRow % 2 + i * 2;
-				_infoBlock.mColumn = _colum;
-				_infoBlock.mRow = getHeightColumn(_colum) - 1;
-				_listCase.push(_infoBlock);
-			}			
-			mMinRow = (mMinRow + 1) % 2;
-		}
-		Game.data.playerData.mDTingame.setCase(_listCase);
-		
-		
 	}
+	
 	/**
 	 * 
 	 * @param	_arr
@@ -725,149 +460,4 @@ class Board extends Sprite
 		}
 	}
 	
-	
-	///////////////////////SKILL////////////////////////////
-	
-	private function lastHuman():Void
-	{			
-		var maxTime:Float = 0;
-		for (i in 0...Game.BOARD_WIDTH) 
-		{
-			var _listExist:Array<Int> = new Array<Int>();
-			for (j in 0...Game.BOARD_HEIGHT) 
-			{
-				if (mListBrick[j][i].mType > 0)
-				{
-					_listExist.push(j);
-				}
-			}
-			for (j in 0...Game.BOARD_HEIGHT) 
-			{
-				if (j != _listExist[j] && j < _listExist.length) 
-				{
-					if (mListBrick[j][i].mType <= 0) 
-					{
-						this.visibleBrick(j,i);
-					}
-					mListBrick[j][i] = mListBrick[_listExist[j]][i];
-					var _time:Float = (_listExist[j] - j) * 0.05;
-					if (maxTime < _time) 
-					{
-						maxTime = _time;
-					}
-					Actuate.tween(mListBrick[j][i], _time, { y:(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - j * Game.BRICK_HEIGHT });
-				}else if (j >= _listExist.length)
-				{
-					if (j <= _listExist[_listExist.length-1])
-					{
-						if (mListBrick[j][i].mType > 0) 
-						{
-							var _brick:Brick = new Brick();
-							_brick.setValue(0 + i * Game.BRICK_WIDTH, (Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - j * Game.BRICK_HEIGHT, 0);
-							mListBrick[j][i] = _brick;
-							mBoard.addChild(_brick);
-						}
-					}
-				}
-			}
-		}
-		Actuate.tween(this, maxTime + 0.1, { }).onComplete(onFinishLastHumen);		
-		
-	}
-	private var mListEndGame:Array<Array<Int>>;
-	private function SkillFinish():Void
-	{			
-		if (Game.data.playerData.mDTgameplay.mSkillEndGame == SkillType.FINISH) 
-		{
-			Game.data.playerData.mDTgameplay.mSkillEndGame = -1;
-			mListEndGame = new Array<Array<Int>>();
-			for (i in 0...Game.BOARD_HEIGHT) 
-			{
-				mListEndGame[i] = new Array<Int>();
-				for (j in 0...Game.BOARD_WIDTH) 
-				{
-					if (mListBrick[i][j].mType > 0) 
-					{
-						mListEndGame[i][j] = 0;
-					}else 
-					{
-						mListEndGame[i][j] = BrickType.OTHER;
-					}
-				}
-			}			
-			onFillEnd();
-		}
-		else
-		{
-			// other
-		}
-	}
-	/**
-	 * 
-	 */
-	private function onFinishLastHumen():Void
-	{
-		CheckClearAll();
-	}
-	private function onActivitySkill():Void
-	{
-		if (Game.data.playerData.mDTgameplay.mSkillEndGame < 0) 
-		{
-			// end game
-			Game.data.playerData.mDTingame.stateGame = DTingame.STATE_END;
-		}
-		else if (Game.data.playerData.mDTgameplay.mSkillEndGame >= SkillType.FINISH) 
-		{
-			var _skill:UltimateSkill = new UltimateSkill(Game.data.playerData.mDTgameplay.mSkillEndGame);
-			this.addChild(_skill);
-		}
-	}
-	private function onFillEnd():Void
-	{
-		for (i in 0...Game.BOARD_WIDTH) 
-		{
-			for (j in 0...Game.BOARD_HEIGHT) 
-			{
-				if (mListEndGame[j][i] > 0) 
-				{
-					var _time = i/20 + i/20*3;
-					mListBrick[j][i].mType = BrickType.OTHER;
-					mListBrick[j][i].alpha = 0;
-					Actuate.tween(mListBrick[j][i],_time, { alpha:1 }).ease(Quad.easeIn);
-				}
-			}
-		}
-		Actuate.tween(this, 2, {}).onComplete(onFinishFill);		
-	}
-	private function onFinishFill():Void
-	{
-		for (i in 0...Game.BOARD_WIDTH) 
-		{
-			for (j in 0...Game.BOARD_HEIGHT) 
-			{
-				if (mListEndGame[j][i] <= 0) 
-				{
-					mListBrick[j][i].mType = 0;
-				}
-			}
-		}
-		Actuate.tween(this, 0.5, {}).onComplete(lastHuman);		
-	}
-	
-	/////////////////////////////////
-	/// skill base
-	private function actSkillX()
-	{
-		Actuate.tween(this, 1, { }).onComplete(onFinishSkillX);
-	}
-	private function onFinishSkillX()
-	{
-		if (mListSkill.length == 0) 
-		{			
-			NextBlock();
-		}else
-		{
-			UsingSkill();
-		}
-	}
 }

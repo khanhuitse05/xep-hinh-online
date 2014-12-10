@@ -35,10 +35,11 @@ class MissionView extends SceneView
 		// btn
 		btnBack = new SimpleButton();
 		btnBack.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_BACK));
-		btnBack.x = 50;
-		btnBack.y = 50;
+		btnBack.x = 5;
+		btnBack.y = 800;
 		btnBack.addEventListener(MouseEvent.CLICK, onBack);		
 		this.addChild(btnBack);
+		
 	}	
 	
 	private function gameLoop(e:Event):Void 
