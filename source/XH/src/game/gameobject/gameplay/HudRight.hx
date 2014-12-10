@@ -77,7 +77,8 @@ class HudRight extends ExSprite
 		for (i in 0...mMaxStack) 
 		{
 			// block
-			var _block:CBlock = new CBlock(mStackBlock[i].mType, BlockDirect.RIGHT);
+			var _block:CBlock = new CBlock(mStackBlock[i].mType, BlockDirect.RIGHT);			
+			_block.mBlock.setSkill(mStackBlock[i].mSkill);
 			_block.scaleX = 0.5;
 			_block.scaleY = 0.5;
 			_block.x = POS_X + BLOCK_OFFSET_X;
@@ -135,6 +136,7 @@ class HudRight extends ExSprite
 		{
 			// block
 			var _block:CBlock = new CBlock(mStackBlock[i].mType, BlockDirect.RIGHT);
+			_block.mBlock.setSkill(mStackBlock[i].mSkill);
 			_block.scaleX = 0.5;
 			_block.scaleY = 0.5;
 			_block.x = POS_X + BLOCK_OFFSET_X;

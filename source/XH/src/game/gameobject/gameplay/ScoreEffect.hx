@@ -2,8 +2,8 @@ package game.gameobject.gameplay;
 
 import core.display.ex.Lable;
 import game.tnk.Game;
+import motion.Actuate;
 import openfl.display.Sprite;
-import tweenx909.TweenX;
 
 /**
  * ...
@@ -31,13 +31,12 @@ class ScoreEffect extends Sprite
 	{
 		this.scaleX = 0;
 		this.scaleY = 0;
-		TweenX.to(this, { scaleX:1, scaleY:1 }, TIME_SCALE);
-		TweenX.to(this, { x:x - 10, y:y - 10 }, TIME_SCALE);
-		TweenX.to(this, {}, TIME_MOVE).onFinish(onMove);
+		Actuate.tween(this, TIME_SCALE, { scaleX:1, scaleY:1, x:x - 10, y:y - 10});
+		Actuate.tween(this, TIME_MOVE, {}).onComplete(onMove);
 	}
 	public function onMove()
 	{
-		TweenX.to(this, { x:Game.BRICK_WIDTH * Game.BOARD_WIDTH / 2, y: -20 }, TIME_MOVE).onFinish(onFinish);
+		Actuate.tween(this, TIME_MOVE, { x:Game.BRICK_WIDTH * Game.BOARD_WIDTH / 2, y: -20 }).onComplete(onFinish);
 	}
 	public function onFinish()
 	{

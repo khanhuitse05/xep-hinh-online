@@ -6,6 +6,7 @@ import game.network.packet.Command;
 import game.network.packet.PacketHeader;
 import game.network.packet.RequestPacket;
 import game.network.packet.ResponsePacket;
+import game.tnk.Game;
 import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.events.EventDispatcher;
@@ -69,6 +70,7 @@ class Server extends EventDispatcher
     private function onIOError(event:IOErrorEvent):Void
     {
         Log.error("io error: " + event.text);
+		Game.data.playerData.dataGame.online = false;
     }
     
     private function onDataReceived(event:ProgressEvent):Void    
@@ -161,7 +163,7 @@ class Server extends EventDispatcher
     public function connect(IP:String, port:Int):Void
     {
         _socket.connect(IP, port);
-        
+        Game.data.playerData.dataGame.online = true;
         Log.info("Connect to server    " + IP + " : " + port);
     }
     

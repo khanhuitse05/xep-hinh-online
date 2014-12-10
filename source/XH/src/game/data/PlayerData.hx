@@ -20,6 +20,7 @@ class PlayerData extends EventDispatcher
 	public var mDTgameplay:DTgameplay;
 	public var mDTingame:DTingame;
 	public var mUserInfo:DTUserInfo;
+	public var dataGame:DTGame;
 	
     public function new() 
     {
@@ -27,6 +28,7 @@ class PlayerData extends EventDispatcher
 		mDTgameplay = new DTgameplay();
 		mDTingame = new DTingame();
 		mUserInfo = new DTUserInfo();
+		dataGame = new DTGame();
         Game.server.addEventListener(Server.SERVER_DATA, onServerData);
     }
     

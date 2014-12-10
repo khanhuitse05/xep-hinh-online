@@ -29,7 +29,7 @@ class ResourcePath
 		"img/gfx/background/bg01.png",
 		"img/gfx/background/effect01.png",
 		"img/gfx/background/effect01.png",			//20
-		"img/gfx/background/effect01.png",
+		"img/gfx/background/effect02.png",
 		"img/gfx/game/Gridboder2.png",
 		"img/gfx/game/popuptimeup.png",
 		"",		
@@ -49,7 +49,14 @@ class ResourcePath
 		"img/gfx/skill/skillnoel.png",
 		"img/gfx/skill/skillnoel.png",
 		"img/gfx/skill/skillnoel.png",
-		"img/gfx/skill/skillnoel.png",
+		"img/gfx/skill/skillnoel.png",			
+		"img/gfx/game/skill001.png",		//42
+		"img/gfx/skill/skillx.png",
+		"img/gfx/skill/skiltimel.png",
+		"img/gfx/skill/skillmagnet.png",
+		"img/gfx/skill/skillclear.png",
+		"img/gfx/skill/skillrain.png",
+		"img/gfx/skill/skill001.png",
     ];
 	public static var BITMAPDATA_PATH =
     [

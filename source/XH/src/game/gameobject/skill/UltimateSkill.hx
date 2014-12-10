@@ -19,7 +19,11 @@ class UltimateSkill extends Sprite
 	{
 		super();
 		mType = _type;
-		var _image:Sprite = Game.resource.getSprite(Defines.GFX_ULTIMATE_FINISH + _type);
+		if (mType > 4) 
+		{
+			mType = SkillType.FINISH;
+		}
+		var _image:Sprite = Game.resource.getSprite(Defines.GFX_ULTIMATE_FINISH + _type - SkillType.FINISH);
 		this.addChild(_image);
 		this.scaleX = SCALE;
 		this.scaleY = SCALE;

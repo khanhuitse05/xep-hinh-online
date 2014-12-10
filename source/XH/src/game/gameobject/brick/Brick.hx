@@ -1,12 +1,13 @@
 package game.gameobject.brick;
 
 import game.tnk.Game;
-import openfl.display.Tilesheet;
+import motion.Actuate;
+import motion.easing.Quad;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
-import openfl.geom.Rectangle;
+import openfl.display.Tilesheet;
 import openfl.events.Event;
-import tweenx909.TweenX;
+import openfl.geom.Rectangle;
 
 /**
  * ...
@@ -14,7 +15,11 @@ import tweenx909.TweenX;
  */
 class Brick extends Sprite
 {
+	
+	public static var TIME_FALL = 0.03;
+	
 	public var mType:Int;
+	public var mSkill:Int;
 	private var mState:Int;
 	public var column:Int;
 	public var row:Int;
@@ -27,6 +32,7 @@ class Brick extends Sprite
 	{
 		super();
 		this.mType = 1;
+		this.mSkill = -1;
 		init();
 		addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
@@ -34,7 +40,7 @@ class Brick extends Sprite
 	{
 		var _bitmap:BitmapData = Game.resource.getBitmap(Game.data.playerData.mBrickID);
 		tilesheet = new Tilesheet (_bitmap);
-		for (i in 0...10) 
+		for (i in 0...18) 
 		{			
 			tilesheet.addTileRect(new Rectangle(i * Game.BRICK_WIDTH, 0, Game.BRICK_WIDTH, Game.BRICK_HEIGHT), null);
 		}
@@ -60,7 +66,13 @@ class Brick extends Sprite
 		if (this.mType > 0) 
 		{
 			this.graphics.clear();
-			this.tilesheet.drawTiles(this.graphics, [0, 0, mType - 1]);
+			if (mSkill > 0) 
+			{
+				this.tilesheet.drawTiles(this.graphics, [0, 0, mSkill + 11]);
+			}else
+			{
+				this.tilesheet.drawTiles(this.graphics, [0, 0, mType - 1]);				
+			}
 		}else 
 		{
 			this.graphics.clear();			
@@ -69,15 +81,15 @@ class Brick extends Sprite
 	/**
 	 * effect move
 	 */
-	public function MoveTo (duration:Float, delay:Float, targetX:Float, targetY:Float):Void 
+	public function MoveTo (duration:Float, targetX:Float, targetY:Float):Void 
 	{
 		isMoving = true;
-		TweenX.to(this, { x: targetX, y: targetY }, duration);
+		Actuate.tween(this, duration, { x: targetX, y: targetY }).ease(Quad.easeOut);
 	}
 	public function falling(onComplete : Void -> Void = null):Void 
 	{
 		isMoving = true;
-		TweenX.to(this, {y: y + Game.BRICK_HEIGHT}, 0.3);	
+		Actuate.tween(this,  TIME_FALL, {y: y + Game.BRICK_HEIGHT});	
 	}
 	
 	

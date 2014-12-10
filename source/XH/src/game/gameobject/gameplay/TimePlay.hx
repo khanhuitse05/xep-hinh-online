@@ -42,6 +42,7 @@ class TimePlay extends Sprite
 		mState = START;
 		mValue = 0;
 		mMaxTime = 7200;
+		//mMaxTime = 1000;
 		mTexTime = new Lable();
 		mTexTime.setFont(25, 0xffff00);
 		mTexTime.setSysTextInfo(mWidth / 2 - 12, 20, "00:00");
@@ -62,10 +63,15 @@ class TimePlay extends Sprite
 			if (mValue > 0) 
 			{
 				mValue--;
+				if (mValue == 600) 
+				{
+					Game.data.playerData.mDTingame.timeIsRuningOut = true;
+				}
 			}else
 			{
 				mState = OUT;
 				Game.data.playerData.mDTingame.stateGame = DTingame.STATE_TIMEOUT;
+				mState = OTHER;
 			}
 			if (Game.data.playerData.mDTingame.stateGame == DTingame.STATE_OVER) 
 			{

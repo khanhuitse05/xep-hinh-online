@@ -17,8 +17,8 @@ import openfl.display.Sprite;
  */
 class GamePlay extends Sprite
 {
-	public static var Board_X = 121;
-	public static var Board_Y = 142;
+	public static var BOARD_X = 121;
+	public static var BOARD_Y = 142;
 	
 	public static var HUD_Y = 172;
 	public static var HUDLEFT_X = 7;
@@ -29,6 +29,9 @@ class GamePlay extends Sprite
 	
 	private var mBackground:BGPlay;
 	private var mBoard:Board;
+	private var mEnemy:Board;
+	private var mOneTouch:OneTouch;
+	private var mControl:GameControl;
 	
 	private var mTime:TimePlay;
 	private var mScore:Score;
@@ -49,19 +52,27 @@ class GamePlay extends Sprite
 		mHudRight.x = HUDRIGHT_X;
 		mHudRight.y = HUD_Y;
 		this.addChild(mHudRight);
+						
+		mBoard = new Board();
+		mBoard.x = BOARD_X;
+		mBoard.y = BOARD_Y;
+		this.addChild(mBoard);
+		
+		var _countdown:CountDown = new CountDown();
+		this.addChild(_countdown);
+		
+		mControl = new GameControl();
+		this.addChild(mControl);
 		
 		mHudLeft = new HudLeft();
 		mHudLeft.x = HUDLEFT_X;
 		mHudLeft.y = HUD_Y;
 		this.addChild(mHudLeft);
-				
-		mBoard = new Board();
-		mBoard.x = Board_X;
-		mBoard.y = Board_Y;
-		this.addChild(mBoard);
 		
-		var _countdown:CountDown = new CountDown();
-		this.addChild(_countdown);
+		mOneTouch = new OneTouch();
+		mOneTouch.x = BOARD_X;
+		mOneTouch.y = BOARD_Y;
+		this.addChild(mOneTouch);
 		
 	}
 	public function gameLoop(e:Event):Void

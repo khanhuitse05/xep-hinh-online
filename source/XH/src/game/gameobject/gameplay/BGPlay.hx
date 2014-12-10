@@ -20,9 +20,7 @@ class BGPlay extends Background
 	public function new() 
 	{
 		super();
-		initBG();
-		this.addEventListener(MouseEvent.MOUSE_DOWN, onCycle);
-		
+		initBG();		
 	}
 	public function initBG():Void
 	{		
@@ -35,10 +33,7 @@ class BGPlay extends Background
 		mBoder = Game.resource.getSprite(Defines.GFX_BOARD_BODER);
 		this.addChild(mBoder);
 	}
-	private function onCycle(e:Event):Void
-	{
-		Game.data.playerData.mDTingame.isCycle = true;
-	}	
+	
 	public function onExit()
 	{
 		this.mScore.onExit();
