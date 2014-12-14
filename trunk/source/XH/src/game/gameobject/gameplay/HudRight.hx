@@ -3,7 +3,6 @@ package game.gameobject.gameplay;
 import core.display.ex.ExSprite;
 import core.display.ex.Lable;
 import core.resource.Defines;
-import core.util.Log;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.board.CBlock;
 import game.gameobject.brick.BlockDirect;
@@ -31,15 +30,18 @@ class HudRight extends ExSprite
 	private var mMaxStack:Int;
 	// x score x2, x3 , x4
 	private var mX:Int;
+	private var mPlanX:Sprite;
+	private var isBattle:Bool;
 		
 	private var mListBlock:Array<CBlock>;
 	private var mXExpText:Lable;
 	/**
 	 * 
 	 */
-	public function new() 
+	public function new(_is:Bool = false) 
 	{
 		super();
+		isBattle = _is;
 		initValue();
 		init();
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
@@ -91,16 +93,21 @@ class HudRight extends ExSprite
 			this.addChildForDel(mListBlock[i]);
 		}
 		// plan
-		var _plan:Sprite = Game.resource.getSprite(Defines.GFX_BOX_1);
-		_plan.x = POS_X;
-		_plan.y = POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 70;
-		this.addChild(_plan);
+		mPlanX = Game.resource.getSprite(Defines.GFX_BOX_1);
+		mPlanX.x = POS_X;
+		mPlanX.y = POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 70;
+		this.addChild(mPlanX);
+		if (isBattle && mMaxStack > 3) 
+		{			
+			mPlanX.x = POS_X - 106;
+			mPlanX.y = POS_Y + _plan.height - mPlanX.height;
+		}
 		// text XX
 		// note
 		mXExpText = new Lable();
 		mXExpText.setFont(50, 0xffffff);
-		mXExpText.setSysTextInfo(POS_X + 15,
-					POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 70 + 40, "x"+mX);
+		mXExpText.setSysTextInfo(mPlanX.x + 15,
+					mPlanX.y + 40, "x"+mX);
         this.addChild(mXExpText);
 	}
 	/**

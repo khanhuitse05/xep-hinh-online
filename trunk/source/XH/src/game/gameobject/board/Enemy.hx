@@ -24,17 +24,14 @@ import openfl.events.Event;
  */
 class Enemy extends Sprite
 {
-	public static var STATE_PREPARE = 0;
-	public static var STATE_START = 1;
-	public static var STATE_NORMAL = 2;
-	public static var STATE_EFFECT = 3;
-	public static var STATE_SKILL = 4;
-	public static var STATE_END = 5;
-		
+	public static var STATE_NORMAL = 0;
+	public static var STATE_EFFECT = 1;
+	
+	private static var INDEX_GROW = 8;
+	
 	private var mState:Int;
-	
-	private var mListSkill:Array<Int>;
-	
+	private var numGrow:Int;	
+	private var mListSkill:Array<Int>;	
 	private var mBg:BoardBG;
 	private var mBoard:Sprite;
 	private var mListID:Array<Array<Int>>;
@@ -42,6 +39,7 @@ class Enemy extends Sprite
 	private var mListRow:Array<Array<InfoBlock>>;
 	private var mMinRow:Int;
 	private var mListClear:Array<Int>;
+	private var mMask:Sprite;
 	
 	private var mCurentBlock:CBlock;
 	
@@ -54,10 +52,10 @@ class Enemy extends Sprite
 	{
 		super();
 		mCount = 0;
-		mState = STATE_PREPARE;
-		mState = STATE_START;
+		mState = STATE_NORMAL;
 		init();
 		initData();
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	/**
 	 * init
@@ -66,7 +64,7 @@ class Enemy extends Sprite
 	{
 		mListSkill = new Array<Int>();
 		mListID = new Array<Array<Int>>();
-		mListBrick = new Array<Array<Brick>();
+		mListBrick = new Array<Array<Brick>>();
 		for (i in 0...Game.BOARD_HEIGHT) 
 		{
 			mListID[i] = new Array<Int>();
@@ -77,7 +75,8 @@ class Enemy extends Sprite
 				mListBrick[i][j] = new Brick();
 				mListBrick[i][j].setValue(0 + j * Game.BRICK_WIDTH,
 								(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( i * Game.BRICK_HEIGHT ),
-								0);
+								0);				
+				mBoard.addChild(mListBrick[i][j]);
 			}
 		}
 	}
@@ -90,36 +89,119 @@ class Enemy extends Sprite
 		mBoard.x = 0;
 		mBoard.y = 0;
 		this.addChild(mBoard);
+		
+		mMask = new Sprite();
+		mMask.graphics.beginFill(0, 0.0001);
+		mMask.graphics.drawRect(0, 0, Game.BOARD_WIDTH * Game.BRICK_WIDTH, 
+							Game.BOARD_HEIGHT * Game.BRICK_HEIGHT);
+		mMask.graphics.endFill();
+		mMask.cacheAsBitmap = true;
+		this.addChild(mMask);
+		
+		mCurentBlock = new CBlock(BlockType.O, BlockDirect.TOP);
+		
 	}
-	
+	/**
+	 * 
+	 * @param	e
+	 */
+	private function gameLoop(e:Event):Void 
+    {
+		if (mState == STATE_NORMAL) 
+		{
+			if (Game.data.playerData.dataPVP.dataEnemy.isFall == true)
+			{
+				Game.data.playerData.dataPVP.dataEnemy.isFall = false;
+				sFall();
+			}
+			if (Game.data.playerData.dataPVP.dataEnemy.isNext == true) 
+			{
+				Game.data.playerData.dataPVP.dataEnemy.isNext = false;
+				sNextBlock();
+				mState = STATE_NORMAL;
+			}
+			if (Game.data.playerData.dataPVP.dataEnemy.isRevGift == true) 
+			{
+				Game.data.playerData.dataPVP.dataEnemy.isRevGift = false;
+				sGrow();
+			}
+			if (Game.data.playerData.dataPVP.dataEnemy.isHold == true) 
+			{
+				Game.data.playerData.dataPVP.dataEnemy.isHold = false;
+				
+				if (Game.data.playerData.dataPVP.dataEnemy.mHoldBlock == null) 
+				{
+					sHoldEmpty();				
+				}else 
+				{
+					sHoldExist();
+				}
+			}
+		}
+	}
 	
 	/**
 	 * sever
 	 */
+	private function sHoldEmpty()
+	{		
+		// hold
+		if (mBoard.contains(mCurentBlock) == true) 
+		{
+			mBoard.removeChild(mCurentBlock);
+		}
+	}
+	private function sHoldExist()
+	{		
+		// hold
+		if (mBoard.contains(mCurentBlock) == true) 
+		{
+			mBoard.removeChild(mCurentBlock);
+		}
+		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mType, BlockDirect.RIGHT);
+		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mSkill);
+		mCurentBlock.mask = mMask;
+		mBoard.addChild(mCurentBlock);
+		mCurentBlock.setGrid(4, 19);
+	}
 	private function sNextBlock():Void
 	{
 		if (mBoard.contains(mCurentBlock) == true) 
 		{
 			mBoard.removeChild(mCurentBlock);
 		}
-		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.RIGHT);
-		mCurentBlock.mBlock.setSkill(Game.data.playerData.mDTgameplay.mcurrentBlock.mSkill);
+		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mType, BlockDirect.RIGHT);
+		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
 		mCurentBlock.setGrid(4, 19);
-		SetListRowCurrent();
-		SetCase();		
-		Game.data.playerData.mDTingame.isUpdateStack = true;
 	}
 	private function sFall():Void
 	{
 		ApplyEffect();
+		mState = STATE_EFFECT;
 	}
 	private function sIncreaseScore():Void
 	{
 	}
 	private function sGrow():Void
 	{
+		var _temp = Game.data.playerData.dataPVP.dataEnemy.mNumGift;
+		switch (_temp) 
+		{
+			case 2:
+				numGrow = 1;
+				onGrow();
+			case 3:
+				numGrow = 2;
+				onGrow();
+			case 4:			
+				numGrow = 4;	
+				onGrow();			
+			default:
+				numGrow = 0;
+				
+		}
 	}
 	
 	
@@ -144,12 +226,9 @@ class Enemy extends Sprite
 	 */
 	private function checkExist(_arr:Array<Int>, _x:Int):Bool
 	{
-		
+		return true;
 	}
-	private function SetListRowCurrent()
-	{
-		
-	}
+	
 	/**
 	 * use fo block I
 	 */
@@ -164,7 +243,7 @@ class Enemy extends Sprite
 	 */
 	private function GetMinRowCurrent(_column:Int):Array<InfoBlock>
 	{
-		
+		return null;
 	}
 	/**
 	 * 
@@ -173,7 +252,7 @@ class Enemy extends Sprite
 	 */
 	private function GetRowCurrent(_column:Int):Int
 	{
-		
+		return 0;
 	}
 	/**
 	 * column's height
@@ -182,7 +261,7 @@ class Enemy extends Sprite
 	 */
 	private function getHeightColumn(_column:Int):Int
 	{
-		
+		return 0;
 	}
 	
 	// move block
@@ -192,7 +271,7 @@ class Enemy extends Sprite
 	}
 	public function OnApplyToCompleteFinal():Void
 	{
-		var _skill = mCurentBlock.mBlock.mSkill;
+		var _skill = Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mSkill;
 		for (i in 0...mCurentBlock.mBlock.mData.length) 
 		{
 			for (j in 0...mCurentBlock.mBlock.mData[0].length) 
@@ -203,15 +282,11 @@ class Enemy extends Sprite
 					var _column:Int = j + Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mColumn;
 					if (_row < Game.BOARD_HEIGHT) 
 					{
-						mListBrick[_row][_column].mType = mCurentBlock.mBlock.mType;
+						mListBrick[_row][_column].mType = Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mType;
 						mListBrick[_row][_column].mSkill = _skill;
 						_skill = -1;
 						mListBrick[_row][_column].x = 0 + _column * Game.BRICK_WIDTH;
 						mListBrick[_row][_column].y = (Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( _row * Game.BRICK_HEIGHT );
-					}
-					if (_row > Game.BOARD_HEIGHT - 2)
-					{
-						Game.data.playerData.mDTingame.stateGame = DTingame.STATE_OVER;
 					}
 				}
 			}
@@ -233,7 +308,7 @@ class Enemy extends Sprite
 		}
 		if (mListClear.length == 0) 
 		{
-			NextBlock();
+			mState = STATE_NORMAL;
 		}else
 		{
 			Actuate.tween(this, EffectClear.TIME_LIVE, { }).onComplete(onBrickDown);
@@ -282,7 +357,8 @@ class Enemy extends Sprite
 		}
 		else 
 		{
-			NextBlock();
+			//NextBlock();
+			mState = STATE_NORMAL;
 		}
 	}
 	public function onBrickDownAt(_row:Int):Void
@@ -322,5 +398,56 @@ class Enemy extends Sprite
 			mBoard.removeChild(mListBrick[_row][_col]);				
 		}
 	}
-	
+	/**
+	 * 
+	 * @param	_row
+	 */
+	public function onGrow():Void
+	{
+		mState = STATE_EFFECT;
+		// grow
+		if (numGrow > 0) 
+		{
+			// clear top
+			visibleRow(Game.BOARD_HEIGHT - 1);
+			// grow
+			var _row = Game.BOARD_HEIGHT - 1;
+			while(_row > 0) 
+			{			
+				for (j in 0...Game.BOARD_WIDTH) 
+				{
+					mListBrick[_row][j] = mListBrick[_row - 1][j];
+					mListBrick[_row][j].growing();
+				}
+				_row--;
+			}
+			// init row bottom
+			var _ran:Int = Std.random(10);
+			for (j in 0...Game.BOARD_WIDTH) 
+			{		
+				if (j == _ran) 
+				{
+					var _brick:Brick = new Brick();
+					_brick.setValue(0 + j * Game.BRICK_WIDTH,
+									(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT, 0);
+					mListBrick[0][j] = _brick;
+					mBoard.addChild(_brick);
+				}else 
+				{
+					var _brick:Brick = new Brick();
+					_brick.setValue(0 + j * Game.BRICK_WIDTH,							
+									(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT, INDEX_GROW);
+					mListBrick[0][j] = _brick;
+					mListBrick[0][j].scaleY = 0;
+					mBoard.addChild(_brick);
+					mListBrick[0][j].appearing();
+				}
+			}
+			numGrow--;
+			Actuate.timer(Brick.TIME_FALL).onComplete(onGrow);
+		}else 
+		{
+			mState = STATE_NORMAL;
+		}			
+	}
 }
