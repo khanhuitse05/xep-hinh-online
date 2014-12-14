@@ -2,6 +2,8 @@ package game.gameobject.board;
 
 import core.resource.Defines;
 import game.data.gameplay.DTingame;
+import game.gameobject.brick.Border;
+import game.gameobject.gameplay.Boder;
 import game.tnk.Game;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -16,6 +18,7 @@ class BoardBG extends Sprite
 {
 
 	private var mColor:Int;
+	private var mBoder:Boder;
 	private var mEffectTime:Sprite;
 	private var mBack:Sprite;
 	private var mMid:Sprite;
@@ -31,6 +34,10 @@ class BoardBG extends Sprite
 	private function init():Void
 	{		
 		mColor = 0xffff00;
+		
+		mBoder = new Boder();
+		this.addChild(mBoder);
+		
 		//TweenX.to(this, { mColor: 0xffffff }, 333333).repeat( 0 );
 		// effect time
 		mEffectTime = new Sprite();

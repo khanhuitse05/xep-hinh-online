@@ -2,27 +2,32 @@ package game.gameobject.gameplay;
 
 import core.display.screen.ScreenID;
 import core.resource.Defines;
-import core.resource.ResourceManager;
 import game.data.gameplay.DTingame;
-import game.gameobject.background.Background;
 import game.gameobject.board.Board;
+import game.gameobject.board.Enemy;
+import game.gameobject.board.Mine;
+import game.gameobject.brick.Border;
 import game.tnk.Game;
-import openfl.events.MouseEvent;
-import openfl.events.Event;
 import openfl.display.Sprite;
+import openfl.events.Event;
+
 
 /**
  * ...
  * @author KhanhTN
  */
-class GamePlay extends Sprite
+class GameBattle extends Sprite
 {
-	public static var BOARD_X = 121;
+
+	public static var BOARD_X = 230;
 	public static var BOARD_Y = 142;
 	
-	public static var HUD_Y = 172;
-	public static var HUDLEFT_X = 7;
-	public static var HUDRIGHT_X = Game.GAME_WIDTH - 101 - 7;
+	public static var ENEMY_X = 10;
+	public static var ENEMY_Y = 755;
+	
+	public static var HUD_Y = 150;
+	public static var HUDLEFT_X = 5;
+	public static var HUDRIGHT_X = 111;
 	
 	private var mHudLeft:HudLeft;
 	private var mHudRight:HudRight;
@@ -30,8 +35,11 @@ class GamePlay extends Sprite
 	private var mBackground:BGPlay;
 	private var mTime:TimePlay;
 	private var mScore:Score;
-	private var mBoard:Board;
+	private var mBoard:Mine;
+	private var mEnemy:Enemy;
+	// show vituar block
 	private var mOneTouch:OneTouch;
+	// Contro
 	private var mControl:GameControl;
 	
 	
@@ -52,16 +60,22 @@ class GamePlay extends Sprite
 		
 		mTime = new TimePlay(BOARD_X, BOARD_Y + 1064);
 		this.addChild(mTime);
-				
-		mHudRight = new HudRight();
+		
+		mHudRight = new HudRight(true);
 		mHudRight.x = HUDRIGHT_X;
 		mHudRight.y = HUD_Y;
 		this.addChild(mHudRight);
 						
-		mBoard = new Board();
+		mBoard = new Mine();
 		mBoard.x = BOARD_X;
 		mBoard.y = BOARD_Y;
 		this.addChild(mBoard);
+		mEnemy = new Enemy();
+		mEnemy.x = ENEMY_X;
+		mEnemy.y = ENEMY_Y;		
+		mEnemy.scaleX = 200 / 480;
+		mEnemy.scaleY = 200 / 480;
+		this.addChild(mEnemy);
 		
 		var _countdown:CountDown = new CountDown();
 		this.addChild(_countdown);
@@ -98,10 +112,11 @@ class GamePlay extends Sprite
 		this.removeChild(mHudRight);
 		mHudRight.onExit();
 		this.removeChild(mBackground);
-		mBackground.onExit();
+		this.mBackground.onExit();
 		this.mScore.onExit();
 		this.removeChild(mScore);
 		this.mTime.onExit();
 		this.removeChild(mTime);
 	}
+	
 }

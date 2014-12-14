@@ -12,7 +12,7 @@ class DTEnemy
 	// Khối gạch hiện tại
 	public var mcurrentBlock:InfoBlock;
 	// Các khối gạch đang giữ
-	public var mHoldBlock:Array<InfoBlock>;
+	public var mHoldBlock:InfoBlock;
 	// fall block
 	public var mFallBlock:InfoBlock;
 	// max stack
@@ -24,7 +24,9 @@ class DTEnemy
 	// Tổng thời gian (second)
 	public var mTimeTotal:Int;	
 	// refresh
-	public var mAmongRefresh:Int;
+	public var mAmongRefresh:Int;	
+	// gift
+	public var mNumGift:Int;
 	// Thời gian còn lại
 	public var mTimeCurrent:Int;	
 	// x score x2, x3 , x4
@@ -33,6 +35,12 @@ class DTEnemy
 	public var mSkillCurrent:Array<Int>;
 	// các skill có thể sử dụng
 	public var mListSkill:Array<Int>;
+	
+	// is
+	public var isNext:Bool;
+	public var isHold:Bool;
+	public var isFall:Bool;
+	public var isRevGift:Bool;
 	
 	public function new() 
 	{

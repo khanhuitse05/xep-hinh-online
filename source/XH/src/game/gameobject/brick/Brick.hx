@@ -91,7 +91,17 @@ class Brick extends Sprite
 		isMoving = true;
 		Actuate.tween(this,  TIME_FALL, {y: y + Game.BRICK_HEIGHT});	
 	}
-	
+	public function growing(onComplete : Void -> Void = null):Void 
+	{
+		isMoving = true;
+		Actuate.tween(this,  TIME_FALL, {y: y - Game.BRICK_HEIGHT});	
+	}
+	public function appearing(onComplete : Void -> Void = null):Void 
+	{
+		isMoving = true;
+		this.scaleY = 0;
+		Actuate.tween(this,  TIME_FALL, {scaleY: 1});	
+	}
 	
 	function set_column(value:Int):Int 
 	{
