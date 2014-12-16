@@ -1,0 +1,26 @@
+2014-10-08 19:37:27,773 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/junit/junit/4.8.2/junit-4.8.2.pom
+2014-10-08 19:37:28,497 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/junit/junit/4.8.2/junit-4.8.2.pom
+2014-10-08 19:37:29,106 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/menacheri/jetserver/0.1/jetserver-0.1.pom
+2014-10-08 19:37:29,110 [Worker-3] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.menacheri:jetserver:jar:0.1 is missing, no dependency information available
+2014-10-08 19:37:29,605 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/menacheri/jetclient/0.1/jetclient-0.1.pom
+2014-10-08 19:37:29,608 [Worker-3] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.menacheri:jetclient:jar:0.1 is missing, no dependency information available
+2014-10-08 19:37:30,042 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.pom
+2014-10-08 19:37:30,462 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.pom
+2014-10-08 19:37:30,895 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.6.1/slf4j-parent-1.6.1.pom
+2014-10-08 19:37:31,318 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.6.1/slf4j-parent-1.6.1.pom
+2014-10-08 19:37:31,542 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.pom
+2014-10-08 19:37:31,967 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.pom
+2014-10-08 19:37:32,458 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.pom
+2014-10-08 19:37:33,125 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.pom
+2014-10-08 19:37:33,792 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/junit/junit/4.8.2/junit-4.8.2.jar
+2014-10-08 19:37:35,684 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/junit/junit/4.8.2/junit-4.8.2.jar
+2014-10-08 19:37:35,997 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/menacheri/jetserver/0.1/jetserver-0.1.jar
+2014-10-08 19:37:36,517 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/menacheri/jetclient/0.1/jetclient-0.1.jar
+2014-10-08 19:37:36,931 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar
+2014-10-08 19:37:37,366 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar
+2014-10-08 19:37:37,574 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar
+2014-10-08 19:37:38,475 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar
+2014-10-08 19:37:38,686 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading http://repo.maven.apache.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.jar
+2014-10-08 19:37:42,083 [Worker-3] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded http://repo.maven.apache.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.jar
+2014-10-08 19:37:43,040 [Worker-3] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.menacheri:jetserver:jar:0.1 is missing, no dependency information available
+2014-10-08 19:37:43,045 [Worker-3] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for org.menacheri:jetclient:jar:0.1 is missing, no dependency information available

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;de.iritgo.networkgame&apos;" deleteContents="false" description="Delete resource &apos;de.iritgo.networkgame&apos;" element1="/de.iritgo.networkgame" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1414502872944"/>&#x0A;<refactoring comment="Delete resource &apos;ServetNettyTest&apos;" deleteContents="false" description="Delete resource &apos;ServetNettyTest&apos;" element1="/ServetNettyTest" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1414502876671"/>
+</session>
