@@ -12,6 +12,10 @@ import game.gameobject.gameplay.Xeffect;
 import game.gameobject.skill.SkillBase;
 import game.gameobject.skill.SkillType;
 import game.gameobject.skill.UltimateSkill;
+import game.network.packet.request.pvp.RepFall;
+import game.network.packet.request.pvp.RepGrow;
+import game.network.packet.request.pvp.RepHold;
+import game.network.packet.request.pvp.RepNext;
 import game.tnk.Game;
 import motion.Actuate;
 import motion.easing.Quad;
@@ -682,28 +686,35 @@ class Mine extends Sprite
 	private function cNext()
 	{		
 		// nextblock
-		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock 
-			= new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
-		Game.data.playerData.dataPVP.dataEnemy.isNext = true;
+		var _block:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
+		Game.server.sendPacket(new RepNext(_block));
+		//Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock 
+			//= new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
+		//Game.data.playerData.dataPVP.dataEnemy.isNext = true;
 	}
 	private function cFall()
 	{		
 		// chosse
-		Game.data.playerData.dataPVP.dataEnemy.mFallBlock 
-			= Game.data.playerData.mDTingame.infoChose;
-		Game.data.playerData.dataPVP.dataEnemy.isFall = true;
+		var _block:InfoBlock = Game.data.playerData.mDTingame.infoChose;
+		Game.server.sendPacket(new RepFall(_block));
+		//Game.data.playerData.dataPVP.dataEnemy.mFallBlock = Game.data.playerData.mDTingame.infoChose;
+		//Game.data.playerData.dataPVP.dataEnemy.isFall = true;
 	}
 	private function cHoldEmpty()
 	{		
 		// hold
-		Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = null;
-		Game.data.playerData.dataPVP.dataEnemy.isHold = true;
+		var _block:InfoBlock = new InfoBlock(-1, -1);
+		Game.server.sendPacket(new RepHold(_block));
+		//Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = null;
+		//Game.data.playerData.dataPVP.dataEnemy.isHold = true;
 	}
 	private function cHoldExist()
 	{		
 		// hold
-		Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = Game.data.playerData.mDTingame.infoHold;
-		Game.data.playerData.dataPVP.dataEnemy.isHold = true;
+		var _block:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
+		Game.server.sendPacket(new RepHold(_block));
+		//Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = Game.data.playerData.mDTingame.infoHold;
+		//Game.data.playerData.dataPVP.dataEnemy.isHold = true;
 	}
 	private function cInScore()
 	{		
@@ -712,8 +723,10 @@ class Mine extends Sprite
 	private function cSendGift()
 	{
 		// send
-		Game.data.playerData.dataPVP.dataEnemy.mNumGift = numClear;
-		Game.data.playerData.dataPVP.dataEnemy.isRevGift = true;
+		Game.server.sendPacket(new RepGrow(numClear));
+		//Game.data.playerData.dataPVP.dataEnemy.mNumGift = numClear;
+		//Game.data.playerData.dataPVP.dataEnemy.isRevGift = true;
+		
 	}
 	private function cUseSkill()
 	{

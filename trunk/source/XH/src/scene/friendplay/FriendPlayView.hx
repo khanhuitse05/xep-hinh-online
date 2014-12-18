@@ -214,7 +214,7 @@ class FriendPlayView extends SceneView
 		// right
 		listRight[index].x = F.x;
 		listRight[index].y = F.y;
-		listRight[index].rotationZ  = _alpha;
+		listRight[index].rotation  = _alpha;
 		
 		// draw
 		var vertices:Vector<Float> = new Vector<Float> ();

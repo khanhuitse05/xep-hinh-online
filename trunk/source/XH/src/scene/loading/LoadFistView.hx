@@ -4,6 +4,7 @@ import core.display.scene.*;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
 import core.sprites.Animx;
+import game.const.cache.ExploringCache;
 import game.tnk.Game;
 import openfl.events.Event;
 import openfl.text.TextFieldAutoSize;
@@ -41,10 +42,17 @@ class LoadFistView extends SceneView
 		mAnim.animate();
 		this.addChild(mAnim);
 		// note
+		if (ExploringCache.CheckExist() == false) 
+		{
+			ExploringCache.writeData();
+		}
+		ExploringCache.readData();
+		
 		mNoteText = new Lable();
 		mNoteText.setFont(20, 0x2D23B6);
-		mNoteText.setSysTextInfo(Game.GAME_WIDTH/ 2 - 25, 450, "loading...");
+		mNoteText.setSysTextInfo(Game.GAME_WIDTH/ 2 - 25, 450, "loading..." + Game.data.playerData.mUserInfo.userName);
         this.addChild(mNoteText);
+		
 	}
 	
 	
