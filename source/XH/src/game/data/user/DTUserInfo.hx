@@ -7,10 +7,11 @@ package game.data.user;
 class DTUserInfo
 {
 	
-    public var playerName : String = "NoName";
+    public var userName : String;
     public var level : Int;    
     public var scores : Int;    
     public var gold : Int;   	
+    public var skill : Array<Int> = new Array<Int>();
     public var inventory : InventoryData = new InventoryData();
 	public function new() 
 	{

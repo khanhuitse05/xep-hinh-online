@@ -5,6 +5,8 @@ import core.util.Log;
 import game.network.packet.Command;
 import game.network.packet.PacketHeader;
 import game.network.packet.RequestPacket;
+import game.network.packet.response.pvp.*;
+import game.network.packet.response.user.*;
 import game.network.packet.ResponsePacket;
 import game.tnk.Game;
 import openfl.errors.Error;
@@ -48,7 +50,20 @@ class Server extends EventDispatcher
     
     private function initPacketMapping()
     {
-        // Chat
+        _responsedMapping[Command.CMD_RESP_LOGIN]                       = LoginResponse;
+        _responsedMapping[Command.CMD_RESP_USERINFO]                    = RespUserinfo;
+        _responsedMapping[Command.CMD_RESP_SKILL]                       = RespSkillInfo;
+        
+        //PvP
+        _responsedMapping[Command.CMD_RESP_ENTER_PVP]                   = RespPvPEnter;
+        _responsedMapping[Command.CMD_RESP_WIN_PVP]                     = RespPvPWin;
+        _responsedMapping[Command.CMD_RESP_LOSE_PVP]                    = RespPvPLose;
+        _responsedMapping[Command.CMD_RESP_FINDER_PVP]                 	= RespPvPFinder;
+        _responsedMapping[Command.CMD_RESP_PVP_NEXT]                	= RespPvPNext;
+        _responsedMapping[Command.CMD_RESP_PVP_GROW]                    = RespPvPGrow;
+        _responsedMapping[Command.CMD_RESP_PVP_HOLD]    		        = RespPvPHold;
+        _responsedMapping[Command.CMD_RESP_PVP_FALL]	        	    = RespPvPFall;
+		// Statistics
     }
     
     public function isConnected():Bool
@@ -120,8 +135,6 @@ class Server extends EventDispatcher
         if (_socket.bytesAvailable >= 4)
         {
             packetHeader = new PacketHeader();
-
-
             packetHeader.length = _socket.readShort();
             packetHeader.command = _socket.readShort();
 
@@ -153,10 +166,6 @@ class Server extends EventDispatcher
     {
         
         Log.info("Server connected");
-        
-        #if TESTPHOBIEN
-        Log.info("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        #end
         dispatchEvent(event);
     }
     
