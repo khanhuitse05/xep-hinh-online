@@ -17,8 +17,9 @@ import User.User;
 
 public class SocketServerHandler extends SimpleChannelHandler
 {
-	public static ConcurrentHashMap<Channel, Integer> UnknownConnections = new ConcurrentHashMap<Channel, Integer>();
-	//public static int m_nLastCheckDumpConnection;
+	public static ConcurrentHashMap<Channel, Integer>	UnknownConnections	= new ConcurrentHashMap<Channel, Integer>();
+
+	// public static int m_nLastCheckDumpConnection;
 
 	// @Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e)
@@ -36,7 +37,7 @@ public class SocketServerHandler extends SimpleChannelHandler
 		User pUser = (User) ctx.getAttachment();
 		if (pUser != null)
 		{
-			//pUser.handleDisconnect(false);
+			// pUser.handleDisconnect(false);
 		}
 		UnknownConnections.remove(e.getChannel());
 		System.out.println("=>> CLIENT DISCONNECTED !!!");
@@ -47,38 +48,49 @@ public class SocketServerHandler extends SimpleChannelHandler
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
 			throws Exception
 	{
+		System.out.println("RECEIVE MESSAGE");
+
 		Channel channel = e.getChannel();
 		Player player = (Player) ctx.getAttachment();
 		ChannelBuffer buffer = ((ChannelBuffer) e.getMessage());
+		
 		try
 		{
+			System.out.println("in try");
+
 			if (player != null)
 			{
-				System.out.println("player != null") ;
-				
-				if (ClientController.AllPlayers.get(player) == player)
+				System.out.println("player != null");
+
+				//if (ConnectionManager.AllPlayers.get(player) == player)
 				{
 					player.HandleBuffer(buffer);
 				}
-				else
+				//else
 				{
-					//pUser.handleDisconnect(true);
+					// pUser.handleDisconnect(true);
 				}
 			}
+			
 			else
 			{
-				System.out.println("player == null") ;
-				ChannelBuffer bufferOut = ConnectionManager.GetInstance().PlayerLogin(buffer, ctx, e);
+				System.out.println("player == null");
+				ChannelBuffer bufferOut = ConnectionManager.GetInstance()
+						.PlayerLogin(buffer, ctx, e);
 				player = (Player) ctx.getAttachment();
-				if (player != null)
+				
+				//if (player != null) 
 				{
-					if (bufferOut != null)
+					System.out.println("else player != null");
+					//if (bufferOut != null)
 					{
+						System.out.println("bufferOut == null");
 						UnknownConnections.remove(channel);
-						player.WriteToClient(bufferOut);
+						//player.WriteToClient(bufferOut);
 					}
 				}
 			}
+			
 		}
 		catch (Exception ex)
 		{

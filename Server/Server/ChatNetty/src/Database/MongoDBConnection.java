@@ -2,15 +2,29 @@ package Database;
 
 import java.net.UnknownHostException;
 
+import Player.PlayerInformation;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 public class MongoDBConnection
 {
-	private static MongoClient Instance =  null;
-	
+	final private String		DB_ID			= "ID";
+	final private String		DB_IDFacebook	= "FBID";
+	final private String		DB_Gold			= "Gold";
+	final private String		DB_Exp			= "Exp";
+	final private String		DB_Name			= "Name";
+	final private String		DB_Skills		= "Skills";
+
+	private static MongoClient	Instance		= null;
+	private static DBCollection	Collection;
+
 	public static MongoClient GetInstance()
 	{
-		if(Instance == null)
+		if (Instance == null)
 		{
 			try
 			{
@@ -21,10 +35,75 @@ public class MongoDBConnection
 				e.printStackTrace();
 			}
 		}
-		
+
 		return Instance;
 	}
-	
-	
-	
+
+	public void Insert(PlayerInformation info)
+	{
+		BasicDBObject document = new BasicDBObject();
+		document.put(DB_ID, info.getIDPlayer());
+		document.put(DB_IDFacebook, info.getIDFaceBook());
+		document.put(DB_Exp, info.getExp());
+		document.put(DB_Name, info.getName());
+		document.put(DB_Gold, info.getGold());
+
+		BasicDBObject documentDetail = new BasicDBObject();
+		for (int i = 0; i < 10; i++)
+		{
+			documentDetail.put(Integer.toString(i), info.getSkills()[i]);
+		}
+
+		document.put(DB_Skills, documentDetail);
+		Collection.insert(documentDetail);
+	}
+
+	public void Update(PlayerInformation oldValue, PlayerInformation newValue)
+	{
+		BasicDBObject newDocument = new BasicDBObject();
+
+		BasicDBObject skills = new BasicDBObject();
+		for (int i = 0; i < 10; i++)
+		{
+			skills.put(Integer.toString(i), newValue.getSkills()[i]);
+		}
+
+		newDocument.append(
+				"$set",
+				new BasicDBObject().append(DB_Exp, newValue.getIDPlayer())
+						.append(DB_Gold, newValue.getGold())
+						.append(DB_Skills, skills));
+
+		BasicDBObject searchQuery = new BasicDBObject().append(DB_ID,
+				oldValue.getIDPlayer());
+
+		Collection.update(searchQuery, newDocument);
+	}
+
+	public PlayerInformation Query(String id)
+	{
+
+		PlayerInformation info = new PlayerInformation();
+		BasicDBObject whereQuery = new BasicDBObject();
+		whereQuery.put(DB_ID, id);
+
+		DBCursor cursor = Collection.find(whereQuery);
+
+		while (cursor.hasNext())
+		{
+			DBObject result = cursor.next();
+			info.setExp((int) result.get(DB_Exp));
+			info.setGold((int) result.get(DB_Gold));
+			info.setIDFaceBook(result.get(DB_IDFacebook).toString());
+			info.setIDPlayer(result.get(DB_ID).toString());
+			info.setName(result.get(DB_Name).toString());
+			info.setExp((int) result.get(DB_Exp));
+
+			int[] skills = new int[10];
+			skills = (int[]) result.get(DB_Skills);
+			info.setSkills(skills);
+		}
+
+		return info;
+	}
 }
