@@ -13,7 +13,7 @@ import org.jboss.netty.handler.execution.OrderedMemoryAwareThreadPoolExecutor;
 
 public class SocketServer 
 {
-	public  static String   IPAddress  = "192.168.1.167";
+	public  static String   IPAddress  = "192.168.0.104";
 	public  static int      Port = 8080;
 	 
 	public static void main(String[] args) throws Exception
