@@ -35,7 +35,6 @@ class HomeView extends SceneView
 	{
 		super();
 		//this.addEventListener(Event.ENTER_FRAME, gameLoop);
-		// init
 		init();
 	}
 	/**
@@ -117,7 +116,7 @@ class HomeView extends SceneView
 	 */
 	private function onMission(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.MISSION);
+		Game.displayManager.toScreen(ScreenID.POPUP_LOGIN);
 	}
 	
 }

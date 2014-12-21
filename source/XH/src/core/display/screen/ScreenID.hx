@@ -1,20 +1,16 @@
 
 package core.display.screen;
 
+import core.display.popup.PopupID;
 import core.display.scene.SceneID;
+import popup.login.*;
 import scene.battle.*;
-import scene.friendplay.FriendPlay;
-import scene.friendplay.FriendPlayView;
-import scene.home.Home;
-import scene.home.HomeView;
-import scene.loading.LoadFist;
-import scene.loading.LoadFistView;
-import scene.login.Login;
-import scene.login.LoginView;
-import scene.mission.Mission;
-import scene.mission.MissionView;
-import scene.singleplay.SinglePlay;
-import scene.singleplay.SinglePlayView;
+import scene.friendplay.*;
+import scene.home.*;
+import scene.loading.*;
+import scene.login.*;
+import scene.mission.*;
+import scene.singleplay.*;
 
 /**
  * ...
@@ -30,6 +26,9 @@ class ScreenID
     public static var SINGLEPLAY :          SceneID = new SceneID(SinglePlay, SinglePlayView);
     public static var FRIENDPLAY :          SceneID = new SceneID(FriendPlay, FriendPlayView);
     public static var MISSION :           	SceneID = new SceneID(Mission, MissionView);
+	
+	// popup
+    public static var POPUP_LOGIN :           	PopupID = new PopupID(LoginPopup);
     
     public function new()
     {

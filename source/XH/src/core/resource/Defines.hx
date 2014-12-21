@@ -60,7 +60,9 @@ class Defines
 	inline public static var GFX_SKILL_CLEAR:Int		= 46;
 	inline public static var GFX_SKILL_RAIN:Int			= 47;
 	inline public static var GFX_SKILL_001:Int			= 48;
-	inline public static var MAX_SPRITE:Int 			= 49;
+	inline public static var GFX_UI_POPUP_TOP:Int		= 49;
+	inline public static var GFX_UI_POPUP_LEFT:Int		= 50;
+	inline public static var MAX_SPRITE:Int 			= 51;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int = 0;
 	inline public static var GFX_BRICK_002:Int = 1;

@@ -1,5 +1,6 @@
 package game.gameobject.popupobject;
 
+import core.resource.Defines;
 import game.tnk.Game;
 import openfl.display.Sprite;
 
@@ -7,27 +8,24 @@ import openfl.display.Sprite;
  * ...
  * @author KhanhTN
  */
-class PTop extends Sprite
+class PTop extends PBorder
 {
-
-	private var mSize:Int;
 	public function new() 
 	{
 		super();
-		super();
-		var _spr:Sprite = Game.resource.getSprite(0);
-		_spr.x = _spr.width / 2;
-		_spr.y = _spr.height / 2;
+		var _spr:Sprite = Game.resource.getSprite(Defines.GFX_UI_POPUP_TOP);
+		_spr.x = 0 - _spr.width / 2;
+		_spr.y = 0 - _spr.height / 2;
 		this.addChild(_spr);
-		mSize = _spr.height;
+		mSize = _spr.width;
 	}
-	public function setWidth(_s:Int):Void
+	override public function setWidth(_s:Int):Void
 	{
-		_spr.x = 0 - _s / 2;
+		this.scaleX = _s / mSize;
 	}
-	public function setHeight(_s:Int):Void
+	override public function setHeight(_s:Int):Void
 	{
-		this.scaleY = _s / mSize;
+		this.y = 0 - _s / 2;
 	}
 	
 }

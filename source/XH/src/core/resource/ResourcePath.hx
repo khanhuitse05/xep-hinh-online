@@ -57,6 +57,8 @@ class ResourcePath
 		"img/gfx/skill/skillclear.png",
 		"img/gfx/skill/skillrain.png",
 		"img/gfx/skill/skill001.png",
+		"img/gfx/ui/popuptop.png",	//49
+		"img/gfx/ui/popupright.png",
     ];
 	public static var BITMAPDATA_PATH =
     [
