@@ -15,7 +15,7 @@ class RepFall extends RequestPacket
 	private var block:InfoBlock;
 	public function new(_block:InfoBlock) 
 	{
-		super(Command.CMD_REQ_PVP_FALL);
+		super(Command.CMD_PVP_FALL);
 		block = _block;
 	}
 	override public function encode(): ByteArray {

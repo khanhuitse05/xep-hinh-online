@@ -22,9 +22,9 @@ class RespPvPFall extends ResponsePacket
         var _id:Int             = data.readInt();
 		Game.data.playerData.dataPVP.dataEnemy.mFallBlock = new InfoBlock(_id, BlockDirect.TOP);
 		Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mDirect = data.readInt();
-		Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mSkill = data.readInt();
 		Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mRow = data.readInt();
 		Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mColumn = data.readInt();
+		Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mSkill = data.readInt();
         Game.data.playerData.dataPVP.dataEnemy.isFall = true;
     }
 }

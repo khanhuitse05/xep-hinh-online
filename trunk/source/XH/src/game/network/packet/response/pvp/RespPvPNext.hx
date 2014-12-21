@@ -22,6 +22,8 @@ class RespPvPNext extends ResponsePacket
         var _id:Int             = data.readInt();
 		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock = new InfoBlock(_id, BlockDirect.TOP);
 		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mDirect = data.readInt();
+		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mRow = data.readInt();
+		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mColumn = data.readInt();
 		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill = data.readInt();
         Game.data.playerData.dataPVP.dataEnemy.isNext = true;
     }

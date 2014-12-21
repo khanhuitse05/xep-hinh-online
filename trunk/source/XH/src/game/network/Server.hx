@@ -50,19 +50,19 @@ class Server extends EventDispatcher
     
     private function initPacketMapping()
     {
-        _responsedMapping[Command.CMD_RESP_LOGIN]                       = LoginResponse;
-        _responsedMapping[Command.CMD_RESP_USERINFO]                    = RespUserinfo;
-        _responsedMapping[Command.CMD_RESP_SKILL]                       = RespSkillInfo;
+        _responsedMapping[Command.CMD_LOGIN]                       = LoginResponse;
+        _responsedMapping[Command.CMD_USERINFO]                    = RespUserinfo;
+        _responsedMapping[Command.CMD_SKILL]                       = RespSkillInfo;
         
         //PvP
-        _responsedMapping[Command.CMD_RESP_ENTER_PVP]                   = RespPvPEnter;
-        _responsedMapping[Command.CMD_RESP_WIN_PVP]                     = RespPvPWin;
-        _responsedMapping[Command.CMD_RESP_LOSE_PVP]                    = RespPvPLose;
-        _responsedMapping[Command.CMD_RESP_FINDER_PVP]                 	= RespPvPFinder;
-        _responsedMapping[Command.CMD_RESP_PVP_NEXT]                	= RespPvPNext;
-        _responsedMapping[Command.CMD_RESP_PVP_GROW]                    = RespPvPGrow;
-        _responsedMapping[Command.CMD_RESP_PVP_HOLD]    		        = RespPvPHold;
-        _responsedMapping[Command.CMD_RESP_PVP_FALL]	        	    = RespPvPFall;
+        _responsedMapping[Command.CMD_ENTER_PVP]                   = RespPvPEnter;
+        _responsedMapping[Command.CMD_WIN_PVP]                     = RespPvPWin;
+        _responsedMapping[Command.CMD_LOSE_PVP]                    = RespPvPLose;
+        _responsedMapping[Command.CMD_FINDER_PVP]                 	= RespPvPFinder;
+        _responsedMapping[Command.CMD_PVP_NEXT]                	= RespPvPNext;
+        _responsedMapping[Command.CMD_PVP_GROW]                    = RespPvPGrow;
+        _responsedMapping[Command.CMD_PVP_HOLD]    		        = RespPvPHold;
+        _responsedMapping[Command.CMD_PVP_FALL]	        	    = RespPvPFall;
 		// Statistics
     }
     
@@ -79,6 +79,7 @@ class Server extends EventDispatcher
     private function onDisconnected(event:Event):Void
     {
         Log.info("Server disconnected");
+        Game.data.playerData.dataGame.online = false;
         this.dispatchEvent(event);
     }
     
@@ -102,6 +103,7 @@ class Server extends EventDispatcher
     
     private function readPacket():Void
     {
+		trace("Receive packet");
         if (_currentHeader == null) 
             _currentHeader = readHeader();
         if (_currentHeader != null && _socket.bytesAvailable >= _currentHeader.length)
@@ -132,12 +134,11 @@ class Server extends EventDispatcher
     private function readHeader():PacketHeader
     {
         var packetHeader:PacketHeader = null;
-        if (_socket.bytesAvailable >= 4)
+        //if (_socket.bytesAvailable >= 4)
         {
             packetHeader = new PacketHeader();
             packetHeader.length = _socket.readShort();
             packetHeader.command = _socket.readShort();
-
         }
         return packetHeader;
     }
@@ -152,7 +153,7 @@ class Server extends EventDispatcher
             header.endian = Endian.BIG_ENDIAN;
             header.writeShort(data.length);
             header.writeShort(packet.getCommand());
-            _socket.writeByte(0);            //for server recognize this packet is not a request policy file of flash player 
+            //_socket.writeByte(0);            //for server recognize this packet is not a request policy file of flash player 
             _socket.writeBytes(header);
             _socket.writeBytes(data);
             _socket.flush();
@@ -166,6 +167,7 @@ class Server extends EventDispatcher
     {
         
         Log.info("Server connected");
+        Game.data.playerData.dataGame.online = true;
         dispatchEvent(event);
     }
     
@@ -181,6 +183,7 @@ class Server extends EventDispatcher
         if (isConnected())
         {
             Log.info("Close connect to server");
+			Game.data.playerData.dataGame.online = false;			
             _socket.close();
         }
     }

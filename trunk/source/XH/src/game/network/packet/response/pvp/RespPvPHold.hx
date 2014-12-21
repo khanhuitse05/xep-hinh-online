@@ -27,6 +27,8 @@ class RespPvPHold extends ResponsePacket
 		{
 			Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = new InfoBlock(_id, BlockDirect.TOP);
 			Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mDirect = data.readInt();
+			Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mRow = data.readInt();
+			Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mColumn = data.readInt();
 			Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mSkill = data.readInt();
 		}
         Game.data.playerData.dataPVP.dataEnemy.isHold = true;
