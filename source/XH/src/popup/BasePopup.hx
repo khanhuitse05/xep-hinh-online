@@ -1,33 +1,42 @@
-package core.display.popup;
-import core.display.screen.ScreenBase;
-import core.display.screen.ScreenView;
-import flash.events.Event;
+package popup;
+import core.display.popup.PopupBase;
 import game.tnk.Game;
 import openfl.display.Sprite;
 import openfl.events.MouseEvent;
-import tweenx909.TweenX;
 
 /**
  * ...
- * @author anhtinh
+ * @author KhanhTN
  */
-class PopupBase extends ScreenView
+class BasePopup extends PopupBase
 {
-    public function new(showDarkBg : Bool = true) 
+	private var mBg:Sprite;
+	public var mWidth:Int;
+	public var mHeight:Int;
+	public var bTop:Sprite;
+	public var bBottom:Sprite;
+	public var bLeft:Sprite;
+	public var bRight:Sprite;
+	
+	public function new(_width:Int, _height:Int) 
+	{
+		super(true);		
+		mWidth = _width;
+		mHeight = _height;
+		// bg
+		mBg = new Sprite();
+		this.addChild(mBg);
+		mBg.x = Game.GAME_WIDTH / 2;
+		mBg.y = Game.GAME_HEIGHT / 2;
+		
+		bTop = new 
+	}
+	public function init() 
     {
-        super();
         
-        this.alpha = 0;
-        this.visible = false;
-        this.addEventListener(MouseEvent.CLICK, onHide);
-        if (showDarkBg) {
-            this.graphics.beginFill(0, 0.3);
-            this.graphics.drawRect(0, 0, Game.GAME_WIDTH,Game.GAME_HEIGHT);
-            this.graphics.endFill();
-        }
     }
 
-    private function onHide(e:Event):Void 
+    override private function onHide(e:Event):Void 
     {
         transitionOut();
     }
@@ -57,4 +66,5 @@ class PopupBase extends ScreenView
     {
         this.visible = false;
     }
+	
 }

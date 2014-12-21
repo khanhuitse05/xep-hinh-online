@@ -15,7 +15,7 @@ class RepNext extends RequestPacket
 	private var block:InfoBlock;
 	public function new(_block:InfoBlock) 
 	{
-		super(Command.CMD_REQ_PVP_NEXT);
+		super(Command.CMD_PVP_NEXT);
 		block = _block;
 	}
 	override public function encode(): ByteArray {

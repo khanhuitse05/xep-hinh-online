@@ -14,7 +14,7 @@ class RepGrow extends RequestPacket
 	private var gift:Int;
 	public function new(_gift:Int) 
 	{
-		super(Command.CMD_REQ_PVP_GROW);
+		super(Command.CMD_PVP_GROW);
 		gift = _gift;
 	}
 	override public function encode(): ByteArray {

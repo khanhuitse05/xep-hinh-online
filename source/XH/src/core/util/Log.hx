@@ -6,7 +6,7 @@ import flash.external.ExternalInterface;
 
 /**
  * ...
- * @author anhtinh
+ * @author KhanhTN
  */
 class Log
 {
