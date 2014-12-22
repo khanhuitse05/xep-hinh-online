@@ -1,6 +1,8 @@
 package game.network.packet.response.user ;
 
 import game.network.packet.ResponsePacket;
+import game.tnk.Game;
+import openfl.utils.ByteArray;
 
 /**
  * ...
@@ -14,4 +16,12 @@ class LoginResponse extends ResponsePacket
 		
 	}
 	
+	override public function decode(data : ByteArray) : Void 
+    {        
+		trace("respon login");
+		var len: Int;
+		len = data.readShort();
+		trace("========================= len: " + len);
+		trace("========================= String: " + data.readUTFBytes(len));
+    }
 }
