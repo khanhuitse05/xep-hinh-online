@@ -59,6 +59,10 @@ class ResourcePath
 		"img/gfx/skill/skill001.png",
 		"img/gfx/ui/popuptop.png",	//49
 		"img/gfx/ui/popupright.png",
+		"img/gfx/ui/btnsignup.png",
+		"img/gfx/ui/btnfacebook.png",
+		"img/gfx/ui/pntextusername.png",
+		"img/gfx/ui/pntextusername.png",
     ];
 	public static var BITMAPDATA_PATH =
     [
