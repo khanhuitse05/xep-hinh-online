@@ -1,6 +1,7 @@
 package Connection;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -15,7 +16,7 @@ public class ConnectionManager
 	private static ConnectionManager					Instance	= new ConnectionManager();
 	private static HashMap<Integer, Player>				UserOnline;
 	private static HashMap<Integer, Player>				UserFindMatch;
-	private static HashMap<Integer, Lobby>				CurrentLobby;
+	public static ConcurrentHashMap<String, Lobby>		CurrentLobby = new ConcurrentHashMap<String, Lobby>();
 	public static ConcurrentHashMap<Integer, Player>	AllPlayers	= new ConcurrentHashMap();
 	//private static MongoDBConnection M
 
@@ -59,6 +60,10 @@ public class ConnectionManager
 			
 			ctx.setAttachment(newPlayer);
 			AllPlayers.put(newPlayer.getPlayerID(), newPlayer);
+			
+			// only for testing
+			// test send data between 2 device
+			JoinLobby(newPlayer);
 			return resLogin;
 		}
 		else if(cmd == Command.CMD_SIGNUP)
@@ -84,5 +89,41 @@ public class ConnectionManager
 	{
 		UserFindMatch.put(playerFindMatch.getPlayerID(), playerFindMatch);
 
+	}
+	
+	// Player join lobby
+	public void JoinLobby(Player player)
+	{
+		boolean isJoined = false;
+		// Loop in current lobby for searching empty slot
+		for(Entry<String, Lobby> entry: CurrentLobby.entrySet())
+		{
+			Lobby tempLobby = entry.getValue();
+			// Lobby is full
+			if(tempLobby.LoobyFull())
+			{
+				break;
+			}
+			else
+			{
+				// Join
+				if(tempLobby.EnterLobby(player))
+				{
+					isJoined = true;
+				}
+			}
+		}
+		
+		// All rooms are full -> create new lobby
+		if(!isJoined)
+		{
+			Lobby  lobby = new Lobby();
+			// Join new lobby
+			lobby.EnterLobby(player);
+			isJoined = true;
+			// Put new lobby in CurrentLobby
+			CurrentLobby.put(lobby.getLobbyID(), lobby);
+			System.out.print("Joning: isJoined = " + isJoined);
+		}
 	}
 }
