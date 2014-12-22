@@ -60,9 +60,9 @@ public class SocketServerHandler extends SimpleChannelHandler
 
 			if (player != null)
 			{
-				System.out.println("player != null");
+				System.out.println("player != null - ID: " + player.getPlayerID() );
 
-				//if (ConnectionManager.AllPlayers.get(player) == player)
+				if (ConnectionManager.AllPlayers.get(player.getPlayerID()) == player)
 				{
 					player.HandleBuffer(buffer);
 				}
@@ -86,7 +86,7 @@ public class SocketServerHandler extends SimpleChannelHandler
 					{
 						System.out.println("bufferOut == null");
 						UnknownConnections.remove(channel);
-						//player.WriteToClient(bufferOut);
+						player.WriteToClient(bufferOut);
 					}
 				}
 			}
