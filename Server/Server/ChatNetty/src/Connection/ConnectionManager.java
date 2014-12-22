@@ -69,6 +69,8 @@ public class ConnectionManager
 		else if(cmd == Command.CMD_SIGNUP)
 		{
 			// Create new data and save in server
+			System.out.println(" Handle sign up");
+			ChannelBuffer resLogin = newPlayer.HandleSignUpRes(channelBuffer);
 			
 		}
 		
