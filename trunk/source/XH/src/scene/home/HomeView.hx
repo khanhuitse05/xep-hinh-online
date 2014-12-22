@@ -6,6 +6,7 @@ import core.resource.Defines;
 import core.resource.ResourceID;
 import core.sprites.Animx;
 import game.gameobject.background.Background;
+import game.network.packet.request.login.RepLogin;
 import game.tnk.Game;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
@@ -36,6 +37,7 @@ class HomeView extends SceneView
 		super();
 		//this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		init();
+		Game.server.sendPacket(new RepLogin("ping"));
 	}
 	/**
 	 * 
