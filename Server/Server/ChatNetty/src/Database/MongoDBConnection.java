@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import Player.PlayerInformation;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -12,23 +13,32 @@ import com.mongodb.MongoClient;
 
 public class MongoDBConnection
 {
-	final private String		DB_ID			= "ID";
-	final private String		DB_IDFacebook	= "FBID";
-	final private String		DB_Gold			= "Gold";
-	final private String		DB_Exp			= "Exp";
-	final private String		DB_Name			= "Name";
-	final private String		DB_Skills		= "Skills";
+	final private static String			DB_DBName				= "TetrisOnline";
+	final private static String			DB_CollectionName		= "PLAYER";
 
-	private static MongoClient	Instance		= null;
-	private static DBCollection	Collection;
+	final private String				DB_ID					= "ID";
+	final private String				DB_IDFacebook			= "FBID";
+	final private String				DB_Gold					= "Gold";
+	final private String				DB_Exp					= "Exp";
+	final private String				DB_Name					= "Name";
+	final private String				DB_Skills				= "Skills";
+	final private String				DB_Elo					= "Elo";
 
-	public static MongoClient GetInstance()
+	private static MongoClient			MongoClientConnection	= null;
+	private static MongoDBConnection	Instance				= null;
+
+	private static DBCollection			Collection;
+
+	public static MongoDBConnection GetInstance()
 	{
 		if (Instance == null)
 		{
 			try
 			{
-				Instance = new MongoClient("localhost");
+				Instance = new MongoDBConnection();
+				MongoClientConnection = new MongoClient("localhost");
+				DB db = MongoClientConnection.getDB(DB_DBName);
+				Collection = db.getCollection(DB_CollectionName);
 			}
 			catch (UnknownHostException e)
 			{
@@ -47,6 +57,7 @@ public class MongoDBConnection
 		document.put(DB_Exp, info.getExp());
 		document.put(DB_Name, info.getName());
 		document.put(DB_Gold, info.getGold());
+		document.put(DB_Elo, info.getElo());
 
 		BasicDBObject documentDetail = new BasicDBObject();
 		for (int i = 0; i < 10; i++)
@@ -72,7 +83,8 @@ public class MongoDBConnection
 				"$set",
 				new BasicDBObject().append(DB_Exp, newValue.getIDPlayer())
 						.append(DB_Gold, newValue.getGold())
-						.append(DB_Skills, skills));
+						.append(DB_Skills, skills)
+						.append(DB_Elo, newValue.getElo()));
 
 		BasicDBObject searchQuery = new BasicDBObject().append(DB_ID,
 				oldValue.getIDPlayer());
@@ -82,7 +94,6 @@ public class MongoDBConnection
 
 	public PlayerInformation Query(String id)
 	{
-
 		PlayerInformation info = new PlayerInformation();
 		BasicDBObject whereQuery = new BasicDBObject();
 		whereQuery.put(DB_ID, id);
@@ -98,10 +109,10 @@ public class MongoDBConnection
 			info.setIDPlayer(result.get(DB_ID).toString());
 			info.setName(result.get(DB_Name).toString());
 			info.setExp((int) result.get(DB_Exp));
-
-			int[] skills = new int[10];
-			skills = (int[]) result.get(DB_Skills);
-			info.setSkills(skills);
+			info.setElo((int) result.get(DB_Elo));
+			// int[] skills = news int[10];
+			// skills = (int[]) result.get(DB_Skills);
+			// info.setSkills(skills);
 		}
 
 		return info;

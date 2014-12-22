@@ -7,6 +7,7 @@ public class PlayerInformation
 	private int		Gold;
 	private int		Exp;
 	private String	Name;
+	private int		Elo;
 	private int[]	Skills	= new int[10];
 
 	public String getIDPlayer()
@@ -72,4 +73,13 @@ public class PlayerInformation
 		IDFaceBook = iDFaceBook;
 	}
 
+	public int getElo()
+	{
+		return Elo;
+	}
+
+	public void setElo(int elo)
+	{
+		Elo = elo;
+	}
 }
