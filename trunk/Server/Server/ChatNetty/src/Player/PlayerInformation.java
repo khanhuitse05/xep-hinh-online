@@ -10,6 +10,16 @@ public class PlayerInformation
 	private int		Elo;
 	private int[]	Skills	= new int[10];
 
+	public PlayerInformation()
+	{
+		IDPlayer = "";
+		IDFaceBook = "";
+		Gold = 0;
+		Exp = 0;
+		Name = "this is my name";
+		Elo = 0;
+	}
+	
 	public String getIDPlayer()
 	{
 		return IDPlayer;

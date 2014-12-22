@@ -59,31 +59,31 @@ public class MongoDBConnection
 		document.put(DB_Gold, info.getGold());
 		document.put(DB_Elo, info.getElo());
 
-		BasicDBObject documentDetail = new BasicDBObject();
-		for (int i = 0; i < 10; i++)
-		{
-			documentDetail.put(Integer.toString(i), info.getSkills()[i]);
-		}
-
-		document.put(DB_Skills, documentDetail);
-		Collection.insert(documentDetail);
+//		BasicDBObject documentDetail = new BasicDBObject();
+//		for (int i = 0; i < 10; i++)
+//		{
+//			documentDetail.put(Integer.toString(i), info.getSkills()[i]);
+//		}
+//
+//		document.put(DB_Skills, documentDetail);
+		System.out.println("============================" + Collection.insert(document).toString());
 	}
 
 	public void Update(PlayerInformation oldValue, PlayerInformation newValue)
 	{
 		BasicDBObject newDocument = new BasicDBObject();
 
-		BasicDBObject skills = new BasicDBObject();
-		for (int i = 0; i < 10; i++)
-		{
-			skills.put(Integer.toString(i), newValue.getSkills()[i]);
-		}
+//		BasicDBObject skills = new BasicDBObject();
+//		for (int i = 0; i < 10; i++)
+//		{
+//			skills.put(Integer.toString(i), newValue.getSkills()[i]);
+//		}
 
 		newDocument.append(
 				"$set",
 				new BasicDBObject().append(DB_Exp, newValue.getIDPlayer())
 						.append(DB_Gold, newValue.getGold())
-						.append(DB_Skills, skills)
+						//.append(DB_Skills, skills)
 						.append(DB_Elo, newValue.getElo()));
 
 		BasicDBObject searchQuery = new BasicDBObject().append(DB_ID,

@@ -8,10 +8,13 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 
 import Connection.ConnectionManager;
+import Database.MongoDBConnection;
 
 public class Player
 {
 	private final short			LOGIN_BUFFER_SIZE	= 200;
+	private final short			SIGNUP_BUFFER_SIZE	= 150;
+	private final short			SIGNUP_DEFAULT_ELO	= 1000;
 
 	private Channel				ChannelPlayer;
 	private Integer				PlayerID;
@@ -76,21 +79,22 @@ public class Player
 			break;
 		case 5:
 			// data in game
-			//ConnectionManager.GetInstance().ControlData(LobbyIndex, this,	buffer);
+			// ConnectionManager.GetInstance().ControlData(LobbyIndex, this,
+			// buffer);
 			break;
 		case Command.CMD_REQ_PVP_NEXT:
 		case Command.CMD_REQ_PVP_FALL:
 		case Command.CMD_PVP_GROW:
 		case Command.CMD_PVP_HOLD:
 			// Set back to the sender
-			//HandleIngameNextRes(buffer);
+			// HandleIngameNextRes(buffer);
 
 			// test send login
 			// WriteToClient(HandleLoginRes(buffer));
-			
+
 			// Test Send to the opponent
-			
-			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID).TranfferData(this, buffer);
+			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
+					.TranfferData(this, buffer);
 			break;
 		}
 	}
@@ -130,11 +134,12 @@ public class Player
 
 	public void HandleIngameNextRes(ChannelBuffer buffer)
 	{
-//		System.out.println("Handle ingame request  - SEND BACK ...");
+		// System.out.println("Handle ingame request  - SEND BACK ...");
 		WriteToClient(buffer);
 		System.out.println("SEND BACK ...");
 	}
 
+	// Hanle login request
 	public ChannelBuffer HandleLoginRes(ChannelBuffer buffer)
 	{
 		ChannelBuffer tempBuffer = buffer.copy();
@@ -157,12 +162,43 @@ public class Player
 		// resLogin.writeBytes(info.getIDPlayer().getBytes(StandardCharsets.UTF_8));
 		resLogin.writeBytes(randomID.getBytes(StandardCharsets.UTF_8));
 
-//		System.out.println("readable byte: " + resLogin.readableBytes()
-//				+ "capacity" + resLogin.capacity() + "ID:" + randomID + "=LEN="
-//				+ randomID.getBytes(StandardCharsets.UTF_8).length + "=="
-//				+ idStringSize);
+		// System.out.println("readable byte: " + resLogin.readableBytes()
+		// + "capacity" + resLogin.capacity() + "ID:" + randomID + "=LEN="
+		// + randomID.getBytes(StandardCharsets.UTF_8).length + "=="
+		// + idStringSize);
 
 		// Information = info;
 		return resLogin;
+	}
+
+	// Handle sign up request
+	public ChannelBuffer HandleSignUpRes(ChannelBuffer buffer)
+	{
+		ChannelBuffer tempBuffer = buffer.copy();
+
+		// Read length and command
+		short len = tempBuffer.readShort();
+		short cmd = tempBuffer.readShort();
+
+		// Generate a new ID for new user
+		String newPlayerID = UUID.randomUUID().toString();
+		int idStringSize = newPlayerID.getBytes(StandardCharsets.UTF_8).length;
+
+		// Use PlayerInformation to store data
+		PlayerInformation playerInfo = new PlayerInformation();
+		playerInfo.setIDPlayer(newPlayerID);
+		playerInfo.setElo(SIGNUP_DEFAULT_ELO);
+
+		// Update to server
+		MongoDBConnection.GetInstance().Insert(playerInfo);
+
+		// Generate response for client
+		ChannelBuffer resSignUp = ChannelBuffers.buffer(SIGNUP_BUFFER_SIZE);
+		resSignUp.writeShort(idStringSize + 2);
+		resSignUp.writeShort(Command.CMD_LOGIN);
+		resSignUp.writeShort(idStringSize);
+		resSignUp.writeBytes(newPlayerID.getBytes(StandardCharsets.UTF_8));		
+		
+		return resSignUp;
 	}
 }
