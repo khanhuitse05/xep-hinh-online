@@ -15,7 +15,7 @@ public class Player
 
 	private Channel				ChannelPlayer;
 	private Integer				PlayerID;
-	private Integer				LobbyIndex;
+	private String				LobbyID;
 	private PlayerInformation	Information;
 
 	public Player(Channel channel)
@@ -27,6 +27,16 @@ public class Player
 	public Integer getPlayerID()
 	{
 		return PlayerID;
+	}
+
+	public String getLobbyID()
+	{
+		return LobbyID;
+	}
+
+	public void setLobbyID(String lobbyID)
+	{
+		LobbyID = lobbyID;
 	}
 
 	public void HandleBuffer(ChannelBuffer buffer)
@@ -66,17 +76,21 @@ public class Player
 			break;
 		case 5:
 			// data in game
-			ConnectionManager.GetInstance().ControlData(LobbyIndex, this,
-					buffer);
+			//ConnectionManager.GetInstance().ControlData(LobbyIndex, this,	buffer);
 			break;
 		case Command.CMD_REQ_PVP_NEXT:
 		case Command.CMD_REQ_PVP_FALL:
 		case Command.CMD_PVP_GROW:
 		case Command.CMD_PVP_HOLD:
-			HandleIngameNextRes(buffer);
+			// Set back to the sender
+			//HandleIngameNextRes(buffer);
 
 			// test send login
 			// WriteToClient(HandleLoginRes(buffer));
+			
+			// Test Send to the opponent
+			
+			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID).TranfferData(this, buffer);
 			break;
 		}
 	}
@@ -116,7 +130,7 @@ public class Player
 
 	public void HandleIngameNextRes(ChannelBuffer buffer)
 	{
-		System.out.println("Handle ingame request  - SEND BACK ...");
+//		System.out.println("Handle ingame request  - SEND BACK ...");
 		WriteToClient(buffer);
 		System.out.println("SEND BACK ...");
 	}
@@ -143,10 +157,10 @@ public class Player
 		// resLogin.writeBytes(info.getIDPlayer().getBytes(StandardCharsets.UTF_8));
 		resLogin.writeBytes(randomID.getBytes(StandardCharsets.UTF_8));
 
-		System.out.println("readable byte: " + resLogin.readableBytes()
-				+ "capacity" + resLogin.capacity() + "ID:" + randomID + "=LEN="
-				+ randomID.getBytes(StandardCharsets.UTF_8).length + "=="
-				+ idStringSize);
+//		System.out.println("readable byte: " + resLogin.readableBytes()
+//				+ "capacity" + resLogin.capacity() + "ID:" + randomID + "=LEN="
+//				+ randomID.getBytes(StandardCharsets.UTF_8).length + "=="
+//				+ idStringSize);
 
 		// Information = info;
 		return resLogin;
