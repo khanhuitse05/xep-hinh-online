@@ -61,8 +61,9 @@ public class ConnectionManager
 			AllPlayers.put(newPlayer.getPlayerID(), newPlayer);
 			
 			// only for testing
-			// test send data between 2 device
+			// test send data between 2 device - delete after test
 			JoinLobby(newPlayer);
+			
 			return resLogin;
 		}
 		else if(cmd == Command.CMD_SIGNUP)
@@ -108,7 +109,9 @@ public class ConnectionManager
 			else
 			{
 				// Join
-				if(tempLobby.EnterLobby(player))
+				//if(tempLobby.EnterLobby(player))
+				// For testing join with elo
+				if(tempLobby.EnterLobbyWithElo(player))
 				{
 					isJoined = true;
 				}
@@ -120,7 +123,9 @@ public class ConnectionManager
 		{
 			Lobby  lobby = new Lobby();
 			// Join new lobby
-			lobby.EnterLobby(player);
+			//lobby.EnterLobby(player);
+			// For testing join with elo
+			lobby.EnterLobbyWithElo(player);				
 			isJoined = true;
 			// Put new lobby in CurrentLobby
 			CurrentLobby.put(lobby.getLobbyID(), lobby);

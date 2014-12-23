@@ -8,10 +8,13 @@ import Player.Player;
 
 public class Lobby
 {
+	private final int ELO_RANGE = 200;
+	
 	private Player	Player1;
 	private Player	Player2;
 	private boolean	IsFull;
 	private String	LobbyID;
+	private int MaxElo;
 
 	public String getLobbyID()
 	{
@@ -24,6 +27,64 @@ public class Lobby
 		LobbyID = UUID.randomUUID().toString();
 	}
 
+	public boolean EnterLobbyWithElo(Player player)
+	{
+		if (!IsFull)
+		{
+			if (Player1 == null)
+			{
+				if(Player2 == null)
+				{
+					System.out.println("=>> ELO IN RANGE 2 EMPTY" + player.getInformation().getElo());
+					Player1 = player;
+					Player1.setLobbyID(LobbyID);
+					IsFull = false;
+					return true;
+				}
+				else
+				{					
+					int player1Elo = player.getInformation().getElo();
+					int player2Elo = Player2.getInformation().getElo();
+					if(player1Elo >= (player2Elo - ELO_RANGE) && player1Elo <= (player2Elo + ELO_RANGE))
+					{
+						System.out.println("=>> ELO IN RANGE " + player1Elo);
+						Player1 = player;
+						Player1.setLobbyID(LobbyID);
+						IsFull = true;
+						return true;	
+					}
+					else
+					{
+						System.out.println("=>> ELO OUT OF RANGE");
+						IsFull = false;
+						return false;
+					}
+				}
+				
+			}
+			else if (Player2 == null)
+			{
+				int player1Elo = Player1.getInformation().getElo();
+				int player2Elo = player.getInformation().getElo();
+				if(player2Elo >= (player1Elo - ELO_RANGE) && player2Elo <= (player1Elo + ELO_RANGE))
+				{
+					System.out.println("=>> ELO IN RANGE 2" + player2Elo + " - " + player1Elo);
+					Player2 = player;
+					Player2.setLobbyID(LobbyID);
+					IsFull = true;
+					return true;	
+				}
+				else
+				{
+					System.out.println("=>> ELO OUT OF RANGE 2");
+					IsFull = false;
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public boolean EnterLobby(Player player)
 	{
 		if (!IsFull)
