@@ -21,6 +21,11 @@ public class Player
 	private String				LobbyID;
 	private PlayerInformation	Information;
 
+	public PlayerInformation getInformation()
+	{
+		return Information;
+	}
+
 	public Player(Channel channel)
 	{
 		ChannelPlayer = channel;
@@ -48,13 +53,13 @@ public class Player
 		int length = tempBuffer.readShort();
 		int command = tempBuffer.readShort();
 		int textLength = tempBuffer.readShort();
-		System.out.println("Sring: length"
-				+ textLength
-				+ "--index"
-				+ tempBuffer.readerIndex()
-				+ "--"
-				+ tempBuffer.toString(tempBuffer.readerIndex() + 2, textLength,
-						StandardCharsets.UTF_8));
+//		System.out.println("Sring: length"
+//				+ textLength
+//				+ "--index"
+//				+ tempBuffer.readerIndex()
+//				+ "--"
+//				+ tempBuffer.toString(tempBuffer.readerIndex() + 2, textLength,
+//						StandardCharsets.UTF_8));
 		tempBuffer.readerIndex(buffer.readerIndex());
 
 		System.out.println("command " + command + "-" + buffer.capacity());
@@ -155,9 +160,12 @@ public class Player
 		// Get data from DB
 		// Pass data to playerInformation		
 		PlayerInformation info = MongoDBConnection.GetInstance().Query(id);
+		
+		// Information
+		Information = info;
 		int idStringSize = info.getIDPlayer().getBytes(StandardCharsets.UTF_8).length;
 		
-		System.out.println("name: " + info.getName() + " elo:" + info.getElo());		
+		System.out.println("name: " + Information.getName() + " elo:" + Information.getElo());		
 		
 		// Return data
 		ChannelBuffer resLogin = ChannelBuffers.buffer(LOGIN_BUFFER_SIZE);
@@ -190,7 +198,10 @@ public class Player
 		PlayerInformation playerInfo = new PlayerInformation();
 		playerInfo.setIDPlayer(newPlayerID);
 		playerInfo.setElo(SIGNUP_DEFAULT_ELO);
-
+		
+		// Information
+		Information = playerInfo;
+		
 		// Update to server
 		MongoDBConnection.GetInstance().Insert(playerInfo);
 
