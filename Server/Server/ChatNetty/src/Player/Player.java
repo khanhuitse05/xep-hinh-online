@@ -142,32 +142,34 @@ public class Player
 	// Hanle login request
 	public ChannelBuffer HandleLoginRes(ChannelBuffer buffer)
 	{
-		ChannelBuffer tempBuffer = buffer.copy();
+		ChannelBuffer tempBuffer = buffer.copy();	
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
 		// short lenId = tempBuffer.readShort();
 		// String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
 		// StandardCharsets.UTF_8);
 
-		// PlayerInformation info = MongoDBConnection.GetInstance().Query(id);
+		// ID only for testing
+		String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
+		
+		// Get data from DB
+		// Pass data to playerInformation		
+		PlayerInformation info = MongoDBConnection.GetInstance().Query(id);
+		int idStringSize = info.getIDPlayer().getBytes(StandardCharsets.UTF_8).length;
+		
+		System.out.println("name: " + info.getName() + " elo:" + info.getElo());		
+		
+		// Return data
 		ChannelBuffer resLogin = ChannelBuffers.buffer(LOGIN_BUFFER_SIZE);
 
-		String randomID = UUID.randomUUID().toString();
-		int idStringSize = randomID.getBytes(StandardCharsets.UTF_8).length;
-
+		// Write length of data - include lenght of id(short 2) and id (string.length)
 		resLogin.writeShort(idStringSize + 2);
 		resLogin.writeShort(Command.CMD_LOGIN);
 
+		// Write ID length
 		resLogin.writeShort(idStringSize);
-		// resLogin.writeBytes(info.getIDPlayer().getBytes(StandardCharsets.UTF_8));
-		resLogin.writeBytes(randomID.getBytes(StandardCharsets.UTF_8));
-
-		// System.out.println("readable byte: " + resLogin.readableBytes()
-		// + "capacity" + resLogin.capacity() + "ID:" + randomID + "=LEN="
-		// + randomID.getBytes(StandardCharsets.UTF_8).length + "=="
-		// + idStringSize);
-
-		// Information = info;
+		// Writeplayer ID
+		resLogin.writeBytes(info.getIDPlayer().getBytes(StandardCharsets.UTF_8));
 		return resLogin;
 	}
 

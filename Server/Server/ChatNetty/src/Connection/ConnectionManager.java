@@ -45,7 +45,6 @@ public class ConnectionManager
 		if (cmd != Command.CMD_LOGIN || cmd != Command.CMD_SIGNUP)
 		{
 			System.out.println(" Wrong !!! command: " + cmd);
-			//return null;
 		}
 
 		Player newPlayer = new Player(e.getChannel());
