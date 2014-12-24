@@ -13,12 +13,13 @@ import Player.Player;
 
 public class ConnectionManager
 {
-	private static ConnectionManager					Instance	= new ConnectionManager();
+	private static ConnectionManager					Instance		= new ConnectionManager();
 	private static HashMap<Integer, Player>				UserOnline;
-	private static HashMap<Integer, Player>				UserFindMatch;
-	public static ConcurrentHashMap<String, Lobby>		CurrentLobby = new ConcurrentHashMap<String, Lobby>();
-	public static ConcurrentHashMap<Integer, Player>	AllPlayers	= new ConcurrentHashMap();
-	//private static MongoDBConnection M
+	private static ConcurrentHashMap<Integer, Player>	UserFindMatch	= new ConcurrentHashMap<Integer, Player>();
+	public static ConcurrentHashMap<String, Lobby>		CurrentLobby	= new ConcurrentHashMap<String, Lobby>();
+	public static ConcurrentHashMap<Integer, Player>	AllPlayers		= new ConcurrentHashMap();
+
+	// private static MongoDBConnection M
 
 	public static ConnectionManager GetInstance()
 	{
@@ -34,14 +35,13 @@ public class ConnectionManager
 		short cmd = temp.readShort();
 		// read cmd
 		cmd = temp.readShort();
-		
+
 		System.out.println("PlayerLogin " + cmd);
-		
-		
-		//channelBuffer.writeShort(cmd);		
-		//cmd = channelBuffer.readShort();		
-		//Integer strUserID = e.getChannel().getId();
-		
+
+		// channelBuffer.writeShort(cmd);
+		// cmd = channelBuffer.readShort();
+		// Integer strUserID = e.getChannel().getId();
+
 		if (cmd != Command.CMD_LOGIN || cmd != Command.CMD_SIGNUP)
 		{
 			System.out.println(" Wrong !!! command: " + cmd);
@@ -50,36 +50,37 @@ public class ConnectionManager
 		Player newPlayer = new Player(e.getChannel());
 
 		// Kiem tra la user cu hay moi
-		if(cmd == Command.CMD_LOGIN)
-		//if(cmd == Command.CMD_REQ_PVP_NEXT)
+		if (cmd == Command.CMD_LOGIN)
+		// if(cmd == Command.CMD_REQ_PVP_NEXT)
 		{
 			// Load data
 			System.out.println(" Return reslogin");
 			ChannelBuffer resLogin = newPlayer.HandleLoginRes(channelBuffer);
-			
+
 			ctx.setAttachment(newPlayer);
 			AllPlayers.put(newPlayer.getPlayerID(), newPlayer);
-			
+
 			// only for testing
 			// test send data between 2 device - delete after test
-			JoinLobby(newPlayer);
-			
+			// JoinLobby(newPlayer);
+
 			return resLogin;
 		}
-		else if(cmd == Command.CMD_SIGNUP)
+		else if (cmd == Command.CMD_SIGNUP)
 		{
 			// Create new data and save in server
 			System.out.println(" Handle sign up");
-			ChannelBuffer resLogin = newPlayer.HandleSignUpRes(channelBuffer);
-			
+			ChannelBuffer resSignUp = newPlayer.HandleSignUpRes(channelBuffer);
+
+			return resSignUp;
 		}
-		
-		
+
 		ctx.setAttachment(newPlayer);
 		AllPlayers.put(newPlayer.getPlayerID(), newPlayer);
-		System.out.println( "number " + AllPlayers.size() + newPlayer.getPlayerID());
+		System.out.println("number " + AllPlayers.size()
+				+ newPlayer.getPlayerID());
 		return channelBuffer;
-		//return newPlayer.ResLogin();
+		// return newPlayer.ResLogin();
 	}
 
 	public void ControlData(Integer lobbyKey, Player sender, ChannelBuffer data)
@@ -89,43 +90,46 @@ public class ConnectionManager
 
 	public void FindMatch(Player playerFindMatch)
 	{
+		// Put user in a list
 		UserFindMatch.put(playerFindMatch.getPlayerID(), playerFindMatch);
-
+		
+		// Find match
+		JoinLobby(playerFindMatch);
 	}
-	
+
 	// Player join lobby
 	public void JoinLobby(Player player)
 	{
 		boolean isJoined = false;
 		// Loop in current lobby for searching empty slot
-		for(Entry<String, Lobby> entry: CurrentLobby.entrySet())
+		for (Entry<String, Lobby> entry : CurrentLobby.entrySet())
 		{
 			Lobby tempLobby = entry.getValue();
 			// Lobby is full
-			if(tempLobby.LoobyFull())
+			if (tempLobby.LoobyFull())
 			{
 				break;
 			}
 			else
 			{
 				// Join
-				//if(tempLobby.EnterLobby(player))
+				// if(tempLobby.EnterLobby(player))
 				// For testing join with elo
-				if(tempLobby.EnterLobbyWithElo(player))
+				if (tempLobby.EnterLobbyWithElo(player))
 				{
 					isJoined = true;
 				}
 			}
 		}
-		
+
 		// All rooms are full -> create new lobby
-		if(!isJoined)
+		if (!isJoined)
 		{
-			Lobby  lobby = new Lobby();
+			Lobby lobby = new Lobby();
 			// Join new lobby
-			//lobby.EnterLobby(player);
+			// lobby.EnterLobby(player);
 			// For testing join with elo
-			lobby.EnterLobbyWithElo(player);				
+			lobby.EnterLobbyWithElo(player);
 			isJoined = true;
 			// Put new lobby in CurrentLobby
 			CurrentLobby.put(lobby.getLobbyID(), lobby);

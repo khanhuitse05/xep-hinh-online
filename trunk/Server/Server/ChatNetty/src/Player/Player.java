@@ -12,9 +12,10 @@ import Database.MongoDBConnection;
 
 public class Player
 {
-	private final short			LOGIN_BUFFER_SIZE	= 200;
-	private final short			SIGNUP_BUFFER_SIZE	= 150;
-	private final short			SIGNUP_DEFAULT_ELO	= 1000;
+	private final short			LOGIN_BUFFER_SIZE		= 200;
+	private final short			SIGNUP_BUFFER_SIZE		= 150;
+	private final short			SIGNUP_DEFAULT_ELO		= 1000;
+	private final short			FINDMATCH_BUFFER_SIZE	= 200;
 
 	private Channel				ChannelPlayer;
 	private Integer				PlayerID;
@@ -53,13 +54,13 @@ public class Player
 		int length = tempBuffer.readShort();
 		int command = tempBuffer.readShort();
 		int textLength = tempBuffer.readShort();
-//		System.out.println("Sring: length"
-//				+ textLength
-//				+ "--index"
-//				+ tempBuffer.readerIndex()
-//				+ "--"
-//				+ tempBuffer.toString(tempBuffer.readerIndex() + 2, textLength,
-//						StandardCharsets.UTF_8));
+		// System.out.println("Sring: length"
+		// + textLength
+		// + "--index"
+		// + tempBuffer.readerIndex()
+		// + "--"
+		// + tempBuffer.toString(tempBuffer.readerIndex() + 2, textLength,
+		// StandardCharsets.UTF_8));
 		tempBuffer.readerIndex(buffer.readerIndex());
 
 		System.out.println("command " + command + "-" + buffer.capacity());
@@ -69,7 +70,7 @@ public class Player
 		case 0:
 			// Login
 			break;
-		case 1:
+		case Command.CMD_FINDING_PVP:
 			// find match
 			ConnectionManager.GetInstance().FindMatch(this);
 			break;
@@ -91,6 +92,8 @@ public class Player
 		case Command.CMD_REQ_PVP_FALL:
 		case Command.CMD_PVP_GROW:
 		case Command.CMD_PVP_HOLD:
+		case Command.CMD_FOUND_PVP:
+			
 			// Set back to the sender
 			// HandleIngameNextRes(buffer);
 
@@ -147,7 +150,7 @@ public class Player
 	// Hanle login request
 	public ChannelBuffer HandleLoginRes(ChannelBuffer buffer)
 	{
-		ChannelBuffer tempBuffer = buffer.copy();	
+		ChannelBuffer tempBuffer = buffer.copy();
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
 		// short lenId = tempBuffer.readShort();
@@ -156,21 +159,23 @@ public class Player
 
 		// ID only for testing
 		String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
-		
+
 		// Get data from DB
-		// Pass data to playerInformation		
+		// Pass data to playerInformation
 		PlayerInformation info = MongoDBConnection.GetInstance().Query(id);
-		
+
 		// Information
 		Information = info;
 		int idStringSize = info.getIDPlayer().getBytes(StandardCharsets.UTF_8).length;
-		
-		System.out.println("name: " + Information.getName() + " elo:" + Information.getElo());		
-		
+
+		System.out.println("name: " + Information.getName() + " elo:"
+				+ Information.getElo());
+
 		// Return data
 		ChannelBuffer resLogin = ChannelBuffers.buffer(LOGIN_BUFFER_SIZE);
 
-		// Write length of data - include lenght of id(short 2) and id (string.length)
+		// Write length of data - include lenght of id(short 2) and id
+		// (string.length)
 		resLogin.writeShort(idStringSize + 2);
 		resLogin.writeShort(Command.CMD_LOGIN);
 
@@ -198,10 +203,10 @@ public class Player
 		PlayerInformation playerInfo = new PlayerInformation();
 		playerInfo.setIDPlayer(newPlayerID);
 		playerInfo.setElo(SIGNUP_DEFAULT_ELO);
-		
+
 		// Information
 		Information = playerInfo;
-		
+
 		// Update to server
 		MongoDBConnection.GetInstance().Insert(playerInfo);
 
@@ -210,8 +215,18 @@ public class Player
 		resSignUp.writeShort(idStringSize + 2);
 		resSignUp.writeShort(Command.CMD_LOGIN);
 		resSignUp.writeShort(idStringSize);
-		resSignUp.writeBytes(newPlayerID.getBytes(StandardCharsets.UTF_8));		
-		
+		resSignUp.writeBytes(newPlayerID.getBytes(StandardCharsets.UTF_8));
+
 		return resSignUp;
+	}
+
+	public void HandleStartGame()
+	{
+		ChannelBuffer resFoundMatch = ChannelBuffers
+				.buffer(FINDMATCH_BUFFER_SIZE);
+		resFoundMatch.writeShort(FINDMATCH_BUFFER_SIZE);
+		resFoundMatch.writeShort(Command.CMD_FOUND_PVP);
+
+		WriteToClient(resFoundMatch);
 	}
 }
