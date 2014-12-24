@@ -51,7 +51,8 @@ public class Lobby
 						Player1 = player;
 						Player1.setLobbyID(LobbyID);
 						IsFull = true;
-						return true;	
+						StartGame(IsFull);
+						return true;
 					}
 					else
 					{
@@ -72,7 +73,8 @@ public class Lobby
 					Player2 = player;
 					Player2.setLobbyID(LobbyID);
 					IsFull = true;
-					return true;	
+					StartGame(IsFull);
+					return true;
 				}
 				else
 				{
@@ -145,5 +147,23 @@ public class Lobby
 			}
 		}
 		System.out.println("Out tranfferData");
+	}
+	
+	public void StartGame(boolean isFull)
+	{
+		if(isFull)
+		{
+			if(Player1 != null)
+			{
+				Player1.HandleStartGame();
+				System.out.println("=> Start player 1");
+			}
+			
+			if(Player2 != null)
+			{
+				Player2.HandleStartGame();
+				System.out.println("=> Start player 2");
+			}
+		}
 	}
 }
