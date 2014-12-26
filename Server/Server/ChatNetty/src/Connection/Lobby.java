@@ -35,7 +35,7 @@ public class Lobby
 			{
 				if(Player2 == null)
 				{
-					System.out.println("=>> ELO IN RANGE 2 EMPTY" + player.getInformation().getElo());
+					System.out.println("=>> join 1: ELO IN RANGE 2 EMPTY" + player.getInformation().getElo());
 					Player1 = player;
 					Player1.setLobbyID(LobbyID);
 					IsFull = false;
@@ -47,7 +47,7 @@ public class Lobby
 					int player2Elo = Player2.getInformation().getElo();
 					if(player1Elo >= (player2Elo - ELO_RANGE) && player1Elo <= (player2Elo + ELO_RANGE))
 					{
-						System.out.println("=>> ELO IN RANGE " + player1Elo);
+						System.out.println("=>> join 1:  ELO IN RANGE " + player1Elo);
 						Player1 = player;
 						Player1.setLobbyID(LobbyID);
 						IsFull = true;
@@ -69,7 +69,7 @@ public class Lobby
 				int player2Elo = player.getInformation().getElo();
 				if(player2Elo >= (player1Elo - ELO_RANGE) && player2Elo <= (player1Elo + ELO_RANGE))
 				{
-					System.out.println("=>> ELO IN RANGE 2" + player2Elo + " - " + player1Elo);
+					System.out.println("=>>  join 2:  ELO IN RANGE 2" + player2Elo + " - " + player1Elo);
 					Player2 = player;
 					Player2.setLobbyID(LobbyID);
 					IsFull = true;
@@ -112,13 +112,15 @@ public class Lobby
 	{
 		if (Player1 == player)
 		{
-			Player1 = null;
 			Player1.setLobbyID(null);
+			Player1 = null;
+			System.out.println("Leave Player 1");
 		}
 		else if (Player2 == player)
 		{
+			Player2.setLobbyID(null);
 			Player2 = null;
-			Player1.setLobbyID(null);
+			System.out.println("Leave Player 2");
 		}
 		IsFull = false;
 	}

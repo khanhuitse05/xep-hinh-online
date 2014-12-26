@@ -74,8 +74,10 @@ public class Player
 			// find match
 			ConnectionManager.GetInstance().FindMatch(this);
 			break;
-		case 2:
+		case Command.CMD_PVP_CANCEL:			
 			// cancel findmatch
+			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
+					.LeaveLobby(this);
 			break;
 		case 3:
 			// accept match
