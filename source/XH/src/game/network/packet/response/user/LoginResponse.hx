@@ -20,8 +20,9 @@ class LoginResponse extends ResponsePacket
 	
 	override public function decode(data : ByteArray) : Void 
     {        
-		Game.data.playerData.mUserInfo.userID = (cast(data, ByteArrayEx)).readStr();
-		Game.data.playerData.mUserInfo.elo = data.readInt();
+		var _lenght:Int = data.readShort();
+		Game.data.playerData.mUserInfo.userID = (cast(data, ByteArrayEx)).readStrBytes(_lenght);
+		Game.data.playerData.mUserInfo.elo = data.readShort();
 		ExploringCache.writeID(Game.data.playerData.mUserInfo.userID);
 		ExploringCache.writeElo(Game.data.playerData.mUserInfo.elo);
     }

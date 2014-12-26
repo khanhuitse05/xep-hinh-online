@@ -7,6 +7,7 @@ import game.gameobject.gameplay.GameBattle;
 import game.gameobject.gameplay.GamePlay;
 import game.gameobject.pvp.FindingMatch;
 import game.network.packet.request.pvp.RepCancel;
+import game.network.packet.request.pvp.RepEnter;
 import game.network.packet.request.pvp.RepFinding;
 import game.tnk.Game;
 import openfl.events.MouseEvent;
@@ -122,4 +123,13 @@ class BattleRoomView extends SceneView
     {  
         this.removeChild(Game.hudTop);
     }
+	/// sever
+	public function sFound()
+	{
+		Game.server.sendPacket(new RepEnter());
+	}
+	public function sReady()
+	{
+		Game.displayManager.toScreen(ScreenID.BATTLE);
+	}
 }

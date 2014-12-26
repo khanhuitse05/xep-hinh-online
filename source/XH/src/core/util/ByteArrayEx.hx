@@ -23,7 +23,10 @@ class ByteArrayEx extends ByteArray
     {
         return this.readUTF();
     }
-    
+    public function readStrBytes(length:Int) : String
+    {
+        return this.readUTFBytes(length);
+    }
     public function readLong() : Float
     {
         var uintH : UInt = this.readUnsignedInt();

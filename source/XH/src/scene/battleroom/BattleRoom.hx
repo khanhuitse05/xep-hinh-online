@@ -2,6 +2,8 @@ package scene.battleroom;
 
 import core.display.scene.*;
 import core.event.EventEx;
+import game.network.packet.ResponsePacket;
+import game.network.packet.Command;
 import game.network.Server;
 import game.tnk.Game;
 
@@ -24,6 +26,16 @@ class BattleRoom extends SceneBase
 
     private function onServerData(e:EventEx):Void 
     {
+		var rp : ResponsePacket = cast(e.data, ResponsePacket);
+        var view = cast(m_pView, BattleRoomView);
+        switch (rp.command) 
+        {
+            case Command.CMD_PVP_FOUND:
+                view.sFound();
+			case Command.CMD_PVP_ENTER:
+                view.sReady();
+            default:
+        }
     }
 
     override private function onTransitionOutComplete():Void 
