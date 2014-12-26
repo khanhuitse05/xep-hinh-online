@@ -4,6 +4,8 @@ import core.display.ex.ExSprite;
 import game.const.skill.ConstSkill;
 import game.data.gameplay.DTingame;
 import game.data.gameplay.InfoBlock;
+import game.data.pvp.DTEnemy;
+import game.data.pvp.DTPVP;
 import game.gameobject.brick.*;
 import game.gameobject.gameplay.EffectClear;
 import game.gameobject.gameplay.ScoreEffect;
@@ -26,8 +28,6 @@ class Enemy extends Sprite
 {
 	public static var STATE_NORMAL = 0;
 	public static var STATE_EFFECT = 1;
-	
-	private static var INDEX_GROW = 8;
 	
 	private var mState:Int;
 	private var numGrow:Int;	
@@ -109,33 +109,25 @@ class Enemy extends Sprite
     {
 		if (mState == STATE_NORMAL) 
 		{
-			if (Game.data.playerData.dataPVP.dataEnemy.isFall == true)
+			switch (Game.data.playerData.dataPVP.dataEnemy.getAct()) 
 			{
-				Game.data.playerData.dataPVP.dataEnemy.isFall = false;
-				sFall();
-			}
-			if (Game.data.playerData.dataPVP.dataEnemy.isNext == true) 
-			{
-				Game.data.playerData.dataPVP.dataEnemy.isNext = false;
-				sNextBlock();
-				mState = STATE_NORMAL;
-			}
-			if (Game.data.playerData.dataPVP.dataEnemy.isRevGift == true) 
-			{
-				Game.data.playerData.dataPVP.dataEnemy.isRevGift = false;
-				sGrow();
-			}
-			if (Game.data.playerData.dataPVP.dataEnemy.isHold == true) 
-			{
-				Game.data.playerData.dataPVP.dataEnemy.isHold = false;
-				
-				if (Game.data.playerData.dataPVP.dataEnemy.mHoldBlock == null) 
-				{
-					sHoldEmpty();				
-				}else 
-				{
-					sHoldExist();
-				}
+				case DTPVP.NEXT:
+					sNextBlock();
+					mState = STATE_NORMAL;
+				case DTPVP.FALL:
+					sFall();
+				case DTPVP.HOLD:
+					if (Game.data.playerData.dataPVP.dataEnemy.mHoldBlock == null) 
+					{
+						sHoldEmpty();				
+					}else 
+					{
+						sHoldExist();
+					}
+				case DTPVP.GROW:
+					sGrow();
+				default:
+					
 			}
 		}
 	}
@@ -436,7 +428,7 @@ class Enemy extends Sprite
 				{
 					var _brick:Brick = new Brick();
 					_brick.setValue(0 + j * Game.BRICK_WIDTH,							
-									(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT, INDEX_GROW);
+									(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT, BlockType.INDEX_GROW);
 					mListBrick[0][j] = _brick;
 					mListBrick[0][j].scaleY = 0;
 					mBoard.addChild(_brick);

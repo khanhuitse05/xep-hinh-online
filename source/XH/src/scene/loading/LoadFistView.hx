@@ -5,6 +5,7 @@ import core.display.screen.ScreenID;
 import core.resource.Defines;
 import core.sprites.Animx;
 import game.const.cache.ExploringCache;
+import game.const.Const;
 import game.tnk.Game;
 import openfl.events.Event;
 import openfl.text.TextFieldAutoSize;
@@ -27,6 +28,7 @@ class LoadFistView extends SceneView
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		// init
 		init();
+		loading();
 	}
 	
 	private function init():Void 
@@ -42,11 +44,6 @@ class LoadFistView extends SceneView
 		mAnim.animate();
 		this.addChild(mAnim);
 		// note
-		if (ExploringCache.CheckExist() == false) 
-		{
-			ExploringCache.writeData();
-		}
-		ExploringCache.readData();
 		
 		mNoteText = new Lable();
 		mNoteText.setFont(20, 0x2D23B6);
@@ -55,7 +52,10 @@ class LoadFistView extends SceneView
 		
 	}
 	
-	
+	public function loading():Void
+	{
+		Const.init();
+	}
 	private function gameLoop(e:Event):Void 
 	{
 		mCount++;

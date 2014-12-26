@@ -1,6 +1,8 @@
 package game.network.packet.response.pvp;
 
 import game.data.gameplay.InfoBlock;
+import game.data.pvp.DTEnemy;
+import game.data.pvp.DTPVP;
 import game.gameobject.brick.BlockDirect;
 import game.network.packet.ResponsePacket;
 import game.tnk.Game;
@@ -25,6 +27,6 @@ class RespPvPNext extends ResponsePacket
 		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mRow = data.readInt();
 		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mColumn = data.readInt();
 		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill = data.readInt();
-        Game.data.playerData.dataPVP.dataEnemy.isNext = true;
+        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.NEXT);
     }
 }

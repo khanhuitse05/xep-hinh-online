@@ -1,4 +1,5 @@
 package game.data.gameplay;
+import game.const.skill.SkillInfo;
 import game.gameobject.brick.Block;
 import game.gameobject.brick.BlockDirect;
 import game.gameobject.skill.SkillType;
@@ -32,8 +33,6 @@ class DTgameplay
 	// các Skill hiện tại
 	public var mSkillCurrent:Array<Int>;
 	// các skill có thể sử dụng
-	public var mListSkill:Array<Int>;
-	public var mSkillEndGame:Int;
 	
 	public function new() 
 	{
@@ -57,16 +56,9 @@ class DTgameplay
 		mTimeCurrent = 120;
 		mX = 1;
 		mSkillCurrent = new Array<Int>();
-		mListSkill = new Array<Int>();
-		mListSkill.push(SkillType.CLEAR);
-		mListSkill.push(SkillType.MAGNET);
-		mListSkill.push(SkillType.TIME);
-		mSkillEndGame = SkillType.FINISH;
 	}
-	
 	public function onRefresh() 
 	{		
-		mSkillEndGame = SkillType.FINISH;
 	}
 	public function RefreshBlock()
 	{
@@ -87,7 +79,6 @@ class DTgameplay
 		mTimeCurrent = 120;
 		mX = 1;
 		mSkillCurrent = new Array<Int>();
-		mListSkill = new Array<Int>();
 	}
 	public function NextBlock()
 	{
@@ -100,10 +91,18 @@ class DTgameplay
 		}
 		mStackBlock[3].mType = Std.random(7) + 1;
 		mStackBlock[3].mSkill = -1;
-		var _skill:Int = Std.random(10);
-		if (_skill < Game.data.playerData.mDTgameplay.mListSkill.length) 
-		{			
-			mStackBlock[3].mSkill =Game.data.playerData.mDTgameplay.mListSkill[_skill];
+		var _skill:Int = Std.random(15);
+		if (_skill < Game.data.playerData.dataSkill.skillAct.length &&
+			Game.data.playerData.dataSkill.skillAct[_skill] > 0) 
+		{
+			var _skillInfo:SkillInfo = new SkillInfo(Game.data.playerData.dataSkill.skillAct[_skill]);
+			if (_skillInfo.id != SkillType.SHIELD ||
+				_skillInfo.id <= 0 ||
+				_skillInfo.id != SkillType.HAMMER||
+				_skillInfo.id != SkillType.FINISH) 
+			{
+				mStackBlock[3].mSkill = Game.data.playerData.dataSkill.skillAct[_skill];
+			}
 		}
 	}
 	public function HoldBlock(_index:Int)

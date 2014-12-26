@@ -50,19 +50,18 @@ class Server extends EventDispatcher
     
     private function initPacketMapping()
     {
-        _responsedMapping[Command.CMD_LOGIN]                       = LoginResponse;
-        _responsedMapping[Command.CMD_USERINFO]                    = RespUserinfo;
-        _responsedMapping[Command.CMD_SKILL]                       = RespSkillInfo;
+        _responsedMapping[Command.CMD_LOGIN]                       	= LoginResponse;
+        _responsedMapping[Command.CMD_SIGNUP]                    	= LoginResponse;
         
         //PvP
-        _responsedMapping[Command.CMD_ENTER_PVP]                   = RespPvPEnter;
-        _responsedMapping[Command.CMD_WIN_PVP]                     = RespPvPWin;
-        _responsedMapping[Command.CMD_LOSE_PVP]                    = RespPvPLose;
-        _responsedMapping[Command.CMD_FINDER_PVP]                 	= RespPvPFinder;
-        _responsedMapping[Command.CMD_PVP_NEXT]                	= RespPvPNext;
-        _responsedMapping[Command.CMD_PVP_GROW]                    = RespPvPGrow;
-        _responsedMapping[Command.CMD_PVP_HOLD]    		        = RespPvPHold;
-        _responsedMapping[Command.CMD_PVP_FALL]	        	    = RespPvPFall;
+        _responsedMapping[Command.CMD_PVP_ENTER]                   	= RespPvPEnter;
+        _responsedMapping[Command.CMD_PVP_WIN]                     	= RespPvPWin;
+        _responsedMapping[Command.CMD_PVP_LOSE]                    	= RespPvPLose;
+        _responsedMapping[Command.CMD_PVP_FINDER]                 	= RespPvPFinder;
+        _responsedMapping[Command.CMD_PVP_NEXT]                		= RespPvPNext;
+        _responsedMapping[Command.CMD_PVP_GROW]                    	= RespPvPGrow;
+        _responsedMapping[Command.CMD_PVP_HOLD]    		        	= RespPvPHold;
+        _responsedMapping[Command.CMD_PVP_FALL]	        	    	= RespPvPFall;
 		// Statistics
     }
     

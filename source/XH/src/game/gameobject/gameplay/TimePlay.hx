@@ -41,7 +41,7 @@ class TimePlay extends Sprite
 	{
 		mState = START;
 		mValue = 0;
-		mMaxTime = 7200;
+		mMaxTime = 3600;
 		//mMaxTime = 1000;
 		mTexTime = new Lable();
 		mTexTime.setFont(25, 0xffff00);
@@ -56,14 +56,14 @@ class TimePlay extends Sprite
 			if (Game.data.playerData.mDTingame.isUpdateTime == true) 
 			{
 				Game.data.playerData.mDTingame.isUpdateTime = false;				
-				TweenX.to(this, { mValue:mMaxTime + 300}, START_TIME).onFinish(onFinishStart);
+				TweenX.to(this, { mValue:mMaxTime + 100}, START_TIME).onFinish(onFinishStart);
 			}
 		}else  if (mState == PLAY) 
 		{
 			if (mValue > 0) 
 			{
 				mValue--;
-				if (mValue == 600) 
+				if (mValue == 300) 
 				{
 					Game.data.playerData.mDTingame.timeIsRuningOut = true;
 				}
@@ -100,7 +100,7 @@ class TimePlay extends Sprite
 			this.graphics.drawRect(0, 0, mWidth * mValue / mMaxTime, mHeight);
 			this.graphics.endFill();
 			
-			var _time = mValue / 60;
+			var _time = mValue / Game.FPS;
 			var _min:Int = Std.int(_time / 60);
 			var _second:Int = Std.int(_time % 60);
 			mTexTime.setSysText(_min + ":" + _second);

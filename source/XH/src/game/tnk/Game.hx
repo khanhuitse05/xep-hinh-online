@@ -4,6 +4,8 @@ import core.resource.ResourceManager;
 import game.data.DataCenter;
 import game.network.Server;
 import openfl.display.Stage;
+import scene.hud.HudBottom;
+import scene.hud.HudTop;
 
 /**
  * ...
@@ -11,8 +13,12 @@ import openfl.display.Stage;
  */
 class Game
 {
+    public static inline var FPS : Int = 30;
     public static inline var GAME_WIDTH : Int = 720;
     public static inline var GAME_HEIGHT : Int = 1280;
+	
+    public static inline var MAX_SKILL: Int = 10;
+	
     public static inline var BOARD_WIDTH : Int = 10;
     public static inline var BOARD_HEIGHT : Int = 22;
     public static inline var BRICK_WIDTH : Int = 48;
@@ -24,6 +30,10 @@ class Game
     public static var resource : ResourceManager;
     public static var displayManager : DisplayManager;
     public static var data : DataCenter;
+	
+	// hud
+	public static var hudTop:HudTop;
+	public static var hudBottom:HudBottom;
 
     public static function initialize(gStage : Stage, main : Main):Void
     {

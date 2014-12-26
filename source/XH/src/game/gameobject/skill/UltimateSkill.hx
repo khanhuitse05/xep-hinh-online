@@ -15,15 +15,11 @@ class UltimateSkill extends Sprite
 	private static var TIME_SCALE:Float = 0.5;
 	private var mType:Int;
 	
-	public function new(_type:Int) 
+	public function new() 
 	{
 		super();
-		mType = _type;
-		if (mType > 4) 
-		{
-			mType = SkillType.FINISH;
-		}
-		var _image:Sprite = Game.resource.getSprite(Defines.GFX_ULTIMATE_FINISH + _type - SkillType.FINISH);
+		mType = Game.data.playerData.dataSkill.skillUtimate;
+		var _image:SkillDisplay = new SkillDisplay(mType);
 		this.addChild(_image);
 		this.scaleX = SCALE;
 		this.scaleY = SCALE;

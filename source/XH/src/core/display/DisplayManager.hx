@@ -1,6 +1,7 @@
 package core.display;
 import core.display.dialog.DialogManager;
 import core.display.layer.LayerManager;
+import core.display.note.NoteObject;
 import core.display.popup.PopupManager;
 import core.display.screen.ScreenID;
 import core.display.screen.ScreenManager;
@@ -31,7 +32,15 @@ class DisplayManager
         }
         m_pPopupManager = m_pScreensManager[LayerManager.LAYER_POPUP];
     }
-
+	/**
+     * 
+     * @param    screenID
+     */
+    public function toMessage(_text:String)
+    {
+        var _note:NoteObject = new NoteObject(_text);
+		layerManager.addToLayer(_note, LayerManager.LAYER_MESSAGE);
+    }
     /**
      * 
      * @param    screenID

@@ -7,6 +7,7 @@ import tweenx909.EaseX;
 import tweenx909.TweenX;
 
 /**
+ * using to show in gamplay
  * ...
  * @author KhanhTN
  */
@@ -28,7 +29,7 @@ class SkillBase extends Sprite
 		mColumn = _col;
 		this.x = Game.BRICK_WIDTH * mColumn;
 		this.y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - Game.BRICK_HEIGHT * (mRow+2);
-		var _image:Sprite = Game.resource.getSprite(Defines.GFX_SKILL + _skill);
+		var _image:SkillDisplay = new SkillDisplay(Defines.GFX_SKILL_DISPLAY);
 		this.addChild(_image);
 		this.scaleX = 0;
 		this.scaleY = 0;
