@@ -12,7 +12,7 @@ class DTPlayerInfo
 	
 	public function new() 
 	{
-		
+		skill = new Array<Int>();
 	}
 	
 }
