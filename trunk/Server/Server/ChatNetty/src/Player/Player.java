@@ -129,6 +129,7 @@ public class Player
 		Short temp = 5;
 		ChannelBuffer bufferOut = ChannelBuffers.buffer(50);
 		bufferOut.writeShort(temp);
+		//bufferOut.writeShort(arg0);
 		return bufferOut;
 	}
 
@@ -153,12 +154,12 @@ public class Player
 		ChannelBuffer tempBuffer = buffer.copy();
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
-		// short lenId = tempBuffer.readShort();
-		// String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
-		// StandardCharsets.UTF_8);
+		short lenId = tempBuffer.readShort();
+		String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
+		StandardCharsets.UTF_8);
 
 		// ID only for testing
-		String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
+		//String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
 
 		// Get data from DB
 		// Pass data to playerInformation
@@ -174,15 +175,17 @@ public class Player
 		// Return data
 		ChannelBuffer resLogin = ChannelBuffers.buffer(LOGIN_BUFFER_SIZE);
 
-		// Write length of data - include lenght of id(short 2) and id
+		// Write length of data - include lenght of id(short 2) and id and 2bytes for ELo
 		// (string.length)
-		resLogin.writeShort(idStringSize + 2);
+		resLogin.writeShort(idStringSize + 4);
 		resLogin.writeShort(Command.CMD_LOGIN);
 
 		// Write ID length
 		resLogin.writeShort(idStringSize);
 		// Writeplayer ID
 		resLogin.writeBytes(info.getIDPlayer().getBytes(StandardCharsets.UTF_8));
+		// Write elo
+		resLogin.writeShort(info.getElo());
 		return resLogin;
 	}
 
@@ -212,11 +215,17 @@ public class Player
 
 		// Generate response for client
 		ChannelBuffer resSignUp = ChannelBuffers.buffer(SIGNUP_BUFFER_SIZE);
-		resSignUp.writeShort(idStringSize + 2);
+		
+		// Write header
+		// Write length of data - include lenght of id(short 2) and id and 2bytes for ELo
+		resSignUp.writeShort(idStringSize + 4);
 		resSignUp.writeShort(Command.CMD_LOGIN);
 		resSignUp.writeShort(idStringSize);
 		resSignUp.writeBytes(newPlayerID.getBytes(StandardCharsets.UTF_8));
-
+		resSignUp.writeShort(playerInfo.getElo());
+		
+//		System.out.println("SEND BACK ... ID: " + newPlayerID + "-" +playerInfo.getElo() 
+//				+"idStringSize:" + idStringSize + "zxx" + newPlayerID.getBytes(StandardCharsets.UTF_8).length +"--" +resSignUp.readableBytes());
 		return resSignUp;
 	}
 
