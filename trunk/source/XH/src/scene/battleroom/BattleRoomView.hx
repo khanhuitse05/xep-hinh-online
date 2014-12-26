@@ -83,16 +83,16 @@ class BattleRoomView extends SceneView
 	{
 		if (Game.data.playerData.dataPVP.dataRoom.isEnter) 
 		{
-			Game.data.playerData.dataPVP.dataRoom.isEnter == false;
+			Game.data.playerData.dataPVP.dataRoom.isEnter = false;
 			sReady();
 		}
 		if (Game.data.playerData.dataPVP.dataRoom.isCancel) 
 		{
-			Game.data.playerData.dataPVP.dataRoom.isCancel == false;
+			Game.data.playerData.dataPVP.dataRoom.isCancel = false;
 		}
 		if (Game.data.playerData.dataPVP.dataRoom.isFound) 
 		{
-			Game.data.playerData.dataPVP.dataRoom.isFound == false;
+			Game.data.playerData.dataPVP.dataRoom.isFound = false;
 			sFound();
 		}
 	}
