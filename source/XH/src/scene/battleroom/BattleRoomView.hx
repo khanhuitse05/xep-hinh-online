@@ -75,10 +75,26 @@ class BattleRoomView extends SceneView
 		disFinding.y = hudBot.y - disFinding.height;
 		this.addChild(disFinding);
 	}	
-	
+	/**
+	 * 
+	 * @param	e
+	 */
 	private function gameLoop(e:Event):Void 
 	{
-		
+		if (Game.data.playerData.dataPVP.dataRoom.isEnter) 
+		{
+			Game.data.playerData.dataPVP.dataRoom.isEnter == false;
+			sReady();
+		}
+		if (Game.data.playerData.dataPVP.dataRoom.isCancel) 
+		{
+			Game.data.playerData.dataPVP.dataRoom.isCancel == false;
+		}
+		if (Game.data.playerData.dataPVP.dataRoom.isFound) 
+		{
+			Game.data.playerData.dataPVP.dataRoom.isFound == false;
+			sFound();
+		}
 	}
 	public function onBack(e:MouseEvent)
 	{
@@ -118,10 +134,12 @@ class BattleRoomView extends SceneView
 		Game.hudTop.setPosBack(SceneView.NON);
 		Game.hudTop.update();
 		setWaiting();
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
     }
 	override public function onExit() : Void
     {  
         this.removeChild(Game.hudTop);
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
     }
 	/// sever
 	public function sFound()

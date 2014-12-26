@@ -17,6 +17,7 @@ class DTPVP
 	
 	public var infoEnemy:DTPlayerInfo;
 	public var infoMine:DTPlayerInfo;
+	public var dataRoom:DTPVPRoom;
 	
 	public function new() 
 	{
@@ -24,6 +25,7 @@ class DTPVP
 		dataMine = new DTMine();
 		infoEnemy = new DTPlayerInfo();
 		infoMine = new DTPlayerInfo();
+		dataRoom =  new DTPVPRoom();
 	}
 	
 }
