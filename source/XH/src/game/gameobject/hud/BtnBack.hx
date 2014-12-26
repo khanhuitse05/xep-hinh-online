@@ -48,7 +48,6 @@ class BtnBack extends SimpleButton
 				Game.data.playerData.dataSkill.mode = GameMode.PVP;
 				Game.displayManager.toScreen(ScreenID.SKILL);
 			default:		
-				Game.displayManager.toScreen(ScreenID.HOME);
 		}
 		this.SetDisable(true);
 	}

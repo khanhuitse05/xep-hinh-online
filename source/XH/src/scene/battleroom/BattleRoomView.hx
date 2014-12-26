@@ -1,9 +1,16 @@
 package scene.battleroom;
+import core.display.ex.SimpleButton;
 import core.display.scene.*;
 import core.display.screen.ScreenID;
+import core.resource.Defines;
 import game.gameobject.gameplay.GameBattle;
 import game.gameobject.gameplay.GamePlay;
+import game.gameobject.pvp.FindingMatch;
+import game.network.packet.request.pvp.RepCancel;
+import game.network.packet.request.pvp.RepFinding;
 import game.tnk.Game;
+import openfl.events.MouseEvent;
+import openfl.display.Sprite;
 import openfl.events.Event;
 
 /**
@@ -12,6 +19,21 @@ import openfl.events.Event;
  */
 class BattleRoomView extends SceneView
 {
+	private static var POS_LEFT = 100;
+	private static var POS_RIGHT = 530;
+	private static var POS_Y = 50;
+	
+	private static var FINDING_X = 50;
+	private static var FINDING_Y = 50;
+	
+	private var hudBot:Sprite;
+	private var btnBack:SimpleButton;
+	private var btnFinding:SimpleButton;
+	private var btnCancel:SimpleButton;
+	
+	
+	private var disFinding:FindingMatch;
+	
 	
 	public function new() 
 	{
@@ -21,36 +43,83 @@ class BattleRoomView extends SceneView
 	
 	private function init():Void 
 	{		
+		var _bg:Sprite = Game.resource.getSprite(Defines.GFX_BATTLE_BG);
+		//var _bg:Background = new Background();
+		this.addChild(_bg);
+		hudBot = Game.resource.getSprite(Defines.GFX_UI_HUDBOTTOM);
+		hudBot.x = 0;
+		hudBot.y = Game.GAME_HEIGHT - hudBot.height;
+		this.addChild(hudBot);
 		
+		btnBack =  new SimpleButton();
+		btnBack.setDisplay(Game.resource.getSprite(Defines.GFX_BATTLE_BTN_BACK));
+		btnBack.setPosition(POS_LEFT, POS_Y);
+		btnBack.setMouseClick(onBack);
+		hudBot.addChild(btnBack);
+		
+		btnFinding =  new SimpleButton();
+		btnFinding.setDisplay(Game.resource.getSprite(Defines.GFX_BATTLE_BTN_FIND));
+		btnFinding.setPosition(POS_RIGHT, POS_Y);
+		btnFinding.setMouseClick(onFinding);
+		hudBot.addChild(btnFinding);
+		
+		btnCancel =  new SimpleButton();
+		btnCancel.setDisplay(Game.resource.getSprite(Defines.GFX_BATTLE_BTN_CANCEL));
+		btnCancel.setPosition(POS_LEFT, POS_Y);
+		btnCancel.setMouseClick(onCancel);
+		hudBot.addChild(btnCancel);
+		
+		disFinding = new FindingMatch();
+		disFinding.x = Game.GAME_WIDTH / 2 - disFinding.width / 2;
+		disFinding.y = hudBot.y - disFinding.height;
+		this.addChild(disFinding);
 	}	
 	
 	private function gameLoop(e:Event):Void 
 	{
 		
 	}
+	public function onBack(e:MouseEvent)
+	{
+		
+	}
+	public function onCancel(e:MouseEvent)
+	{
+		setWaiting();
+		Game.server.sendPacket(new RepCancel());
+	}
+	public function onFinding(e:MouseEvent)
+	{
+		setFinding();
+		Game.server.sendPacket(new RepFinding());
+	}
 	
-	/**
-	 * 
-	 * @param	e
-	 */
-	private function onBack():Void 
-	{		
-		Game.displayManager.toScreen(ScreenID.HOME);
+	public function setFinding()
+	{
+		disFinding.visible = true;
+		btnBack.visible = false;
+		btnFinding.visible = false;
+		btnCancel.visible = true;
+	}
+	public function setWaiting()
+	{
+		disFinding.visible = false;
+		btnBack.visible = true;
+		btnFinding.visible = true;
+		btnCancel.visible = false;
 	}
 	/**
-     *  Abstract function
-     */
-    override public function onEnter()
-    {        		
-		Game.data.playerData.mDTingame.onRefresh();
-		Game.data.playerData.mDTgameplay.onRefresh();
-		init();
-    }
-
-    /**
-     *  Abstract function
-     */
-    override public function onExit()
+	 * 
+	 */
+    override public function onEnter() : Void
     {
+		this.addChild(Game.hudTop);
+		Game.hudTop.setPosBack(SceneView.NON);
+		Game.hudTop.update();
+		setWaiting();
+    }
+	override public function onExit() : Void
+    {  
+        this.removeChild(Game.hudTop);
     }
 }

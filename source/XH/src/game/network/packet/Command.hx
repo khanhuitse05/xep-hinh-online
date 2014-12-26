@@ -10,7 +10,7 @@ class Command
 	public static var CMD_PVP_WIN                 	= 112;
 	public static var CMD_PVP_LOSE                	= 114;
 	public static var CMD_PVP_FOUND              	= 116;
-	public static var CMD_PVP_FINDER              	= 118;
+	public static var CMD_PVP_FINDING              	= 118;
 	public static var CMD_PVP_CANCEL              	= 120;
 
 	public static var CMD_PVP_NEXT                	= 122;

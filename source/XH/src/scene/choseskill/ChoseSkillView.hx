@@ -41,7 +41,6 @@ class ChoseSkillView extends SceneView
 	public function new() 
 	{
 		super();				
-		Game.hudBottom.setPosBack(Game.data.playerData.dataSkill.mode);
 		init();
         this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
@@ -82,7 +81,8 @@ class ChoseSkillView extends SceneView
 		this.addChild(Game.hudTop);
 		Game.hudTop.setPosBack(SceneView.HOME);
 		Game.hudTop.update();
-		this.addChild(Game.hudBottom);
+		this.addChild(Game.hudBottom);		
+		Game.hudBottom.setPosBack(Game.data.playerData.dataSkill.mode);
 		Game.data.playerData.dataSkill.refreshSkill();
 		mResult.update();
     }
