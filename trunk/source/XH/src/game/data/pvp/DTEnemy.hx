@@ -24,7 +24,7 @@ class DTEnemy
 	// Tổng thời gian (second)
 	public var mTimeTotal:Int;	
 	// refresh
-	public var mAmongRefresh:Int;	
+	public var mNumRefresh:Int;	
 	// gift
 	public var mNumGift:Int;
 	// Thời gian còn lại
@@ -37,14 +37,22 @@ class DTEnemy
 	public var mListSkill:Array<Int>;
 	
 	// is
-	public var isNext:Bool;
-	public var isHold:Bool;
-	public var isFall:Bool;
-	public var isRevGift:Bool;
+	public var mAction:Array<Int>;
 	
 	public function new() 
 	{
-		
+		mAction = new Array<Int>();
+	}
+	public function getAct():Int 
+	{
+		var _act:Int;
+		if (mAction.length > 0) 
+		{
+			_act = mAction[0];
+			mAction.remove(mAction[0]);
+			return _act;
+		}
+		return -1;
 	}
 	
 }

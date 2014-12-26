@@ -215,18 +215,20 @@ class Board extends Sprite
 		this.addChild(_skill);
 		switch (mListSkill[0].skill) 
 		{
-			case SkillType.X:
+			case SkillType.METEOR:
 				actSkillX();				
-			case SkillType.TIME:
+			case SkillType.BOOM:
 				actSkillX();
-			case SkillType.CLEAR:
+			case SkillType.TIME:
 				actSkillX();
 			case SkillType.MAGNET:
 				actSkillX();
-			case SkillType.RAIN:
+			case SkillType.LASERS:
 				actSkillX();
-			case SkillType.NON:
-				actSkillX();				
+			case SkillType.X2:
+				actSkillX();	
+			case SkillType.EASY:
+				actSkillX();
 			default:
 				actSkillX();
 				
@@ -777,9 +779,9 @@ class Board extends Sprite
 	private var mListEndGame:Array<Array<Int>>;
 	private function SkillFinish():Void
 	{			
-		if (Game.data.playerData.mDTgameplay.mSkillEndGame == SkillType.FINISH) 
+		if (Game.data.playerData.dataSkill.skillUtimate == SkillType.FINISH) 
 		{
-			Game.data.playerData.mDTgameplay.mSkillEndGame = -1;
+			Game.data.playerData.dataSkill.skillUtimate = -1;
 			mListEndGame = new Array<Array<Int>>();
 			for (i in 0...Game.BOARD_HEIGHT) 
 			{
@@ -811,15 +813,14 @@ class Board extends Sprite
 	}
 	private function onActivitySkill():Void
 	{
-		if (Game.data.playerData.mDTgameplay.mSkillEndGame < 0) 
+		if (Game.data.playerData.dataSkill.skillUtimate == SkillType.FINISH ||
+			Game.data.playerData.dataSkill.skillUtimate == SkillType.HAMMER) 
 		{
-			// end game
-			Game.data.playerData.mDTingame.stateGame = DTingame.STATE_END;
-		}
-		else if (Game.data.playerData.mDTgameplay.mSkillEndGame >= SkillType.FINISH) 
-		{
-			var _skill:UltimateSkill = new UltimateSkill(Game.data.playerData.mDTgameplay.mSkillEndGame);
+			var _skill:UltimateSkill = new UltimateSkill();
 			this.addChild(_skill);
+		}else
+		{
+			Game.data.playerData.mDTingame.stateGame = DTingame.STATE_END;
 		}
 	}
 	private function onFillEnd():Void

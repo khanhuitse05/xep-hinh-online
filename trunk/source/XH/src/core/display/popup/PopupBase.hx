@@ -27,6 +27,7 @@ class PopupBase extends SceneView
 	
 	private var mBg:Sprite;
 	private var mBack:Sprite;
+	private var pane:Sprite;
 	private var mBgBorder:Sprite;
 	public var mWidth:Int;
 	public var mHeight:Int;
@@ -55,6 +56,9 @@ class PopupBase extends SceneView
 		// back
 		mBack = new Sprite();
 		mBg.addChild(mBack);
+		//pane
+		pane = new Sprite();
+		mBg.addChild(pane);
 		// border
 		mListBorder = new Array<PBorder>();
 		mListBorder[LEFT] = new PLeft();
@@ -102,11 +106,13 @@ class PopupBase extends SceneView
     override public function transitionInComplete():Void {
         mouseChildren = true;
         mouseEnabled = true;
+		pane.visible = true;
         init();
 		this.removeEventListener(Event.ENTER_FRAME, gameLoopBorder);
     }
     
     override public function transitionOut():Void {
+		pane.visible = false;
         this.alpha = 1;
         mouseChildren = false;
         mouseEnabled = false;

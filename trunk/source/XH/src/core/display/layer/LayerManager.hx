@@ -11,8 +11,9 @@ class LayerManager
 	public static inline var LAYER_SCREEN:Int = 0; 
 	public static inline var LAYER_DIALOG:Int = 1;
 	public static inline var LAYER_POPUP:Int = 2; 
-	public static inline var LAYER_TOP:Int = 3; 
-	public static inline var LAYER_COUNT:Int = 4; 
+	public static inline var LAYER_MESSAGE:Int = 3; 
+	public static inline var LAYER_TOP:Int = 4; 
+	public static inline var LAYER_COUNT:Int = 5; 
 	
 	private var _layers : Array<Layer> = new Array<Layer>();
 	

@@ -4,6 +4,7 @@ import core.display.ex.ExSprite;
 import game.const.skill.ConstSkill;
 import game.data.gameplay.DTingame;
 import game.data.gameplay.InfoBlock;
+import game.data.pvp.DTPVP;
 import game.gameobject.brick.*;
 import game.gameobject.gameplay.EffectClear;
 import game.gameobject.gameplay.ScoreEffect;
@@ -16,6 +17,7 @@ import game.network.packet.request.pvp.RepFall;
 import game.network.packet.request.pvp.RepGrow;
 import game.network.packet.request.pvp.RepHold;
 import game.network.packet.request.pvp.RepNext;
+import game.network.packet.request.pvp.RepSendGift;
 import game.tnk.Game;
 import motion.Actuate;
 import motion.easing.Quad;
@@ -56,6 +58,7 @@ class Mine extends Sprite
 	private var mClearBG:ExSprite;
 	private var mMask:Sprite;
 	private var numClear:Int;
+	private var numGrow:Int;
 	
 	/**
 	 * 
@@ -139,8 +142,6 @@ class Mine extends Sprite
 			}
 			if (Game.data.playerData.mDTingame.isCycle == true) 
 			{
-				//mCaseBG.removeAllAndDelChild();
-				//Game.data.playerData.mDTingame.setCase();
 				SetCase();
 				Game.data.playerData.mDTingame.isCycle = false;
 			}
@@ -150,7 +151,6 @@ class Mine extends Sprite
 				{
 					mBoard.removeChild(mCurentBlock);
 				}
-				//mCaseBG.removeAllAndDelChild();
 				Game.data.playerData.mDTingame.setCase();
 				mState = STATE_END;				
 				var _time:TimeOut = new TimeOut();
@@ -177,6 +177,10 @@ class Mine extends Sprite
 					ChangeBlock(Game.data.playerData.mDTingame.infoHold);
 					Game.data.playerData.mDTingame.infoHold = _infoHold;
 				}
+			}
+			if (Game.data.playerData.dataPVP.dataMine.getAct() == DTPVP.GROW) 
+			{
+				
 			}
 		}else if (mState == STATE_SKILL) 
 		{
@@ -205,18 +209,16 @@ class Mine extends Sprite
 		this.addChild(_skill);
 		switch (mListSkill[0].skill) 
 		{
-			case SkillType.X:
+			case SkillType.METEOR:
 				actSkillX();				
-			case SkillType.TIME:
-				actSkillX();
-			case SkillType.CLEAR:
+			case SkillType.BOOM:
 				actSkillX();
 			case SkillType.MAGNET:
 				actSkillX();
-			case SkillType.RAIN:
+			case SkillType.LASERS:
 				actSkillX();
-			case SkillType.NON:
-				actSkillX();				
+			case SkillType.EASY:
+				actSkillX();
 			default:
 				actSkillX();
 				
@@ -653,7 +655,78 @@ class Mine extends Sprite
 			mBoard.removeChild(mListBrick[_row][_col]);				
 		}
 	}
-	
+	//grow
+	private function sGrow():Void
+	{
+		var _temp = Game.data.playerData.dataPVP.dataMine.mNumGift;
+		switch (_temp) 
+		{
+			case 2:
+				numGrow = 1;
+				onGrow();
+			case 3:
+				numGrow = 2;
+				onGrow();
+			case 4:			
+				numGrow = 4;	
+				onGrow();			
+			default:
+				numGrow = 0;
+				
+		}
+	}
+	/**
+	 * 
+	 * @param	_row
+	 */
+	public function onGrow():Void
+	{
+		mState = STATE_EFFECT;
+		// grow
+		if (numGrow > 0) 
+		{
+			// clear top
+			visibleRow(Game.BOARD_HEIGHT - 1);
+			// grow
+			var _row = Game.BOARD_HEIGHT - 1;
+			while(_row > 0) 
+			{			
+				for (j in 0...Game.BOARD_WIDTH) 
+				{
+					mListBrick[_row][j] = mListBrick[_row - 1][j];
+					mListBrick[_row][j].growing();
+				}
+				_row--;
+			}
+			// init row bottom
+			var _ran:Int = Std.random(10);
+			for (j in 0...Game.BOARD_WIDTH) 
+			{		
+				if (j == _ran) 
+				{
+					var _brick:Brick = new Brick();
+					_brick.setValue(0 + j * Game.BRICK_WIDTH,
+									(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT, 0);
+					mListBrick[0][j] = _brick;
+					mBoard.addChild(_brick);
+				}else 
+				{
+					var _brick:Brick = new Brick();
+					_brick.setValue(0 + j * Game.BRICK_WIDTH,							
+									(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT, BlockType.INDEX_GROW);
+					mListBrick[0][j] = _brick;
+					mListBrick[0][j].scaleY = 0;
+					mBoard.addChild(_brick);
+					mListBrick[0][j].appearing();
+				}
+			}
+			numGrow--;
+			Actuate.timer(Brick.TIME_FALL).onComplete(onGrow);
+		}else 
+		{
+			mState = STATE_NORMAL;
+		}			
+	}
 	
 	///////////////////////SKILL////////////////////////////
 	
@@ -688,33 +761,24 @@ class Mine extends Sprite
 		// nextblock
 		var _block:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
 		Game.server.sendPacket(new RepNext(_block));
-		//Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock 
-			//= new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
-		//Game.data.playerData.dataPVP.dataEnemy.isNext = true;
 	}
 	private function cFall()
 	{		
 		// chosse
 		var _block:InfoBlock = Game.data.playerData.mDTingame.infoChose;
 		Game.server.sendPacket(new RepFall(_block));
-		//Game.data.playerData.dataPVP.dataEnemy.mFallBlock = Game.data.playerData.mDTingame.infoChose;
-		//Game.data.playerData.dataPVP.dataEnemy.isFall = true;
 	}
 	private function cHoldEmpty()
 	{		
 		// hold
 		var _block:InfoBlock = new InfoBlock(-1, -1);
 		Game.server.sendPacket(new RepHold(_block));
-		//Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = null;
-		//Game.data.playerData.dataPVP.dataEnemy.isHold = true;
 	}
 	private function cHoldExist()
 	{		
 		// hold
 		var _block:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
 		Game.server.sendPacket(new RepHold(_block));
-		//Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = Game.data.playerData.mDTingame.infoHold;
-		//Game.data.playerData.dataPVP.dataEnemy.isHold = true;
 	}
 	private function cInScore()
 	{		
@@ -723,10 +787,12 @@ class Mine extends Sprite
 	private function cSendGift()
 	{
 		// send
-		Game.server.sendPacket(new RepGrow(numClear));
-		//Game.data.playerData.dataPVP.dataEnemy.mNumGift = numClear;
-		//Game.data.playerData.dataPVP.dataEnemy.isRevGift = true;
-		
+		Game.server.sendPacket(new RepSendGift(numClear));		
+	}
+	private function cGrow()
+	{
+		// send
+		Game.server.sendPacket(new RepGrow(numGrow));		
 	}
 	private function cUseSkill()
 	{

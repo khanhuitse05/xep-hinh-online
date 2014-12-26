@@ -39,7 +39,7 @@ class GameBattle extends Sprite
 	private var mEnemy:Enemy;
 	// show vituar block
 	private var mOneTouch:OneTouch;
-	// Contro
+	// Control
 	private var mControl:GameControl;
 	
 	
@@ -57,6 +57,7 @@ class GameBattle extends Sprite
 				
 		mScore = new Score();
 		this.addChild(mScore);
+		mScore.setPos(200, 30);
 		
 		mTime = new TimePlay(BOARD_X, BOARD_Y + 1064);
 		this.addChild(mTime);

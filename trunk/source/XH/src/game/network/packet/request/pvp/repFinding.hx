@@ -13,7 +13,7 @@ class RepFinding extends RequestPacket
 
 	public function new() 
     {
-        super(Command.CMD_REQ_FINDING_PVP);
+        super(Command.CMD_PVP_FINDING);
     }
 
     override public function encode(): ByteArray

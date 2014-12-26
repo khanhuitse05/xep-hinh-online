@@ -29,7 +29,7 @@ class MissionView extends SceneView
 	private function init():Void 
 	{
 		// fill background
-		mBg = Game.resource.getSprite(Defines.GFX_MISSION_BG);
+		mBg = Game.resource.getSprite(Defines.GFX_UI_HUDBOTTOM);
 		this.addChild(mBg);
 		
 		// btn

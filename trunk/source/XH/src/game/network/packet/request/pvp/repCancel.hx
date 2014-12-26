@@ -13,7 +13,7 @@ class RepCancel extends RequestPacket
 
 	public function new() 
     {
-        super(Command.CMD_REQ_CANCEL_PVP);
+        super(Command.CMD_PVP_CANCEL);
     }
 
     override public function encode(): ByteArray

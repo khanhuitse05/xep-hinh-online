@@ -28,6 +28,10 @@ class SimpleButton extends ExSprite
     private var _noOverDisplay : Bool = false;
     
     private var _isDisable : Bool = false;
+		
+	private var _isDown:Bool;
+	private var _onMouseClick:MouseEvent->Void;
+	private var _onMouseDown:MouseEvent->Void;
     
     public function new() 
     {
@@ -81,6 +85,7 @@ class SimpleButton extends ExSprite
         this.addEventListener(MouseEvent.ROLL_OVER, onMouseOver);
         this.addEventListener(MouseEvent.ROLL_OUT, onMouseOut);
         this.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+        this.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
     }
     
     private function setStatus(status : Int) : Void
@@ -152,6 +157,11 @@ class SimpleButton extends ExSprite
 
     public function onMouseDown(e:MouseEvent):Bool
     {
+		_isDown = true;
+		if (_onMouseDown != null && _isDisable == false) 
+		{
+			this._onMouseDown(e);
+		}
         if(!_isDisable)
         {
             setStatus(PRESS_STATUS);
@@ -172,6 +182,7 @@ class SimpleButton extends ExSprite
     
     public function onMouseOut(e:MouseEvent):Bool
     {
+		_isDown = false;
         if(!_isDisable)
         {
             setStatus(NORMAL_STATUS);
@@ -179,7 +190,19 @@ class SimpleButton extends ExSprite
         }
         return false;
     }
-    
+	
+    public function onMouseUp(e:MouseEvent):Void
+    {
+		if (_isDown == true && _isDisable == false) 
+		{
+			if (_onMouseClick != null) 
+			{
+				this._onMouseClick(e);
+			}
+		}
+		_isDown = false;
+    }
+	
     public function GetDisable() : Bool
     {
         return _isDisable;
@@ -212,5 +235,12 @@ class SimpleButton extends ExSprite
         this.y = y;
     }
 
-    
+    public function setMouseDown(f:MouseEvent->Void):Void
+	{
+		_onMouseDown = f;
+	}
+	public function setMouseClick(f:MouseEvent->Void):Void
+	{
+		_onMouseClick = f;
+	}
 }

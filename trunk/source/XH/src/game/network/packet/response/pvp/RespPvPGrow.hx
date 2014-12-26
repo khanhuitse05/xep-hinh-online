@@ -1,5 +1,7 @@
 package game.network.packet.response.pvp;
 
+import game.data.pvp.DTEnemy;
+import game.data.pvp.DTPVP;
 import game.network.packet.ResponsePacket;
 import game.tnk.Game;
 import openfl.utils.ByteArray;
@@ -18,6 +20,6 @@ class RespPvPGrow extends ResponsePacket
 	override public function decode(data : ByteArray) : Void 
     {        
 		Game.data.playerData.dataPVP.dataEnemy.mNumGift = data.readInt();
-        Game.data.playerData.dataPVP.dataEnemy.isRevGift = true;
+        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.GROW);
     }
 }

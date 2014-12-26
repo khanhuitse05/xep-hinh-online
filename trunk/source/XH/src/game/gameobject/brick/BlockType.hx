@@ -13,4 +13,6 @@ class BlockType
 	public static var LR = 5;
 	public static var ZL = 6;
 	public static var ZR = 7;
+	
+	public static var INDEX_GROW = 8;
 }

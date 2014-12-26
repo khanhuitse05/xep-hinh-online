@@ -1,5 +1,6 @@
 package game.gameobject.gameplay;
 import core.display.ex.Lable;
+import game.const.Const;
 import game.tnk.Game;
 import openfl.display.Sprite;
 import tweenx909.TweenX;
@@ -48,23 +49,14 @@ class Score extends Sprite
 			Game.data.playerData.mDTingame.inScore = 0;
 		}
 		if (mScore >= 1000000) 
-		{
-			var _mil = Std.int(mScore / 1000000);
-			var _tho = Std.int(mScore / 1000);
-			var _num = mScore % 1000;
-			mTextScore.setSysTextInfo(-60, 0,
-						_mil + "," + _tho + "," 
-						+ Std.int(_num / 100) + "" + Std.int((_num % 100) / 10) + "" + _num % 10);
+		{			
+			mTextScore.setSysTextInfo(-60, 0,Const.NumToString(mScore));
 		}else if (mScore >= 1000) 
 		{
-			var _tho = Std.int(mScore / 1000);
-			var _num = mScore % 1000;
-			mTextScore.setSysTextInfo(-35, 0,
-						_tho + "," 
-						+ Std.int(_num / 100) + "" + Std.int((_num % 100) / 10) + "" + _num % 10);
+			mTextScore.setSysTextInfo(-35, 0,Const.NumToString(mScore));
 		}else
 		{
-			mTextScore.setSysTextInfo(-10,0,"" + mScore);
+			mTextScore.setSysTextInfo(-10,0,Const.NumToString(mScore));
 		}
 	}
 	/**
@@ -84,6 +76,17 @@ class Score extends Sprite
 		this.scaleX = 1;
 		this.scaleY = 1;
 	}
+	/**
+	 * 
+	 */
+	public function setPos(_x:Int, _y:Int)
+	{
+		mBG.x = _x;
+		mBG.y = _y;
+	}
+	/**
+	 * 
+	 */
 	public function onExit()
 	{
 		mBG.removeEventListener(Event.ENTER_FRAME, gameLoop);
