@@ -79,7 +79,7 @@ public class SocketServerHandler extends SimpleChannelHandler
 						.PlayerLogin(buffer, ctx, e);
 				player = (Player) ctx.getAttachment();
 				
-				//if (player != null) 
+				if (player != null) 
 				{
 					System.out.println("else player != null");
 					//if (bufferOut != null)

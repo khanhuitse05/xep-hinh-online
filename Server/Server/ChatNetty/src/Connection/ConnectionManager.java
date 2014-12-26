@@ -72,6 +72,8 @@ public class ConnectionManager
 			System.out.println(" Handle sign up");
 			ChannelBuffer resSignUp = newPlayer.HandleSignUpRes(channelBuffer);
 
+			ctx.setAttachment(newPlayer);
+			AllPlayers.put(newPlayer.getPlayerID(), newPlayer);
 			return resSignUp;
 		}
 
