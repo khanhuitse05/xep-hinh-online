@@ -20,6 +20,7 @@ class RepLogin extends RequestPacket
 	override public function encode(): ByteArray
     {
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
+		data.writeShort(userName.length);
 		data.writeStr(userName);
         return data;
     }

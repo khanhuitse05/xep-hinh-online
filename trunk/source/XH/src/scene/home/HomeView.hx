@@ -12,6 +12,7 @@ import game.gameobject.background.Background;
 import game.gameobject.gameplay.GameMode;
 import game.network.packet.request.login.RepLogin;
 import game.tnk.Game;
+import motion.Actuate;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -40,13 +41,15 @@ class HomeView extends SceneView
 	private var mBg:Background;
 		
 	private var listButton:Array<SimpleButton>;
+	private var isCheck:Bool;
 	
 	public function new() 
 	{
 		super();
+		isCheck = false;
 		//this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		init();
-		checkUser();
+		Actuate.timer(2).onComplete(checkUser);
 	}
 	/**
 	 * 
@@ -144,9 +147,10 @@ class HomeView extends SceneView
 	 */
 	private function checkUser():Void
 	{
+		isCheck = true;
 		if (Game.data.playerData.dataGame.online) 
 		{			
-			if (ExploringCache.CheckExist() == false) 
+			if (ExploringCache.CheckSignUp() == false) 
 			{
 				Game.displayManager.toScreen(ScreenID.POPUP_LOGIN);
 				ExploringCache.writeData();
@@ -173,9 +177,9 @@ class HomeView extends SceneView
 	 */
 	private function setOffline():Void
 	{
-		//listButton[BATTLE].SetDisable(true);
-		//listButton[FRIEND].SetDisable(true);
-		//listButton[MISSION].SetDisable(true);
+		listButton[BATTLE].SetDisable(true);
+		listButton[FRIEND].SetDisable(true);
+		listButton[MISSION].SetDisable(true);
 	}
 	/**
 	 * ONLINE
