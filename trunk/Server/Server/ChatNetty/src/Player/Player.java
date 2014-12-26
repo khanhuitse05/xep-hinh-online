@@ -103,8 +103,16 @@ public class Player
 			// WriteToClient(HandleLoginRes(buffer));
 
 			// Test Send to the opponent
-			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
-					.TranfferData(this, buffer);
+			if(LobbyID != null)
+			{
+				ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
+				.TranfferData(this, buffer);
+			
+			}
+			else
+			{
+				System.out.println("^&%^^&#$%#$% #$#&# EXCEPTION");
+			}
 			break;
 		}
 	}

@@ -108,9 +108,11 @@ public class ConnectionManager
 		{
 			Lobby tempLobby = entry.getValue();
 			// Lobby is full
+			System.out.print("Lobby id = " + tempLobby.getLobbyID() + " isFull = " + tempLobby.LoobyFull());
 			if (tempLobby.LoobyFull())
 			{
-				break;
+				System.out.print("Full");
+				continue;
 			}
 			else
 			{
@@ -119,8 +121,11 @@ public class ConnectionManager
 				// For testing join with elo
 				if (tempLobby.EnterLobbyWithElo(player))
 				{
+					System.out.print("Enter");
 					isJoined = true;
+					return;
 				}
+				System.out.print("CAN NOT ENTER");
 			}
 		}
 
