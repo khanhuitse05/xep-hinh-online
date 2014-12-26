@@ -53,7 +53,7 @@ public class Player
 		ChannelBuffer tempBuffer = buffer.copy();
 		int length = tempBuffer.readShort();
 		int command = tempBuffer.readShort();
-		int textLength = tempBuffer.readShort();
+		//int textLength = tempBuffer.readShort();
 		// System.out.println("Sring: length"
 		// + textLength
 		// + "--index"
@@ -61,7 +61,7 @@ public class Player
 		// + "--"
 		// + tempBuffer.toString(tempBuffer.readerIndex() + 2, textLength,
 		// StandardCharsets.UTF_8));
-		tempBuffer.readerIndex(buffer.readerIndex());
+		//tempBuffer.readerIndex(buffer.readerIndex());
 
 		System.out.println("command " + command + "-" + buffer.capacity());
 
@@ -93,7 +93,7 @@ public class Player
 		case Command.CMD_PVP_GROW:
 		case Command.CMD_PVP_HOLD:
 		case Command.CMD_FOUND_PVP:
-			
+		case Command.CMD_PVP_ENTER:
 			// Set back to the sender
 			// HandleIngameNextRes(buffer);
 
@@ -233,7 +233,7 @@ public class Player
 	{
 		ChannelBuffer resFoundMatch = ChannelBuffers
 				.buffer(FINDMATCH_BUFFER_SIZE);
-		resFoundMatch.writeShort(FINDMATCH_BUFFER_SIZE);
+		resFoundMatch.writeShort(0);
 		resFoundMatch.writeShort(Command.CMD_FOUND_PVP);
 
 		WriteToClient(resFoundMatch);
