@@ -39,6 +39,7 @@ public class Lobby
 					Player1 = player;
 					Player1.setLobbyID(LobbyID);
 					IsFull = false;
+					System.out.println("=>> join 1:  ROOMID " + LobbyID);
 					return true;
 				}
 				else
@@ -52,6 +53,7 @@ public class Lobby
 						Player1.setLobbyID(LobbyID);
 						IsFull = true;
 						StartGame(IsFull);
+						System.out.println("=>> join 1:  ROOMID " + LobbyID);
 						return true;
 					}
 					else
@@ -74,6 +76,7 @@ public class Lobby
 					Player2.setLobbyID(LobbyID);
 					IsFull = true;
 					StartGame(IsFull);
+					System.out.println("=>> join 2:  ROOMID " + LobbyID);
 					return true;
 				}
 				else
