@@ -48,11 +48,11 @@ class Defines
 	inline public static var GFX_BOX_2:Int	 			= 34;
 	inline public static var GFX_BOX_3:Int	 			= 35;
 	inline public static var GFX_BOX_4:Int	 			= 36;
-	inline public static var TEMP5:Int	= 37;
-	inline public static var TEMP6:Int		= 38;
-	inline public static var TEMP7:Int		= 39;
-	inline public static var TEMP8:Int		= 40;
-	inline public static var TEMP9:Int		= 41;
+	inline public static var GFX_BATTLE_BG:Int			= 37;
+	inline public static var GFX_BATTLE_BTN_BACK:Int	= 38;
+	inline public static var GFX_BATTLE_BTN_CANCEL:Int	= 39;
+	inline public static var GFX_BATTLE_BTN_FIND:Int	= 40;
+	inline public static var GFX_BATTLE_FINDING:Int		= 41;
 	inline public static var TEMP10:Int				= 42;
 	inline public static var TEMP11:Int			= 43;
 	inline public static var TEMP12:Int			= 44;

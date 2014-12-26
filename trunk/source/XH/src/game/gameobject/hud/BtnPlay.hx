@@ -34,6 +34,7 @@ class BtnPlay extends SimpleButton
 		Game.data.playerData.dataSkill.onPlay();
 		switch (pos) 
 		{
+			case -1:
 			case 0:
 				Game.displayManager.toScreen(ScreenID.SINGLEPLAY);
 			case 1:
