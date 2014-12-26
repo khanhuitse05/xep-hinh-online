@@ -1,5 +1,6 @@
 package game.network.packet.response.pvp;
 
+import game.tnk.Game;
 import openfl.utils.ByteArray;
 import game.network.packet.ResponsePacket;
 
@@ -15,6 +16,7 @@ class RespPvPFound extends ResponsePacket
 		
 	}
 	override public function decode(data : ByteArray) : Void 
-    {        
+    {
+		Game.data.playerData.dataPVP.dataRoom.isFound = true;
     }
 }

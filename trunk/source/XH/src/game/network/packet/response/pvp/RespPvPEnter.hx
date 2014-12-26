@@ -22,5 +22,6 @@ class RespPvPEnter extends ResponsePacket
 		Game.data.playerData.dataPVP.infoEnemy.skill[0] = data.readInt();
 		Game.data.playerData.dataPVP.infoEnemy.skill[1] = data.readInt();
 		Game.data.playerData.dataPVP.infoEnemy.skill[2] = data.readInt();
+		Game.data.playerData.dataPVP.dataRoom.isEnter = true;
     }
 }
