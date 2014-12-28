@@ -19,7 +19,7 @@ class SkillPane extends Sprite
 	public static var				DISPLAY_X:Int = 20;
 	public static var				DISPLAY_Y:Int = 20;
 	public static var				NAME_X:Int = 110;
-	public static var				NAME_Y:Int = 30;
+	public static var				NAME_Y:Int = 35;
 	public static var				CHOOSE_X:Int = 430;
 	public static var				CHOOSE_Y:Int = 15;
 	
@@ -65,5 +65,12 @@ class SkillPane extends Sprite
 		mChoose.x = CHOOSE_X;
 		mChoose.y = CHOOSE_Y;
 		this.addChild(mChoose);
+	}
+	/**
+	 * 
+	 */
+	public function onRefresh()
+	{		
+		mChoose.onRefresh();
 	}
 }

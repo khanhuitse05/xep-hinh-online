@@ -31,6 +31,7 @@ class HudInfo extends Sprite
 	private static var LOGO_Y = 190;
 	
 	private var listButton:Array<SimpleButton>;
+	var _name:Lable;
 	
 	public function new() 
 	{
@@ -43,7 +44,7 @@ class HudInfo extends Sprite
 		var _line = Game.resource.getSprite(Defines.GFX_UI_HUDINFO);
 		this.addChild(_line);
 		// name
-		var _name:Lable = new Lable();
+		_name = new Lable();
 		_name.setFont(40, 0xffffff);
 		if ( Game.data.playerData.mUserInfo.userName != null) 
 		{
@@ -69,6 +70,13 @@ class HudInfo extends Sprite
 		listButton[SHOP].addEventListener(MouseEvent.CLICK, onShop);
 		listButton[ABOUT].addEventListener(MouseEvent.CLICK, onAbout);
 		listButton[WHELL].addEventListener(MouseEvent.CLICK, onWhell);
+	}
+	public function update():Void
+	{
+		if ( Game.data.playerData.mUserInfo.userName != null) 
+		{
+			_name.setSysTextInfo(NAME_X, NAME_Y, Game.data.playerData.mUserInfo.userName);
+		}
 	}
 	/**
 	 * 

@@ -74,6 +74,16 @@ class SkillScroll extends Sprite
 	}
 	/**
 	 * 
+	 */
+	public function onRefresh()
+	{		
+		for (i in 0...DTSkill.MAX_SKILL) 
+		{
+			m_pChilds[i].onRefresh();
+		}
+	}
+	/**
+	 * 
 	 * @param	_obj
 	 */
 	public function addItem()

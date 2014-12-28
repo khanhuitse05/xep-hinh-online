@@ -25,5 +25,6 @@ class LoginResponse extends ResponsePacket
 		Game.data.playerData.mUserInfo.elo = data.readShort();
 		ExploringCache.writeID(Game.data.playerData.mUserInfo.userID);
 		ExploringCache.writeElo(Game.data.playerData.mUserInfo.elo);
+		Game.hudTop.update();
     }
 }

@@ -17,8 +17,8 @@ import tweenx909.TweenX;
  */
 class PopupBase extends SceneView
 {
-	private static var WIDTH = 600;
-	private static var HEIGHT = 660;
+	public static var WIDTH = 600;
+	public static var HEIGHT = 660;
 	
 	private static var LEFT = 0;
 	private static var TOP = 1;

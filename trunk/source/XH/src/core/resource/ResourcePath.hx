@@ -50,11 +50,11 @@ class ResourcePath
 		"img/gfx/ui/cancelbutt.png",	//39
 		"img/gfx/ui/findingbutt.png",
 		"img/gfx/ui/findingmatch.png",
-		"",
-		"",
-		"",
-		"",
-		"",
+		"img/gfx/statictis/bgstapve.png", // 42 STATICTIS
+		"img/gfx/statictis/bgstapvp.png",
+		"img/gfx/ui/btncontinution.png",
+		"img/gfx/statictis/bgbattlevs.png",
+		"img/gfx/ui/btnshare.png",
 		"",
 		"",
 		"img/gfx/ui/popuptop.png",	//49
@@ -86,6 +86,10 @@ class ResourcePath
 		"img/gfx/chooseskill/itembuttl.png",
 		"img/gfx/chooseskill/itemboxchoose.png",
 		"img/gfx/chooseskill/titlechooseskill.png",
+		"img/gfx/highscore/highcorebox.png",	// 78 HIGHSCORE
+		"img/gfx/highscore/highcoreboxlock.png",
+		"img/gfx/highscore/highcoreboxme.png",
+		"img/gfx/highscore/titlehighscore.png",
     ];
 	public static var BITMAPDATA_PATH =
     [
@@ -95,6 +99,9 @@ class ResourcePath
 		"img/gfx/game/border.png",
 		"img/gfx/skill/skilldisplay.png",
 		"img/gfx/skill/skillname.png",
+		"img/gfx/statictis/avatauser.png",
+		"img/gfx/highscore/avatachallgeneg.png",
+		"img/gfx/highscore/rankhighscore.png",
     ];
 	public static var ANIMX_PATH =
     [		

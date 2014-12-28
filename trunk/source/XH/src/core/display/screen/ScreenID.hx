@@ -4,6 +4,7 @@ package core.display.screen;
 import core.display.popup.PopupID;
 import core.display.scene.SceneID;
 import popup.login.*;
+import popup.statistic.*;
 import scene.battle.*;
 import scene.battleroom.*;
 import scene.friendplay.*;
@@ -12,6 +13,7 @@ import scene.loading.*;
 import scene.login.*;
 import scene.mission.*;
 import scene.choseskill.*;
+import scene.highscore.*;
 import scene.singleplay.*;
 
 /**
@@ -30,9 +32,12 @@ class ScreenID
     public static var FRIENDPLAY :          SceneID = new SceneID(FriendPlay, FriendPlayView);
     public static var MISSION :           	SceneID = new SceneID(Mission, MissionView);
     public static var SKILL :           	SceneID = new SceneID(ChoseSkill, ChoseSkillView);
+    public static var HIGHSCORE :           SceneID = new SceneID(HighScore, HighScoreView);
 	
 	// popup
-    public static var POPUP_LOGIN :           	PopupID = new PopupID(LoginPopup);
+    public static var POPUP_LOGIN:           	PopupID = new PopupID(LoginPopup);
+    public static var POPUP_STA_PVE:           	PopupID = new PopupID(StaPvEPopup);
+    public static var POPUP_STA_PVP:           	PopupID = new PopupID(StaPvPPopup);
     
     public function new()
     {

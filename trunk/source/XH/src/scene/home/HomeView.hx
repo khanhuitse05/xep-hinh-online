@@ -42,6 +42,7 @@ class HomeView extends SceneView
 		
 	private var listButton:Array<SimpleButton>;
 	private var isCheck:Bool;
+	private var hudInfo:HudInfo;
 	
 	public function new() 
 	{
@@ -68,8 +69,8 @@ class HomeView extends SceneView
         {
             Game.hudBottom = new HudBottom();
         }
-		var _hudInfo:HudInfo = new HudInfo();
-		this.addChild(_hudInfo);
+		hudInfo = new HudInfo();
+		this.addChild(hudInfo);
 		// btn
 		listButton = new Array<SimpleButton>();
 		for (i in 0...MAX_BUTTON) 
@@ -115,7 +116,7 @@ class HomeView extends SceneView
 	private function onSingle(e:Event):Void 
 	{		
 		Game.data.playerData.dataSkill.mode = GameMode.PVE;
-		Game.displayManager.toScreen(ScreenID.SKILL);
+		Game.displayManager.toScreen(ScreenID.HIGHSCORE);
 	}
 	/**
 	 * 
@@ -140,7 +141,7 @@ class HomeView extends SceneView
 	 */
 	private function onMission(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.POPUP_LOGIN);
+		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVP);
 	}
 	/**
 	 * check username
@@ -171,15 +172,16 @@ class HomeView extends SceneView
 			setOffline();
 		}
 		logData();
+		hudInfo.update();
 	}
 	/**
 	 * OFFLINE
 	 */
 	private function setOffline():Void
 	{
-		listButton[BATTLE].SetDisable(true);
-		listButton[FRIEND].SetDisable(true);
-		listButton[MISSION].SetDisable(true);
+		//listButton[BATTLE].SetDisable(true);
+		//listButton[FRIEND].SetDisable(true);
+		//listButton[MISSION].SetDisable(true);
 	}
 	/**
 	 * ONLINE

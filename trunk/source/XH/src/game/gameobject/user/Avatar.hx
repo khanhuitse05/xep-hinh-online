@@ -1,4 +1,4 @@
-package game.gameobject.skill ;
+package game.gameobject.user;
 
 import core.resource.Defines;
 import game.const.skill.SkillInfo;
@@ -14,29 +14,28 @@ import openfl.display.Sprite;
  * ...
  * @author KhanhTN
  */
-class SkillDisplay extends Sprite
+class Avatar extends Sprite
 {
-	public static var SKILL_WIDTH = 100;
-	public static var SKILL_HEIGHT = 100;
+	public static var IMAGE_WIDTH = 100;
+	public static var IMAGE_HEIGHT = 100;
 	
-	public var info:SkillInfo;
 	private var tilesheet:Tilesheet;
-	private var _onMouseClick:MouseEvent->Void;
+	private var index:Int;
 	
 	public function new(_id:Int) 
 	{
 		super();
-		info = new SkillInfo(_id);
+		index = _id;
 		init();
 		addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	public function init():Void
 	{
-		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_SKILL_DISPLAY);
+		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_AVATAR);
 		tilesheet = new Tilesheet (_bitmap);
-		for (i in 0...11) 
+		for (i in 0...7) 
 		{			
-			tilesheet.addTileRect(new Rectangle(i * SKILL_WIDTH, 0, SKILL_WIDTH, SKILL_HEIGHT), null);
+			tilesheet.addTileRect(new Rectangle(i * IMAGE_WIDTH, 0, IMAGE_WIDTH, IMAGE_HEIGHT), null);
 		}
 	}
 	private function gameLoop(e:Event):Void 
@@ -46,14 +45,14 @@ class SkillDisplay extends Sprite
 	private function gameDraw():Void 
     {
 		this.graphics.clear();
-		if (info.id >=0) 
+		if (index >=0) 
 		{
-			this.tilesheet.drawTiles(this.graphics, [0, 0, info.id]);
+			this.tilesheet.drawTiles(this.graphics, [0, 0, index]);
 		}
     }
 	public function update(_id:Int):Void
 	{
-		info = new SkillInfo(_id);
+		index = _id;
 	}
 	
 }

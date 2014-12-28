@@ -60,6 +60,7 @@ class Server extends EventDispatcher
         _responsedMapping[Command.CMD_PVP_FOUND]                 	= RespPvPFound;
         _responsedMapping[Command.CMD_PVP_NEXT]                		= RespPvPNext;
         _responsedMapping[Command.CMD_PVP_GROW]                    	= RespPvPGrow;
+        _responsedMapping[Command.CMD_PVP_SEND]                    	= RespPvPSendGift;
         _responsedMapping[Command.CMD_PVP_HOLD]    		        	= RespPvPHold;
         _responsedMapping[Command.CMD_PVP_FALL]	        	    	= RespPvPFall;
 		// Statistics
