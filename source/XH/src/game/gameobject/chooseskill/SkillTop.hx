@@ -34,13 +34,7 @@ class SkillTop extends Sprite
 	
 	public function new() 
 	{
-		super();
-		mode = Game.data.playerData.dataSkill.mode;
-		offset = OFFSET_PVP;
-		if (mode == GameMode.PVE) 
-		{
-			offset = OFFSET_PVE;
-		}
+		super();		
 		m_pChilds = new Array<SkillDisplay>();
 		init();
 	}
@@ -54,23 +48,34 @@ class SkillTop extends Sprite
 			var _obj:SkillDisplay = new SkillDisplay(Game.data.playerData.dataSkill.skillAct[i]);
 			_obj.scaleX = SCALE_SKILL;
 			_obj.scaleY = SCALE_SKILL;
-			_obj.x = SKILL_X + i * offset;
-			_obj.y = SKILL_Y;
 			this.addChild(_obj);
 			m_pChilds.push(_obj);
 			_obj.addEventListener(MouseEvent.CLICK, onTapSkill);
 		}
 		
+		var _obj:SkillDisplay = new SkillDisplay(Game.data.playerData.dataSkill.skillUtimate);
+		_obj.scaleX = SCALE_SKILL;
+		_obj.scaleY = SCALE_SKILL;
+		this.addChild(_obj);
+		m_pChilds.push(_obj);
+		_obj.addEventListener(MouseEvent.CLICK, onTapUtimate);
+	}
+	public function onRefresh()
+	{		
+		mode = Game.data.playerData.dataSkill.mode;
+		offset = OFFSET_PVP;
 		if (mode == GameMode.PVE) 
 		{
-			var _obj:SkillDisplay = new SkillDisplay(Game.data.playerData.dataSkill.skillUtimate);
-			_obj.scaleX = SCALE_SKILL;
-			_obj.scaleY = SCALE_SKILL;
-			_obj.x = SKILL_X + DTSkill.MAX_CHOOSE * offset;
-			_obj.y = SKILL_Y;
-			this.addChild(_obj);
-			m_pChilds.push(_obj);
-			_obj.addEventListener(MouseEvent.CLICK, onTapUtimate);
+			offset = OFFSET_PVE;
+			m_pChilds[DTSkill.MAX_CHOOSE].visible = true;
+		}else 
+		{
+			m_pChilds[DTSkill.MAX_CHOOSE].visible = false;
+		}
+		for (i in 0...DTSkill.MAX_CHOOSE + 1) 
+		{
+			m_pChilds[i].x = SKILL_X + i * offset;
+			m_pChilds[i].y = SKILL_Y;
 		}
 	}
 	public function update()

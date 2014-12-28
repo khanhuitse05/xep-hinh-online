@@ -35,9 +35,12 @@ class BtnPlay extends SimpleButton
 		switch (pos) 
 		{
 			case -1:
+				this.visible = false;
 			case 0:
+				this.visible = true;
 				Game.displayManager.toScreen(ScreenID.SINGLEPLAY);
 			case 1:
+				this.visible = true;
 				Game.displayManager.toScreen(ScreenID.ROOM);
 			default:
 		}

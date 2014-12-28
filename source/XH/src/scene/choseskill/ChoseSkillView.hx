@@ -26,8 +26,6 @@ import scene.hud.HudTop;
  */
 class ChoseSkillView extends SceneView
 {
-
-	
 	public static var RESULT_X 		= 0;
 	public static var RESULT_Y 		= 100;
 	
@@ -75,17 +73,27 @@ class ChoseSkillView extends SceneView
 	/**
 	 * 
 	 */
-    override public function onEnter() : Void
+    public function onRefresh() : Void
     {
 		mode = Game.data.playerData.dataSkill.mode;
+		Game.data.playerData.dataSkill.refreshSkill();
+		mResult.update();
+		mResult.onRefresh();
+		mScroll.onRefresh();
+	}
+	/**
+	 * 
+	 */
+    override public function onEnter() : Void
+    {
 		this.addChild(Game.hudTop);
 		Game.hudTop.setPosBack(SceneView.HOME);
 		Game.hudTop.update();
 		this.addChild(Game.hudBottom);		
 		Game.hudBottom.setPosBack(Game.data.playerData.dataSkill.mode);
-		Game.data.playerData.dataSkill.refreshSkill();
-		mResult.update();
+		onRefresh();
     }
+	
 	override public function onExit() : Void
     {  
         this.removeChild(Game.hudTop);

@@ -12,15 +12,18 @@ class RepGrow extends RequestPacket
 {
 
 	private var gift:Int;
-	public function new(_gift:Int) 
+	private var listGrown:Array<Int>;
+	public function new(_gift:Int, _list:Array<Int>) 
 	{
 		super(Command.CMD_PVP_GROW);
 		gift = _gift;
+		listGrown = _list;
 	}
 	override public function encode(): ByteArray {
         
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
         data.writeInt(gift);
+		data.wireArrInteger(listGrown);
         return data;
     }	
 }

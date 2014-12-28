@@ -29,14 +29,50 @@ class SkillChoose extends Sprite
 	private var mBg:Sprite;
 	private var text:Lable;
 	private var isDisable:Bool;
+	private var mode:Int;
+	
 
 	public function new(_id:Int) 
 	{
 		super();
+		mode = Game.data.playerData.dataSkill.mode;
 		isDisable = false;
 		info = new SkillInfo(_id);
 		initialize();
 		this.addEventListener(MouseEvent.CLICK, onClick);
+	}
+	/**
+	 * 
+	 */
+	public function onRefresh()
+	{
+		mode = Game.data.playerData.dataSkill.mode;
+		this.removeChild(mBg);		
+		isDisable = false;
+		if ((info.mode != mode && info.mode != GameMode.NON) || info.isLock == true)
+		{
+			mBg = Game.resource.getSprite(Defines.GFX_UI_SKILL_CHO_LOCK);
+			isDisable = true;
+			text.setFont(40, 0xffffff);
+			text.setSysTextInfo(TEXT_X, TEXT_Y, "LOCK");
+			type = LOCK;
+		}else 
+		{
+			if (Game.data.playerData.dataSkill.skill[info.id - 1] > 0) 
+			{
+				mBg = Game.resource.getSprite(Defines.GFX_UI_SKILL_CHO_X);
+				text.setFont(40, 0xffffff);
+				text.setSysTextInfo(TEXT_X - 15, TEXT_Y - 5, "" + Game.data.playerData.dataSkill.skill[info.id - 1]);
+				type = CHOOSE;
+			}else
+			{
+				mBg = Game.resource.getSprite(Defines.GFX_UI_SKILL_CHO_BUY);
+				text.setFont(35, 0x15E267);
+				text.setSysTextInfo(TEXT_X, TEXT_Y, "" + Const.NumToString(info.price) + "$");
+				type = BUY;
+			}
+		}
+		this.addChildAt(mBg, 0);
 	}
 	/**
 	 * 
@@ -59,7 +95,7 @@ class SkillChoose extends Sprite
 				type = BUY;
 			}
 		}
-		this.addChild(mBg);
+		this.addChildAt(mBg, 0);
 		
 		text = new Lable();
 		switch (type) 

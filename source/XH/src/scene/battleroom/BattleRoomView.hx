@@ -4,6 +4,7 @@ import core.display.scene.*;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
 import game.gameobject.gameplay.GameBattle;
+import game.gameobject.gameplay.GameMode;
 import game.gameobject.gameplay.GamePlay;
 import game.gameobject.pvp.FindingMatch;
 import game.network.packet.request.pvp.RepCancel;
@@ -20,7 +21,7 @@ import openfl.events.Event;
  */
 class BattleRoomView extends SceneView
 {
-	private static var POS_LEFT = 100;
+	private static var POS_LEFT = 200;
 	private static var POS_RIGHT = 530;
 	private static var POS_Y = 50;
 	
@@ -98,7 +99,8 @@ class BattleRoomView extends SceneView
 	}
 	public function onBack(e:MouseEvent)
 	{
-		
+		Game.data.playerData.dataSkill.mode = GameMode.PVP;
+		Game.displayManager.toScreen(ScreenID.SKILL);
 	}
 	public function onCancel(e:MouseEvent)
 	{

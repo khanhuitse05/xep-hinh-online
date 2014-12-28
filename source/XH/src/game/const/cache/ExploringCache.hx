@@ -14,6 +14,7 @@ class ExploringCache
 	// elo
 	// gold
 	// exp
+	// score
 	// skill01
 	// skill09
 	
@@ -47,7 +48,7 @@ class ExploringCache
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
 		so.data.userName = Game.data.playerData.mUserInfo.userName;
 		so.data.elo = 0;
-		so.data.gold = 1000;
+		so.data.gold = 10000;
 		so.data.exp = 0;
 		so.data.scores = 0;
 		// skill
@@ -78,6 +79,12 @@ class ExploringCache
 	{
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
 		so.data.elo = _str;
+		so.flush();
+	}
+	public static function writeScore(_str:Int)
+	{
+		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
+		so.data.score = _str;
 		so.flush();
 	}
 	public static function writeName(_str:String)

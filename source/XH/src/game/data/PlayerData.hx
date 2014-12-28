@@ -3,6 +3,7 @@ import core.event.EventEx;
 import core.resource.Defines;
 import game.data.gameplay.DTgameplay;
 import game.data.gameplay.DTingame;
+import game.data.gameplay.DTStatictis;
 import game.data.pvp.DTPVP;
 import game.data.skill.DTSkill;
 import game.data.user.DTUserInfo;
@@ -23,6 +24,7 @@ class PlayerData extends EventDispatcher
 	public var mDTingame:DTingame;
 	public var mUserInfo:DTUserInfo;
 	public var dataGame:DTGame;
+	public var dataStatictis:DTStatictis;
 	public var dataPVP:DTPVP;
 	public var dataSkill:DTSkill;
 	
@@ -35,6 +37,7 @@ class PlayerData extends EventDispatcher
 		dataGame = new DTGame();
 		dataPVP = new DTPVP();
 		dataSkill = new DTSkill();
+		dataStatictis = new DTStatictis();
         Game.server.addEventListener(Server.SERVER_DATA, onServerData);
     }
     

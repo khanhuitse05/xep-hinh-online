@@ -16,8 +16,8 @@ import openfl.display.Sprite;
  */
 class SkillName extends Sprite
 {
-	public static var SKILL_WIDTH = 280;
-	public static var SKILL_HEIGHT = 40;
+	public static var SKILL_WIDTH = 265;
+	public static var SKILL_HEIGHT = 36;
 	
 	private var info:SkillInfo;
 	private var tilesheet:Tilesheet;

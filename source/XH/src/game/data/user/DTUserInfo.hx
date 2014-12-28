@@ -13,10 +13,11 @@ class DTUserInfo
     public var elo : Int;    
     public var scores : Int;    
     public var gold : Int;   	
+    public var avatar : Int;   	
     public var inventory : InventoryData = new InventoryData();
 	public function new() 
 	{
-		
+		avatar = Std.random(10) + 1;
 	}
 	
 }

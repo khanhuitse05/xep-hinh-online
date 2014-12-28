@@ -58,7 +58,9 @@ class Mine extends Sprite
 	private var mClearBG:ExSprite;
 	private var mMask:Sprite;
 	private var numClear:Int;
+	
 	private var numGrow:Int;
+	private var listGrow:Array<Int>;
 	
 	/**
 	 * 
@@ -180,7 +182,7 @@ class Mine extends Sprite
 			}
 			if (Game.data.playerData.dataPVP.dataMine.getAct() == DTPVP.GROW) 
 			{
-				
+				sGrow();
 			}
 		}else if (mState == STATE_SKILL) 
 		{
@@ -658,7 +660,8 @@ class Mine extends Sprite
 	//grow
 	private function sGrow():Void
 	{
-		var _temp = Game.data.playerData.dataPVP.dataMine.mNumGift;
+		var _temp = Game.data.playerData.dataPVP.dataMine.mNumGift;		
+		listGrow = new Array<Int>();
 		switch (_temp) 
 		{
 			case 2:
@@ -700,6 +703,7 @@ class Mine extends Sprite
 			}
 			// init row bottom
 			var _ran:Int = Std.random(10);
+			listGrow.push(_ran);
 			for (j in 0...Game.BOARD_WIDTH) 
 			{		
 				if (j == _ran) 
@@ -725,6 +729,10 @@ class Mine extends Sprite
 		}else 
 		{
 			mState = STATE_NORMAL;
+			if (listGrow.length > 0) 
+			{
+				cGrow();
+			}
 		}			
 	}
 	
@@ -792,7 +800,7 @@ class Mine extends Sprite
 	private function cGrow()
 	{
 		// send
-		Game.server.sendPacket(new RepGrow(numGrow));		
+		Game.server.sendPacket(new RepGrow(numGrow, listGrow));		
 	}
 	private function cUseSkill()
 	{

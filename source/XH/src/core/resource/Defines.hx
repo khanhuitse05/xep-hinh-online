@@ -53,11 +53,11 @@ class Defines
 	inline public static var GFX_BATTLE_BTN_CANCEL:Int	= 39;
 	inline public static var GFX_BATTLE_BTN_FIND:Int	= 40;
 	inline public static var GFX_BATTLE_FINDING:Int		= 41;
-	inline public static var TEMP10:Int				= 42;
-	inline public static var TEMP11:Int			= 43;
-	inline public static var TEMP12:Int			= 44;
-	inline public static var TEMP13:Int		= 45;
-	inline public static var TEMP14:Int		= 46;
+	inline public static var GFX_STA_BG_PVE:Int			= 42;		// statictis
+	inline public static var GFX_STA_BG_PVP:Int			= 43;
+	inline public static var GFX_BTN_CONTINUE:Int		= 44;
+	inline public static var GFX_LOGO_VS:Int			= 45;
+	inline public static var GFX_BTN_SHARE:Int			= 46;
 	inline public static var TEMP15:Int			= 47;
 	inline public static var TEMP16:Int			= 48;
 	inline public static var GFX_UI_POPUP_TOP:Int		= 49;	// popup
@@ -89,7 +89,11 @@ class Defines
 	inline public static var GFX_UI_SKILL_CHO_LOCK:Int 	= 75;  	
 	inline public static var GFX_UI_SKILL_PANE_CHO:Int 	= 76;  
 	inline public static var GFX_UI_SKILL_TITLE:Int 	= 77;
-	inline public static var MAX_SPRITE:Int 			= 78;
+	inline public static var GFX_HIGH_CHALL:Int 		= 78;	// HIGHSCORE
+	inline public static var GFX_HIGH_LOCK:Int 			= 79;
+	inline public static var GFX_HIGH_ME:Int 			= 80;
+	inline public static var GFX_HIGHUI_TITLE:Int		= 81;
+	inline public static var MAX_SPRITE:Int 			= 82;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;
@@ -97,6 +101,9 @@ class Defines
 	inline public static var GFX_BORDER_BRICK:Int 		= 3;		
 	inline public static var GFX_SKILL_DISPLAY:Int 		= 4;		
 	inline public static var GFX_SKILL_NAME:Int 		= 5;		
-	inline public static var MAX_BITMAP:Int 			= 6;	
+	inline public static var GFX_AVATAR:Int		 		= 6;		
+	inline public static var GFX_AVATAR_CHALLENGE:Int	= 7;		
+	inline public static var GFX_HIGHSCORE_INDEX:Int	= 8;		
+	inline public static var MAX_BITMAP:Int 			= 9;	
 	//
 }
