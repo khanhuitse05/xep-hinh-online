@@ -69,7 +69,7 @@ class SkillInfo
 				changeBoard = true;
 				endGame = false;
 				price = 4500;
-				isLock = true;
+				isLock = false;
 			case SkillType.FINISH:
 				name = "FINISH";
 				mode = GameMode.PVE;

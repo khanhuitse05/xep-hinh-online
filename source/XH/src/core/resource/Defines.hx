@@ -9,6 +9,7 @@ class Defines
 	// ANIMATION
 	inline public static var GFX_LOADING_ANIM:Int = 0;
 	inline public static var GFX_ROW_CLEAER_ANIM:Int = 1;
+	inline public static var GFX_ANIM_LASES_SKILL:Int = 2;
 	inline public static var MAX_ANIM:Int = 2;
 	// SPRITE
 	inline public static var GFX_MENU_TITLE:Int 		= 0;
@@ -93,7 +94,11 @@ class Defines
 	inline public static var GFX_HIGH_LOCK:Int 			= 79;
 	inline public static var GFX_HIGH_ME:Int 			= 80;
 	inline public static var GFX_HIGHUI_TITLE:Int		= 81;
-	inline public static var MAX_SPRITE:Int 			= 82;
+	inline public static var GFX_HIGH_GOLDICON:Int		= 82;
+	inline public static var GFX_LASES_SKILL_EFFECT:Int	= 83;
+	inline public static var GFX_MAGNET_SKILL_EFFECT:Int = 84;
+	inline public static var GFX_MAGNET_SKILL_OBJ:Int	= 85;
+	inline public static var MAX_SPRITE:Int 			= 86;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;

@@ -1,4 +1,5 @@
-package scene.loading;
+package game.gameobject.loading;
+
 import core.display.ex.Lable;
 import core.display.scene.*;
 import core.display.screen.ScreenID;
@@ -7,6 +8,8 @@ import core.sprites.Animx;
 import game.const.cache.ExploringCache;
 import game.const.Const;
 import game.tnk.Game;
+import motion.Actuate;
+import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.text.TextFieldAutoSize;
 import openfl.text.TextFormatAlign;
@@ -15,8 +18,9 @@ import openfl.text.TextFormatAlign;
  * ...
  * @author KhanhTN
  */
-class LoadFistView extends SceneView
+class ConnetSever extends Sprite
 {
+
 	private var mAnim:Animx;
 	private var mNoteText:Lable;
 	private var mCount:Int;
@@ -24,17 +28,13 @@ class LoadFistView extends SceneView
 	public function new() 
 	{
 		super();
-		mCount = 0;
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
-		// init
 		init();
-		loading();
 	}
 	
 	private function init():Void 
 	{
 		// fill background
-		this.graphics.beginFill(0x0);
+		this.graphics.beginFill(0xffffff, 0.3);
 		this.graphics.drawRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		this.graphics.endFill();
 		// animate
@@ -46,25 +46,31 @@ class LoadFistView extends SceneView
 		// note
 		
 		mNoteText = new Lable();
-		mNoteText.setFont(20, 0x2D23B6);
-		mNoteText.setSysTextInfo(Game.GAME_WIDTH/ 2 - 25, 450, "loading..." + Game.data.playerData.mUserInfo.userName);
+		mNoteText.setFont(50, 0x2D23B6);
+		mNoteText.setSysTextInfo(Game.GAME_WIDTH/ 2 - 35, 450, "Connet to sever...");
         this.addChild(mNoteText);
 		
 	}
-	
-	public function loading():Void
+	public function setOnline():Void 
 	{
-		Const.init();
+		mNoteText.setSysText("Conneted!");
+		Actuate.timer(1).onComplete(onClose);
+		
 	}
-	private function gameLoop(e:Event):Void 
+	public function setOffline():Void 
 	{
-		mCount++;
-		if (mCount > 30) 
+		mNoteText.setSysText("Connet fail!");
+		Actuate.timer(1).onComplete(onClose);
+	}
+	public function onClose()
+	{
+		this.visible = false;
+		if (this.parent != null) 
 		{
-			this.removeEventListener(Event.ENTER_FRAME, gameLoop);			
-			Game.displayManager.toScreen(ScreenID.HOME);
+			if (this.parent.contains(this)) 
+			{
+				this.parent.removeChild(this);
+			}
 		}
 	}
-	
-	
 }

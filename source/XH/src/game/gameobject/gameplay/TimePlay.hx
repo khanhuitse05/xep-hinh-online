@@ -60,6 +60,11 @@ class TimePlay extends Sprite
 			}
 		}else  if (mState == PLAY) 
 		{
+			if (Game.data.playerData.mDTingame.isBoundTime == true) 
+			{
+				Game.data.playerData.mDTingame.isBoundTime = false;				
+				mValue += 200;
+			}
 			if (mValue > 0) 
 			{
 				mValue--;

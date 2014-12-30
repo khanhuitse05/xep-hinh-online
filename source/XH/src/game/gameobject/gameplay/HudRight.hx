@@ -118,8 +118,8 @@ class HudRight extends ExSprite
     {
 		if (Game.data.playerData.mDTingame.isUpdateStack == true) 
 		{
-				Update();
-				Game.data.playerData.mDTingame.isUpdateStack = false;
+			Update();
+			Game.data.playerData.mDTingame.isUpdateStack = false;
 		}
 		mXExpText.setSysText("x" + Game.data.playerData.mDTingame.mX);
 	}

@@ -90,6 +90,10 @@ class ResourcePath
 		"img/gfx/highscore/highcoreboxlock.png",
 		"img/gfx/highscore/highcoreboxme.png",
 		"img/gfx/highscore/titlehighscore.png",
+		"img/gfx/highscore/goldicon.png", 
+		"img/gfx/skill/animelases.png",	// 83 EFFECT SKILL
+		"img/gfx/skill/magnetbg.png",
+		"img/gfx/skill/magnet.png",
     ];
 	public static var BITMAPDATA_PATH =
     [
@@ -107,6 +111,7 @@ class ResourcePath
     [		
         "img/gfx/animloading.png",
 		"img/gfx/game/Spriteeffect.png",
+		"img/gfx/sprite/animelases.png",
     ];
 	public static var AUDIO_PATH =
     [

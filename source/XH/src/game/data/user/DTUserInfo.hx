@@ -17,7 +17,7 @@ class DTUserInfo
     public var inventory : InventoryData = new InventoryData();
 	public function new() 
 	{
-		avatar = Std.random(10) + 1;
+		avatar = Std.random(7) + 1;
 	}
 	
 }

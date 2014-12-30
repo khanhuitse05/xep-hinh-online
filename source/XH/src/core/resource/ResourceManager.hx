@@ -16,6 +16,7 @@ class ResourceManager
 	
 	var aLoadingAnim:Animx;
 	var aRowClearAnim:Animx;
+	var aLasesSkillEfect:Animx;
 	
 	private var mListSprite:Array<Sprite>;
 	
@@ -47,6 +48,9 @@ class ResourceManager
 		
 		aRowClearAnim = new Animx(13, 320, 32, 1);
 		aRowClearAnim.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ROW_CLEAER_ANIM]);
+				
+		aLasesSkillEfect = new Animx(1, 480, 48, 1);
+		aLasesSkillEfect.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ANIM_LASES_SKILL]);
 	}
 	/**
 	 * 

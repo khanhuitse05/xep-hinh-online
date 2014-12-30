@@ -31,7 +31,7 @@ class HighScoreIndex extends Sprite
 	}
 	public function init():Void
 	{
-		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_AVATAR_CHALLENGE);
+		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_HIGHSCORE_INDEX);
 		tilesheet = new Tilesheet (_bitmap);
 		for (i in 0...11) 
 		{			

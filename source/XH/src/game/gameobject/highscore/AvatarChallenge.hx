@@ -17,8 +17,8 @@ import openfl.geom.Rectangle;
 class AvatarChallenge extends Sprite
 {
 
-	public static var IMAGE_WIDTH = 100;
-	public static var IMAGE_HEIGHT = 100;
+	public static var IMAGE_WIDTH = 50;
+	public static var IMAGE_HEIGHT = 50;
 	
 	public var id:Int;
 	private var tilesheet:Tilesheet;

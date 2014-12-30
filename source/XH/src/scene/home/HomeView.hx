@@ -10,6 +10,7 @@ import game.data.DataController;
 import game.data.skill.DTSkill;
 import game.gameobject.background.Background;
 import game.gameobject.gameplay.GameMode;
+import game.gameobject.loading.ConnetSever;
 import game.network.packet.request.login.RepLogin;
 import game.tnk.Game;
 import motion.Actuate;
@@ -43,6 +44,7 @@ class HomeView extends SceneView
 	private var listButton:Array<SimpleButton>;
 	private var isCheck:Bool;
 	private var hudInfo:HudInfo;
+	private var connet:ConnetSever;
 	
 	public function new() 
 	{
@@ -50,7 +52,9 @@ class HomeView extends SceneView
 		isCheck = false;
 		//this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		init();
-		Actuate.timer(2).onComplete(checkUser);
+		connet = new ConnetSever();
+		this.addChild(connet);
+		Actuate.timer(2).onComplete(checkConnet);
 	}
 	/**
 	 * 
@@ -116,6 +120,8 @@ class HomeView extends SceneView
 	private function onSingle(e:Event):Void 
 	{		
 		Game.data.playerData.dataSkill.mode = GameMode.PVE;
+		Game.data.playerData.mUserInfo.scores = 300000;
+		DataController.onGold(20000);
 		Game.displayManager.toScreen(ScreenID.HIGHSCORE);
 	}
 	/**
@@ -142,6 +148,17 @@ class HomeView extends SceneView
 	private function onMission(e:Event):Void 
 	{
 		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVP);
+	}
+	private function checkConnet():Void
+	{
+		if (Game.data.playerData.dataGame.online) 
+		{
+			connet.setOnline();
+		}else 
+		{
+			connet.setOffline();
+		}		
+		Actuate.timer(0.8).onComplete(checkUser);
 	}
 	/**
 	 * check username
