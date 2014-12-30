@@ -33,7 +33,7 @@ class Avatar extends Sprite
 	{
 		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_AVATAR);
 		tilesheet = new Tilesheet (_bitmap);
-		for (i in 0...7) 
+		for (i in 0...10) 
 		{			
 			tilesheet.addTileRect(new Rectangle(i * IMAGE_WIDTH, 0, IMAGE_WIDTH, IMAGE_HEIGHT), null);
 		}

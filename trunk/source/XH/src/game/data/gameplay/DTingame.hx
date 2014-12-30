@@ -37,10 +37,10 @@ class DTingame
 	public var inScore:Int;
 	public var chooseScore:Int;
 	
-	public var mConstScore:Array<Int>;
 	
 	public var isFinishCountDown:Bool;
 	public var isUpdateTime:Bool;
+	public var isBoundTime:Bool;
 	
 	public var timeIsRuningOut:Bool;	
 	public var listSkill:Array<Int>;
@@ -58,16 +58,12 @@ class DTingame
 		isUpdateTime = false;
 		inScore = 0;
 		chooseScore = 0;		
-		mConstScore = new Array<Int>();
 		listSkill = new Array<Int>();
 		stateGame = STATE_START;
 		isChose = false;
 		isSetCase = false;
 		isRemoveCase = false;
-		for (i in 0...20) 
-		{
-			mConstScore[i] = (i + 1) * 400;
-		}
+		
 	}
 	public function onRefresh() 
 	{
@@ -79,12 +75,7 @@ class DTingame
 		stateGame = STATE_START;
 		isChose = false;
 		isHolded = false;
-		mConstScore = new Array<Int>();
 		listSkill = new Array<Int>();
-		for (i in 0...20) 
-		{
-			mConstScore[i] = (i + 1) * 400;
-		}
 	}
 	/**
 	 * 

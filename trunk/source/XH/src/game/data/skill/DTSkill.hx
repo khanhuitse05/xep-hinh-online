@@ -60,9 +60,15 @@ class DTSkill
 		{
 			if (skillUtimate != _skillInfo.id) 
 			{
-				skillUtimate = _skillInfo.id;
-				isUpdateTop = true;
-				return SUCCEED;
+				if (CheckMoney(_skillInfo.id)) 
+				{
+					skillUtimate = _skillInfo.id;
+					isUpdateTop = true;
+					return SUCCEED;
+				}else 
+				{
+					return MONEY;
+				}
 			}else 
 			{
 				//skill da duoc chon

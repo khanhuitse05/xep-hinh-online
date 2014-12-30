@@ -2,6 +2,7 @@ package game.data.gameplay;
 import game.const.skill.SkillInfo;
 import game.gameobject.brick.Block;
 import game.gameobject.brick.BlockDirect;
+import game.gameobject.brick.BlockType;
 import game.gameobject.skill.SkillType;
 import game.tnk.Game;
 
@@ -91,7 +92,7 @@ class DTgameplay
 		}
 		mStackBlock[3].mType = Std.random(7) + 1;
 		mStackBlock[3].mSkill = -1;
-		var _skill:Int = Std.random(15);
+		var _skill:Int = Std.random(5);
 		if (_skill < Game.data.playerData.dataSkill.skillAct.length &&
 			Game.data.playerData.dataSkill.skillAct[_skill] > 0) 
 		{
@@ -117,5 +118,18 @@ class DTgameplay
 			mHoldBlock[_index] = mcurrentBlock;
 			mcurrentBlock = _iblock;
 		}
+	}
+	/**
+	 * 
+	 * @param
+	 */
+	public function onEasy()
+	{
+		mcurrentBlock.mType = BlockType.I;
+		for (i in 0...mStackBlock.length) 
+		{
+			mStackBlock[i].mType = BlockType.I;
+		}
+		Game.data.playerData.mDTingame.isUpdateStack == true;
 	}
 }

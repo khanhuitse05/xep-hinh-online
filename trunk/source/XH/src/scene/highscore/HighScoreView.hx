@@ -6,6 +6,7 @@ import core.display.screen.ScreenID;
 import core.resource.Defines;
 import game.gameobject.background.Background;
 import game.gameobject.highscore.HighScoreScroll;
+import game.gameobject.hud.BtnPlay;
 import game.tnk.Game;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
@@ -66,7 +67,7 @@ class HighScoreView extends SceneView
 		Game.hudTop.setPosBack(SceneView.HOME);
 		Game.hudTop.update();
 		this.addChild(Game.hudBottom);		
-		Game.hudBottom.setPosBack(Game.data.playerData.dataSkill.mode);
+		Game.hudBottom.setPosBack(BtnPlay.CHOOSE_PVE);
 		initRefesh();
     }
 	

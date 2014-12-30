@@ -43,18 +43,18 @@ class InfoChallenge extends Sprite
 		this.addChild(textName);
 		
 		textScore = new Lable();
-		textScore.setFont(40, 0xFF8000);
+		textScore.setFont(30, 0xFF8000);
 		textScore.setPosition(0, SCORE_Y);
 		this.addChild(textScore);
 		
 		if (type == HighScoreInfo.CHALLENGE) 
 		{
 			textName.setSysText(Const.highScore[id].name);
-			textScore.setSysText("" + Const.highScore[id].score);
+			textScore.setSysText("" + Const.NumToString(Const.highScore[id].score));
 		}else if (type == HighScoreInfo.ME) 
 		{
 			textName.setSysText(Game.data.playerData.mUserInfo.userName);
-			textScore.setSysText("" + Game.data.playerData.mUserInfo.scores);
+			textScore.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.scores));
 		}
 	}
 	public function update(_id:Int, _ty:Int) 
@@ -64,11 +64,11 @@ class InfoChallenge extends Sprite
 		if (type == HighScoreInfo.CHALLENGE) 
 		{
 			textName.setSysText(Const.highScore[id].name);
-			textScore.setSysText("" + Const.highScore[id].score);
+			textScore.setSysText("" + Const.NumToString(Const.highScore[id].score));
 		}else if (type == HighScoreInfo.ME) 
 		{
 			textName.setSysText(Game.data.playerData.mUserInfo.userName);
-			textScore.setSysText("" + Game.data.playerData.mUserInfo.scores);
+			textScore.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.scores));
 		}
 	}
 	

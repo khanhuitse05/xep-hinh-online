@@ -18,6 +18,7 @@ class Const
 	public static  function init()
 	{
 		Const.initExp();
+		Const.initScore();
 	}
 	/////////////////////////////////////////////
 	// user exp
@@ -90,6 +91,23 @@ class Const
 			return _high;
 		}
 		return _high;
+	}
+	
+	/////////////////////////////////////////////
+	// score
+	/////////////////////////////////////////////
+	public static var mConstScore:Array<Int>;
+	public static function initScore():Void 
+	{
+		mConstScore = new Array<Int>();
+		for (i in 0...20) 
+		{
+			mConstScore[i] = (i + 1) * 400;
+		}
+	}
+	public static function getScore(_r:Int):Int
+	{
+		return mConstScore[_r];
 	}
 	/////////////////////////////////////////////
 	// other

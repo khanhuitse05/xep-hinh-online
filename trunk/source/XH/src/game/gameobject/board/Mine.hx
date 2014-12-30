@@ -1,6 +1,7 @@
 package game.gameobject.board;
 
 import core.display.ex.ExSprite;
+import game.const.Const;
 import game.const.skill.ConstSkill;
 import game.data.gameplay.DTingame;
 import game.data.gameplay.InfoBlock;
@@ -140,7 +141,7 @@ class Mine extends Sprite
 				ApplyEffect();
 				cFall();
 				Game.data.playerData.mDTingame.isChose = false;
-				Game.data.playerData.mDTingame.chooseScore = Game.data.playerData.mDTingame.mConstScore[0];
+				Game.data.playerData.mDTingame.chooseScore = Const.getScore(0);
 			}
 			if (Game.data.playerData.mDTingame.isCycle == true) 
 			{
@@ -544,7 +545,7 @@ class Mine extends Sprite
 			NextBlock();
 		}else
 		{
-			var _score:Int = Game.data.playerData.mDTingame.mConstScore[mListClear.length] * Game.data.playerData.mDTingame.mX;
+			var _score:Int = Const.getScore(mListClear.length) * Game.data.playerData.mDTingame.mX;
 			var _scoreeffect:ScoreEffect = new ScoreEffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH,
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
 														_score);

@@ -29,7 +29,7 @@ class SkillBase extends Sprite
 		mColumn = _col;
 		this.x = Game.BRICK_WIDTH * mColumn;
 		this.y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - Game.BRICK_HEIGHT * (mRow+2);
-		var _image:SkillDisplay = new SkillDisplay(Defines.GFX_SKILL_DISPLAY);
+		var _image:SkillDisplay = new SkillDisplay(mSkill);
 		_image.x = 0 - SkillDisplay.SKILL_WIDTH / 2;
 		_image.y = 0 - SkillDisplay.SKILL_HEIGHT / 2;
 		this.addChild(_image);

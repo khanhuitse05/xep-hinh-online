@@ -22,6 +22,7 @@ class HighScoreScroll extends Sprite
 	public static var				WIDTH:Int = 720;
 	
     private var m_pChilds:Array<HighScorePane>;
+	private var mIndex:Int;
 		
 	public function new() 
 	{
@@ -48,11 +49,11 @@ class HighScoreScroll extends Sprite
 			if (_list[i].id == -1) 
 			{
 				m_pChilds[i] = new HighScorePane(_list[i].id, HighScoreInfo.ME);
+				mIndex = i;
 			}else 
 			{
 				m_pChilds[i] = new HighScorePane(_list[i].id, HighScoreInfo.CHALLENGE);
 			}
-			m_pChilds[i].setIndex(i);
 			this.addChild(m_pChilds[i]);
 			
 		}
@@ -61,10 +62,17 @@ class HighScoreScroll extends Sprite
 		for (i in 0...2) 
 		{			
 			m_pChilds[_temp + i] = new HighScorePane(_list[i].id, HighScoreInfo.LOCK);
-			m_pChilds[_temp + i].setIndex(_temp + i);
 			this.addChild(m_pChilds[_temp + i]);
 		}
-		
+		// set index
+		for (i in 0...m_pChilds.length) 
+		{			
+			m_pChilds[i].setIndex(m_pChilds.length - i - 1);
+			if (m_pChilds[i].typeH == HighScoreInfo.CHALLENGE && i > mIndex) 
+			{
+				m_pChilds[i].setGoldIcon();
+			}
+		}
 		UpdateAll();
 	}
 	

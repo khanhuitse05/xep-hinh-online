@@ -16,8 +16,9 @@ import openfl.events.MouseEvent;
  */
 class BtnPlay extends SimpleButton
 {
-	private static var PVE = 0;
-	private static var PVP = 1;
+	public static var PVE = 0;
+	public static var PVP = 1;
+	public static var CHOOSE_PVE = 2;
 	private var pos:Int;
 	public function new() 
 	{
@@ -42,6 +43,10 @@ class BtnPlay extends SimpleButton
 			case 1:
 				this.visible = true;
 				Game.displayManager.toScreen(ScreenID.ROOM);
+			case 2:
+				this.visible = true;
+				Game.data.playerData.dataSkill.mode = GameMode.PVE;
+				Game.displayManager.toScreen(ScreenID.SKILL);
 			default:
 		}
 	}
