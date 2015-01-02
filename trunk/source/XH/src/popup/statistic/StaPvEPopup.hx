@@ -73,7 +73,7 @@ class StaPvEPopup extends PopupBase
 		text[GOLD].setSysText("+" + Const.NumToString(Game.data.playerData.dataStatictis.gold) + " GOLD");
 		text[SKILL].setSysText("NONE");
 		text[END_SCORE].setSysText("" + Game.data.playerData.dataStatictis.ultimateScore);
-		text[FINAL_SCORE].x = -20;
+		text[FINAL_SCORE].x = -50;
 		text[FINAL_SCORE].setFont(50, 0x00FF11);
 		text[FINAL_SCORE].setSysText("" + Const.NumToString(Game.data.playerData.dataStatictis.score));
 		
@@ -82,6 +82,7 @@ class StaPvEPopup extends PopupBase
 		btnOK.setMouseClick(onCancel);
 		btnOK.setPosition(BTN_X, BTN_Y);
 		pane.addChild(btnOK);
+		
 		initSkill();
     }
 	public function initSkill()

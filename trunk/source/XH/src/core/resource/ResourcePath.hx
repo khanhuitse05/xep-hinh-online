@@ -80,7 +80,7 @@ class ResourcePath
 		"img/gfx/ui/btnPlay.png",
 		"img/gfx/chooseskill/bar.png",	// 70 CHOOSE SKILL
 		"img/gfx/chooseskill/itembox.png",
-		"img/gfx/chooseskill/chooseskillbg.png",
+		"img/gfx/chooseskillbg.png",
 		"img/gfx/chooseskill/itembuttc.png",
 		"img/gfx/chooseskill/itembuttx.png",
 		"img/gfx/chooseskill/itembuttl.png",
@@ -103,7 +103,7 @@ class ResourcePath
 		"img/gfx/game/border.png",
 		"img/gfx/skill/skilldisplay.png",
 		"img/gfx/skill/skillname.png",
-		"img/gfx/statictis/avatauser.png",
+		"img/gfx/highscore/avatauser.png",
 		"img/gfx/highscore/avatachallgeneg.png",
 		"img/gfx/highscore/rankhighscore.png",
     ];

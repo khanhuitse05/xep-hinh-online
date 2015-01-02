@@ -63,7 +63,7 @@ class TimePlay extends Sprite
 			if (Game.data.playerData.mDTingame.isBoundTime == true) 
 			{
 				Game.data.playerData.mDTingame.isBoundTime = false;				
-				mValue += 200;
+				mValue += 100;
 			}
 			if (mValue > 0) 
 			{

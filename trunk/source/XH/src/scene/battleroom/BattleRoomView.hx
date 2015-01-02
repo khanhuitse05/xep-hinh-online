@@ -29,7 +29,7 @@ class BattleRoomView extends SceneView
 	private static var FINDING_Y = 50;
 	
 	private var hudBot:Sprite;
-	private var btnBack:SimpleButton;
+	//private var btnBack:SimpleButton;
 	private var btnFinding:SimpleButton;
 	private var btnCancel:SimpleButton;
 	
@@ -52,12 +52,12 @@ class BattleRoomView extends SceneView
 		hudBot.x = 0;
 		hudBot.y = Game.GAME_HEIGHT - hudBot.height;
 		this.addChild(hudBot);
-		
-		btnBack =  new SimpleButton();
-		btnBack.setDisplay(Game.resource.getSprite(Defines.GFX_BATTLE_BTN_BACK));
-		btnBack.setPosition(POS_LEFT, POS_Y);
-		btnBack.setMouseClick(onBack);
-		hudBot.addChild(btnBack);
+		//
+		//btnBack =  new SimpleButton();
+		//btnBack.setDisplay(Game.resource.getSprite(Defines.GFX_BATTLE_BTN_BACK));
+		//btnBack.setPosition(POS_LEFT, POS_Y);
+		//btnBack.setMouseClick(onBack);
+		//hudBot.addChild(btnBack);
 		
 		btnFinding =  new SimpleButton();
 		btnFinding.setDisplay(Game.resource.getSprite(Defines.GFX_BATTLE_BTN_FIND));
@@ -116,14 +116,16 @@ class BattleRoomView extends SceneView
 	public function setFinding()
 	{
 		disFinding.visible = true;
-		btnBack.visible = false;
+		Game.hudTop.setPosBack(SceneView.NON);		
+		//btnBack.visible = false;
 		btnFinding.visible = false;
 		btnCancel.visible = true;
 	}
 	public function setWaiting()
 	{
 		disFinding.visible = false;
-		btnBack.visible = true;
+		Game.hudTop.setPosBack(SceneView.CHOOSEKILL_PVP);		
+		//btnBack.visible = true;
 		btnFinding.visible = true;
 		btnCancel.visible = false;
 	}
@@ -133,7 +135,7 @@ class BattleRoomView extends SceneView
     override public function onEnter() : Void
     {
 		this.addChild(Game.hudTop);
-		Game.hudTop.setPosBack(SceneView.NON);
+		Game.hudTop.setPosBack(SceneView.CHOOSEKILL_PVP);
 		Game.hudTop.update();
 		setWaiting();
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
