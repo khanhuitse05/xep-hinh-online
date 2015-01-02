@@ -58,6 +58,7 @@ class SinglePlayView extends SceneView
     {        		
 		Game.data.playerData.mDTingame.onRefresh();
 		Game.data.playerData.mDTgameplay.onRefresh();
+		Game.data.playerData.dataStatictis.onRefresh();
 		init();
     }
 

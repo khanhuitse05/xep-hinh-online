@@ -84,7 +84,8 @@ class GamePlay extends Sprite
 	{
 		if (Game.data.playerData.mDTingame.stateGame == DTingame.STATE_END) 
 		{			
-			Game.displayManager.toScreen(ScreenID.HOME);			
+			Game.displayManager.toScreen(ScreenID.HOME);
+			Game.displayManager.toScreen(ScreenID.POPUP_STA_PVE);
 			this.removeEventListener(Event.ENTER_FRAME, gameLoop);
 		}
 	}
@@ -102,6 +103,8 @@ class GamePlay extends Sprite
 		this.mScore.onExit();
 		this.removeChild(mScore);
 		this.mTime.onExit();
-		this.removeChild(mTime);
+		this.removeChild(mTime);		
+		this.mOneTouch.onExit();
+		this.removeChild(mOneTouch);
 	}
 }

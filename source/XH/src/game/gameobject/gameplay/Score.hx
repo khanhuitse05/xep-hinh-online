@@ -42,6 +42,7 @@ class Score extends Sprite
 		{
 			mScore = mScoreMax = mScore + Game.data.playerData.mDTingame.chooseScore;
 			Game.data.playerData.mDTingame.chooseScore = 0;
+			Game.data.playerData.dataStatictis.score = mScore;
 		}
 		if (Game.data.playerData.mDTingame.inScore > 0) 
 		{
@@ -70,6 +71,8 @@ class Score extends Sprite
 		this.scaleX = 1.2;
 		this.scaleY = 1.2;
 		TweenX.to(this, { mScore:mScore+_score }, 1.3).onFinish(onFinishIn);
+		
+		Game.data.playerData.dataStatictis.score = mScoreMax;		
 	}
 	public function onFinishIn():Void
 	{		

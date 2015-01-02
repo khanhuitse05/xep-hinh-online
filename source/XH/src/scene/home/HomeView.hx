@@ -120,8 +120,6 @@ class HomeView extends SceneView
 	private function onSingle(e:Event):Void 
 	{		
 		Game.data.playerData.dataSkill.mode = GameMode.PVE;
-		Game.data.playerData.mUserInfo.scores = 300000;
-		DataController.onGold(20000);
 		Game.displayManager.toScreen(ScreenID.HIGHSCORE);
 	}
 	/**
@@ -147,7 +145,7 @@ class HomeView extends SceneView
 	 */
 	private function onMission(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVP);
+		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVE);
 	}
 	private function checkConnet():Void
 	{

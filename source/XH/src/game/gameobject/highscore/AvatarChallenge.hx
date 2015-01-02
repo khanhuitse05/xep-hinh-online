@@ -34,9 +34,9 @@ class AvatarChallenge extends Sprite
 	{
 		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_AVATAR_CHALLENGE);
 		tilesheet = new Tilesheet (_bitmap);
-		for (i in 0...11) 
+		for (i in 0...24) 
 		{			
-			tilesheet.addTileRect(new Rectangle(i * IMAGE_WIDTH, 0, IMAGE_WIDTH, IMAGE_HEIGHT), null);
+			tilesheet.addTileRect(new Rectangle((i%12) * IMAGE_WIDTH, Std.int(i/12) * IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT), null);
 		}
 	}
 	private function gameLoop(e:Event):Void 
