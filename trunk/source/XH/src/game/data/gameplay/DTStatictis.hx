@@ -1,4 +1,5 @@
 package game.data.gameplay;
+import game.tnk.Game;
 
 /**
  * ...
@@ -20,5 +21,38 @@ class DTStatictis
 	{
 		
 	}
-	
+	public function onRefresh() 
+	{		
+		linesClear = 0;
+		multiplier = 0;
+		exp = 0;
+		gold = 0;
+		skill = new Array<Int>();
+		ultimate = 0;
+		ultimateScore = 0;
+		score = 0;
+	}
+	public function onUpdate() 
+	{		
+		exp = Std.int(score / 60);
+		if (exp > 1634) 
+		{
+			exp = 1134;
+		}
+		gold = Std.int(score / 20);
+		skill = Game.data.playerData.dataSkill.skillAct;
+		ultimate = Game.data.playerData.dataSkill.skillUtimate;
+		multiplier = Game.data.playerData.mDTingame.mX;
+	}
+	public function onExpleroData() 
+	{		
+		DataController.onGold(gold);
+		DataController.onExp(exp);
+		DataController.onScore(score);
+		Game.hudTop.update();
+	}
+	public function addClear(_r:Int):Void
+	{
+		linesClear += _r;
+	}
 }

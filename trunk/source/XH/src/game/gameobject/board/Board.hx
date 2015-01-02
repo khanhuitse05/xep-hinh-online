@@ -7,6 +7,8 @@ import game.data.gameplay.DTingame;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.brick.*;
 import game.gameobject.effect.LasersEffect;
+import game.gameobject.effect.MagnetEffect;
+import game.gameobject.effect.MeterorEffect;
 import game.gameobject.gameplay.EffectClear;
 import game.gameobject.gameplay.ScoreEffect;
 import game.gameobject.gameplay.TimeOut;
@@ -17,6 +19,7 @@ import game.gameobject.skill.UltimateSkill;
 import game.tnk.Game;
 import motion.Actuate;
 import motion.easing.Quad;
+import openfl.geom.Point;
 import openfl.display.Sprite;
 import openfl.events.Event;
 
@@ -206,9 +209,7 @@ class Board extends Sprite
 		var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
 		this.addChild(_skill);
 		switch (mListSkill[0].skill) 
-		{
-			case SkillType.METEOR:
-				actSkillX();				
+		{			
 			case SkillType.BOOM:
 				actSkillX();
 			case SkillType.TIME:
@@ -221,6 +222,8 @@ class Board extends Sprite
 				actSkill_X2();	
 			case SkillType.EASY:
 				actSkill_Easy();
+			case SkillType.METEOR:
+				actSkill_Meteor();
 			default:
 				actSkillX();
 				
@@ -453,6 +456,20 @@ class Board extends Sprite
 	}
 	/**
 	 * 
+	 */
+	private function getMinHoldRow(_col:Int):Int
+	{
+		for (i in 0...Game.BOARD_HEIGHT) 
+		{
+			if (mListBrick[i][_col].mType <= 0) 
+			{
+				return i;
+			}
+		}
+		return 20;
+	}
+	/**
+	 * 
 	 * @param	_column
 	 * @return
 	 */
@@ -596,6 +613,7 @@ class Board extends Sprite
 			NextBlock();
 		}else
 		{
+			Game.data.playerData.dataStatictis.addClear(mListClear.length);
 			var _score:Int = Const.getScore(mListClear.length) * Game.data.playerData.mDTingame.mX;
 			var _scoreeffect:ScoreEffect = new ScoreEffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH,
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
@@ -605,13 +623,46 @@ class Board extends Sprite
 			{
 				var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
-														Game.data.playerData.mDTingame.mX + mListClear.length - 3);
+														Game.data.playerData.mDTingame.mX + 1);
 				this.addChild(_Xeffect);
 			}
 			Actuate.tween(this, EffectClear.TIME_LIVE, { }).onComplete(onBrickDown);
 		}
 	}
-	public function CheckClearAll():Void
+	///
+	public function CheckClearAll(_row:Int):Void
+	{
+		mListClear = new Array<Int>();
+		for (i in 0..._row) 
+		{
+			if (CheckClearRow(i) == true) 
+			{
+				mListClear.push(i);
+				createEffectClear(i);
+			}
+		}
+		if (mListClear.length == 0) 
+		{
+			onFinishSkillX();
+		}else
+		{			
+			Game.data.playerData.dataStatictis.addClear(mListClear.length);
+			var _score:Int = Const.getScore(mListClear.length) * Game.data.playerData.mDTingame.mX;
+			var _scoreeffect:ScoreEffect = new ScoreEffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH,
+														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
+														_score);
+			this.addChild(_scoreeffect);
+			if (mListClear.length > 3) 
+			{				
+				var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
+														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
+														Game.data.playerData.mDTingame.mX + 1);
+				this.addChild(_Xeffect);
+			}
+			Actuate.tween(this, EffectClear.TIME_LIVE, { }).onComplete(onBrickDown);
+		}
+	}
+	public function CheckClearEnd():Void
 	{
 		mListClear = new Array<Int>();
 		for (i in 0...Game.BOARD_HEIGHT) 
@@ -623,8 +674,13 @@ class Board extends Sprite
 			}
 		}
 		if (mListClear.length > 0)
-		{
+		{			
+			Game.data.playerData.dataStatictis.addClear(mListClear.length);
 			var _score:Int = Const.getScore(mListClear.length) * Game.data.playerData.mDTingame.mX;
+			if (isUseFinish) 
+			{
+				Game.data.playerData.dataStatictis.ultimateScore = _score;
+			}
 			var _scoreeffect:ScoreEffect = new ScoreEffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH,
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
 														_score);
@@ -633,13 +689,13 @@ class Board extends Sprite
 			{
 				var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
-														Game.data.playerData.mDTingame.mX + mListClear.length - 3);
+														Game.data.playerData.mDTingame.mX + 1);
 				this.addChild(_Xeffect);
 			}
 			Actuate.tween(this, EffectClear.TIME_LIVE, { }).onComplete(onBrickDown);
 			Actuate.tween(this, EffectClear.TIME_LIVE + 2, { }).onComplete(onActivitySkill);
 		}else
-		{			
+		{
 			Actuate.tween(this, EffectClear.TIME_LIVE + 1, { }).onComplete(onActivitySkill);
 		}
 	}
@@ -684,10 +740,7 @@ class Board extends Sprite
 			{
 				
 			}
-			else if( mState == STATE_SKILL || mListSkill.length > 0) 
-			{
-				mState = STATE_NORMAL;
-			}else 
+			else 
 			{
 				onFinishSkillX();
 			}
@@ -792,7 +845,6 @@ class Board extends Sprite
 	{			
 		if (Game.data.playerData.dataSkill.skillUtimate == SkillType.FINISH) 
 		{
-			Game.data.playerData.dataSkill.skillUtimate = -1;
 			mListEndGame = new Array<Array<Int>>();
 			for (i in 0...Game.BOARD_HEIGHT) 
 			{
@@ -820,13 +872,16 @@ class Board extends Sprite
 	 */
 	private function onFinishLastHumen():Void
 	{
-		CheckClearAll();
+		CheckClearEnd();
 	}
+	private var isUseFinish:Bool = false;
 	private function onActivitySkill():Void
 	{
-		if (Game.data.playerData.dataSkill.skillUtimate == SkillType.FINISH ||
-			Game.data.playerData.dataSkill.skillUtimate == SkillType.HAMMER) 
+		if ((Game.data.playerData.dataSkill.skillUtimate == SkillType.FINISH ||
+			Game.data.playerData.dataSkill.skillUtimate == SkillType.HAMMER) &&
+			isUseFinish == false) 
 		{
+			isUseFinish = true;
 			var _skill:UltimateSkill = new UltimateSkill();
 			this.addChild(_skill);
 		}else
@@ -881,13 +936,6 @@ class Board extends Sprite
 		Actuate.tween(this, 1, { }).onComplete(onFinishSkillX);
 	}
 	/**
-	 * skill magnet
-	 */
-	private function actSkill_Magnet()
-	{
-		Actuate.tween(this, 1, { }).onComplete(onFinishSkillX);
-	}
-	/**
 	 * skill lasers
 	 */
 	private function actSkill_Lasers()
@@ -897,8 +945,7 @@ class Board extends Sprite
 	private function actSkill_LasersStart()
 	{
 		mListClear = new Array<Int>();
-		var _height = getMaxHeightRow();
-		var _listRowLasers:Array<Int> = getRowLasers(_height);
+		var _listRowLasers:Array<Int> = getRowLasers();
 		for (i in 0..._listRowLasers.length) 
 		{
 			var _lases:LasersEffect = new LasersEffect(_listRowLasers[i]);
@@ -914,11 +961,9 @@ class Board extends Sprite
 		mState = STATE_EFFECT;
 		Actuate.timer(EffectClear.TIME_LIVE + 0.1).onComplete(onBrickDown);
 	}
-	/**
-	 * skill lasers
-	 */
-	private function getRowLasers(_h:Int):Array<Int>
-	{
+	private function getRowLasers():Array<Int>
+	{		
+		var _h = getMaxHeightRow();
 		var _arr:Array<Int> = new Array<Int>();
 		switch (_h) 
 		{
@@ -945,9 +990,9 @@ class Board extends Sprite
 				_arr[1] = 2;
 				_arr[2] = 5;
 			default:
-				_arr[0] = _h - 2;
+				_arr[0] = _h - 5;
 				_arr[1] = _h - 4;
-				_arr[2] = _h - 5;
+				_arr[2] = _h - 2;
 		}
 		return _arr;
 	}
@@ -979,5 +1024,158 @@ class Board extends Sprite
 		{
 			UsingSkill();
 		}
+	}
+	
+	/**
+	 * skill magnet
+	 */
+	private function actSkill_Magnet()
+	{
+		goLeftAll();
+		addMagnetEffect();
+		Actuate.tween(this, 2, { }).onComplete(onFinishSkillX);
+	}
+	private function goLeftRow(_row:Int)
+	{
+		var _index:Int = 0;
+		for (i in  0...Game.BOARD_WIDTH) 
+		{
+			if (this.mListBrick[_row][i].mType > 0) 
+			{
+				if (_index < i) 
+				{
+					mListBrick[_row][_index] = mListBrick[_row][i];
+					Actuate.tween(mListBrick[_row][_index], (i - _index) * 0.05,
+								{x:mListBrick[_row][_index].x - (i - _index)*Game.BRICK_WIDTH}).ease(Quad.easeIn);
+				}
+				_index++;
+			}else 
+			{				
+				visibleBrick(_row, i);
+			}
+		}
+		for (i in  _index...Game.BOARD_WIDTH) 
+		{
+			var _brick:Brick = new Brick();
+			_brick.setValue(0 + i * Game.BRICK_WIDTH,
+					(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( _row * Game.BRICK_HEIGHT ), 0);
+			mListBrick[_row][i] = _brick;
+			mBoard.addChild(_brick);
+		}
+	}
+	private function goLeftAll()
+	{
+		var _h = getMaxHeightRow();
+		for (i in 0..._h) 
+		{
+			Actuate.timer(0.6).onComplete(goLeftRow,[i]);
+		}
+	}
+	private function addMagnetEffect()
+	{
+		var _h = getMaxHeightRow();
+		var _size:Int = 1;
+		if (_h < 7) 
+		{
+			_size = 1;
+		}else  if (_h < 12)
+		{
+			_size = 2;
+		}
+		else
+		{
+			_size = 3;
+		}
+		var _magnet:MagnetEffect = new MagnetEffect(_size);
+		this.addChild(_magnet);
+	}
+	// skill Meteor
+	private var _listFinishMeteor:Array<Point>;
+	private function actSkill_Meteor():Void
+	{
+		_countMeteor = 0;
+		_listFinishMeteor = new Array<Point>();
+		var _colRan:Int = Std.random(2);
+		
+		var _col1:Int = 1 + _colRan;
+		var _row1:Int = getMinHoldRow(_col1);
+		_listFinishMeteor[0] = new Point(_row1, _col1);
+		var _meteror1:MeterorEffect = new MeterorEffect(_row1, _col1, finish_Meteor01);
+		this.addChild(_meteror1);
+		
+		var _col2:Int = 2 + _colRan;
+		var _row2:Int = getMinHoldRow(_col2);
+		_listFinishMeteor[1] = new Point(_row2, _col2);
+		var _meteror2:MeterorEffect = new MeterorEffect(_row2, _col2, finish_Meteor02);
+		this.addChild(_meteror2);
+		
+		var _col3:Int = 4 + _colRan;
+		var _row3:Int = getMinHoldRow(_col3);
+		_listFinishMeteor[2] = new Point(_row3, _col3);
+		var _meteror3:MeterorEffect = new MeterorEffect(_row3, _col3, finish_Meteor03);
+		this.addChild(_meteror3);
+		
+		var _col4:Int = 7 + _colRan;
+		var _row4:Int = getMinHoldRow(_col4);
+		_listFinishMeteor[3] = new Point(_row4, _col4);
+		var _meteror4:MeterorEffect = new MeterorEffect(_row4, _col4, finish_Meteor04);
+		this.addChild(_meteror4);
+	}
+	var _countMeteor:Int = 0;
+	private function finish_Meteor01():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[0].x)][Std.int(_listFinishMeteor[0].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function finish_Meteor02():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[1].x)][Std.int(_listFinishMeteor[1].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function finish_Meteor03():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[2].x)][Std.int(_listFinishMeteor[2].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function finish_Meteor04():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[3].x)][Std.int(_listFinishMeteor[3].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function getMaxHeight_Meteor():Int
+	{
+		var _max:Int = Std.int(_listFinishMeteor[0].y);
+		for (i in 0..._listFinishMeteor.length) 
+		{
+			if (_max < _listFinishMeteor[i].y) 
+			{
+				_max = Std.int(_listFinishMeteor[i].y);
+			}
+		}
+		return _max;
 	}
 }

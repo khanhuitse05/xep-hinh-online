@@ -27,7 +27,7 @@ class SkillInfo
 				changeBoard = true;
 				endGame = false;
 				price = 3400;
-				isLock = true;
+				isLock = false;
 			case SkillType.BOOM:
 				name = "BOOM";
 				mode = GameMode.NON;

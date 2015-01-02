@@ -47,4 +47,8 @@ class OneTouch extends ExSprite
 		Game.data.playerData.mDTingame.isSetCase = false;
 		Game.data.playerData.mDTingame.isRemoveCase = false;
 	}
+	public function onExit()
+	{
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
+	}
 }

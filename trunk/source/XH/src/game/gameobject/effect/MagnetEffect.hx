@@ -11,7 +11,7 @@ import openfl.display.Sprite;
  */
 class MagnetEffect extends Sprite
 {
-	public static var TIME_LIVE:Float = 0.6;
+	public static var TIME_LIVE:Float = 1.7;
 	
 	private var mSize:Int;
 	private var listBG:Array<Sprite>;
@@ -31,8 +31,8 @@ class MagnetEffect extends Sprite
 		{
 			listBG[i] = Game.resource.getSprite(Defines.GFX_MAGNET_SKILL_EFFECT);
 			listMagnet[i] = Game.resource.getSprite(Defines.GFX_MAGNET_SKILL_OBJ);
-			listBG[i].y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (5 * i) * Game.BRICK_HEIGHT;
-			listMagnet[i].y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (5 * i) * Game.BRICK_HEIGHT + 2 * Game.BRICK_HEIGHT;
+			listBG[i].y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (5 * (i+1)) * Game.BRICK_HEIGHT;
+			listMagnet[i].y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (5 * (i+1)) * Game.BRICK_HEIGHT + 2 * Game.BRICK_HEIGHT;
 			this.addChild(listBG[i]);
 			this.addChild(listMagnet[i]);
 		}
@@ -43,7 +43,6 @@ class MagnetEffect extends Sprite
 		for (i in 0...mSize) 
 		{
 			Actuate.tween(listBG[i], TIME_LIVE, { scaleX:0 } );
-			Actuate.tween(listMagnet[i], TIME_LIVE, { scaleX:0 } );
 		}
 		Actuate.timer(TIME_LIVE).onComplete(onClose);
 	}

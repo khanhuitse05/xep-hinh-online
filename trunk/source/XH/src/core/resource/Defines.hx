@@ -10,7 +10,8 @@ class Defines
 	inline public static var GFX_LOADING_ANIM:Int = 0;
 	inline public static var GFX_ROW_CLEAER_ANIM:Int = 1;
 	inline public static var GFX_ANIM_LASES_SKILL:Int = 2;
-	inline public static var MAX_ANIM:Int = 2;
+	inline public static var GFX_ANIM_METEROR_SKILL:Int = 3;
+	inline public static var MAX_ANIM:Int = 4;
 	// SPRITE
 	inline public static var GFX_MENU_TITLE:Int 		= 0;
 	inline public static var GFX_LOADING_BG:Int 		= 1;

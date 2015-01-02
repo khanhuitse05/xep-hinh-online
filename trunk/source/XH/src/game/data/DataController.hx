@@ -28,6 +28,14 @@ class DataController
 		Game.data.playerData.mUserInfo.exp += _num;
 		ExploringCache.writeExp(Game.data.playerData.mUserInfo.exp);
 	}
+	public static function onScore(_num:Int):Void
+	{
+		if (Game.data.playerData.mUserInfo.scores < _num) 
+		{
+			Game.data.playerData.mUserInfo.scores = _num;
+			ExploringCache.writeScore(_num);
+		}
+	}
 	public static function onSkill(_id:Int, _num:Int):Void
 	{
 		Game.data.playerData.dataSkill.skill[_id - 1] += _num;

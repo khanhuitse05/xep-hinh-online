@@ -17,6 +17,7 @@ class ResourceManager
 	var aLoadingAnim:Animx;
 	var aRowClearAnim:Animx;
 	var aLasesSkillEfect:Animx;
+	var aMeterorSkillEfect:Animx;
 	
 	private var mListSprite:Array<Sprite>;
 	
@@ -51,6 +52,9 @@ class ResourceManager
 				
 		aLasesSkillEfect = new Animx(1, 480, 48, 1);
 		aLasesSkillEfect.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ANIM_LASES_SKILL]);
+		
+		aMeterorSkillEfect = new Animx(3, 48, 144, 3);
+		aMeterorSkillEfect.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ANIM_METEROR_SKILL]);
 	}
 	/**
 	 * 
@@ -90,6 +94,10 @@ class ResourceManager
 			case Defines.GFX_ROW_CLEAER_ANIM:
 				_anim = new Animx(13, 320, 32, 1);
 				_anim.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ROW_CLEAER_ANIM]);
+				return _anim;
+			case Defines.GFX_ANIM_METEROR_SKILL:
+				_anim = new Animx(3, 48, 144, 3);
+				_anim.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ANIM_METEROR_SKILL]);
 				return _anim;
 			default:
 		}

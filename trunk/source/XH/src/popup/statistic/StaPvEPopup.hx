@@ -21,25 +21,23 @@ class StaPvEPopup extends PopupBase
 	public static var EXP 				= 2;
 	public static var GOLD 				= 3;
 	public static var SKILL 			= 4;
-	public static var END 				= 5;
-	public static var END_SCORE 		= 6;
-	public static var FINAL_SCORE 		= 7;
-	public static var MAX 		= 8;
+	public static var END_SCORE 		= 5;
+	public static var FINAL_SCORE 		= 6;
+	public static var MAX 		= 7;
 	
 	public static var SKILL_SCALE 		= 0.5;
 	
 	public static var BTN_X 		= 0;
-	public static var BTN_Y 		= 270;
+	public static var BTN_Y 		= 255;
 	
 	public static var TEXT_X 		= 10;
-	public static var TEXT_Y 		= [-260,
-										-200,
-										-140,
-										-80,
-										-20,
-										40,
-										100,
-										160,];
+	public static var TEXT_Y 		= [-265,
+										-215,
+										-165,
+										-115,
+										-45,
+										20,
+										150,];
 	
 	private var btnOK:SimpleButton;
 	private var text:Array<Lable>;
@@ -51,6 +49,11 @@ class StaPvEPopup extends PopupBase
 	
 	override public function init() 
     {
+		//
+		Game.data.playerData.dataStatictis.onUpdate();
+		Game.data.playerData.dataStatictis.onExpleroData();
+		
+		//
 		var _line:Sprite = Game.resource.getSprite(Defines.GFX_STA_BG_PVE);
 		_line.x = 0 - _line.width / 2;
 		_line.y = 0 - mWidth / 2;
@@ -60,7 +63,7 @@ class StaPvEPopup extends PopupBase
 		for (i in 0...MAX) 
 		{
 			text[i] = new Lable();
-			text[i].setFont(30, 0xffffff);
+			text[i].setFont(35, 0xFF8000);
 			text[i].setSysTextInfo(TEXT_X, TEXT_Y[i], "");
 			pane.addChild(text[i]);
 		}
@@ -69,8 +72,9 @@ class StaPvEPopup extends PopupBase
 		text[EXP].setSysText("+" + Game.data.playerData.dataStatictis.exp + " EXP");
 		text[GOLD].setSysText("+" + Const.NumToString(Game.data.playerData.dataStatictis.gold) + " GOLD");
 		text[SKILL].setSysText("NONE");
-		text[END].setSysText("NONE");
 		text[END_SCORE].setSysText("" + Game.data.playerData.dataStatictis.ultimateScore);
+		text[FINAL_SCORE].x = -20;
+		text[FINAL_SCORE].setFont(50, 0x00FF11);
 		text[FINAL_SCORE].setSysText("" + Const.NumToString(Game.data.playerData.dataStatictis.score));
 		
 		btnOK = new SimpleButton();
@@ -81,17 +85,7 @@ class StaPvEPopup extends PopupBase
 		initSkill();
     }
 	public function initSkill()
-	{
-		if (Game.data.playerData.dataStatictis.ultimate > 0) 
-		{
-			var _ultimate:SkillDisplay = new SkillDisplay(Game.data.playerData.dataStatictis.ultimate);
-			_ultimate.scaleX = SKILL_SCALE;
-			_ultimate.scaleY = SKILL_SCALE;
-			_ultimate.x = TEXT_X;
-			_ultimate.y = TEXT_Y[5];
-			pane.addChild(_ultimate);
-			text[END].visible = false;
-		}
+	{		
 		if (checkExist(Game.data.playerData.dataStatictis.skill)) 
 		{
 			for (i in 0...Game.data.playerData.dataStatictis.skill.length) 
@@ -108,7 +102,17 @@ class StaPvEPopup extends PopupBase
 			}
 			text[SKILL].visible = false;
 		}
+		if (Game.data.playerData.dataStatictis.ultimate > 0) 
+		{
+			var _ultimate:SkillDisplay = new SkillDisplay(Game.data.playerData.dataStatictis.ultimate);
+			_ultimate.scaleX = SKILL_SCALE;
+			_ultimate.scaleY = SKILL_SCALE;
+			_ultimate.x = TEXT_X + 3 * 60;
+			_ultimate.y = TEXT_Y[SKILL];
+			pane.addChild(_ultimate);
+		}
 	}
+	
 	public function checkExist(_list:Array<Int>):Bool
 	{
 		for (i in 0..._list.length) 
@@ -133,7 +137,7 @@ class StaPvEPopup extends PopupBase
 	 */
 	private function onCancel(e:Event):Void 
 	{		
-		
+		transitionOut();
 	}
 	
 	
