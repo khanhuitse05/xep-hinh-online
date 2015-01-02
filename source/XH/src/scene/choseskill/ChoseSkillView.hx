@@ -45,8 +45,8 @@ class ChoseSkillView extends SceneView
 	private function init():Void 
 	{
 		// fill background
-		//var _bg:Sprite = Game.resource.getSprite(Defines.GFX_UI_SKILL_BG);
-		var _bg:Background = new Background();
+		var _bg:Sprite = Game.resource.getSprite(Defines.GFX_UI_SKILL_BG);
+		//var _bg:Background = new Background();
 		this.addChild(_bg);
 		// scroll
 		mScroll = new SkillScroll();

@@ -153,7 +153,7 @@ class ExploringCache
 		Game.data.playerData.mUserInfo.userID =  so.data.userID;
 		Game.data.playerData.mUserInfo.gold =  so.data.gold;
 		Game.data.playerData.mUserInfo.exp =  so.data.exp;
-		Game.data.playerData.mUserInfo.scores =  so.data.scores;
+		Game.data.playerData.mUserInfo.scores =  so.data.score;
 		// skill
 		Game.data.playerData.dataSkill.skill[0] =  so.data.skill00;
 		Game.data.playerData.dataSkill.skill[1] =  so.data.skill01;

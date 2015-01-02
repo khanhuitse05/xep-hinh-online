@@ -37,7 +37,7 @@ class DTStatictis
 		exp = Std.int(score / 60);
 		if (exp > 1634) 
 		{
-			exp = 1134;
+			exp = 1634;
 		}
 		gold = Std.int(score / 20);
 		skill = Game.data.playerData.dataSkill.skillAct;

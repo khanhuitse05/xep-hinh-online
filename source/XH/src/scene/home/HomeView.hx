@@ -145,7 +145,7 @@ class HomeView extends SceneView
 	 */
 	private function onMission(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVE);
+		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVP);
 	}
 	private function checkConnet():Void
 	{
