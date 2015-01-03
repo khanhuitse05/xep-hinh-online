@@ -11,6 +11,9 @@ class DTPVP
 	public static var HOLD = 1;
 	public static var FALL = 2;
 	public static var GROW = 3;
+	public static var LASERS = 4;
+	public static var MAGNET = 5;
+	public static var METEOR = 6;
 	
 	public var dataEnemy:DTEnemy;
 	public var dataMine:DTMine;

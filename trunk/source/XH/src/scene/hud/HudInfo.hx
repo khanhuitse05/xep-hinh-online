@@ -17,12 +17,12 @@ class HudInfo extends Sprite
 
 	private static var SETTING = 0;
 	private static var SHOP = 1;
-	private static var ABOUT = 2;
+	private static var RANK = 2;
 	private static var WHELL = 3;
 	private static var MAX_BUTTON = 4;
 	
 	private static var BUTTON_X = 100;
-	private static var BUTTON_Y = 1175;
+	private static var BUTTON_Y = 1165;
 	private static var BUTTON_OFFSET = 120;
 	
 	private static var NAME_X = 100;
@@ -68,7 +68,7 @@ class HudInfo extends Sprite
 		}
 		listButton[SETTING].addEventListener(MouseEvent.CLICK, onSetting);
 		listButton[SHOP].addEventListener(MouseEvent.CLICK, onShop);
-		listButton[ABOUT].addEventListener(MouseEvent.CLICK, onAbout);
+		listButton[RANK].addEventListener(MouseEvent.CLICK, onRank);
 		listButton[WHELL].addEventListener(MouseEvent.CLICK, onWhell);
 	}
 	public function update():Void
@@ -96,7 +96,7 @@ class HudInfo extends Sprite
 	 * 
 	 * @param	e
 	 */
-	private function onAbout(e:Event):Void 
+	private function onRank(e:Event):Void 
 	{		
 	}
 	/**

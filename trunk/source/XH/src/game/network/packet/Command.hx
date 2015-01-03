@@ -18,6 +18,9 @@ class Command
 	public static var CMD_PVP_SEND                	= 126;
 	public static var CMD_PVP_HOLD    		       	= 128;
 	public static var CMD_PVP_FALL	        	   	= 130;
+	public static var CMD_PVP_SKILL_LASERS	        = 132;
+	public static var CMD_PVP_SKILL_MAGNET	        = 134;
+	public static var CMD_PVP_SKILL_METEOR	       	= 136;
 	
 	// use
     public static var CMD_LOGIN                     = 100;

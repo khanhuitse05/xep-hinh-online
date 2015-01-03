@@ -7,8 +7,8 @@ package game.data.options;
 class DTOptions
 {
 	
-	public static var onetouch:Bool;
-	public static var music:Bool;
+	public var onetouch:Bool;
+	public var music:Bool;
 	
 	public function new() 
 	{

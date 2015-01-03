@@ -22,7 +22,12 @@ class OptionPopup extends PopupBase
 {
 	
 	public static var BTN_X 		= 0;
-	public static var BTN_Y 		= 60;
+	public static var BTN_Y 		= 255;
+	
+	public static var POS_X 		= -160;
+	public static var ONE_Y 		= -72;
+	public static var SWIPE_Y 		= -27;
+	public static var MUSIC_Y 		= 128;
 	
 	private var btnOk:SimpleButton;
 	
@@ -39,47 +44,51 @@ class OptionPopup extends PopupBase
 	
 	override public function init() 
     {
-		var _line:Sprite = Game.resource.getSprite(Defines.GFX_STA_BG_PVE);
+		var _line:Sprite = Game.resource.getSprite(Defines.GFX_OPTION_BG);
 		_line.x = 0 - _line.width / 2;
 		_line.y = 0 - mWidth / 2;
 		pane.addChild(_line);
 		
-        btnSignUp = new SimpleButton();
-		btnSignUp.setDisplay(Game.resource.getSprite(Defines.GFX_UI_LG_SINGUP));
-		btnSignUp.x = 0;
-		btnSignUp.y = BTN_Y;	
-		pane.addChild(btnSignUp);
+        btnOk = new SimpleButton();
+		btnOk.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_OK));
+		btnOk.x = BTN_X;
+		btnOk.y = BTN_Y;	
+		btnOk.setMouseClick(onClose);
+		pane.addChild(btnOk);
 		
-		btnFacebook = new SimpleButton();
-		btnFacebook.setDisplay(Game.resource.getSprite(Defines.GFX_UI_LG_FACEBOOK));
-		btnFacebook.x = -200;
-		btnFacebook.y = 250;
-		btnFacebook.addEventListener(MouseEvent.CLICK, onFacebook);	
-		pane.addChild(btnFacebook);
 		
-		pnName = Game.resource.getSprite(Defines.GFX_UI_LG_PN_NAME);
-		pnName.x = 0 - pnName.width / 2;
-		pnName.y = -55;
-		pane.addChild(pnName);
+		btnOneTouch = Game.resource.getSprite(Defines.GFX_UN_CHECK);
+		btnOneTouch.x = POS_X;
+		btnOneTouch.y = ONE_Y;
+		btnOneTouch.addEventListener(MouseEvent.CLICK, onOneTouch);
+		pane.addChild(btnOneTouch);
 		
-		tfName = new TextField();
-		tfName.width = pnName.width - 10;
-		tfName.height = pnName.height;
-		tfName.x = pnName.x + 10;
-		tfName.y = pnName.y + 5;
-		tfName.border = false;
-		tfName.background = false;
-		tfName.multiline =  false;
-		tfName.type = TextFieldType.INPUT;
-		tfName.maxChars = 20;
-		var textFM = new TextFormat();
-		textFM.size = 40;
-		textFM.color = 0x5E5E5E;
-		tfName.text = "User Name";
-		tfName.setTextFormat(textFM);
-		tfName.defaultTextFormat = textFM;
-		tfName.addEventListener(MouseEvent.MOUSE_DOWN, onDownName);
-		pane.addChild(tfName);
+		btnSwipe = Game.resource.getSprite(Defines.GFX_UN_CHECK);
+		btnSwipe.x = POS_X;
+		btnSwipe.y = SWIPE_Y;
+		btnSwipe.addEventListener(MouseEvent.CLICK, onSwipe);
+		pane.addChild(btnSwipe);
+		
+		btnMusic = Game.resource.getSprite(Defines.GFX_UN_CHECK);
+		btnMusic.x = POS_X;
+		btnMusic.y = MUSIC_Y;
+		btnMusic.addEventListener(MouseEvent.CLICK, onMusic);
+		pane.addChild(btnMusic);
+		
+		pControl = Game.resource.getSprite(Defines.GFX_CHECK);
+		pControl.x = POS_X;
+		if (Game.data.playerData.dataOption.onetouch) 
+		{			
+			pControl.y = ONE_Y;
+		}else 
+		{
+			pControl.y = SWIPE_Y;
+		}
+		pane.addChild(pControl);
+		
+		pMusic = Game.resource.getSprite(Defines.GFX_CHECK);
+		btnMusic.addChild(pMusic);
+		
 		
     }
 	/**
@@ -93,33 +102,35 @@ class OptionPopup extends PopupBase
 	 * 
 	 * @param	e
 	 */
-	private function onSignUp(e:Event):Void 
-	{		
-		if (tfName.text != "") 
-		{
-			ExploringCache.writeName(tfName.text);
-			Game.server.sendPacket(new RepSignup());
-			btnSignUp.removeEventListener(MouseEvent.CLICK, onSignUp);		
-			transitionOut();
-		}
+	private function onClose(e:MouseEvent):Void 
+	{
+		transitionOut();
+	}
+	/**
+	 * 
+	 * @param	e
+	 */
+	private function onOneTouch(e:MouseEvent):Void 
+	{
+		pControl.y = ONE_Y;		
+		Game.data.playerData.dataOption.onetouch = true;
 	}
 	/**
 	 * 
 	 * @param	Event
 	 */
-	private function onDownName(Event: MouseEvent)
+	private function onSwipe(e: MouseEvent)
 	{
-		tfName.removeEventListener(MouseEvent.MOUSE_DOWN, onDownName);
-		btnSignUp.addEventListener(MouseEvent.CLICK, onSignUp);		
-		tfName.textColor = 0x0;
-		tfName.text = "";
+		pControl.y = SWIPE_Y;
+		Game.data.playerData.dataOption.onetouch = false;
 	}
 	/**
 	 * 
 	 * @param	Event
 	 */
-	private function onFacebook(Event: MouseEvent)
+	private function onMusic(e: MouseEvent)
 	{
-		
+		pMusic.visible = !pMusic.visible;
+		Game.data.playerData.dataOption.music = pMusic.visible;
 	}
 }

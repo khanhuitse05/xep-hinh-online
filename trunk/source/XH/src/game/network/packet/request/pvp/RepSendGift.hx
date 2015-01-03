@@ -5,7 +5,7 @@ import game.network.packet.RequestPacket;
 import openfl.utils.ByteArray;
 
 /**
- * ...
+ * 
  * @author KhanhTN
  */
 class RepSendGift extends RequestPacket
