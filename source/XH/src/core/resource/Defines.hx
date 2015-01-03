@@ -60,8 +60,8 @@ class Defines
 	inline public static var GFX_BTN_CONTINUE:Int		= 44;
 	inline public static var GFX_LOGO_VS:Int			= 45;
 	inline public static var GFX_BTN_SHARE:Int			= 46;
-	inline public static var TEMP15:Int			= 47;
-	inline public static var TEMP16:Int			= 48;
+	inline public static var GFX_CHECK:Int				= 47;
+	inline public static var GFX_UN_CHECK:Int			= 48;
 	inline public static var GFX_UI_POPUP_TOP:Int		= 49;	// popup
 	inline public static var GFX_UI_POPUP_LEFT:Int		= 50;
 	inline public static var GFX_UI_LG_SINGUP:Int		= 51;	// Sing Up
@@ -78,9 +78,9 @@ class Defines
 	inline public static var GFX_UI_HUDINFO:Int	 		= 62;	// HUD info
 	inline public static var GFX_UI_BTN_SETTING:Int	 	= 63;	
 	inline public static var GFX_UI_BTN_SHOP:Int	 	= 64;	
-	inline public static var GFX_UI_BTN_ABOUT:Int	 	= 65;	
+	inline public static var GFX_UI_BTN_RANK:Int	 	= 65;	
 	inline public static var GFX_UI_BTN_WHELL:Int	 	= 66;	
-	inline public static var GFX_UI_BTN_RANK:Int	 	= 67;	
+	inline public static var GFX_UI_BTN_ABOUT:Int	 	= 67;	
 	inline public static var GFX_UI_HUDBOTTOM:Int	 	= 68;	// HUD BOTTOM
 	inline public static var GFX_UI_BTN_PLAY:Int	 	= 69; 	
 	inline public static var GFX_UI_SKILL_BAR:Int	 	= 70;  	// choskill	
@@ -99,7 +99,9 @@ class Defines
 	inline public static var GFX_LASES_SKILL_EFFECT:Int	= 83;
 	inline public static var GFX_MAGNET_SKILL_EFFECT:Int = 84;
 	inline public static var GFX_MAGNET_SKILL_OBJ:Int	= 85;
-	inline public static var MAX_SPRITE:Int 			= 86;
+	inline public static var GFX_OPTION_BG:Int			= 86; // OPITION
+	inline public static var GFX_BTN_OK:Int				= 87;
+	inline public static var MAX_SPRITE:Int 			= 88;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;

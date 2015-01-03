@@ -3,8 +3,10 @@ package core.display.screen;
 
 import core.display.popup.PopupID;
 import core.display.scene.SceneID;
+import haxe.ds.Option;
 import popup.login.*;
 import popup.statistic.*;
+import popup.user.OptionPopup;
 import scene.battle.*;
 import scene.battleroom.*;
 import scene.friendplay.*;
@@ -38,6 +40,7 @@ class ScreenID
     public static var POPUP_LOGIN:           	PopupID = new PopupID(LoginPopup);
     public static var POPUP_STA_PVE:           	PopupID = new PopupID(StaPvEPopup);
     public static var POPUP_STA_PVP:           	PopupID = new PopupID(StaPvPPopup);
+    public static var POPUP_OPTIONS:           	PopupID = new PopupID(OptionPopup);
     
     public function new()
     {

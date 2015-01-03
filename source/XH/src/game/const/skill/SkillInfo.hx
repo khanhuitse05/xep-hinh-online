@@ -34,7 +34,7 @@ class SkillInfo
 				changeBoard = true;
 				endGame = false;
 				price = 2500;
-				isLock = false;
+				isLock = true;
 			case SkillType.HAMMER:
 				name = "FLASH HAMMER";
 				mode = GameMode.PVE;

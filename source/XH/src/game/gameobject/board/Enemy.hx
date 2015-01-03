@@ -1,12 +1,16 @@
 package game.gameobject.board;
 
 import core.display.ex.ExSprite;
+import game.const.Const;
 import game.const.skill.ConstSkill;
 import game.data.gameplay.DTingame;
 import game.data.gameplay.InfoBlock;
 import game.data.pvp.DTEnemy;
 import game.data.pvp.DTPVP;
 import game.gameobject.brick.*;
+import game.gameobject.effect.LasersEffect;
+import game.gameobject.effect.MagnetEffect;
+import game.gameobject.effect.MeterorEffect;
 import game.gameobject.gameplay.EffectClear;
 import game.gameobject.gameplay.ScoreEffect;
 import game.gameobject.gameplay.TimeOut;
@@ -17,6 +21,7 @@ import game.gameobject.skill.UltimateSkill;
 import game.tnk.Game;
 import motion.Actuate;
 import motion.easing.Quad;
+import openfl.geom.Point;
 import openfl.display.Sprite;
 import openfl.events.Event;
 
@@ -31,6 +36,9 @@ class Enemy extends Sprite
 	
 	private var mState:Int;
 	private var numGrow:Int;	
+	private var vGrow:Array<Int>;	
+	private var vLasers:Array<Int>;	
+	private var vMeteor:Array<Int>;	
 	private var mListSkill:Array<Int>;	
 	private var mBg:BoardBG;
 	private var mBoard:Sprite;
@@ -126,12 +134,29 @@ class Enemy extends Sprite
 					}
 				case DTPVP.GROW:
 					sGrow();
+				case DTPVP.LASERS:
+					sLasers();
+				case DTPVP.MAGNET:
+					sMagnet();
+				case DTPVP.METEOR:
+					sMeteor();
 				default:
 					
 			}
 		}
 	}
-	
+	private function ChangeBlock(_info:InfoBlock):Void
+	{
+		if (mBoard.contains(mCurentBlock) == true) 
+		{
+			mBoard.removeChild(mCurentBlock);
+		}
+		mCurentBlock = new CBlock(_info.mType, BlockDirect.RIGHT);
+		mCurentBlock.mBlock.setSkill(_info.mSkill);
+		mCurentBlock.mask = mMask;
+		mBoard.addChild(mCurentBlock);
+		mCurentBlock.setGrid(4, 19);
+	}
 	/**
 	 * sever
 	 */
@@ -177,25 +202,35 @@ class Enemy extends Sprite
 	{
 	}
 	private function sGrow():Void
-	{
-		var _temp = Game.data.playerData.dataPVP.dataEnemy.mNumGift;
-		switch (_temp) 
+	{		
+		mState = STATE_EFFECT;
+		numGrow = Game.data.playerData.dataPVP.dataEnemy.mNumGift;
+		vGrow = Game.data.playerData.dataPVP.dataEnemy.vGift;
+		if (Game.data.playerData.dataPVP.infoEnemy.checkSkill(SkillType.SHIELD)) 
 		{
-			case 2:
-				numGrow = 1;
-				onGrow();
-			case 3:
-				numGrow = 2;
-				onGrow();
-			case 4:			
-				numGrow = 4;	
-				onGrow();			
-			default:
-				numGrow = 0;
-				
+			mState = STATE_NORMAL;			
+		}else 
+		{
+			onGrow();
 		}
 	}
-	
+	private function sLasers():Void
+	{		
+		mState = STATE_EFFECT;
+		vLasers = Game.data.playerData.dataPVP.dataEnemy.mLasers;
+		onLasers();
+	}
+	private function sMagnet():Void
+	{		
+		mState = STATE_EFFECT;
+		onMagnet();
+	}
+	private function sMeteor():Void
+	{		
+		mState = STATE_EFFECT;
+		vMeteor = Game.data.playerData.dataPVP.dataEnemy.mMeteor;
+		onMeteor();
+	}
 	
 	/**
 	 * 
@@ -221,31 +256,43 @@ class Enemy extends Sprite
 		return true;
 	}
 	
+	
 	/**
-	 * use fo block I
+	 * 
 	 */
-	private function getMinHeightRow()
+	private function getMaxHeightRow():Int
 	{
-		
+		var _height = getHeightColumn(0);
+		for (i in 1...Game.BOARD_WIDTH) 
+		{
+			if (getHeightColumn(i) > _height) 
+			{
+				_height = getHeightColumn(i);
+			}
+		}
+		return _height;
 	}
+	/**
+	 * 
+	 */
+	private function getMinHoldRow(_col:Int):Int
+	{
+		for (i in 0...Game.BOARD_HEIGHT) 
+		{
+			if (mListBrick[i][_col].mType <= 0) 
+			{
+				return i;
+			}
+		}
+		return 20;
+	}
+	
 	/**
 	 * 
 	 * @param	_column
 	 * @return
 	 */
-	private function GetMinRowCurrent(_column:Int):Array<InfoBlock>
-	{
-		return null;
-	}
-	/**
-	 * 
-	 * @param	_column
-	 * @return
-	 */
-	private function GetRowCurrent(_column:Int):Int
-	{
-		return 0;
-	}
+	
 	/**
 	 * column's height
 	 * @param	_column
@@ -253,12 +300,21 @@ class Enemy extends Sprite
 	 */
 	private function getHeightColumn(_column:Int):Int
 	{
+		var i:Int = Game.BOARD_HEIGHT;
+		while (i > 0) {	
+			if (mListBrick[i - 1][_column].mType > 0 ) 
+			{
+				return i;
+			}
+			i--;
+		}
 		return 0;
 	}
 	
 	// move block
 	public function ApplyEffect():Void 
 	{
+		ChangeBlock(Game.data.playerData.dataPVP.dataEnemy.mFallBlock);
 		mCurentBlock.ApplyEffect(Game.data.playerData.dataPVP.dataEnemy.mFallBlock, OnApplyToCompleteFinal);
 	}
 	public function OnApplyToCompleteFinal():Void
@@ -272,7 +328,7 @@ class Enemy extends Sprite
 				{
 					var _row:Int = i + Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mRow + 1;
 					var _column:Int = j + Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mColumn;
-					if (_row < Game.BOARD_HEIGHT) 
+					if (_row < Game.BOARD_HEIGHT && _column < Game.BOARD_WIDTH) 
 					{
 						mListBrick[_row][_column].mType = Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mType;
 						mListBrick[_row][_column].mSkill = _skill;
@@ -306,7 +362,26 @@ class Enemy extends Sprite
 			Actuate.tween(this, EffectClear.TIME_LIVE, { }).onComplete(onBrickDown);
 		}
 	}
-	
+	///
+	public function CheckClearAll(_row:Int):Void
+	{
+		mListClear = new Array<Int>();
+		for (i in 0..._row) 
+		{
+			if (CheckClearRow(i) == true) 
+			{
+				mListClear.push(i);
+				createEffectClear(i);
+			}
+		}
+		if (mListClear.length == 0) 
+		{
+			mState = STATE_NORMAL;
+		}else
+		{
+			Actuate.tween(this, EffectClear.TIME_LIVE, { }).onComplete(onBrickDown);
+		}
+	}
 	/**
 	 * 
 	 * @param	_row
@@ -349,7 +424,6 @@ class Enemy extends Sprite
 		}
 		else 
 		{
-			//NextBlock();
 			mState = STATE_NORMAL;
 		}
 	}
@@ -414,7 +488,7 @@ class Enemy extends Sprite
 				_row--;
 			}
 			// init row bottom
-			var _ran:Int = Std.random(10);
+			var _ran:Int = vGrow[vGrow.length - numGrow];
 			for (j in 0...Game.BOARD_WIDTH) 
 			{		
 				if (j == _ran) 
@@ -441,5 +515,190 @@ class Enemy extends Sprite
 		{
 			mState = STATE_NORMAL;
 		}			
+	}
+	/**
+	 * 
+	 * @param	_row
+	 */
+	public function onLasers():Void
+	{
+		actSkill_LasersStart();
+	}
+	private function actSkill_LasersStart()
+	{
+		mListClear = new Array<Int>();
+		for (i in 0...vLasers.length) 
+		{
+			var _lases:LasersEffect = new LasersEffect(vLasers[i]);
+			this.addChild(_lases);
+			mListClear.push(vLasers[i]);
+			visibleRow(vLasers[i]);
+		}
+		mState = STATE_EFFECT;
+		Actuate.timer(EffectClear.TIME_LIVE + 0.1).onComplete(onBrickDown);
+	}
+	/**
+	 * magnet
+	 * @param	_row
+	 */
+	public function onMagnet():Void
+	{		
+		goLeftAll();		
+		addMagnetEffect();
+		Actuate.tween(this, 2, { }).onComplete(onFinishSkillX);
+	}
+	private function goLeftRow(_row:Int)
+	{
+		var _index:Int = 0;
+		for (i in  0...Game.BOARD_WIDTH) 
+		{
+			if (this.mListBrick[_row][i].mType > 0) 
+			{
+				if (_index < i) 
+				{
+					mListBrick[_row][_index] = mListBrick[_row][i];
+					Actuate.tween(mListBrick[_row][_index], (i - _index) * 0.05,
+								{x:mListBrick[_row][_index].x - (i - _index)*Game.BRICK_WIDTH}).ease(Quad.easeIn);
+				}
+				_index++;
+			}else 
+			{				
+				visibleBrick(_row, i);
+			}
+		}
+		for (i in  _index...Game.BOARD_WIDTH) 
+		{
+			var _brick:Brick = new Brick();
+			_brick.setValue(0 + i * Game.BRICK_WIDTH,
+					(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( _row * Game.BRICK_HEIGHT ), 0);
+			mListBrick[_row][i] = _brick;
+			mBoard.addChild(_brick);
+		}
+	}
+	private function goLeftAll()
+	{
+		var _h = getMaxHeightRow();
+		for (i in 0..._h) 
+		{
+			Actuate.timer(0.6).onComplete(goLeftRow,[i]);
+		}
+	}
+	private function addMagnetEffect()
+	{
+		var _h = getMaxHeightRow();
+		var _size:Int = 1;
+		if (_h < 7) 
+		{
+			_size = 1;
+		}else  if (_h < 12)
+		{
+			_size = 2;
+		}
+		else
+		{
+			_size = 3;
+		}
+		var _magnet:MagnetEffect = new MagnetEffect(_size);
+		this.addChild(_magnet);
+	}
+	/**
+	 * 
+	 * @param	_row
+	 */
+	public function onMeteor():Void
+	{
+		actSkill_Meteor();
+		mState = STATE_EFFECT;
+	}	
+	private var _listFinishMeteor:Array<Point>;
+	private function actSkill_Meteor():Void
+	{
+		_countMeteor = 0;
+		_listFinishMeteor = new Array<Point>();
+		
+		var _col1:Int = vMeteor[0];
+		var _row1:Int = getMinHoldRow(_col1);
+		_listFinishMeteor[0] = new Point(_row1, _col1);
+		var _meteror1:MeterorEffect = new MeterorEffect(_row1, _col1, finish_Meteor01);
+		this.addChild(_meteror1);
+		
+		var _col2:Int = vMeteor[1];
+		var _row2:Int = getMinHoldRow(_col2);
+		_listFinishMeteor[1] = new Point(_row2, _col2);
+		var _meteror2:MeterorEffect = new MeterorEffect(_row2, _col2, finish_Meteor02);
+		this.addChild(_meteror2);
+		
+		var _col3:Int = vMeteor[2];
+		var _row3:Int = getMinHoldRow(_col3);
+		_listFinishMeteor[2] = new Point(_row3, _col3);
+		var _meteror3:MeterorEffect = new MeterorEffect(_row3, _col3, finish_Meteor03);
+		this.addChild(_meteror3);
+		
+		var _col4:Int = vMeteor[3];
+		var _row4:Int = getMinHoldRow(_col4);
+		_listFinishMeteor[3] = new Point(_row4, _col4);
+		var _meteror4:MeterorEffect = new MeterorEffect(_row4, _col4, finish_Meteor04);
+		this.addChild(_meteror4);
+	}
+	var _countMeteor:Int = 0;
+	private function finish_Meteor01():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[0].x)][Std.int(_listFinishMeteor[0].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function finish_Meteor02():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[1].x)][Std.int(_listFinishMeteor[1].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function finish_Meteor03():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[2].x)][Std.int(_listFinishMeteor[2].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function finish_Meteor04():Void
+	{
+		mListBrick[Std.int(_listFinishMeteor[3].x)][Std.int(_listFinishMeteor[3].y)].mType = BrickType.OTHER;
+		_countMeteor++;
+		if (_countMeteor == 4) 
+		{
+			//check
+			mState = STATE_EFFECT;
+			CheckClearAll(getMaxHeight_Meteor());
+		}
+	}
+	private function getMaxHeight_Meteor():Int
+	{
+		var _max:Int = Std.int(_listFinishMeteor[0].y);
+		for (i in 0..._listFinishMeteor.length) 
+		{
+			if (_max < _listFinishMeteor[i].y) 
+			{
+				_max = Std.int(_listFinishMeteor[i].y);
+			}
+		}
+		return _max;
+	}
+	private function onFinishSkillX()
+	{
+		mState = STATE_NORMAL;
 	}
 }

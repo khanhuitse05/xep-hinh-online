@@ -5,22 +5,19 @@ import game.network.packet.RequestPacket;
 import openfl.utils.ByteArray;
 
 /**
- * khi user grown thì gửi cho đối thủ để cập nhật
+ * ...
  * @author KhanhTN
  */
-class RepGrow extends RequestPacket
+class RepMagnet extends RequestPacket
 {
 
-	private var listGrown:Array<Int>;
-	public function new(_list:Array<Int>) 
+	public function new() 
 	{
-		super(Command.CMD_PVP_GROW);
-		listGrown = _list;
+		super(Command.CMD_PVP_SKILL_MAGNET);
 	}
 	override public function encode(): ByteArray {
         
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
-		data.wireArrInteger(listGrown);
         return data;
     }
 }

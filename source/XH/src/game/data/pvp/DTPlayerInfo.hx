@@ -18,4 +18,15 @@ class DTPlayerInfo
 		skill = new Array<Int>();
 	}
 	
+	public function checkSkill(_type:Int):Bool
+	{
+		for (i in 0...skill.length) 
+		{
+			if (skill[i] == _type) 
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

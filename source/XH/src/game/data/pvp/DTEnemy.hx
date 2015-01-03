@@ -27,6 +27,7 @@ class DTEnemy
 	public var mNumRefresh:Int;	
 	// gift
 	public var mNumGift:Int;
+	public var vGift:Array<Int>;
 	// Thời gian còn lại
 	public var mTimeCurrent:Int;	
 	// x score x2, x3 , x4
@@ -35,6 +36,11 @@ class DTEnemy
 	public var mSkillCurrent:Array<Int>;
 	// các skill có thể sử dụng
 	public var mListSkill:Array<Int>;
+	
+	// skill lasers
+	public var mLasers:Array<Int>;
+	// skill meteor
+	public var mMeteor:Array<Int>;
 	
 	// is
 	public var mAction:Array<Int>;

@@ -55,8 +55,8 @@ class ResourcePath
 		"img/gfx/ui/btncontinution.png",
 		"img/gfx/statictis/bgbattlevs.png",
 		"img/gfx/ui/btnshare.png",
-		"",
-		"",
+		"img/gfx/opition/check.png",
+		"img/gfx/opition/uncheck.png",
 		"img/gfx/ui/popuptop.png",	//49
 		"img/gfx/ui/popupright.png",
 		"img/gfx/ui/btnsignup.png",
@@ -73,9 +73,9 @@ class ResourcePath
 		"img/gfx/ui/mainframe.png",	// 62 hud info
 		"img/gfx/ui/btnsetting.png",
 		"img/gfx/ui/btnshop.png",
-		"img/gfx/ui/btnabout.png",
-		"img/gfx/ui/btnwhell.png",
 		"img/gfx/ui/btnrank.png",
+		"img/gfx/ui/btnwhell.png",
+		"img/gfx/ui/btnabout.png",
 		"img/gfx/ui/hudbottom.png", // 68 huud bottom
 		"img/gfx/ui/btnPlay.png",
 		"img/gfx/chooseskill/bar.png",	// 70 CHOOSE SKILL
@@ -94,6 +94,8 @@ class ResourcePath
 		"img/gfx/sprite/animelases.png",	// 83 EFFECT SKILL
 		"img/gfx/sprite/magnetbg.png",
 		"img/gfx/sprite/magnet.png",
+		"img/gfx/opition/optionspopup.png", // 86 OPTION
+		"img/gfx/ui/btnokkkkk.png",
     ];
 	public static var BITMAPDATA_PATH =
     [
