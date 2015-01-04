@@ -96,6 +96,24 @@ class ResourcePath
 		"img/gfx/sprite/magnet.png",
 		"img/gfx/opition/optionspopup.png", // 86 OPTION
 		"img/gfx/ui/btnokkkkk.png",
+		"img/gfx/ui/connetbackg.png",
+		"img/gfx/statictis/staswin.png", // 89 show
+		"img/gfx/statictis/staslose.png",
+		"img/gfx/statictis/stasdismine.png",
+		"img/gfx/statictis/stasdisenemy.png",
+		"img/gfx/info/brickchoose1.png", // 93 INFO
+		"img/gfx/info/brickchoose2.png",
+		"img/gfx/info/brickchoose3.png",
+		"img/gfx/info/bluebrickboder.png",
+		"img/gfx/info/redbrickboder.png",
+		"img/gfx/info/buybut.png",
+		"img/gfx/info/txtuserinfo.png",
+		"img/gfx/shopbackground.png",
+		"img/gfx/info/textboxnamepng.png",
+		"img/gfx/info/textboxgold.png",
+		"img/gfx/info/textboxhold.png",
+		"img/gfx/info/textboxfuture.png",
+		"img/gfx/info/textboxbrick.png",
     ];
 	public static var BITMAPDATA_PATH =
     [

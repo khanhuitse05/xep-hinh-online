@@ -3,22 +3,13 @@ import core.display.ex.SimpleButton;
 import core.display.scene.*;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
-import core.resource.ResourceID;
-import core.sprites.Animx;
 import game.const.cache.ExploringCache;
-import game.data.DataController;
-import game.data.skill.DTSkill;
 import game.gameobject.background.Background;
 import game.gameobject.gameplay.GameMode;
 import game.gameobject.loading.ConnetSever;
 import game.network.packet.request.login.RepLogin;
 import game.tnk.Game;
-import motion.Actuate;
-import openfl.events.MouseEvent;
-import openfl.display.Sprite;
 import openfl.events.Event;
-import openfl.text.TextFieldAutoSize;
-import openfl.text.TextFormatAlign;
 import scene.hud.HudBottom;
 import scene.hud.HudInfo;
 import scene.hud.HudTop;
@@ -42,19 +33,15 @@ class HomeView extends SceneView
 	private var mBg:Background;
 		
 	private var listButton:Array<SimpleButton>;
-	private var isCheck:Bool;
 	private var hudInfo:HudInfo;
-	private var connet:ConnetSever;
+	private var isCheck:Bool;
 	
 	public function new() 
 	{
 		super();
-		isCheck = false;
-		//this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		init();
-		connet = new ConnetSever();
+		var connet:ConnetSever = new ConnetSever();
 		this.addChild(connet);
-		Actuate.timer(2).onComplete(checkConnet);
 	}
 	/**
 	 * 
@@ -89,29 +76,39 @@ class HomeView extends SceneView
 		listButton[BATTLE].setMouseClick(onBattle);
 		listButton[FRIEND].setMouseClick(onFriend);
 		listButton[MISSION].setMouseClick(onMission);
+		//listButton[MISSION].visible = false;
 	}	
 	/**
 	 * 
 	 * @param	e
 	 */
-	private function gameLoop(e:Event):Void 
+	private function gameCheck(e:Event):Void 
 	{
-		
+		if (Game.data.playerData.dataGame.isTry && isCheck == false) 
+		{
+			isCheck = true;
+			checkUser();			
+			this.removeEventListener(Event.ENTER_FRAME, gameCheck);   
+		}
 	}
 	/**
 	 * 
 	 */
     override public function onEnter() : Void
     {
+		isCheck = false;		
+		this.addEventListener(Event.ENTER_FRAME, gameCheck);
 		this.addChild(Game.hudTop);
 		Game.hudTop.setPosBack(SceneView.EXIT);
 		Game.hudTop.update();
-        this.addEventListener(Event.ENTER_FRAME, gameLoop);
+		if (Game.data.playerData.mUserInfo.userName != null) 
+		{
+			hudInfo.update();
+		}
     }
 	override public function onExit() : Void
     {  
         this.removeChild(Game.hudTop);
-        this.removeEventListener(Event.ENTER_FRAME, gameLoop);   
     }
 	/**
 	 * 
@@ -145,25 +142,13 @@ class HomeView extends SceneView
 	 */
 	private function onMission(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.POPUP_OPTIONS);
-	}
-	private function checkConnet():Void
-	{
-		if (Game.data.playerData.dataGame.online) 
-		{
-			connet.setOnline();
-		}else 
-		{
-			connet.setOffline();
-		}		
-		Actuate.timer(0.8).onComplete(checkUser);
+		
 	}
 	/**
 	 * check username
 	 */
 	private function checkUser():Void
 	{
-		isCheck = true;
 		if (Game.data.playerData.dataGame.online) 
 		{			
 			if (ExploringCache.CheckSignUp() == false) 
@@ -188,6 +173,7 @@ class HomeView extends SceneView
 		}
 		logData();
 		hudInfo.update();
+		Game.hudTop.update();
 	}
 	/**
 	 * OFFLINE
@@ -213,7 +199,7 @@ class HomeView extends SceneView
 		trace("USER ELO: " + Game.data.playerData.mUserInfo.elo);
 		trace("USER GOLD: " + Game.data.playerData.mUserInfo.gold);
 		trace("USER EXP: " + Game.data.playerData.mUserInfo.exp);
-		trace("USER SCORES: " + Game.data.playerData.mUserInfo.scores);
+		trace("USER SCORES: " + Game.data.playerData.mUserInfo.score);
 		trace("USER SKILL: "
 				 + " - "+ Game.data.playerData.dataSkill.skill[0] 
 				 + " - "+ Game.data.playerData.dataSkill.skill[1] 

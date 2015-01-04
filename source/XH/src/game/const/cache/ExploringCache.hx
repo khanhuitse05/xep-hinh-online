@@ -15,6 +15,8 @@ class ExploringCache
 	// gold
 	// exp
 	// score
+	// holde
+	// future
 	// skill01
 	// skill09
 	
@@ -50,6 +52,8 @@ class ExploringCache
 		so.data.elo = 0;
 		so.data.gold = 10000;
 		so.data.exp = 0;
+		so.data.hold = 1;
+		so.data.future = 1;
 		so.data.scores = 0;
 		// skill
 		so.data.skill00 = 0;
@@ -98,16 +102,23 @@ class ExploringCache
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
 		so.data.gold = _str;
 		so.flush();
-	}public static function writeExp(_str:Int)
+	}
+	public static function writeExp(_str:Int)
 	{
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
 		so.data.exp = _str;
 		so.flush();
 	}
-	public static function writeScores(_str:Int)
+	public static function writeHold(_str:Int)
 	{
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
-		so.data.scores = _str;
+		so.data.hold = _str;
+		so.flush();
+	}
+	public static function writeFuture(_str:Int)
+	{
+		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
+		so.data.future = _str;
 		so.flush();
 	}
 	public static function writeSkill(_id:Int, _num:Int)
@@ -152,8 +163,10 @@ class ExploringCache
 		Game.data.playerData.mUserInfo.elo =  so.data.elo;
 		Game.data.playerData.mUserInfo.userID =  so.data.userID;
 		Game.data.playerData.mUserInfo.gold =  so.data.gold;
+		Game.data.playerData.mUserInfo.hold =  so.data.hold;
+		Game.data.playerData.mUserInfo.future =  so.data.future;
 		Game.data.playerData.mUserInfo.exp =  so.data.exp;
-		Game.data.playerData.mUserInfo.scores =  so.data.score;
+		Game.data.playerData.mUserInfo.score =  so.data.score;
 		// skill
 		Game.data.playerData.dataSkill.skill[0] =  so.data.skill00;
 		Game.data.playerData.dataSkill.skill[1] =  so.data.skill01;

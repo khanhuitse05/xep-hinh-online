@@ -8,6 +8,7 @@ import core.sprites.Animx;
 import game.const.cache.ExploringCache;
 import game.const.Const;
 import game.tnk.Game;
+import game.tnk.GameConfig;
 import motion.Actuate;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -22,45 +23,85 @@ class ConnetSever extends Sprite
 {
 
 	private var mAnim:Animx;
+	private var mBG:Sprite;
 	private var mNoteText:Lable;
 	private var mCount:Int;
+	private var reConnet:Bool;
 	
-	public function new() 
+	public function new(_re:Bool = false) 
 	{
 		super();
+		reConnet = _re;
 		init();
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
-	
+	/**
+	 * 
+	 */	
 	private function init():Void 
 	{
 		// fill background
-		this.graphics.beginFill(0xffffff, 0.3);
+		this.graphics.beginFill(0xffffff, 0.001);
 		this.graphics.drawRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		this.graphics.endFill();
+		// sprite
+		mBG = Game.resource.getSprite(Defines.GFX_CONNET_BG);
+		mBG.x = Game.GAME_WIDTH / 2 - mBG.width / 2;
+		mBG.y = Game.GAME_HEIGHT / 2 - mBG.height / 2;
+		this.addChild(mBG);
 		// animate
 		mAnim = Game.resource.getAnim(Defines.GFX_LOADING_ANIM);
-		mAnim.x = ( Game.GAME_WIDTH - mAnim.mWidth) / 2;
-		mAnim.y = 400;
+		mAnim.x = ( mBG.width - mAnim.mWidth) / 2;
+		mAnim.y = 50;
 		mAnim.animate();
-		this.addChild(mAnim);
+		mBG.addChild(mAnim);
 		// note
 		
 		mNoteText = new Lable();
-		mNoteText.setFont(50, 0x2D23B6);
-		mNoteText.setSysTextInfo(Game.GAME_WIDTH/ 2 - 35, 450, "Connet to sever...");
-        this.addChild(mNoteText);
+		mNoteText.setFont(40, 0xffffff);
+		mNoteText.setSysTextInfo(120, 225, "Connet to sever...");
+        mBG.addChild(mNoteText);
 		
+	}
+	/**
+	 * 
+	 * @param	e
+	 */
+	private function gameLoop(e:Event)
+	{
+		if (Game.data.playerData.dataGame.isTry) 
+		{
+			if (Game.data.playerData.dataGame.online) 
+			{
+				setOnline();
+			}else 
+			{
+				setOffline();
+			}
+			this.removeEventListener(Event.ENTER_FRAME, gameLoop);
+		}
+	}
+	/**
+	 * 
+	 */
+	private function connet():Void 
+	{
+		if (reConnet) 
+		{			
+			Game.data.playerData.dataGame.isTry = false;
+			Game.server.connect(GameConfig.SERVER, GameConfig.PORT);
+		}
 	}
 	public function setOnline():Void 
 	{
 		mNoteText.setSysText("Conneted!");
-		Actuate.timer(1).onComplete(onClose);
+		Actuate.timer(2).onComplete(onClose);
 		
 	}
 	public function setOffline():Void 
 	{
 		mNoteText.setSysText("Connet fail!");
-		Actuate.timer(1).onComplete(onClose);
+		Actuate.timer(2).onComplete(onClose);
 	}
 	public function onClose()
 	{

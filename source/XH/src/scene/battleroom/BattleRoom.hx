@@ -21,7 +21,7 @@ class BattleRoom extends SceneBase
     override private function onTransitionInComplete():Void 
     {
         super.onTransitionInComplete();
-        //Game.server.addEventListener(Server.SERVER_DATA, onServerData);
+        Game.server.addEventListener(Server.SERVER_DATA, onServerData);
     }
 
     private function onServerData(e:EventEx):Void 
@@ -34,6 +34,8 @@ class BattleRoom extends SceneBase
                 view.sFound();
 			case Command.CMD_PVP_ENTER:
                 view.sReady();
+			case Command.CMD_PVP_CANCEL:
+                view.sCancel();
             default:
         }
     }
@@ -41,6 +43,6 @@ class BattleRoom extends SceneBase
     override private function onTransitionOutComplete():Void 
     {
         super.onTransitionOutComplete();        
-        //Game.server.removeEventListener(Server.SERVER_DATA, onServerData);
+        Game.server.removeEventListener(Server.SERVER_DATA, onServerData);
     }
 }

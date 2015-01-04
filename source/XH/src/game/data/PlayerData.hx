@@ -18,8 +18,7 @@ import openfl.events.EventDispatcher;
  */
 class PlayerData extends EventDispatcher
 { 
-    public var mBrickID : Int = Defines.GFX_BRICK_001;
-    public var mBoardID : Int = Defines.GFX_BOARD_001;
+    public var mBrickID : Int = 0;
     
 	public var mDTgameplay:DTgameplay;
 	public var mDTingame:DTingame;

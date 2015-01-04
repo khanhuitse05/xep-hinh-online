@@ -20,6 +20,7 @@ class TimePlay extends Sprite
 	public static var START_TIME = 1.5;
 	
 	private var mState:Int;
+	private var isShow:Bool;
 	private var mMaxTime:Int;
 	private var mValue:Int;
 	private var mWidth:Int;
@@ -27,11 +28,12 @@ class TimePlay extends Sprite
 	
 	private var mTexTime:Lable;
 	
-	public function new(_x:Int, _y:Int, _w:Int = 480, _h:Int = 10) 
+	public function new(_x:Int, _y:Int, _show:Bool = true, _w:Int = 480, _h:Int = 10) 
 	{
 		super();
 		this.x = _x;
 		this.y = _y;
+		isShow = _show;
 		this.mWidth = _w;
 		this.mHeight = _h;
 		init();
@@ -47,6 +49,7 @@ class TimePlay extends Sprite
 		mTexTime.setFont(25, 0xffff00);
 		mTexTime.setSysTextInfo(mWidth / 2 - 12, 20, "00:00");
 		this.addChild(mTexTime);
+		mTexTime.visible = isShow;
 	}
 	private function gameLoop(e:Event):Void
 	{

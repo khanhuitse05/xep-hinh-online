@@ -2,7 +2,7 @@ package popup.user;
 
 import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
-import core.display.popup.PopupBase;
+import core.display.popup.PopupExBase;
 import core.resource.Defines;
 import game.const.cache.ExploringCache;
 import game.network.packet.request.login.RepSignup;
@@ -18,16 +18,16 @@ import openfl.text.TextFieldType;
  * ...
  * @author KhanhTN
  */
-class OptionPopup extends PopupBase
+class OptionPopup extends PopupExBase
 {
 	
 	public static var BTN_X 		= 0;
 	public static var BTN_Y 		= 255;
 	
 	public static var POS_X 		= -160;
-	public static var ONE_Y 		= -72;
-	public static var SWIPE_Y 		= -27;
-	public static var MUSIC_Y 		= 128;
+	public static var ONE_Y 		= -102;
+	public static var SWIPE_Y 		= -57;
+	public static var MUSIC_Y 		= 98;
 	
 	private var btnOk:SimpleButton;
 	
@@ -46,7 +46,7 @@ class OptionPopup extends PopupBase
     {
 		var _line:Sprite = Game.resource.getSprite(Defines.GFX_OPTION_BG);
 		_line.x = 0 - _line.width / 2;
-		_line.y = 0 - mWidth / 2;
+		_line.y = 0 - _line.height / 2;
 		pane.addChild(_line);
 		
         btnOk = new SimpleButton();

@@ -1,5 +1,6 @@
 package game.gameobject.brick;
 
+import core.resource.Defines;
 import game.tnk.Game;
 import motion.Actuate;
 import motion.easing.Quad;
@@ -38,7 +39,7 @@ class Brick extends Sprite
 	}
 	public function init():Void
 	{
-		var _bitmap:BitmapData = Game.resource.getBitmap(Game.data.playerData.mBrickID);
+		var _bitmap:BitmapData = Game.resource.getBitmap(Game.data.playerData.mBrickID + Defines.GFX_BRICK_001);
 		tilesheet = new Tilesheet (_bitmap);
 		for (i in 0...18) 
 		{			

@@ -1,12 +1,12 @@
 package popup.user;
 
-import core.display.popup.PopupBase;
+import core.display.popup.PopupExBase;
 
 /**
  * ...
  * @author KhanhTN
  */
-class InfoPopup extends PopupBase
+class InfoPopup extends PopupExBase
 {
 
 	public function new(showDarkBg:Bool=true) 

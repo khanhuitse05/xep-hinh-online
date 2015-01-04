@@ -1,7 +1,7 @@
 package popup.login ;
 import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
-import core.display.popup.PopupBase;
+import core.display.popup.PopupExBase;
 import core.resource.Defines;
 import game.const.cache.ExploringCache;
 import game.network.packet.request.login.RepSignup;
@@ -17,7 +17,7 @@ import openfl.text.TextFieldType;
  * ...
  * @author KhanhTN
  */
-class LoginPopup extends PopupBase
+class LoginPopup extends PopupExBase
 {
 	
 	public static var BTN_X 		= 0;

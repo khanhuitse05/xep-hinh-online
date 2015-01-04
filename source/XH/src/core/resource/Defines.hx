@@ -101,7 +101,25 @@ class Defines
 	inline public static var GFX_MAGNET_SKILL_OBJ:Int	= 85;
 	inline public static var GFX_OPTION_BG:Int			= 86; // OPITION
 	inline public static var GFX_BTN_OK:Int				= 87;
-	inline public static var MAX_SPRITE:Int 			= 88;
+	inline public static var GFX_CONNET_BG:Int			= 88;
+	inline public static var GFX_SHOW_WIN:Int			= 89; // SHOW
+	inline public static var GFX_SHOW_LOSE:Int			= 90;
+	inline public static var GFX_SHOW_DISCONNET_M:Int	= 91;
+	inline public static var GFX_SHOW_DISCONNET_E:Int	= 92;
+	inline public static var GFX_INFO_BRICK01:Int		= 93; // info
+	inline public static var GFX_INFO_BRICK02:Int		= 94;
+	inline public static var GFX_INFO_BRICK03:Int		= 95;
+	inline public static var GFX_INFO_BLUE:Int			= 96;
+	inline public static var GFX_INFO_RED:Int			= 97;
+	inline public static var GFX_INFO_BTN_BUY:Int		= 98;
+	inline public static var GFX_INFO_TITLE:Int			= 99;
+	inline public static var GFX_SHOP_BG:Int			= 100;
+	inline public static var GFX_INFO_BOX_NAME:Int		= 101;
+	inline public static var GFX_INFO_BOX_GOLD:Int		= 102;
+	inline public static var GFX_INFO_BOX_HOLD:Int		= 103;
+	inline public static var GFX_INFO_BOX_FUTURE:Int	= 104;
+	inline public static var GFX_INFO_BOX_BRICK:Int		= 105;
+	inline public static var MAX_SPRITE:Int 			= 106;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;
