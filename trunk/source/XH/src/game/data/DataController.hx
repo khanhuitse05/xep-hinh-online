@@ -13,6 +13,11 @@ class DataController
 	{
 		
 	}
+	public static function onName(_num:String):Void
+	{
+		Game.data.playerData.mUserInfo.userName = _num;
+		ExploringCache.writeName(Game.data.playerData.mUserInfo.userName);
+	}
 	public static function onGold(_num:Int):Void
 	{
 		Game.data.playerData.mUserInfo.gold += _num;
@@ -28,11 +33,21 @@ class DataController
 		Game.data.playerData.mUserInfo.exp += _num;
 		ExploringCache.writeExp(Game.data.playerData.mUserInfo.exp);
 	}
+	public static function onHold(_num:Int = 1):Void
+	{
+		Game.data.playerData.mUserInfo.hold += _num;
+		ExploringCache.writeHold(Game.data.playerData.mUserInfo.hold);
+	}
+	public static function onFuture(_num:Int = 1):Void
+	{
+		Game.data.playerData.mUserInfo.future += _num;
+		ExploringCache.writeFuture(Game.data.playerData.mUserInfo.future);
+	}
 	public static function onScore(_num:Int):Void
 	{
-		if (Game.data.playerData.mUserInfo.scores < _num) 
+		if (Game.data.playerData.mUserInfo.score < _num) 
 		{
-			Game.data.playerData.mUserInfo.scores = _num;
+			Game.data.playerData.mUserInfo.score = _num;
 			ExploringCache.writeScore(_num);
 		}
 	}

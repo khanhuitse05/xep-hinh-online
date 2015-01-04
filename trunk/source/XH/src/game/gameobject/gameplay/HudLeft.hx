@@ -43,7 +43,7 @@ class HudLeft extends Sprite
 	}
 	private function initValue():Void
 	{
-		mMaxHold = Game.data.playerData.mDTgameplay.mMaxHold;		
+		mMaxHold = Game.data.playerData.mUserInfo.hold;		
 		mHoldBlock = new Array<InfoBlock>();
 		mHoldBlock= Game.data.playerData.mDTgameplay.mHoldBlock;
 	}

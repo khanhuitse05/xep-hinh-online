@@ -2,7 +2,7 @@ package popup.statistic;
 
 import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
-import core.display.popup.PopupBase;
+import core.display.popup.PopupExBase;
 import core.resource.Defines;
 import game.const.Const;
 import game.gameobject.skill.SkillDisplay;
@@ -14,7 +14,7 @@ import openfl.events.Event;
  * ...
  * @author KhanhTN
  */
-class StaPvEPopup extends PopupBase
+class StaPvEPopup extends PopupExBase
 {
 	public static var LINE 				= 0;
 	public static var MULTI 			= 1;

@@ -51,7 +51,7 @@ class HudRight extends ExSprite
 	 */
 	private function initValue():Void
 	{
-		mMaxStack = Game.data.playerData.mDTgameplay.mMaxStack;		
+		mMaxStack = Game.data.playerData.mUserInfo.future;
 		mStackBlock = new Array<InfoBlock>();
 		mStackBlock = Game.data.playerData.mDTgameplay.mStackBlock;
 		mX = Game.data.playerData.mDTgameplay.mX;
@@ -95,7 +95,7 @@ class HudRight extends ExSprite
 		// plan
 		mPlanX = Game.resource.getSprite(Defines.GFX_BOX_1);
 		mPlanX.x = POS_X;
-		mPlanX.y = POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 70;
+		mPlanX.y = POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 40;
 		this.addChild(mPlanX);
 		if (isBattle && mMaxStack > 3) 
 		{			

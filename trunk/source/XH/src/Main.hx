@@ -7,6 +7,7 @@ import flash.events.Event;
 import flash.Lib;
 import game.tnk.Game;
 import game.tnk.GameConfig;
+import openfl.events.KeyboardEvent;
 import openfl.display.StageScaleMode;
 import scene.login.LoginView;
 
@@ -52,7 +53,8 @@ class Main extends Sprite
 	function added(e) 
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, added);	
-		addEventListener(Event.ENTER_FRAME, gameLoop);
+		addEventListener(Event.ENTER_FRAME, gameLoop);		
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onBtnBack);
 		stage.addEventListener(Event.RESIZE, resize);
 		#if ios
 		haxe.Timer.delay(init, 100); // iOS 6
@@ -65,6 +67,17 @@ class Main extends Sprite
         Game.server.connect(GameConfig.SERVER, GameConfig.PORT);
         // Goto login screen
         Game.displayManager.toScreen(ScreenID.LOADFIST);
+	}
+	/**
+	 * 
+	 * @param	event
+	 */
+	private function onBtnBack(event:KeyboardEvent):Void 
+	{
+		#if android
+			if (event.keyCode == 27) {
+			}
+		#end
 	}
 	/**
 	 * 

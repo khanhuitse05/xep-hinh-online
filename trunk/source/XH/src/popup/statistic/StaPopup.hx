@@ -1,12 +1,12 @@
 package popup.statistic;
 
-import core.display.popup.PopupBase;
+import core.display.popup.PopupExBase;
 
 /**
  * ...
  * @author KhanhTN
  */
-class StaPopup extends PopupBase
+class StaPopup extends PopupExBase
 {
 
 	public function new(showDarkBg:Bool=true) 

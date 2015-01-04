@@ -13,16 +13,18 @@ import game.tnk.Game;
  */
 class DTgameplay
 {
+	
+	// max stack
+	public static var MAXFUTURE = 4;
+	// maxHold
+	public static var MAXHOLD = 2;
+	
 	// các khối gạch kế tiếp
 	public var mStackBlock:Array<InfoBlock>;
 	// Khối gạch hiện tại
 	public var mcurrentBlock:InfoBlock;
 	// Các khối gạch đang giữ
 	public var mHoldBlock:Array<InfoBlock>;
-	// max stack
-	public var mMaxStack:Int;
-	// maxHold
-	public var mMaxHold:Int;
 	// Điểm
 	public var mScore:Int;
 	// Tổng thời gian (second)
@@ -37,9 +39,7 @@ class DTgameplay
 	
 	public function new() 
 	{
-		// max
-		mMaxHold = 2;
-		mMaxStack = 4;
+		
 		// stack block
 		mStackBlock = new Array<InfoBlock>();
 		for (i in 0...4) 

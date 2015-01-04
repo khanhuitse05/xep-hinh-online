@@ -59,7 +59,7 @@ class GameBattle extends Sprite
 		this.addChild(mScore);
 		mScore.setPos(200, 30);
 		
-		mTime = new TimePlay(BOARD_X, BOARD_Y + 1064);
+		mTime = new TimePlay(BOARD_X, BOARD_Y + 1064, false);
 		this.addChild(mTime);
 		
 		mHudRight = new HudRight(true);

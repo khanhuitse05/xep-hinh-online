@@ -54,7 +54,7 @@ class InfoChallenge extends Sprite
 		}else if (type == HighScoreInfo.ME) 
 		{
 			textName.setSysText(Game.data.playerData.mUserInfo.userName);
-			textScore.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.scores));
+			textScore.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.score));
 		}
 	}
 	public function update(_id:Int, _ty:Int) 
@@ -68,7 +68,7 @@ class InfoChallenge extends Sprite
 		}else if (type == HighScoreInfo.ME) 
 		{
 			textName.setSysText(Game.data.playerData.mUserInfo.userName);
-			textScore.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.scores));
+			textScore.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.score));
 		}
 	}
 	

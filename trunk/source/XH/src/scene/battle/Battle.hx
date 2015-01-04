@@ -2,6 +2,8 @@ package scene.battle;
 
 import core.display.scene.*;
 import core.event.EventEx;
+import game.network.packet.ResponsePacket;
+import game.network.packet.Command;
 import game.network.Server;
 import game.tnk.Game;
 
@@ -24,6 +26,18 @@ class Battle extends SceneBase
 
     private function onServerData(e:EventEx):Void 
     {
+		var rp : ResponsePacket = cast(e.data, ResponsePacket);
+        var view = cast(m_pView, BattleView);
+        switch (rp.command) 
+        {
+            case Command.CMD_PVP_WIN:
+                view.sWin();
+			case Command.CMD_PVP_LOSE:
+                view.sLose();
+			case Command.CMD_PVP_CANCEL:
+                view.sDisconnet();
+            default:
+        }
     }
 
     override private function onTransitionOutComplete():Void 

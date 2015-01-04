@@ -79,7 +79,7 @@ class Server extends EventDispatcher
     private function onDisconnected(event:Event):Void
     {
         Log.info("Server disconnected");
-        Game.data.playerData.dataGame.online = false;
+        Game.data.playerData.dataGame.isTry = true;
         this.dispatchEvent(event);
     }
     
@@ -87,6 +87,7 @@ class Server extends EventDispatcher
     {
         Log.error("io error: " + event.text);
 		Game.data.playerData.dataGame.online = false;
+        Game.data.playerData.dataGame.isTry = true;
     }
     
     private function onDataReceived(event:ProgressEvent):Void    
@@ -168,6 +169,7 @@ class Server extends EventDispatcher
         
         Log.info("Server connected");
         Game.data.playerData.dataGame.online = true;
+        Game.data.playerData.dataGame.isTry = true;
         dispatchEvent(event);
     }
     
@@ -175,6 +177,7 @@ class Server extends EventDispatcher
     {
         _socket.connect(IP, port);
         Game.data.playerData.dataGame.online = true;
+        Game.data.playerData.dataGame.isTry = false;
         Log.info("Connect to server    " + IP + " : " + port);
     }
     
@@ -183,7 +186,7 @@ class Server extends EventDispatcher
         if (isConnected())
         {
             Log.info("Close connect to server");
-			Game.data.playerData.dataGame.online = false;			
+			Game.data.playerData.dataGame.disconnect = true;			
             _socket.close();
         }
     }

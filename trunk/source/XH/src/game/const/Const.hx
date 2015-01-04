@@ -19,6 +19,19 @@ class Const
 	{
 		Const.initExp();
 		Const.initScore();
+		Const.initUserInfo();
+	}
+	/////////////////////////////////////////////
+	// user info
+	/////////////////////////////////////////////
+	public static var holdPrice:Int;
+	public static var futurePrice:Int;
+	public static var goldPrice:Int;
+	public static function initUserInfo():Void 
+	{
+		holdPrice = 200000;
+		futurePrice= 100000;
+		goldPrice= 15000;
 	}
 	/////////////////////////////////////////////
 	// user exp
@@ -44,7 +57,7 @@ class Const
 	{
 		for (i in 0...highScore.length) 
 		{
-			if (Game.data.playerData.mUserInfo.scores < highScore[i].score) 
+			if (Game.data.playerData.mUserInfo.score < highScore[i].score) 
 			{
 				return i;
 			}
@@ -57,7 +70,7 @@ class Const
 		var _me:HighScoreInfo = new HighScoreInfo();
 		_me.id = -1;
 		_me.name = Game.data.playerData.mUserInfo.userName;
-		_me.score = Game.data.playerData.mUserInfo.scores;
+		_me.score = Game.data.playerData.mUserInfo.score;
 		var i = Const.getIndexHighScore();
 		if (i < 2) 
 		{

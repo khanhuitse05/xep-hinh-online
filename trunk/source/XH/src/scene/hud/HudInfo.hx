@@ -2,6 +2,7 @@ package scene.hud;
 
 import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
+import core.display.screen.ScreenID;
 import core.resource.Defines;
 import game.tnk.Game;
 import openfl.display.Sprite;
@@ -84,6 +85,7 @@ class HudInfo extends Sprite
 	 */
 	private function onSetting(e:Event):Void 
 	{		
+		Game.displayManager.toScreen(ScreenID.POPUP_OPTIONS);
 	}
 	/**
 	 * 
@@ -91,6 +93,7 @@ class HudInfo extends Sprite
 	 */
 	private function onShop(e:Event):Void 
 	{		
+		Game.displayManager.toScreen(ScreenID.SHOP);
 	}
 	/**
 	 * 
