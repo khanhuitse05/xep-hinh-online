@@ -35,15 +35,6 @@ class PopupExBase extends PopupBase
 	public function new(showDarkBg : Bool = true) 
 	{
 		super();	
-		// fix 
-        this.alpha = 0;
-        this.visible = false;
-        this.addEventListener(MouseEvent.CLICK, onHide);
-        if (showDarkBg) {
-            this.graphics.beginFill(0, 0.3);
-            this.graphics.drawRect(0, 0, Game.GAME_WIDTH,Game.GAME_HEIGHT);
-            this.graphics.endFill();
-        }
 		
 		mWidth = 0;
 		mHeight = 0;

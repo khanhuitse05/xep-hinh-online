@@ -42,7 +42,7 @@ class BtnPlay extends SimpleButton
 				Game.displayManager.toScreen(ScreenID.SINGLEPLAY);
 			case 1:
 				this.visible = true;
-				Game.displayManager.toScreen(ScreenID.BATTLE);
+				Game.displayManager.toScreen(ScreenID.ROOM);
 			case 2:
 				this.visible = true;
 				Game.data.playerData.dataSkill.mode = GameMode.PVE;

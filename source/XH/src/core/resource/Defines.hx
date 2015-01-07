@@ -119,7 +119,9 @@ class Defines
 	inline public static var GFX_INFO_BOX_HOLD:Int		= 103;
 	inline public static var GFX_INFO_BOX_FUTURE:Int	= 104;
 	inline public static var GFX_INFO_BOX_BRICK:Int		= 105;
-	inline public static var MAX_SPRITE:Int 			= 106;
+	inline public static var GFX_POPUP_S_PANE:Int		= 106;	// popup smill
+	inline public static var GFX_POPUP_S_CLOSE:Int		= 107;
+	inline public static var MAX_SPRITE:Int 			= 108;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;
