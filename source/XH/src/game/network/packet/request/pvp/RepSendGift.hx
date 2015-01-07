@@ -20,7 +20,7 @@ class RepSendGift extends RequestPacket
 	override public function encode(): ByteArray {
         
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
-        data.writeInt(gift);
+        data.writeShort(gift);
         return data;
     }	
 }

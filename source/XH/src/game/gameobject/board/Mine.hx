@@ -796,8 +796,8 @@ class Mine extends Sprite
 		var _block:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
 		Game.server.sendPacket(new RepNext(_block));
 		//+++++++++++++++++++++++
-		Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock = _block;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.NEXT);
+		//Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock = _block;
+        //Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.NEXT);
 		//+++++++++++++++++++++++
 	}
 	private function cFall()
@@ -806,8 +806,8 @@ class Mine extends Sprite
 		var _block:InfoBlock = Game.data.playerData.mDTingame.infoChose;
 		Game.server.sendPacket(new RepFall(_block));
 		//+++++++++++++++++++++++
-		Game.data.playerData.dataPVP.dataEnemy.mFallBlock = _block;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.FALL);
+		//Game.data.playerData.dataPVP.dataEnemy.mFallBlock = _block;
+        //Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.FALL);
 		//+++++++++++++++++++++++
 		
 	}
@@ -817,8 +817,8 @@ class Mine extends Sprite
 		var _block:InfoBlock = new InfoBlock(-1, -1);
 		Game.server.sendPacket(new RepHold(_block));
 		//+++++++++++++++++++++++
-		Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = null;
-		Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.HOLD);
+		//Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = null;
+		//Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.HOLD);
 		//+++++++++++++++++++++++
 	}
 	private function cHoldExist()
@@ -827,8 +827,8 @@ class Mine extends Sprite
 		var _block:InfoBlock = new InfoBlock(mCurentBlock.mBlock.mType, BlockDirect.RIGHT, mCurentBlock.mBlock.mSkill);
 		Game.server.sendPacket(new RepHold(_block));
 		//+++++++++++++++++++++++
-		Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = _block;
-		Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.HOLD);
+		//Game.data.playerData.dataPVP.dataEnemy.mHoldBlock = _block;
+		//Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.HOLD);
 		//+++++++++++++++++++++++
 	}
 	private function cInScore()
@@ -855,8 +855,8 @@ class Mine extends Sprite
 		{
 			Game.server.sendPacket(new RepSendGift(_temp));	
 			//+++++++++++++++++++++++
-			Game.data.playerData.dataPVP.dataMine.mNumGift = _temp;
-			Game.data.playerData.dataPVP.dataMine.mAction.push(DTPVP.GROW);
+			//Game.data.playerData.dataPVP.dataMine.mNumGift = _temp;
+			//Game.data.playerData.dataPVP.dataMine.mAction.push(DTPVP.GROW);
 			//+++++++++++++++++++++++
 		}
 	}
@@ -865,9 +865,9 @@ class Mine extends Sprite
 		// send
 		Game.server.sendPacket(new RepGrow(listGrow));
 		//+++++++++++++++++++++++		
-		Game.data.playerData.dataPVP.dataEnemy.mNumGift = listGrow.length;		
-		Game.data.playerData.dataPVP.dataEnemy.vGift = listGrow;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.GROW);
+		//Game.data.playerData.dataPVP.dataEnemy.mNumGift = listGrow.length;		
+		//Game.data.playerData.dataPVP.dataEnemy.vGift = listGrow;
+        //Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.GROW);
 		//+++++++++++++++++++++++
 	}
 	private function cMagnet()
@@ -875,7 +875,7 @@ class Mine extends Sprite
 		// send
 		Game.server.sendPacket(new RepMagnet());	
 		//+++++++++++++++++++++++
-		Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.MAGNET);
+		//Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.MAGNET);
 		//+++++++++++++++++++++++
 	}
 	private function cLasers()
@@ -883,8 +883,8 @@ class Mine extends Sprite
 		// send
 		Game.server.sendPacket(new RepLasers(_listRowLasers));
 		//+++++++++++++++++++++++
-		Game.data.playerData.dataPVP.dataEnemy.mLasers = _listRowLasers;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.LASERS);
+		//Game.data.playerData.dataPVP.dataEnemy.mLasers = _listRowLasers;
+        //Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.LASERS);
 		//+++++++++++++++++++++++
 	}
 	private function cMeteor()
@@ -892,8 +892,8 @@ class Mine extends Sprite
 		// send
 		Game.server.sendPacket(new RepMeteor(_listMeteor));
 		//+++++++++++++++++++++++
-		Game.data.playerData.dataPVP.dataEnemy.mMeteor = _listMeteor;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.METEOR);
+		//Game.data.playerData.dataPVP.dataEnemy.mMeteor = _listMeteor;
+        //Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.METEOR);
 		//+++++++++++++++++++++++
 	}
 	private function cFixBrick()
