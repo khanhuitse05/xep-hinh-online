@@ -1,20 +1,19 @@
 package Connection;
 
+import java.util.Random;
 import java.util.UUID;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import GamePlay.GamePlayVariables;
 import Player.Player;
 
 public class Lobby
-{
-	private final int ELO_RANGE = 200;
-	
+{	
 	private Player	Player1;
 	private Player	Player2;
 	private boolean	IsFull;
 	private String	LobbyID;
-	private int MaxElo;
 
 	public String getLobbyID()
 	{
@@ -46,7 +45,7 @@ public class Lobby
 				{					
 					int player1Elo = player.getInformation().getElo();
 					int player2Elo = Player2.getInformation().getElo();
-					if(player1Elo >= (player2Elo - ELO_RANGE) && player1Elo <= (player2Elo + ELO_RANGE))
+					if(player1Elo >= (player2Elo - GamePlayVariables.FINDMATCH_ELO_RANGE) && player1Elo <= (player2Elo + GamePlayVariables.FINDMATCH_ELO_RANGE))
 					{
 						System.out.println("=>> join 1:  ELO IN RANGE " + player1Elo);
 						Player1 = player;
@@ -69,7 +68,7 @@ public class Lobby
 			{
 				int player1Elo = Player1.getInformation().getElo();
 				int player2Elo = player.getInformation().getElo();
-				if(player2Elo >= (player1Elo - ELO_RANGE) && player2Elo <= (player1Elo + ELO_RANGE))
+				if(player2Elo >= (player1Elo - GamePlayVariables.FINDMATCH_ELO_RANGE) && player2Elo <= (player1Elo + GamePlayVariables.FINDMATCH_ELO_RANGE))
 				{
 					System.out.println("=>>  join 2:  ELO IN RANGE 2" + player2Elo + " - " + player1Elo);
 					Player2 = player;
@@ -158,17 +157,30 @@ public class Lobby
 	{
 		if(isFull)
 		{
+			int[] newListBrick = ListBrick();
 			if(Player1 != null)
-			{
-				Player1.HandleStartGame();
+			{				
+				Player1.HandleStartGame(newListBrick);
 				System.out.println("=> Start player 1");
 			}
 			
 			if(Player2 != null)
 			{
-				Player2.HandleStartGame();
+				Player2.HandleStartGame(newListBrick);
 				System.out.println("=> Start player 2");
 			}
 		}
+	}
+	
+	public int[] ListBrick()
+	{ 
+		
+		int[] listBrick = new int[GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK];
+		Random rand = new Random();
+		for(int i = 0; i < GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK; i++)
+		{
+			listBrick[i] = rand.nextInt(GamePlayVariables.GAMEPLAY_MAX_VALUE_BRICK);
+		}
+		return listBrick;
 	}
 }
