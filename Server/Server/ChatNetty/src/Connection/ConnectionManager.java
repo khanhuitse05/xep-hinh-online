@@ -112,7 +112,7 @@ public class ConnectionManager
 		{
 			Lobby tempLobby = entry.getValue();
 			// Lobby is full
-			System.out.print("Lobby id = " + tempLobby.getLobbyID() + " isFull = " + tempLobby.LoobyFull());
+			System.out.println("Lobby id = " + tempLobby.getLobbyID() + " isFull = " + tempLobby.LoobyFull());
 			if (tempLobby.LoobyFull())
 			{
 				System.out.print("Full");

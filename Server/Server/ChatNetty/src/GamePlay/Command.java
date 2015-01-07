@@ -4,7 +4,10 @@ public class Command
 {
 	public static final short	CMD_LOGIN			= 100;
 	public static final short	CMD_SIGNUP			= 101;
-
+	public static final short	CMD_PVP_WIN			= 112;
+	public static final short	CMD_PVP_LOSE		= 114;
+	public static final short	CMD_PVP_DRAW		= 113;
+	
 	public static final short	CMD_FINDING_PVP		= 118;
 	public static final short	CMD_FOUND_PVP		= 116;
 	public static final short	CMD_PVP_CANCEL		= 120;
