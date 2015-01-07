@@ -114,6 +114,8 @@ class ResourcePath
 		"img/gfx/info/textboxhold.png",
 		"img/gfx/info/textboxfuture.png",
 		"img/gfx/info/textboxbrick.png",
+		"img/gfx/ui/popupsmallbackg.png",
+		"img/gfx/ui/btnclosesmall.png",
     ];
 	public static var BITMAPDATA_PATH =
     [
