@@ -8,7 +8,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.util.internal.ConcurrentHashMap;
 
-import Player.Command;
+import GamePlay.Command;
 import Player.Player;
 
 public class ConnectionManager
@@ -102,6 +102,10 @@ public class ConnectionManager
 	// Player join lobby
 	public void JoinLobby(Player player)
 	{
+		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+		
+		System.out.print("=> Current thread : " + ste[ste.length - 1].getMethodName());
+		
 		boolean isJoined = false;
 		// Loop in current lobby for searching empty slot
 		for (Entry<String, Lobby> entry : CurrentLobby.entrySet())

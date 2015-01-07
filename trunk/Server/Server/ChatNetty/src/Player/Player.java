@@ -9,13 +9,15 @@ import org.jboss.netty.channel.Channel;
 
 import Connection.ConnectionManager;
 import Database.MongoDBConnection;
+import GamePlay.Command;
+import GamePlay.GamePlayVariables;
 
 public class Player
 {
 	private final short			LOGIN_BUFFER_SIZE		= 200;
 	private final short			SIGNUP_BUFFER_SIZE		= 150;
 	private final short			SIGNUP_DEFAULT_ELO		= 1000;
-	private final short			FINDMATCH_BUFFER_SIZE	= 200;
+	private final short			FINDMATCH_BUFFER_SIZE	= 250;
 
 	private Channel				ChannelPlayer;
 	private Integer				PlayerID;
@@ -239,13 +241,18 @@ public class Player
 		return resSignUp;
 	}
 
-	public void HandleStartGame()
+	public void HandleStartGame(int[] listBrick)
 	{
 		ChannelBuffer resFoundMatch = ChannelBuffers
 				.buffer(FINDMATCH_BUFFER_SIZE);
 		resFoundMatch.writeShort(0);
 		resFoundMatch.writeShort(Command.CMD_FOUND_PVP);
 
+		for(int i = 0; i < GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK; i++)
+		{
+			resFoundMatch.writeShort(listBrick[i]);
+		}
+		
 		WriteToClient(resFoundMatch);
 	}
 }

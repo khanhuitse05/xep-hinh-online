@@ -23,6 +23,7 @@ public class SocketServer
 
         // Set up the pipeline factory.
         int threadPoolSize = Runtime.getRuntime().availableProcessors() << 3; // 8x
+        
         long globalMemLimit = Runtime.getRuntime().maxMemory() >> 2;
         ChannelPipeline pipeline = bootstrap.getPipeline();
         pipeline.addLast("executor",
@@ -55,7 +56,9 @@ public class SocketServer
 
         // Bind and start to accept incoming connections.
         bootstrap.bind(new InetSocketAddress(IPAddress, Port));
-        System.out.println("Bind");
+        int nbThreads =  Thread.getAllStackTraces().keySet().size();
+        
+        System.out.println("Bind + number of thread = " + nbThreads + " size: " + threadPoolSize);
 	}
 
 }
