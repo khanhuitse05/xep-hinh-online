@@ -27,7 +27,7 @@ public class Lobby
 	}
 
 	public boolean EnterLobbyWithElo(Player player)
-	{
+	{		
 		if (!IsFull)
 		{
 			if (Player1 == null)
@@ -169,6 +169,18 @@ public class Lobby
 				Player2.HandleStartGame(newListBrick);
 				System.out.println("=> Start player 2");
 			}
+			
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() 
+			        {
+			            @Override
+			            public void run() {
+			            	// Lenh end game
+			            	HandleEndGame();
+			            }
+			        }, 
+			        120000
+			);
 		}
 	}
 	
@@ -182,5 +194,28 @@ public class Lobby
 			listBrick[i] = rand.nextInt(GamePlayVariables.GAMEPLAY_MAX_VALUE_BRICK);
 		}
 		return listBrick;
+	}
+	
+	public synchronized void HandleEndGame()
+	{
+		if(Player1.getNumOfSentBrick() > Player2.getNumOfSentBrick())
+		{
+			// Player 1 win
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE);
+		}
+		else if(Player1.getNumOfSentBrick() < Player2.getNumOfSentBrick())
+		{
+			// Player 2 win
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+		}
+		else
+		{
+			// Draw
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW);
+			
+		}
 	}
 }

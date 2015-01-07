@@ -16,6 +16,7 @@ public class Player
 {
 	private final short			LOGIN_BUFFER_SIZE		= 200;
 	private final short			SIGNUP_BUFFER_SIZE		= 150;
+	private final short			RESULT_GAME_SIZE	= 250;
 	private final short			SIGNUP_DEFAULT_ELO		= 1000;
 	private final short			FINDMATCH_BUFFER_SIZE	= 250;
 
@@ -23,6 +24,12 @@ public class Player
 	private Integer				PlayerID;
 	private String				LobbyID;
 	private PlayerInformation	Information;
+	private short NumOfSentBrick = 0;
+	
+	public short getNumOfSentBrick()
+	{
+		return NumOfSentBrick;
+	}
 
 	public PlayerInformation getInformation()
 	{
@@ -81,6 +88,20 @@ public class Player
 			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
 					.LeaveLobby(this);
 			break;
+		case Command.CMD_PVP_SEND:
+			if(LobbyID != null)
+			{
+				ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
+				.TranfferData(this, buffer);
+				NumOfSentBrick += tempBuffer.readShort();
+				System.out.println("Send = " +  NumOfSentBrick);
+			}
+			else
+			{
+				System.out.println("^&%^^&#$%#$% #$#&# EXCEPTION");
+			}
+			
+			break;
 		case 3:
 			// accept match
 			break;
@@ -96,7 +117,7 @@ public class Player
 		case Command.CMD_REQ_PVP_FALL:
 		case Command.CMD_PVP_GROW:
 		case Command.CMD_PVP_HOLD:
-		case Command.CMD_FOUND_PVP:
+		//case Command.CMD_FOUND_PVP:
 		case Command.CMD_PVP_ENTER:
 			// Set back to the sender
 			// HandleIngameNextRes(buffer);
@@ -248,6 +269,7 @@ public class Player
 		resFoundMatch.writeShort(0);
 		resFoundMatch.writeShort(Command.CMD_FOUND_PVP);
 
+		resFoundMatch.writeShort(GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK);
 		for(int i = 0; i < GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK; i++)
 		{
 			resFoundMatch.writeShort(listBrick[i]);
@@ -255,4 +277,27 @@ public class Player
 		
 		WriteToClient(resFoundMatch);
 	}
+	
+	public ChannelBuffer HandleResultGame(short isWin)
+	{
+		ChannelBuffer resResultGame = ChannelBuffers
+				.buffer(RESULT_GAME_SIZE);
+		if(isWin == 1)
+		{
+			resResultGame.writeShort(0);
+			resResultGame.writeShort(Command.CMD_PVP_WIN);
+		}
+		else if(isWin == 0)
+		{
+			resResultGame.writeShort(0);
+			resResultGame.writeShort(Command.CMD_PVP_LOSE);
+		}
+		else
+		{
+			resResultGame.writeShort(0);
+			resResultGame.writeShort(Command.CMD_PVP_DRAW);
+		}
+		return resResultGame;
+	}
+	
 }
