@@ -47,6 +47,7 @@ class BattleView extends SceneView
      */
     override public function onEnter()
     {        		
+		Game.data.playerData.mDTgameplay.onSetPvp();
 		Game.data.playerData.mDTingame.onRefresh();
 		Game.data.playerData.mDTgameplay.onRefresh();
 		init();

@@ -33,13 +33,9 @@ class DTgameplay
 	public var mTimeCurrent:Int;	
 	// x score x2, x3 , x4
 	public var mX:Int;
-	// các Skill hiện tại
-	public var mSkillCurrent:Array<Int>;
-	// các skill có thể sử dụng
 	
 	public function new() 
 	{
-		
 		// stack block
 		mStackBlock = new Array<InfoBlock>();
 		for (i in 0...4) 
@@ -56,10 +52,28 @@ class DTgameplay
 		mTimeTotal = 120;
 		mTimeCurrent = 120;
 		mX = 1;
-		mSkillCurrent = new Array<Int>();
 	}
-	public function onRefresh() 
+	public function onRefresh():Void
+	{
+		
+	}
+	public function onSetPvp() 
 	{		
+		// current block
+		mcurrentBlock = new InfoBlock(Game.data.playerData.dataPVP.dataMine.getFuture(), BlockDirect.TOP);
+		// stack block
+		mStackBlock = new Array<InfoBlock>();
+		for (i in 0...4) 
+		{
+			mStackBlock[i] = new InfoBlock(Game.data.playerData.dataPVP.dataMine.getFuture(), BlockDirect.TOP);
+		}
+		// hold block
+		mHoldBlock = new Array<InfoBlock>();
+		// other
+		mScore = 0;
+		mTimeTotal = 120;
+		mTimeCurrent = 120;
+		mX = 1;
 	}
 	public function RefreshBlock()
 	{
@@ -79,7 +93,31 @@ class DTgameplay
 		mTimeTotal = 120;
 		mTimeCurrent = 120;
 		mX = 1;
-		mSkillCurrent = new Array<Int>();
+	}
+	public function NextBlockPvP()
+	{
+		mcurrentBlock.mType = mStackBlock[0].mType;
+		mcurrentBlock.mSkill = mStackBlock[0].mSkill;
+		for (i in 0...3) 
+		{
+			mStackBlock[i].mType = mStackBlock[i + 1].mType;
+			mStackBlock[i].mSkill = mStackBlock[i + 1].mSkill;
+		}
+		mStackBlock[3].mType = Game.data.playerData.dataPVP.dataMine.getFuture();
+		mStackBlock[3].mSkill = -1;
+		var _skill:Int = Std.random(5);
+		if (_skill < Game.data.playerData.dataSkill.skillAct.length &&
+			Game.data.playerData.dataSkill.skillAct[_skill] > 0) 
+		{
+			var _skillInfo:SkillInfo = new SkillInfo(Game.data.playerData.dataSkill.skillAct[_skill]);
+			if (_skillInfo.id != SkillType.SHIELD ||
+				_skillInfo.id <= 0 ||
+				_skillInfo.id != SkillType.HAMMER||
+				_skillInfo.id != SkillType.FINISH) 
+			{
+				mStackBlock[3].mSkill = Game.data.playerData.dataSkill.skillAct[_skill];
+			}
+		}
 	}
 	public function NextBlock()
 	{
