@@ -4,6 +4,7 @@ import core.display.screen.ScreenID;
 import game.gameobject.gameplay.GameBattle;
 import game.gameobject.gameplay.GamePlay;
 import game.gameobject.pvp.StaDisconnetEnemy;
+import game.gameobject.pvp.StaDisconnetMine;
 import game.gameobject.pvp.StaLose;
 import game.gameobject.pvp.StaWIn;
 import game.network.packet.request.pvp.RepCancel;
@@ -19,7 +20,7 @@ import openfl.events.KeyboardEvent;
  */
 class BattleView extends SceneView
 {
-	private static var TIME_DELAY = 1;
+	private static var TIME_DELAY = 2;
 	var _gamePlay:GameBattle;
 	
 	public function new() 
@@ -38,7 +39,10 @@ class BattleView extends SceneView
 	
 	private function gameLoop(e:Event):Void 
 	{
-		
+		if (Game.data.playerData.dataGame.online == false) 
+		{
+			cDisconnet();
+		}
 	}
 	
 	
@@ -79,6 +83,12 @@ class BattleView extends SceneView
 	public function sDisconnet()
 	{
 		var	_dis:StaDisconnetEnemy = new StaDisconnetEnemy();
+		this.addChild(_dis);	
+		Actuate.timer(TIME_DELAY).onComplete(onBack);
+	}
+	public function cDisconnet()
+	{
+		var	_dis:StaDisconnetMine = new StaDisconnetMine();
 		this.addChild(_dis);	
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}

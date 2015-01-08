@@ -6,6 +6,7 @@ import game.network.packet.Command;
 import game.network.packet.PacketHeader;
 import game.network.packet.RequestPacket;
 import game.network.packet.response.pvp.*;
+import game.network.packet.response.RespEmpty;
 import game.network.packet.response.user.*;
 import game.network.packet.ResponsePacket;
 import game.tnk.Game;
@@ -65,7 +66,9 @@ class Server extends EventDispatcher
         _responsedMapping[Command.CMD_PVP_FALL]	        	    	= RespPvPFall;
         _responsedMapping[Command.CMD_PVP_SKILL_LASERS]	        	= RespPvPLasers;
         _responsedMapping[Command.CMD_PVP_SKILL_MAGNET]	        	= RespPvPMagnet;
-        _responsedMapping[Command.CMD_PVP_SKILL_METEOR]	        	= RespPvPMeteor;
+        _responsedMapping[Command.CMD_PVP_DISCONNET]	        	= RespEmpty;
+        _responsedMapping[Command.CMD_PVP_WIN]	        			= RespEmpty;
+        _responsedMapping[Command.CMD_PVP_LOSE]	        			= RespEmpty;
 		// Statistics
     }
     
