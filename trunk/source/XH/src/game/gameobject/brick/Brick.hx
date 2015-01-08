@@ -41,7 +41,7 @@ class Brick extends Sprite
 	{
 		var _bitmap:BitmapData = Game.resource.getBitmap(Game.data.playerData.mBrickID + Defines.GFX_BRICK_001);
 		tilesheet = new Tilesheet (_bitmap);
-		for (i in 0...18) 
+		for (i in 0...21) 
 		{			
 			tilesheet.addTileRect(new Rectangle(i * Game.BRICK_WIDTH, 0, Game.BRICK_WIDTH, Game.BRICK_HEIGHT), null);
 		}
