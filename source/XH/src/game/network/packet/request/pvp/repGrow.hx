@@ -20,7 +20,7 @@ class RepGrow extends RequestPacket
 	override public function encode(): ByteArray {
         
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
-		data.wireArrInteger(listGrown);
+		data.wireArrBinary(listGrown);
         return data;
     }
 }
