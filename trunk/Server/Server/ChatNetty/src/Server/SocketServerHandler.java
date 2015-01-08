@@ -34,13 +34,14 @@ public class SocketServerHandler extends SimpleChannelHandler
 	public void channelDisconnected(ChannelHandlerContext ctx,
 			ChannelStateEvent e) throws Exception
 	{
-		User pUser = (User) ctx.getAttachment();
-		if (pUser != null)
+
+		System.out.println("=>> CLIENT DISCONNECTED !!!");
+		Player player = (Player) ctx.getAttachment();
+		if (player != null)
 		{
-			// pUser.handleDisconnect(false);
+			player.HandleDisconnect(false);
 		}
 		UnknownConnections.remove(e.getChannel());
-		System.out.println("=>> CLIENT DISCONNECTED !!!");
 		super.channelDisconnected(ctx, e);
 	}
 
@@ -60,7 +61,7 @@ public class SocketServerHandler extends SimpleChannelHandler
 
 			if (player != null)
 			{
-				System.out.println("player != null - ID: " + player.getPlayerID() );
+				//System.out.println("player != null - ID: " + player.getPlayerID() );
 
 				if (ConnectionManager.AllPlayers.get(player.getPlayerID()) == player)
 				{
@@ -74,17 +75,17 @@ public class SocketServerHandler extends SimpleChannelHandler
 			
 			else
 			{
-				System.out.println("player == null");
+				//System.out.println("player == null");
 				ChannelBuffer bufferOut = ConnectionManager.GetInstance()
 						.PlayerLogin(buffer, ctx, e);
 				player = (Player) ctx.getAttachment();
 				
 				if (player != null) 
 				{
-					System.out.println("else player != null");
+					//System.out.println("else player != null");
 					//if (bufferOut != null)
 					{
-						System.out.println("bufferOut == null");
+						//System.out.println("bufferOut == null");
 						UnknownConnections.remove(channel);
 						player.WriteToClient(bufferOut);
 					}

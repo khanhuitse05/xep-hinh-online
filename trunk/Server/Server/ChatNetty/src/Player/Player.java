@@ -16,7 +16,7 @@ public class Player
 {
 	private final short			LOGIN_BUFFER_SIZE		= 200;
 	private final short			SIGNUP_BUFFER_SIZE		= 150;
-	private final short			RESULT_GAME_SIZE	= 250;
+	private final short			RESULT_GAME_SIZE		= 250;
 	private final short			SIGNUP_DEFAULT_ELO		= 1000;
 	private final short			FINDMATCH_BUFFER_SIZE	= 250;
 
@@ -24,8 +24,14 @@ public class Player
 	private Integer				PlayerID;
 	private String				LobbyID;
 	private PlayerInformation	Information;
-	private short NumOfSentBrick = 0;
-	
+	private short				NumOfSentBrick			= 0;
+	private short				Status					= PlayerStatus.PLAYER_OFFLINE;
+
+	public short getStatus()
+	{
+		return Status;
+	}
+
 	public short getNumOfSentBrick()
 	{
 		return NumOfSentBrick;
@@ -54,6 +60,13 @@ public class Player
 
 	public void setLobbyID(String lobbyID)
 	{
+		if(lobbyID == null)
+		{
+			Status = PlayerStatus.PLAYER_ONLINE;
+		}else
+		{
+			Status = PlayerStatus.PLAYER_FINDING_MATCH;
+		}
 		LobbyID = lobbyID;
 	}
 
@@ -62,7 +75,7 @@ public class Player
 		ChannelBuffer tempBuffer = buffer.copy();
 		int length = tempBuffer.readShort();
 		int command = tempBuffer.readShort();
-		//int textLength = tempBuffer.readShort();
+		// int textLength = tempBuffer.readShort();
 		// System.out.println("Sring: length"
 		// + textLength
 		// + "--index"
@@ -70,7 +83,7 @@ public class Player
 		// + "--"
 		// + tempBuffer.toString(tempBuffer.readerIndex() + 2, textLength,
 		// StandardCharsets.UTF_8));
-		//tempBuffer.readerIndex(buffer.readerIndex());
+		// tempBuffer.readerIndex(buffer.readerIndex());
 
 		System.out.println("command " + command + "-" + buffer.capacity());
 
@@ -83,24 +96,24 @@ public class Player
 			// find match
 			ConnectionManager.GetInstance().FindMatch(this);
 			break;
-		case Command.CMD_PVP_CANCEL:			
+		case Command.CMD_PVP_CANCEL:
 			// cancel findmatch
 			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
 					.LeaveLobby(this);
 			break;
 		case Command.CMD_PVP_SEND:
-			if(LobbyID != null)
+			if (LobbyID != null)
 			{
 				ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
-				.TranfferData(this, buffer);
+						.TranfferData(this, buffer);
 				NumOfSentBrick += tempBuffer.readShort();
-				System.out.println("Send = " +  NumOfSentBrick);
+				System.out.println("Send = " + NumOfSentBrick);
 			}
 			else
 			{
 				System.out.println("^&%^^&#$%#$% #$#&# EXCEPTION");
 			}
-			
+
 			break;
 		case 3:
 			// accept match
@@ -117,7 +130,21 @@ public class Player
 		case Command.CMD_REQ_PVP_FALL:
 		case Command.CMD_PVP_GROW:
 		case Command.CMD_PVP_HOLD:
-		//case Command.CMD_FOUND_PVP:
+		case Command.CMD_FOUND_PVP:
+		case Command.CMD_PVP_SKILL_LASERS:
+		case Command.CMD_PVP_SKILL_MAGNET:
+		case Command.CMD_PVP_SKILL_METEOR:
+			if (LobbyID != null)
+			{
+				ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
+						.TranfferData(this, buffer);
+
+			}
+			else
+			{
+				System.out.println("^&%^^&#$%#$% #$#&# EXCEPTION");
+			}
+			break;
 		case Command.CMD_PVP_ENTER:
 			// Set back to the sender
 			// HandleIngameNextRes(buffer);
@@ -126,11 +153,13 @@ public class Player
 			// WriteToClient(HandleLoginRes(buffer));
 
 			// Test Send to the opponent
-			if(LobbyID != null)
+
+			System.out.println("=> Enter game");
+			if (LobbyID != null)
 			{
 				ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
-				.TranfferData(this, buffer);
-			
+						.TranfferData(this, buffer);
+
 			}
 			else
 			{
@@ -162,7 +191,7 @@ public class Player
 		Short temp = 5;
 		ChannelBuffer bufferOut = ChannelBuffers.buffer(50);
 		bufferOut.writeShort(temp);
-		//bufferOut.writeShort(arg0);
+		// bufferOut.writeShort(arg0);
 		return bufferOut;
 	}
 
@@ -189,10 +218,10 @@ public class Player
 		short cmd = tempBuffer.readShort();
 		short lenId = tempBuffer.readShort();
 		String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
-		StandardCharsets.UTF_8);
+				StandardCharsets.UTF_8);
 
 		// ID only for testing
-		//String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
+		// String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
 
 		// Get data from DB
 		// Pass data to playerInformation
@@ -208,7 +237,8 @@ public class Player
 		// Return data
 		ChannelBuffer resLogin = ChannelBuffers.buffer(LOGIN_BUFFER_SIZE);
 
-		// Write length of data - include lenght of id(short 2) and id and 2bytes for ELo
+		// Write length of data - include lenght of id(short 2) and id and
+		// 2bytes for ELo
 		// (string.length)
 		resLogin.writeShort(idStringSize + 4);
 		resLogin.writeShort(Command.CMD_LOGIN);
@@ -219,6 +249,7 @@ public class Player
 		resLogin.writeBytes(info.getIDPlayer().getBytes(StandardCharsets.UTF_8));
 		// Write elo
 		resLogin.writeShort(info.getElo());
+		Status = PlayerStatus.PLAYER_ONLINE;
 		return resLogin;
 	}
 
@@ -248,17 +279,23 @@ public class Player
 
 		// Generate response for client
 		ChannelBuffer resSignUp = ChannelBuffers.buffer(SIGNUP_BUFFER_SIZE);
-		
+
 		// Write header
-		// Write length of data - include lenght of id(short 2) and id and 2bytes for ELo
+		// Write length of data - include lenght of id(short 2) and id and
+		// 2bytes for ELo
 		resSignUp.writeShort(idStringSize + 4);
 		resSignUp.writeShort(Command.CMD_LOGIN);
 		resSignUp.writeShort(idStringSize);
 		resSignUp.writeBytes(newPlayerID.getBytes(StandardCharsets.UTF_8));
 		resSignUp.writeShort(playerInfo.getElo());
-		
-//		System.out.println("SEND BACK ... ID: " + newPlayerID + "-" +playerInfo.getElo() 
-//				+"idStringSize:" + idStringSize + "zxx" + newPlayerID.getBytes(StandardCharsets.UTF_8).length +"--" +resSignUp.readableBytes());
+
+		// System.out.println("SEND BACK ... ID: " + newPlayerID + "-"
+		// +playerInfo.getElo()
+		// +"idStringSize:" + idStringSize + "zxx" +
+		// newPlayerID.getBytes(StandardCharsets.UTF_8).length +"--"
+		// +resSignUp.readableBytes());
+
+		Status = PlayerStatus.PLAYER_ONLINE;
 		return resSignUp;
 	}
 
@@ -266,28 +303,30 @@ public class Player
 	{
 		ChannelBuffer resFoundMatch = ChannelBuffers
 				.buffer(FINDMATCH_BUFFER_SIZE);
-		resFoundMatch.writeShort(0);
+		resFoundMatch.writeShort(100 * 2 + 2);
 		resFoundMatch.writeShort(Command.CMD_FOUND_PVP);
 
 		resFoundMatch.writeShort(GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK);
-		for(int i = 0; i < GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK; i++)
+		for (int i = 0; i < GamePlayVariables.GAMEPLAY_MAX_NUM_BRICK; i++)
 		{
 			resFoundMatch.writeShort(listBrick[i]);
+
 		}
-		
+
+		Status = PlayerStatus.PLAYER_PLAYING;
 		WriteToClient(resFoundMatch);
 	}
-	
-	public ChannelBuffer HandleResultGame(short isWin)
+
+	public void HandleResultGame(short isWin)
 	{
-		ChannelBuffer resResultGame = ChannelBuffers
-				.buffer(RESULT_GAME_SIZE);
-		if(isWin == 1)
+		
+		ChannelBuffer resResultGame = ChannelBuffers.buffer(RESULT_GAME_SIZE);
+		if (isWin == 1)
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_WIN);
 		}
-		else if(isWin == 0)
+		else if (isWin == 0)
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_LOSE);
@@ -297,7 +336,24 @@ public class Player
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_DRAW);
 		}
-		return resResultGame;
+		WriteToClient(resResultGame);
 	}
-	
+
+	public void HandleDisconnect(boolean b)
+	{
+		System.out.println("!!!!!!!!!!! Player dis - status = " + Status);
+		switch(Status)
+		{
+		case PlayerStatus.PLAYER_FINDING_MATCH:
+			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
+			.FindingDisconect(this);
+			break;
+		case PlayerStatus.PLAYER_PLAYING:
+			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
+			.PlayingDisconect(this);
+			break;		
+		}
+
+	}
+
 }

@@ -56,8 +56,8 @@ public class SocketServer
 
         // Bind and start to accept incoming connections.
         bootstrap.bind(new InetSocketAddress(IPAddress, Port));
-        int nbThreads =  Thread.getAllStackTraces().keySet().size();
         
+        int nbThreads =  Thread.getAllStackTraces().keySet().size();        
         System.out.println("Bind + number of thread = " + nbThreads + " size: " + threadPoolSize);
 	}
 
