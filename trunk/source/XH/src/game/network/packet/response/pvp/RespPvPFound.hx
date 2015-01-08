@@ -21,7 +21,7 @@ class RespPvPFound extends ResponsePacket
 		var vList:Array<Int> = new Array<Int>();
 		for (i in 0...nLen)
         {
-            vList[i] = data.readShort();
+            vList[i] = data.readShort() + 1;
         }
 		
 		Game.data.playerData.dataPVP.dataMine.mFuture = vList;
