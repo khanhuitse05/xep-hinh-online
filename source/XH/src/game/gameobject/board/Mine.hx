@@ -288,7 +288,7 @@ class Mine extends Sprite
 			mBoard.removeChild(mCurentBlock);
 		}
 		// nextBlock
-		Game.data.playerData.mDTgameplay.NextBlock();
+		Game.data.playerData.mDTgameplay.NextBlockPvP();
 		// 
 		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.mDTgameplay.mcurrentBlock.mSkill);

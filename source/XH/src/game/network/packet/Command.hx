@@ -8,6 +8,7 @@ class Command
 	
 	public static var CMD_PVP_ENTER          		= 110;
 	public static var CMD_PVP_WIN                 	= 112;
+	public static var CMD_PVP_DRAW                 	= 113;
 	public static var CMD_PVP_LOSE                	= 114;
 	public static var CMD_PVP_FOUND              	= 116;
 	public static var CMD_PVP_FINDING              	= 118;

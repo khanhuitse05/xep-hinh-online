@@ -33,7 +33,7 @@ class BattleRoom extends SceneBase
             case Command.CMD_PVP_FOUND:
                 view.sFound();
 			case Command.CMD_PVP_ENTER:
-                view.sReady();
+                //view.sReady();
 			case Command.CMD_PVP_CANCEL:
                 view.sCancel();
             default:

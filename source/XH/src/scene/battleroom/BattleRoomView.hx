@@ -82,7 +82,11 @@ class BattleRoomView extends SceneView
 	 */
 	private function gameLoop(e:Event):Void 
 	{
-
+		if (Game.data.playerData.dataPVP.dataRoom.isEnter) 
+		{
+			Game.data.playerData.dataPVP.dataRoom.isEnter = false;
+			sReady();
+		}
 	}
 	public function onBack(e:MouseEvent)
 	{

@@ -6,6 +6,7 @@ package game.data.pvp;
  */
 class DTPVPRoom
 {
+	public var isEnter:Bool;
 	public function new() 
 	{
 	}
