@@ -34,7 +34,9 @@ class Battle extends SceneBase
                 view.sWin();
 			case Command.CMD_PVP_LOSE:
                 view.sLose();
-			case Command.CMD_PVP_CANCEL:
+			case Command.CMD_PVP_DISCONNET:
+                view.sDisconnet();
+			case Command.CMD_PVP_DRAW:
                 view.sDisconnet();
             default:
         }

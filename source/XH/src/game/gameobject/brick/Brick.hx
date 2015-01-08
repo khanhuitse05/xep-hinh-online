@@ -74,7 +74,7 @@ class Brick extends Sprite
 				mSkill == SkillType.MAGNET ||
 				mSkill == SkillType.METEOR ||
 				mSkill == SkillType.X2 ||
-				mSkill == SkillType.TIME ||) 
+				mSkill == SkillType.TIME) 
 			{
 				this.tilesheet.drawTiles(this.graphics, [0, 0, mSkill + 11]);
 			}else

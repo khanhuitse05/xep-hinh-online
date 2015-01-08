@@ -86,6 +86,12 @@ class BattleView extends SceneView
 		this.addChild(_dis);	
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
+	public function sDraw()
+	{
+		var	_dis:StaLose = new StaLose();
+		this.addChild(_dis);	
+		Actuate.timer(TIME_DELAY).onComplete(onBack);
+	}
 	public function cDisconnet()
 	{
 		var	_dis:StaDisconnetMine = new StaDisconnetMine();
