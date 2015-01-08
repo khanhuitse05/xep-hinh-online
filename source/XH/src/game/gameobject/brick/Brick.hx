@@ -1,6 +1,7 @@
 package game.gameobject.brick;
 
 import core.resource.Defines;
+import game.gameobject.skill.SkillType;
 import game.tnk.Game;
 import motion.Actuate;
 import motion.easing.Quad;
@@ -67,7 +68,13 @@ class Brick extends Sprite
 		if (this.mType > 0) 
 		{
 			this.graphics.clear();
-			if (mSkill > 0) 
+			if (mSkill == SkillType.BOOM ||
+				mSkill == SkillType.EASY ||
+				mSkill == SkillType.LASERS ||
+				mSkill == SkillType.MAGNET ||
+				mSkill == SkillType.METEOR ||
+				mSkill == SkillType.X2 ||
+				mSkill == SkillType.TIME ||) 
 			{
 				this.tilesheet.drawTiles(this.graphics, [0, 0, mSkill + 11]);
 			}else
