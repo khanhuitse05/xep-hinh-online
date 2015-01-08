@@ -40,8 +40,7 @@ class DTgameplay
 		mStackBlock = new Array<InfoBlock>();
 		for (i in 0...4) 
 		{
-			var _iblock = new InfoBlock(Std.random(7) + 1, Std.random(4));
-			mStackBlock[i] = _iblock;
+			mStackBlock[i] = new InfoBlock(Std.random(7) + 1, Std.random(4));
 		}
 		// current block
 		mcurrentBlock = new InfoBlock(Std.random(7) + 1, Std.random(4));
@@ -164,7 +163,7 @@ class DTgameplay
 	public function onEasy()
 	{
 		mcurrentBlock.mType = BlockType.I;
-		for (i in 0...mStackBlock.length) 
+		for (i in 0...Game.data.playerData.mUserInfo.future) 
 		{
 			mStackBlock[i].mType = BlockType.I;
 		}
