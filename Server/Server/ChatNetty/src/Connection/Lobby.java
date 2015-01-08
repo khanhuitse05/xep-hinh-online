@@ -7,6 +7,7 @@ import org.jboss.netty.buffer.ChannelBuffer;
 
 import GamePlay.GamePlayVariables;
 import Player.Player;
+import Player.PlayerStatus;
 
 public class Lobby
 {	
@@ -134,19 +135,16 @@ public class Lobby
 
 	public void TranfferData(Player sender, ChannelBuffer data)
 	{
-		System.out.println("Tranffer: lobbyID: " + LobbyID + " isFull:"
-				+ IsFull);
 		if (IsFull)
 		{
-			System.out.println("Full");
 			if (sender == Player1)
 			{
-				System.out.println("Sender = Player1");
+				//System.out.println("Sender = Player1");
 				Player2.TranfferDataToClient(data);
 			}
 			else if (sender == Player2)
 			{
-				System.out.println("Sender = Player2");
+				//System.out.println("Sender = Player2");
 				Player1.TranfferDataToClient(data);
 			}
 		}
@@ -176,10 +174,28 @@ public class Lobby
 			            @Override
 			            public void run() {
 			            	// Lenh end game
-			            	HandleEndGame();
+			            	if(Player1 != null && Player2 !=null)
+			            	{
+			            		if(Player1.getStatus() == PlayerStatus.PLAYER_PLAYING 
+				            			&& Player2.getStatus() == PlayerStatus.PLAYER_PLAYING
+				            			&& Player1.getLobbyID() == LobbyID
+				            			&& Player2.getLobbyID() == LobbyID)
+			            		{
+									System.out.println("@@@@@@@@@@@ End game");
+					            	HandleEndGame();
+			            		}
+			            		else
+			            		{
+									System.out.println("@@@@@@@@@@@ cancel end game");
+			            		}
+			            	}else
+		            		{
+								System.out.println("@@@@@@@@@@@ cancel end game 2");
+		            		}
+			            	
 			            }
 			        }, 
-			        120000
+			        GamePlayVariables.GAMEPLAY_GAME_TIME
 			);
 		}
 	}
@@ -198,6 +214,8 @@ public class Lobby
 	
 	public synchronized void HandleEndGame()
 	{
+		System.out.println("Player1.getNumOfSentBrick()" + Player1.getNumOfSentBrick() 
+				+ "  2 " + Player2.getNumOfSentBrick());
 		if(Player1.getNumOfSentBrick() > Player2.getNumOfSentBrick())
 		{
 			// Player 1 win
@@ -217,5 +235,50 @@ public class Lobby
 			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW);
 			
 		}
+
+    	ConnectionManager.CurrentLobby.remove(LobbyID);
+		System.out.println("@@@@@@@@@@@ Remove lobby");
+	}
+
+	public void FindingDisconect(Player player)
+	{
+		if(player == Player1)
+		{
+			IsFull = false;
+			Player1 = Player2;
+			Player2 = null;
+		}
+		else if(player == Player2)
+		{
+			IsFull = false;
+			Player2 = null;
+		}
+		else
+		{
+			System.out.println("&*^&*%&^^(*&^*&^(**)*&^^^^");
+		}
+		
+	}
+
+	public void PlayingDisconect(Player player)
+	{
+		if(player == Player1)
+		{
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player1 = null;
+			Player2 = null;
+		}
+		else if(player == Player2)
+		{
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player1 = null;
+			Player2 = null;
+		}
+		else
+		{
+			System.out.println("222222222222&*^&*%&^^(*&^*&^(**)*&^^^^");
+		}
+		IsFull = false;
+    	ConnectionManager.CurrentLobby.remove(LobbyID);
 	}
 }
