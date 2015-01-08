@@ -57,6 +57,7 @@ class Server extends EventDispatcher
         //PvP
         _responsedMapping[Command.CMD_PVP_ENTER]                   	= RespPvPEnter;
         _responsedMapping[Command.CMD_PVP_WIN]                     	= RespPvPWin;
+        _responsedMapping[Command.CMD_PVP_DRAW]                    	= RespPvPDraw;
         _responsedMapping[Command.CMD_PVP_LOSE]                    	= RespPvPLose;
         _responsedMapping[Command.CMD_PVP_FOUND]                 	= RespPvPFound;
         _responsedMapping[Command.CMD_PVP_NEXT]                		= RespPvPNext;
@@ -67,8 +68,6 @@ class Server extends EventDispatcher
         _responsedMapping[Command.CMD_PVP_SKILL_LASERS]	        	= RespPvPLasers;
         _responsedMapping[Command.CMD_PVP_SKILL_MAGNET]	        	= RespPvPMagnet;
         _responsedMapping[Command.CMD_PVP_DISCONNET]	        	= RespEmpty;
-        _responsedMapping[Command.CMD_PVP_WIN]	        			= RespEmpty;
-        _responsedMapping[Command.CMD_PVP_LOSE]	        			= RespEmpty;
 		// Statistics
     }
     
