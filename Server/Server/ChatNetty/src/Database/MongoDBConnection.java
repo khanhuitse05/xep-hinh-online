@@ -85,7 +85,7 @@ public class MongoDBConnection
 		// }
 
 		newDocument.append("$set",
-				new BasicDBObject().append(DB_Exp, newValue.getIDPlayer())
+				new BasicDBObject().append(DB_Exp, newValue.getExp())
 						.append(DB_Gold, newValue.getGold())
 						.append(DB_Elo, newValue.getElo())
 						.append(DB_HighScore, newValue.getHighScore())

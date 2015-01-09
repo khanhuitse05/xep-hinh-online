@@ -265,10 +265,12 @@ public class Lobby
 		if(player == Player1)
 		{
 			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player1.HandleResultDisconnectGame();
 		}
 		else if(player == Player2)
 		{
 			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player2.HandleResultDisconnectGame();
 		}
 		else
 		{
