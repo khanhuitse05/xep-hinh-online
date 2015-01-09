@@ -320,7 +320,7 @@ public class Player
 
 	public void HandleResultGame(short isWin)
 	{
-		LobbyID = null;
+		setLobbyID(null);
 		ChannelBuffer resResultGame = ChannelBuffers.buffer(RESULT_GAME_SIZE);
 		if (isWin == 1)
 		{
