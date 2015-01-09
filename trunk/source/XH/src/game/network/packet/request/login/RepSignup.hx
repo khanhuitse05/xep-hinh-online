@@ -10,14 +10,18 @@ import openfl.utils.ByteArray;
  */
 class RepSignup extends RequestPacket
 {
-	public function new() 
+	private var userName:String;
+	public function new(_name:String)
 	{
         super(Command.CMD_SIGNUP);
+		userName = _name;
 		
 	}
 	override public function encode(): ByteArray
     {
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
+		data.writeShort(userName.length);
+		data.writeStr(userName);
         return data;
     }
 }

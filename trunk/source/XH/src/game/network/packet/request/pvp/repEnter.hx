@@ -22,6 +22,7 @@ class RepEnter extends RequestPacket
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
 		data.writeStr(Game.data.playerData.mUserInfo.userName);
 		data.writeInt(Game.data.playerData.mUserInfo.exp);
+		data.writeInt(Game.data.playerData.mUserInfo.elo);
 		data.writeInt(Game.data.playerData.dataSkill.skillAct[0]);
 		data.writeInt(Game.data.playerData.dataSkill.skillAct[1]);
 		data.writeInt(Game.data.playerData.dataSkill.skillAct[2]);

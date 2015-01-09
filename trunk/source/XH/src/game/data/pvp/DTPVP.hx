@@ -31,11 +31,20 @@ class DTPVP
 		infoMine = new DTPlayerInfo();
 		dataRoom =  new DTPVPRoom();
 	}
-	public function setInfoMine():Void
+	public function setRefresh():Void
 	{
+		dataEnemy = new DTEnemy();
+		dataMine = new DTMine();
+		infoEnemy = new DTPlayerInfo();
+		infoMine = new DTPlayerInfo();
+		dataRoom =  new DTPVPRoom();
+		
 		infoMine.userName = Game.data.playerData.mUserInfo.userName;
 		infoMine.exp = Game.data.playerData.mUserInfo.exp;
 		infoMine.skill = Game.data.playerData.dataSkill.skill;
+		infoMine.elo = Game.data.playerData.mUserInfo.elo;
+		infoMine.avatar = Game.data.playerData.mUserInfo.avatar;
+		infoMine.gift = 0;
 	}
 	
 }

@@ -5,6 +5,7 @@ import core.util.Log;
 import game.network.packet.Command;
 import game.network.packet.PacketHeader;
 import game.network.packet.RequestPacket;
+import game.network.packet.response.data.*;
 import game.network.packet.response.pvp.*;
 import game.network.packet.response.RespEmpty;
 import game.network.packet.response.user.*;
@@ -54,12 +55,10 @@ class Server extends EventDispatcher
         _responsedMapping[Command.CMD_LOGIN]                       	= LoginResponse;
         _responsedMapping[Command.CMD_SIGNUP]                    	= LoginResponse;
         
-        //PvP
+        // PvP room
         _responsedMapping[Command.CMD_PVP_ENTER]                   	= RespPvPEnter;
-        _responsedMapping[Command.CMD_PVP_WIN]                     	= RespPvPWin;
-        _responsedMapping[Command.CMD_PVP_DRAW]                    	= RespPvPDraw;
-        _responsedMapping[Command.CMD_PVP_LOSE]                    	= RespPvPLose;
         _responsedMapping[Command.CMD_PVP_FOUND]                 	= RespPvPFound;
+		// PvP
         _responsedMapping[Command.CMD_PVP_NEXT]                		= RespPvPNext;
         _responsedMapping[Command.CMD_PVP_GROW]                    	= RespPvPGrow;
         _responsedMapping[Command.CMD_PVP_SEND]                    	= RespPvPSendGift;
@@ -67,8 +66,16 @@ class Server extends EventDispatcher
         _responsedMapping[Command.CMD_PVP_FALL]	        	    	= RespPvPFall;
         _responsedMapping[Command.CMD_PVP_SKILL_LASERS]	        	= RespPvPLasers;
         _responsedMapping[Command.CMD_PVP_SKILL_MAGNET]	        	= RespPvPMagnet;
+		// Statistics		
+        _responsedMapping[Command.CMD_PVP_WIN]                     	= RespPvPWin;
+        _responsedMapping[Command.CMD_PVP_DRAW]                    	= RespPvPDraw;
+        _responsedMapping[Command.CMD_PVP_LOSE]                    	= RespPvPLose;
         _responsedMapping[Command.CMD_PVP_DISCONNET]	        	= RespEmpty;
-		// Statistics
+		// Data
+        _responsedMapping[Command.CMD_DATA_ELO]	        			= RespDataElo;
+        _responsedMapping[Command.CMD_RANK_ELO]	        			= RespRankElo;
+        _responsedMapping[Command.CMD_RANK_DAY]	        			= RespRankHighDay;
+        _responsedMapping[Command.CMD_RANK_WEEK]	        		= RespRankHighWeek;
     }
     
     public function isConnected():Bool

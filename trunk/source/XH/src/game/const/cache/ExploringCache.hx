@@ -48,13 +48,14 @@ class ExploringCache
 	public static function writeData()
 	{
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
-		so.data.userName = Game.data.playerData.mUserInfo.userName;
+		so.data.userName = "Ping";
 		so.data.elo = 0;
 		so.data.gold = 10000;
 		so.data.exp = 0;
 		so.data.hold = 1;
 		so.data.future = 1;
 		so.data.scores = 0;
+		so.data.scoresDate = Date.now().getTime();
 		// skill
 		so.data.skill00 = 0;
 		so.data.skill01 = 0;
@@ -89,6 +90,7 @@ class ExploringCache
 	{
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
 		so.data.score = _str;
+		so.data.scoreDate = Date.now().getTime();
 		so.flush();
 	}
 	public static function writeName(_str:String)
@@ -167,6 +169,7 @@ class ExploringCache
 		Game.data.playerData.mUserInfo.future =  so.data.future;
 		Game.data.playerData.mUserInfo.exp =  so.data.exp;
 		Game.data.playerData.mUserInfo.score =  so.data.score;
+		Game.data.playerData.mUserInfo.scoreDate =  so.data.scoreDate;
 		// skill
 		Game.data.playerData.dataSkill.skill[0] =  so.data.skill00;
 		Game.data.playerData.dataSkill.skill[1] =  so.data.skill01;

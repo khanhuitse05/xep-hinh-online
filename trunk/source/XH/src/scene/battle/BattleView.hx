@@ -34,7 +34,7 @@ class BattleView extends SceneView
 		_gamePlay = new GameBattle();
 		_gamePlay.x = 0;
 		_gamePlay.y = 0;
-		this.addChildForDel(_gamePlay);
+		this.addChild(_gamePlay);
 	}	
 	
 	private function gameLoop(e:Event):Void 
@@ -86,7 +86,7 @@ class BattleView extends SceneView
 	public function sDraw()
 	{
 		var	_dis:StaLose = new StaLose();
-		this.addChild(_dis);	
+		this.addChild(_dis);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	/**

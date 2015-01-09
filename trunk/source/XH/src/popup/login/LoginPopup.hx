@@ -68,7 +68,7 @@ class LoginPopup extends PopupExBase
 		tfName.background = false;
 		tfName.multiline =  false;
 		tfName.type = TextFieldType.INPUT;
-		tfName.maxChars = 20;
+		tfName.maxChars = 10;
 		var textFM = new TextFormat();
 		textFM.size = 40;
 		textFM.color = 0x5E5E5E;
@@ -94,8 +94,12 @@ class LoginPopup extends PopupExBase
 	{		
 		if (tfName.text != "") 
 		{
+			Game.data.playerData.mUserInfo.userName = tfName.text;
 			ExploringCache.writeName(tfName.text);
-			Game.server.sendPacket(new RepSignup());
+			if (Game.data.playerData.dataGame.online) 
+			{
+				Game.server.sendPacket(new RepSignup(Game.data.playerData.mUserInfo.userName));
+			}
 			btnSignUp.removeEventListener(MouseEvent.CLICK, onSignUp);		
 			transitionOut();
 		}

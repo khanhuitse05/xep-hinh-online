@@ -147,7 +147,7 @@ class Board extends Sprite
 					mBoard.removeChild(mCurentBlock);
 				}
 				Game.data.playerData.mDTingame.setCase();
-				mState = STATE_END;				
+				mState = STATE_END;
 				var _time:TimeOut = new TimeOut();
 				this.addChild(_time);
 				mBg.effectMid(1);
@@ -318,7 +318,8 @@ class Board extends Sprite
 			mBoard.removeChild(mCurentBlock);
 		}
 		// nextBlock
-		// 
+		// 		
+		mCurentBlock = null;
 		mCurentBlock = new CBlock(_info.mType, BlockDirect.TOP);
 		mCurentBlock.mBlock.setSkill(_info.mSkill);
 		mBoard.addChild(mCurentBlock);
@@ -340,6 +341,7 @@ class Board extends Sprite
 		// nextBlock
 		Game.data.playerData.mDTgameplay.NextBlock();
 		// 
+		mCurentBlock = null;
 		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.mDTgameplay.mcurrentBlock.mSkill);
 		mCurentBlock.mask = mMask;
@@ -789,6 +791,7 @@ class Board extends Sprite
 		{
 			mBoard.removeChild(mListBrick[_row][_col]);				
 		}
+		mListBrick[_row][_col] = null;
 	}
 	
 	
@@ -933,7 +936,7 @@ class Board extends Sprite
 	private function actSkill_Time()
 	{
 		Game.data.playerData.mDTingame.isBoundTime = true;
-		Actuate.tween(this, 1, { }).onComplete(onFinishSkillX);
+		Actuate.timer(1).onComplete(onFinishSkillX);
 	}
 	/**
 	 * skill lasers

@@ -1,5 +1,6 @@
 package game.gameobject.gameplay;
 
+import core.display.ex.ExSprite;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
 import game.data.gameplay.DTingame;
@@ -16,7 +17,7 @@ import openfl.events.Event;
  * ...
  * @author KhanhTN
  */
-class GameBattle extends Sprite
+class GameBattle extends ExSprite
 {
 
 	public static var BOARD_X = 230;
@@ -106,18 +107,43 @@ class GameBattle extends Sprite
 	public function onExit()
 	{
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
+		
 		this.removeChild(mBoard);
 		mBoard.onExit();
+		mBoard = null;
+		
+		this.removeChild(mEnemy);
+		mEnemy.onExit();
+		mEnemy = null;
+		
 		this.removeChild(mHudLeft);
 		mHudLeft.onExit();
+		mHudLeft = null;
+		
 		this.removeChild(mHudRight);
 		mHudRight.onExit();
+		mHudRight = null;
+		
 		this.removeChild(mBackground);
 		this.mBackground.onExit();
+		mBackground = null;
+		
 		this.mScore.onExit();
 		this.removeChild(mScore);
+		mScore = null;
+		
 		this.mTime.onExit();
 		this.removeChild(mTime);
+		mTime = null;
+		
+		this.mOneTouch.onExit();
+		this.removeChild(mOneTouch);
+		mOneTouch = null;
+		
+		this.mControl.onExit();
+		this.removeChild(mControl);
+		mControl = null;
+	
 	}
 	
 }

@@ -58,6 +58,8 @@ class PopupExBase extends PopupBase
 		for (i in 0...4) 
 		{
 			mBg.addChild(mListBorder[i]);
+			mListBorder[i].setWidth(0);
+			mListBorder[i].setHeight(0);
 		}
 	}
 	public function init() 
