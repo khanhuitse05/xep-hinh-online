@@ -139,12 +139,12 @@ public class Lobby
 		{
 			if (sender == Player1)
 			{
-				//System.out.println("Sender = Player1");
+				System.out.println("Sender = Player1");
 				Player2.TranfferDataToClient(data);
 			}
 			else if (sender == Player2)
 			{
-				//System.out.println("Sender = Player2");
+				System.out.println("Sender = Player2");
 				Player1.TranfferDataToClient(data);
 			}
 		}
@@ -240,7 +240,7 @@ public class Lobby
 		System.out.println("@@@@@@@@@@@ Remove lobby");
 	}
 
-	public void FindingDisconect(Player player)
+	public synchronized void FindingDisconect(Player player)
 	{
 		if(player == Player1)
 		{
@@ -260,24 +260,23 @@ public class Lobby
 		
 	}
 
-	public void PlayingDisconect(Player player)
+	public synchronized void PlayingDisconect(Player player)
 	{
 		if(player == Player1)
 		{
 			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
-			Player1 = null;
-			Player2 = null;
 		}
 		else if(player == Player2)
 		{
 			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
-			Player1 = null;
-			Player2 = null;
 		}
 		else
 		{
 			System.out.println("222222222222&*^&*%&^^(*&^*&^(**)*&^^^^");
 		}
+		System.out.println("Playing DC");
+		Player1 = null;
+		Player2 = null;
 		IsFull = false;
     	ConnectionManager.CurrentLobby.remove(LobbyID);
 	}
