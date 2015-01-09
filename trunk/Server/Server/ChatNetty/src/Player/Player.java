@@ -1,7 +1,10 @@
 package Player;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.UUID;
+
+import javax.sound.midi.MidiDevice.Info;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -19,7 +22,7 @@ public class Player
 	private final short			RESULT_GAME_SIZE		= 250;
 	private final short			SIGNUP_DEFAULT_ELO		= 1000;
 	private final short			FINDMATCH_BUFFER_SIZE	= 250;
-
+	private final short UPDATE_ELO_SIZE = 50;
 	private Channel				ChannelPlayer;
 	private Integer				PlayerID;
 	private String				LobbyID;
@@ -216,10 +219,21 @@ public class Player
 		ChannelBuffer tempBuffer = buffer.copy();
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
+		int highScore = tempBuffer.readShort();
+		int addedDateHighScore = tempBuffer.readInt();
 		short lenId = tempBuffer.readShort();
 		String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
 				StandardCharsets.UTF_8);
+		
+		// increase index channelBuffer
+		tempBuffer.readerIndex(tempBuffer.readerIndex() + 2 + lenId);
+		short lenName = tempBuffer.readShort();
+		String name = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenName,
+				StandardCharsets.UTF_8);
 
+		System.out.println("Sign in: lenName: " + lenName + " name"
+				+ name);
+		
 		// ID only for testing
 		// String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
 
@@ -250,6 +264,14 @@ public class Player
 		// Write elo
 		resLogin.writeShort(info.getElo());
 		Status = PlayerStatus.PLAYER_ONLINE;
+		
+		// update to DB
+		PlayerInformation newValue = new PlayerInformation();
+		newValue = info;
+		newValue.setName(name);
+		newValue.setHighScore(highScore);
+		newValue.setHighScoreDateAdded(new Date(addedDateHighScore));
+		MongoDBConnection.GetInstance().Update(info, newValue);
 		return resLogin;
 	}
 
@@ -261,6 +283,12 @@ public class Player
 		// Read length and command
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
+		short lenId = tempBuffer.readShort();
+		String name = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
+				StandardCharsets.UTF_8);
+		
+
+		System.out.println("Sign up: " + name);
 
 		// Generate a new ID for new user
 		String newPlayerID = UUID.randomUUID().toString();
@@ -270,7 +298,8 @@ public class Player
 		PlayerInformation playerInfo = new PlayerInformation();
 		playerInfo.setIDPlayer(newPlayerID);
 		playerInfo.setElo(SIGNUP_DEFAULT_ELO);
-
+		playerInfo.setName(name);
+		
 		// Information
 		Information = playerInfo;
 
@@ -322,22 +351,48 @@ public class Player
 	{
 		setLobbyID(null);
 		ChannelBuffer resResultGame = ChannelBuffers.buffer(RESULT_GAME_SIZE);
-		if (isWin == 1)
+		PlayerInformation newInfo = new PlayerInformation();
+		newInfo = Information;
+		if (isWin == GamePlayVariables.GAMEPLAY_PVP_WIN)
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_WIN);
+			newInfo.setElo(newInfo.getElo() + GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 		}
-		else if (isWin == 0)
+		else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_LOSE);
+			newInfo.setElo(newInfo.getElo() - GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 		}
 		else
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_DRAW);
+			newInfo.setElo(newInfo.getElo() + GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
 		}
+		MongoDBConnection.GetInstance().Update(Information, newInfo);
+		Information.setElo(newInfo.getElo());
+		
+		// goi update elo
+		ChannelBuffer updateElo = ChannelBuffers.buffer(UPDATE_ELO_SIZE);
+		updateElo.writeShort(2);
+		updateElo.writeShort(Command.CMD_UPDATE_ELO);
+		updateElo.writeShort(Information.getElo());		
 		WriteToClient(resResultGame);
+		WriteToClient(updateElo);
+	}
+	
+	public void HandleResultDisconnectGame()
+	{
+		setLobbyID(null);
+		PlayerInformation newInfo = new PlayerInformation();
+		newInfo = Information;
+		
+		newInfo.setElo(newInfo.getElo() - GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+		
+		MongoDBConnection.GetInstance().Update(Information, newInfo);
+		Information.setElo(newInfo.getElo());
 	}
 
 	public void HandleDisconnect(boolean b)

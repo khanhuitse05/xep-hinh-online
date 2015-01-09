@@ -21,8 +21,10 @@ public class MongoDBConnection
 	final private String				DB_Gold					= "Gold";
 	final private String				DB_Exp					= "Exp";
 	final private String				DB_Name					= "Name";
-	final private String				DB_Skills				= "Skills";
 	final private String				DB_Elo					= "Elo";
+	final private String				DB_Skills				= "Skills";
+	final private String				DB_HighScore			= "HighScore";
+	final private String				DB_HighScoreAddedDate	= "HighScoreAddedDate";
 
 	private static MongoClient			MongoClientConnection	= null;
 	private static MongoDBConnection	Instance				= null;
@@ -58,38 +60,43 @@ public class MongoDBConnection
 		document.put(DB_Name, info.getName());
 		document.put(DB_Gold, info.getGold());
 		document.put(DB_Elo, info.getElo());
+		document.put(DB_HighScore, info.getHighScore());
+		document.put(DB_HighScoreAddedDate, info.getHighScoreDateAdded());
 
-//		BasicDBObject documentDetail = new BasicDBObject();
-//		for (int i = 0; i < 10; i++)
-//		{
-//			documentDetail.put(Integer.toString(i), info.getSkills()[i]);
-//		}
-//
-//		document.put(DB_Skills, documentDetail);
-		System.out.println("============================" + Collection.insert(document).toString());
+		// BasicDBObject documentDetail = new BasicDBObject();
+		// for (int i = 0; i < 10; i++)
+		// {
+		// documentDetail.put(Integer.toString(i), info.getSkills()[i]);
+		// }
+		//
+		// document.put(DB_Skills, documentDetail);
+		System.out.println("==============INSERT=============="
+				+ Collection.insert(document).toString());
 	}
 
 	public void Update(PlayerInformation oldValue, PlayerInformation newValue)
 	{
 		BasicDBObject newDocument = new BasicDBObject();
 
-//		BasicDBObject skills = new BasicDBObject();
-//		for (int i = 0; i < 10; i++)
-//		{
-//			skills.put(Integer.toString(i), newValue.getSkills()[i]);
-//		}
+		// BasicDBObject skills = new BasicDBObject();
+		// for (int i = 0; i < 10; i++)
+		// {
+		// skills.put(Integer.toString(i), newValue.getSkills()[i]);
+		// }
 
-		newDocument.append(
-				"$set",
+		newDocument.append("$set",
 				new BasicDBObject().append(DB_Exp, newValue.getIDPlayer())
 						.append(DB_Gold, newValue.getGold())
-						//.append(DB_Skills, skills)
-						.append(DB_Elo, newValue.getElo()));
+						.append(DB_Elo, newValue.getElo())
+						.append(DB_HighScore, newValue.getHighScore())
+						.append(DB_HighScoreAddedDate, newValue.getHighScoreDateAdded())
+						.append(DB_Name, newValue.getName()));
 
 		BasicDBObject searchQuery = new BasicDBObject().append(DB_ID,
 				oldValue.getIDPlayer());
 
-		Collection.update(searchQuery, newDocument);
+		System.out.println("============UPDATE===============" 
+				+ Collection.update(searchQuery, newDocument));
 	}
 
 	public PlayerInformation Query(String id)
@@ -108,8 +115,9 @@ public class MongoDBConnection
 			info.setIDFaceBook(result.get(DB_IDFacebook).toString());
 			info.setIDPlayer(result.get(DB_ID).toString());
 			info.setName(result.get(DB_Name).toString());
-			info.setExp((int) result.get(DB_Exp));
 			info.setElo((int) result.get(DB_Elo));
+			info.setHighScore((int)result.get(DB_HighScore));
+			// thieu addedDateHighScore
 			// int[] skills = news int[10];
 			// skills = (int[]) result.get(DB_Skills);
 			// info.setSkills(skills);
