@@ -23,4 +23,8 @@ class GameControl extends Sprite
 	{
 		Game.data.playerData.mDTingame.isCycle = true;
 	}
+	public function onExit()
+	{
+		this.removeEventListener(MouseEvent.MOUSE_DOWN, onCycle);
+	}
 }

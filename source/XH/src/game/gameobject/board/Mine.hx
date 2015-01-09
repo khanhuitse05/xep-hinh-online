@@ -706,6 +706,7 @@ class Mine extends Sprite
 		{
 			mBoard.removeChild(mListBrick[_row][_col]);				
 		}
+		mListBrick[_row][_col] = null;
 	}
 	//grow
 	private function sGrow():Void

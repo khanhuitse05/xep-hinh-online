@@ -53,7 +53,7 @@ class ResourcePath
 		"img/gfx/statictis/bgstapve.png", // 42 STATICTIS
 		"img/gfx/statictis/bgstapvp.png",
 		"img/gfx/ui/btncontinution.png",
-		"img/gfx/statictis/bgbattlevs.png",
+		"img/gfx/statictis/winnerlogo.png",
 		"img/gfx/ui/btnshare.png",
 		"img/gfx/opition/check.png",
 		"img/gfx/opition/uncheck.png",

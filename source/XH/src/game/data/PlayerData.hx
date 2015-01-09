@@ -19,7 +19,7 @@ import openfl.events.Event;
  */
 class PlayerData extends EventDispatcher
 { 
-    public var mBrickID : Int = 0;
+    public var mBrickID : Int;
     
 	public var mDTgameplay:DTgameplay;
 	public var mDTingame:DTingame;
@@ -33,6 +33,8 @@ class PlayerData extends EventDispatcher
     public function new() 
     {
         super();
+		mBrickID = Std.random(3);
+		
 		mDTgameplay = new DTgameplay();
 		mDTingame = new DTingame();
 		mUserInfo = new DTUserInfo();

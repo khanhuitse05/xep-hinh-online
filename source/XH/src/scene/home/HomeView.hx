@@ -1,4 +1,5 @@
 package scene.home;
+import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
 import core.display.scene.*;
 import core.display.screen.ScreenID;
@@ -9,6 +10,7 @@ import game.gameobject.gameplay.GameMode;
 import game.gameobject.loading.ConnetSever;
 import game.network.packet.request.login.RepLogin;
 import game.tnk.Game;
+import motion.Actuate;
 import openfl.events.Event;
 import scene.hud.HudBottom;
 import scene.hud.HudInfo;
@@ -40,6 +42,7 @@ class HomeView extends SceneView
 	{
 		super();
 		init();
+		initFPS();
 		var connet:ConnetSever = new ConnetSever();
 		this.addChild(connet);
 	}
@@ -78,6 +81,12 @@ class HomeView extends SceneView
 		listButton[MISSION].setMouseClick(onMission);
 		//listButton[MISSION].visible = false;
 	}	
+	
+	private function initFPS():Void
+	{
+		var _fps:FPS_Mem = new FPS_Mem(Game.GAME_WIDTH - 350, Game.GAME_HEIGHT - 50);
+		this.addChild(_fps);
+	}
 	/**
 	 * 
 	 * @param	e
@@ -87,8 +96,8 @@ class HomeView extends SceneView
 		if (Game.data.playerData.dataGame.isTry && isCheck == false) 
 		{
 			isCheck = true;
-			checkUser();			
 			this.removeEventListener(Event.ENTER_FRAME, gameCheck);   
+			Actuate.timer(1.1).onComplete(checkUser);
 		}
 	}
 	/**
@@ -158,11 +167,15 @@ class HomeView extends SceneView
 			{
 				Game.displayManager.toScreen(ScreenID.POPUP_LOGIN);
 				ExploringCache.writeData();
+				ExploringCache.readData();
 			}else 
-			{
-				Game.server.sendPacket(new RepLogin(ExploringCache.getID()));
+			{				
+				ExploringCache.readData();
+				Game.server.sendPacket(new RepLogin(ExploringCache.getID(), 
+													Game.data.playerData.mUserInfo.userName,
+													Game.data.playerData.mUserInfo.score,
+													Game.data.playerData.mUserInfo.scoreDate));
 			}
-			ExploringCache.readData();
 			setOnline();
 		}else 
 		{

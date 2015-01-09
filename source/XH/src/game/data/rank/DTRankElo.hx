@@ -1,13 +1,13 @@
-package game.data.pvp;
+package game.data.rank;
 
 /**
  * ...
  * @author KhanhTN
  */
-class DTPVPRoom
+class DTRankElo extends DTRank
 {
 	public function new() 
 	{
+		super();
 	}
-	
 }

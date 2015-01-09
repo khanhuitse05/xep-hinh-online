@@ -1,4 +1,4 @@
-package game.network.packet.response.gameplay;
+package game.network.packet.response.data;
 
 import game.network.packet.ResponsePacket;
 
@@ -6,7 +6,7 @@ import game.network.packet.ResponsePacket;
  * ...
  * @author KhanhTN
  */
-class respTurnMine extends ResponsePacket
+class RespRankHighDay extends ResponsePacket
 {
 
 	public function new() 

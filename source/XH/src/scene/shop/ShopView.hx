@@ -15,6 +15,7 @@ import game.network.packet.request.pvp.RepCancel;
 import game.network.packet.request.pvp.RepEnter;
 import game.network.packet.request.pvp.RepFinding;
 import game.tnk.Game;
+import openfl.Lib;
 import openfl.text.TextField;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
@@ -102,7 +103,7 @@ class ShopView extends SceneView
 		tfName.background = false;
 		tfName.multiline =  false;
 		tfName.type = TextFieldType.INPUT;
-		tfName.maxChars = 20;
+		tfName.maxChars = 10;
 		var textFM = new TextFormat();
 		textFM.size = 40;
 		textFM.color = 0x0;
@@ -221,6 +222,7 @@ class ShopView extends SceneView
 		updateInfo();
 		
 		onChooseBrick(Game.data.playerData.mBrickID);
+		
     }
 	override public function onExit() : Void
     {  

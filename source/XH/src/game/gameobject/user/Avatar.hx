@@ -16,6 +16,8 @@ import openfl.display.Sprite;
  */
 class Avatar extends Sprite
 {
+	public static var ENEMY_INDEX = 8;
+	
 	public static var IMAGE_WIDTH = 100;
 	public static var IMAGE_HEIGHT = 100;
 	

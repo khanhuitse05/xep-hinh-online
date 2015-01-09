@@ -48,6 +48,7 @@ class DataController
 		if (Game.data.playerData.mUserInfo.score < _num) 
 		{
 			Game.data.playerData.mUserInfo.score = _num;
+			Game.data.playerData.mUserInfo.scoreDate = Std.int(Date.now().getTime());
 			ExploringCache.writeScore(_num);
 		}
 	}

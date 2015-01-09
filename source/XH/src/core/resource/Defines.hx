@@ -58,7 +58,7 @@ class Defines
 	inline public static var GFX_STA_BG_PVE:Int			= 42;		// statictis
 	inline public static var GFX_STA_BG_PVP:Int			= 43;
 	inline public static var GFX_BTN_CONTINUE:Int		= 44;
-	inline public static var GFX_LOGO_VS:Int			= 45;
+	inline public static var GFX_LOGO_WINNER:Int		= 45;
 	inline public static var GFX_BTN_SHARE:Int			= 46;
 	inline public static var GFX_CHECK:Int				= 47;
 	inline public static var GFX_UN_CHECK:Int			= 48;

@@ -151,11 +151,12 @@ class Enemy extends Sprite
 		{
 			mBoard.removeChild(mCurentBlock);
 		}
+		mCurentBlock = null;
 		mCurentBlock = new CBlock(_info.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(_info.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
-		mCurentBlock.setGrid(4, 19);
+		mCurentBlock.setGrid(4, 18);
 	}
 	/**
 	 * sever
@@ -175,6 +176,7 @@ class Enemy extends Sprite
 		{
 			mBoard.removeChild(mCurentBlock);
 		}
+		mCurentBlock = null;
 		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mSkill);
 		mCurentBlock.mask = mMask;
@@ -187,6 +189,7 @@ class Enemy extends Sprite
 		{
 			mBoard.removeChild(mCurentBlock);
 		}
+		mCurentBlock = null;
 		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill);
 		mCurentBlock.mask = mMask;
@@ -237,7 +240,7 @@ class Enemy extends Sprite
 	 */
 	public function onExit()
 	{
-		
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	/**
 	 * using skill
@@ -463,6 +466,7 @@ class Enemy extends Sprite
 		{
 			mBoard.removeChild(mListBrick[_row][_col]);				
 		}
+		mListBrick[_row][_col] = null;
 	}
 	/**
 	 * 

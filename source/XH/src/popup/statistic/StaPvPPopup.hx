@@ -5,7 +5,9 @@ import core.display.ex.SimpleButton;
 import core.display.popup.PopupExBase;
 import core.resource.Defines;
 import game.gameobject.skill.SkillDisplay;
+import game.gameobject.user.Avatar;
 import game.tnk.Game;
+import motion.Actuate;
 import openfl.display.Sprite;
 import openfl.events.Event;
 
@@ -32,20 +34,23 @@ class StaPvPPopup extends PopupExBase
 	public static var BTN_X 		= 0;
 	public static var BTN_Y 		= 255;
 	
-	public static var ENEMY_X 		= 0;
-	public static var MINE_X 		= 0;
-	public static var PLAYER_Y 		= 60;
+	public static var PLAYER_X 		= 150;
+	public static var PLAYER_Y 		= -200;
 	
 	public static var TEXT_X 		= [-100,100];
-	public static var TEXT_Y 		= [-100, 60, 120, 180,];
+	public static var TEXT_Y 		= [-100, 80, 155, 250,];
 	
 	private var btnOK:SimpleButton;
 	private var text:Array<Array<Lable>>;
-	private var win:Sprite;
+	private var avatar:Array<Avatar>;
+	private var winner:Sprite;
+	private var winnerIndex:Int;
+	private var ready:Bool;
 	
 	public function new(showDarkBg : Bool = true) 
 	{
 		super(showDarkBg);
+		ready = false;
 	}
 	
 	override public function init() 
@@ -55,6 +60,23 @@ class StaPvPPopup extends PopupExBase
 		_line.y = 0 - mWidth / 2;
 		pane.addChild(_line);
 		
+		avatar = new Array<Avatar>();
+		for (i in 0...2) 
+		{
+			if (i == MINE) 
+			{
+				avatar[i] = new Avatar(Game.data.playerData.mUserInfo.avatar);				
+				avatar[i].x = 0 - PLAYER_X - Avatar.IMAGE_WIDTH;
+			}else 
+			{
+				avatar[i] = new Avatar(Game.data.playerData.mUserInfo.avatarEnemy);							
+				avatar[i].x = 0 + PLAYER_X;
+			}			
+			avatar[i].y = PLAYER_Y;
+			pane.addChild(avatar[i]);	
+		}
+					
+		
 		text = new Array<Array<Lable>>();
 		for (i in 0...2) 
 		{
@@ -62,17 +84,22 @@ class StaPvPPopup extends PopupExBase
 			for (j in 0...MAX) 
 			{
 				text[i][j] = new Lable();
-				text[i][j].setFont(30, 0xffffff);
+				text[i][j].setFont(40, 0xffffff);
 				text[i][j].setSysTextInfo(TEXT_X[i], TEXT_Y[j], "");
 				pane.addChild(text[i][j]);
 			}
 		}
-		
+		text[MINE][NAME].setFont(45, 0xB56B17);
+		text[ENEMY][NAME].setFont(45, 0xB56B17);
 		text[MINE][NAME].setSysText("" + Game.data.playerData.dataPVP.infoMine.userName);
-		text[ENEMY][NAME].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.userName);
+		text[MINE][NAME].x = TEXT_X[MINE] - text[MINE][NAME].width - 25;
+		text[ENEMY][NAME].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.userName);		
+		text[ENEMY][NAME].x += 25;
 		text[MINE][GIFT].setSysText("" + Game.data.playerData.dataPVP.infoMine.gift);
+		text[MINE][GIFT].x = TEXT_X[MINE] - text[MINE][GIFT].width;
 		text[ENEMY][GIFT].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.gift);
 		text[MINE][ELO].setSysText("" + Game.data.playerData.dataPVP.infoMine.elo);
+		text[MINE][ELO].x = TEXT_X[MINE] - text[MINE][ELO].width;
 		text[ENEMY][ELO].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.elo);
 		
 		btnOK = new SimpleButton();
@@ -82,6 +109,7 @@ class StaPvPPopup extends PopupExBase
 		pane.addChild(btnOK);
 		
 		initSkill();
+		initWinner();
     }
 	public function initSkill()
 	{		
@@ -91,7 +119,7 @@ class StaPvPPopup extends PopupExBase
 			var _skill:SkillDisplay = new SkillDisplay(Game.data.playerData.dataPVP.infoMine.skill[i]);
 			_skill.scaleX = SKILL_SCALE;
 			_skill.scaleY = SKILL_SCALE;
-			_skill.x = 0 - (SKILL_X + i * 60) - _skill.width * SKILL_SCALE;
+			_skill.x = 0 - (SKILL_X + i * 60) - 50;
 			_skill.y = SKILL_Y;
 			pane.addChild(_skill);
 		}
@@ -107,7 +135,49 @@ class StaPvPPopup extends PopupExBase
 		}
 
 	}
-	
+	public function initWinner()
+	{		
+		winner = new Sprite();		
+		pane.addChild(winner);
+		winner.alpha = 0;
+		
+		var _line:Sprite = Game.resource.getSprite(Defines.GFX_LOGO_WINNER);
+		_line.x = 0 - _line.width / 2;
+		_line.y = 0 - mWidth / 2;
+		winner.addChild(_line);
+		
+		Actuate.timer(0.7).onComplete(onWinner);
+	}
+	public function onWinner()
+	{		
+		
+		winner.y = 100;
+		if (Game.data.playerData.dataPVP.infoMine.gift >= Game.data.playerData.dataPVP.infoEnemy.gift) 
+		{
+			winnerIndex = MINE;
+			winner.x -= 150;
+		}else 
+		{
+			winnerIndex = ENEMY;
+			winner.x += 150;
+		}
+		winner.alpha = 1;
+		Actuate.tween(winner, 0.3, { scaleX:1.1, scaleY:1.1 } ).reverse();
+		Actuate.timer(1.5).onComplete(finishWinner);
+	}
+	public function finishWinner()
+	{
+		ready = true;
+		if (winnerIndex == MINE) 
+		{
+			Actuate.tween(winner, 0.2, { x:-200} );
+		}else 
+		{
+			Actuate.tween(winner, 0.2, { x:200} );
+		}		
+		Actuate.tween(winner, 0.3, { scaleX:0.3, scaleY:0.3} );
+		Actuate.tween(winner, 0.7, { y:-200} );
+	}
 	/**
 	 * 
 	 * @param	e
@@ -121,7 +191,10 @@ class StaPvPPopup extends PopupExBase
 	 */
 	private function onCancel(e:Event):Void 
 	{		
-		transitionOut();
+		if (ready == true) 
+		{
+			transitionOut();
+		}
 	}
 	
 	
