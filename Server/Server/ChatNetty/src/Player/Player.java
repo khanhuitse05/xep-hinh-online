@@ -26,7 +26,7 @@ public class Player
 	private PlayerInformation	Information;
 	private short				NumOfSentBrick			= 0;
 	private short				Status					= PlayerStatus.PLAYER_OFFLINE;
-
+	
 	public short getStatus()
 	{
 		return Status;
@@ -314,12 +314,13 @@ public class Player
 		}
 
 		Status = PlayerStatus.PLAYER_PLAYING;
+		NumOfSentBrick = 0;
 		WriteToClient(resFoundMatch);
 	}
 
 	public void HandleResultGame(short isWin)
 	{
-		
+		LobbyID = null;
 		ChannelBuffer resResultGame = ChannelBuffers.buffer(RESULT_GAME_SIZE);
 		if (isWin == 1)
 		{
