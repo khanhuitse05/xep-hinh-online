@@ -11,6 +11,7 @@ import game.data.user.DTUserInfo;
 import game.network.Server;
 import game.tnk.Game;
 import openfl.events.EventDispatcher;
+import openfl.events.Event;
 
 /**
  * ...
@@ -41,9 +42,17 @@ class PlayerData extends EventDispatcher
 		dataStatictis = new DTStatictis();
 		dataOption = new DTOptions();
         Game.server.addEventListener(Server.SERVER_DATA, onServerData);
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
     }
     
     private function onServerData(e:EventEx):Void 
     {
     }
+	private function gameLoop(e:Event):Void
+	{
+		//if (dataGame.disconnect) 
+		{
+			
+		}
+	}
 }

@@ -29,5 +29,8 @@ class RespPvPGrow extends ResponsePacket
 		
 		Game.data.playerData.dataPVP.dataEnemy.vGift = vList;
         Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.GROW);
+		
+		
+        Game.data.playerData.dataPVP.infoMine.gift += nLen;
     }
 }

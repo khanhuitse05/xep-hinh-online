@@ -27,7 +27,6 @@ class SinglePlayView extends SceneView
 	public function new() 
 	{
 		super();
-		//this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	
 	private function init():Void 
@@ -60,6 +59,8 @@ class SinglePlayView extends SceneView
 		Game.data.playerData.mDTgameplay.onRefresh();
 		Game.data.playerData.dataStatictis.onRefresh();
 		init();
+		
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
     }
 
     /**
@@ -67,8 +68,10 @@ class SinglePlayView extends SceneView
      */
     override public function onExit()
     {
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
         this.removeChild(_gamePlay);
 		_gamePlay.onExit();
+		_gamePlay = null;
     }
 	
 }

@@ -21,7 +21,6 @@ import tweenx909.TweenX;
  */
 class PopupSmallBase extends PopupBase
 {
-	private var pane:Sprite;
 	private var title:Sprite;
 	private var message:Lable;
 	private var btnClose:SimpleButton;
