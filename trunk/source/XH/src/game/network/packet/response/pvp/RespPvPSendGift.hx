@@ -20,5 +20,7 @@ class RespPvPSendGift extends ResponsePacket
     {        
 		Game.data.playerData.dataPVP.dataMine.mNumGift = data.readShort();
         Game.data.playerData.dataPVP.dataMine.mAction.push(DTPVP.GROW);
+		
+        Game.data.playerData.dataPVP.infoEnemy.gift += Game.data.playerData.dataPVP.dataMine.mNumGift;
     }
 }

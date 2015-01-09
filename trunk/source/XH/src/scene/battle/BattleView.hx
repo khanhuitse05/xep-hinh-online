@@ -39,10 +39,6 @@ class BattleView extends SceneView
 	
 	private function gameLoop(e:Event):Void 
 	{
-		if (Game.data.playerData.dataGame.online == false) 
-		{
-			cDisconnet();
-		}
 	}
 	
 	
@@ -65,6 +61,7 @@ class BattleView extends SceneView
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
         this.removeChild(_gamePlay);
 		_gamePlay.onExit();
+		_gamePlay = null;
     }
 	
 	/// sever
@@ -89,12 +86,6 @@ class BattleView extends SceneView
 	public function sDraw()
 	{
 		var	_dis:StaLose = new StaLose();
-		this.addChild(_dis);	
-		Actuate.timer(TIME_DELAY).onComplete(onBack);
-	}
-	public function cDisconnet()
-	{
-		var	_dis:StaDisconnetMine = new StaDisconnetMine();
 		this.addChild(_dis);	
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}

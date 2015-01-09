@@ -96,7 +96,8 @@ class HomeView extends SceneView
 	 */
     override public function onEnter() : Void
     {
-		isCheck = false;		
+		isCheck = false;	
+		Game.data.playerData.dataGame.isConnet = false;
 		this.addEventListener(Event.ENTER_FRAME, gameCheck);
 		this.addChild(Game.hudTop);
 		Game.hudTop.setPosBack(SceneView.EXIT);
@@ -125,6 +126,7 @@ class HomeView extends SceneView
 	 */
 	private function onBattle(e:Event):Void 
 	{
+		Game.data.playerData.dataGame.isConnet = true;
 		Game.data.playerData.dataSkill.mode = GameMode.PVP;
 		Game.displayManager.toScreen(ScreenID.SKILL);
 	}
@@ -134,7 +136,8 @@ class HomeView extends SceneView
 	 */
 	private function onFriend(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.FRIENDPLAY);
+		//Game.displayManager.toScreen(ScreenID.FRIENDPLAY);
+		//Game.data.playerData.dataGame.isConnet = true;
 	}
 	/**
 	 * 
@@ -142,7 +145,7 @@ class HomeView extends SceneView
 	 */
 	private function onMission(e:Event):Void 
 	{
-		
+		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVP);
 	}
 	/**
 	 * check username

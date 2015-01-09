@@ -6,7 +6,7 @@ import core.display.scene.SceneID;
 import haxe.ds.Option;
 import popup.login.*;
 import popup.statistic.*;
-import popup.user.OptionPopup;
+import popup.user.*;
 import scene.battle.*;
 import scene.battleroom.*;
 import scene.friendplay.*;
@@ -43,6 +43,7 @@ class ScreenID
     public static var POPUP_STA_PVE:           	PopupID = new PopupID(StaPvEPopup);
     public static var POPUP_STA_PVP:           	PopupID = new PopupID(StaPvPPopup);
     public static var POPUP_OPTIONS:           	PopupID = new PopupID(OptionPopup);
+    public static var POPUP_DISCONNET:          PopupID = new PopupID(DisConnetPopup);
     
     public function new()
     {

@@ -26,12 +26,11 @@ class StaPvPPopup extends PopupExBase
 	public static var SKILL_SCALE 		= 0.5;
 	public static var AVATAR_SCALE 		= 0.5;
 	
-	public static var SKILL_MINE		= 100;
-	public static var SKILL_ENEMY		= 400;
-	public static var SKILL_Y			= 100;
+	public static var SKILL_X			= 100;
+	public static var SKILL_Y			= 0;
 	
 	public static var BTN_X 		= 0;
-	public static var BTN_Y 		= 60;	
+	public static var BTN_Y 		= 255;
 	
 	public static var ENEMY_X 		= 0;
 	public static var MINE_X 		= 0;
@@ -76,6 +75,13 @@ class StaPvPPopup extends PopupExBase
 		text[MINE][ELO].setSysText("" + Game.data.playerData.dataPVP.infoMine.elo);
 		text[ENEMY][ELO].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.elo);
 		
+		btnOK = new SimpleButton();
+		btnOK.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_CONTINUE));
+		btnOK.setMouseClick(onCancel);
+		btnOK.setPosition(BTN_X, BTN_Y);
+		pane.addChild(btnOK);
+		
+		initSkill();
     }
 	public function initSkill()
 	{		
@@ -85,7 +91,7 @@ class StaPvPPopup extends PopupExBase
 			var _skill:SkillDisplay = new SkillDisplay(Game.data.playerData.dataPVP.infoMine.skill[i]);
 			_skill.scaleX = SKILL_SCALE;
 			_skill.scaleY = SKILL_SCALE;
-			_skill.x = SKILL_MINE + i * 60;
+			_skill.x = 0 - (SKILL_X + i * 60) - _skill.width * SKILL_SCALE;
 			_skill.y = SKILL_Y;
 			pane.addChild(_skill);
 		}
@@ -95,7 +101,7 @@ class StaPvPPopup extends PopupExBase
 			var _skill:SkillDisplay = new SkillDisplay(Game.data.playerData.dataPVP.infoMine.skill[i]);
 			_skill.scaleX = SKILL_SCALE;
 			_skill.scaleY = SKILL_SCALE;
-			_skill.x = SKILL_ENEMY + i * 60;
+			_skill.x = 0 + (SKILL_X + i * 60);
 			_skill.y = SKILL_Y;
 			pane.addChild(_skill);
 		}
@@ -115,7 +121,7 @@ class StaPvPPopup extends PopupExBase
 	 */
 	private function onCancel(e:Event):Void 
 	{		
-		
+		transitionOut();
 	}
 	
 	

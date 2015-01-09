@@ -1,4 +1,5 @@
 package game.data.pvp;
+import game.tnk.Game;
 
 /**
  * ...
@@ -29,6 +30,12 @@ class DTPVP
 		infoEnemy = new DTPlayerInfo();
 		infoMine = new DTPlayerInfo();
 		dataRoom =  new DTPVPRoom();
+	}
+	public function setInfoMine():Void
+	{
+		infoMine.userName = Game.data.playerData.mUserInfo.userName;
+		infoMine.exp = Game.data.playerData.mUserInfo.exp;
+		infoMine.skill = Game.data.playerData.dataSkill.skill;
 	}
 	
 }

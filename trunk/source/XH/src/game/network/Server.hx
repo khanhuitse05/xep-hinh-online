@@ -85,6 +85,7 @@ class Server extends EventDispatcher
     {
         Log.info("Server disconnected");
         Game.data.playerData.dataGame.isTry = true;
+        Game.data.playerData.dataGame.onDisconnected();
         this.dispatchEvent(event);
     }
     
@@ -191,7 +192,6 @@ class Server extends EventDispatcher
         if (isConnected())
         {
             Log.info("Close connect to server");
-			Game.data.playerData.dataGame.disconnect = true;			
             _socket.close();
         }
     }

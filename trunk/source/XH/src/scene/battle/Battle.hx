@@ -37,7 +37,7 @@ class Battle extends SceneBase
 			case Command.CMD_PVP_DISCONNET:
                 view.sDisconnet();
 			case Command.CMD_PVP_DRAW:
-                view.sDisconnet();
+                view.sDraw();
             default:
         }
     }
