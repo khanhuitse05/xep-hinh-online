@@ -1,5 +1,7 @@
 package Player;
 
+import java.util.Date;
+
 public class PlayerInformation
 {
 	private String	IDPlayer;
@@ -9,6 +11,28 @@ public class PlayerInformation
 	private String	Name;
 	private int		Elo;
 	private int[]	Skills	= new int[10];
+	private int		HighScore;
+	private Date	HighScoreAddedDate;
+
+	public int getHighScore()
+	{
+		return HighScore;
+	}
+
+	public void setHighScore(int highScore)
+	{
+		HighScore = highScore;
+	}
+
+	public Date getHighScoreDateAdded()
+	{
+		return HighScoreAddedDate;
+	}
+
+	public void setHighScoreDateAdded(Date highScoreDateAdded)
+	{
+		HighScoreAddedDate = highScoreDateAdded;
+	}
 
 	public PlayerInformation()
 	{
@@ -18,8 +42,10 @@ public class PlayerInformation
 		Exp = 0;
 		Name = "this is my name";
 		Elo = 0;
+		HighScore = 0;
+		HighScoreAddedDate = new Date(0);
 	}
-	
+
 	public String getIDPlayer()
 	{
 		return IDPlayer;
