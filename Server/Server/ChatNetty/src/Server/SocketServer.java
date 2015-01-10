@@ -58,7 +58,8 @@ public class SocketServer
         bootstrap.bind(new InetSocketAddress(IPAddress, Port));
         
         int nbThreads =  Thread.getAllStackTraces().keySet().size();        
-        System.out.println("Bind + number of thread = " + nbThreads + " size: " + threadPoolSize);
+        System.out.println("Bind + number of thread = " + nbThreads + " size: " + threadPoolSize + 
+        		" available" + Runtime.getRuntime().availableProcessors());
 	}
 
 }
