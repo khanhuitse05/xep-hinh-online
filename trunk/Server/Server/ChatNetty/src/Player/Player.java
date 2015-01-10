@@ -2,7 +2,9 @@ package Player;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
+import java.util.Map.Entry;
 
 import javax.sound.midi.MidiDevice.Info;
 
@@ -11,6 +13,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 
 import Connection.ConnectionManager;
+import Connection.Lobby;
 import Database.MongoDBConnection;
 import GamePlay.Command;
 import GamePlay.GamePlayVariables;
@@ -22,14 +25,15 @@ public class Player
 	private final short			RESULT_GAME_SIZE		= 250;
 	private final short			SIGNUP_DEFAULT_ELO		= 1000;
 	private final short			FINDMATCH_BUFFER_SIZE	= 250;
-	private final short UPDATE_ELO_SIZE = 50;
+	private final short			UPDATE_ELO_SIZE			= 50;
+	private final short			LEADERBOARD_BUFFER_SIZE	= 1000;
 	private Channel				ChannelPlayer;
 	private Integer				PlayerID;
 	private String				LobbyID;
 	private PlayerInformation	Information;
 	private short				NumOfSentBrick			= 0;
 	private short				Status					= PlayerStatus.PLAYER_OFFLINE;
-	
+
 	public short getStatus()
 	{
 		return Status;
@@ -63,10 +67,11 @@ public class Player
 
 	public void setLobbyID(String lobbyID)
 	{
-		if(lobbyID == null)
+		if (lobbyID == null)
 		{
 			Status = PlayerStatus.PLAYER_ONLINE;
-		}else
+		}
+		else
 		{
 			Status = PlayerStatus.PLAYER_FINDING_MATCH;
 		}
@@ -118,8 +123,8 @@ public class Player
 			}
 
 			break;
-		case 3:
-			// accept match
+		case Command.CMD_UPDATE_LEADERBOARD:
+			HandleUpdateLeaderboard();
 			break;
 		case 4:
 			// defuse match
@@ -172,6 +177,79 @@ public class Player
 		}
 	}
 
+	public void HandleUpdateLeaderboard()
+	{
+		ChannelBuffer bufferOutElo = ChannelBuffers
+				.buffer(LEADERBOARD_BUFFER_SIZE);
+		ChannelBuffer bufferOutScore = ChannelBuffers
+				.buffer(LEADERBOARD_BUFFER_SIZE);
+
+		int sizeEloBuffer = 0;
+		int sizeScoreBuffer = 0;
+
+		HashMap<String, Integer> eloStading = new HashMap<String, Integer>();
+		HashMap<String, Integer> scoreStading = new HashMap<String, Integer>();
+		int[] stadingPosition = new int[2];
+
+		eloStading = MongoDBConnection.GetInstance().Top10Elo();
+		scoreStading = MongoDBConnection.GetInstance().Top10Highscore();
+		stadingPosition = MongoDBConnection.GetInstance().StandingPosition(
+				Information.getIDPlayer(), Information.getElo(),
+				Information.getHighScore());
+
+		// add size for number position
+		sizeEloBuffer += 4;
+		for (Entry<String, Integer> entry : eloStading.entrySet())
+		{
+			sizeEloBuffer += entry.getKey().getBytes(StandardCharsets.UTF_8).length + 4;
+		}
+
+		sizeScoreBuffer += 4;
+		for (Entry<String, Integer> entry : scoreStading.entrySet())
+		{
+			sizeScoreBuffer += entry.getKey().getBytes(StandardCharsets.UTF_8).length + 4;
+		}
+
+		bufferOutElo.writeShort(sizeEloBuffer);
+		bufferOutElo.writeShort(Command.CMD_UPDATE_LEADERBOARD_ELO);
+		// number of position
+		bufferOutElo.writeShort(stadingPosition[0]);
+		bufferOutElo.writeShort(10);
+
+		bufferOutScore.writeShort(sizeScoreBuffer);
+		bufferOutScore.writeShort(Command.CMD_UPDATE_LEADERBOARD_SCORE);
+		// number of position
+		bufferOutScore.writeShort(stadingPosition[1]);
+		bufferOutScore.writeShort(10);
+
+		for (Entry<String, Integer> entry : eloStading.entrySet())
+		{
+			// size text
+			bufferOutElo.writeShort(entry.getKey().getBytes(
+					StandardCharsets.UTF_8).length);
+			// text
+			bufferOutElo.writeBytes(entry.getKey().getBytes(
+					StandardCharsets.UTF_8));
+			// elo
+			bufferOutElo.writeShort(entry.getValue().intValue());
+		}
+
+		for (Entry<String, Integer> entry : scoreStading.entrySet())
+		{
+			// size text
+			bufferOutScore.writeShort(entry.getKey().getBytes(
+					StandardCharsets.UTF_8).length);
+			// text
+			bufferOutScore.writeBytes(entry.getKey().getBytes(
+					StandardCharsets.UTF_8));
+			// elo
+			bufferOutScore.writeShort(entry.getValue().intValue());
+		}
+
+		WriteToClient(bufferOutElo);
+		WriteToClient(bufferOutScore);
+	}
+
 	public void TranfferDataToClient(ChannelBuffer data)
 	{
 		ChannelPlayer.write(data);
@@ -220,20 +298,19 @@ public class Player
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
 		int highScore = tempBuffer.readShort();
-		int addedDateHighScore = tempBuffer.readInt();
+		int addedDateHighScore = (int) tempBuffer.readFloat();
 		short lenId = tempBuffer.readShort();
 		String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
 				StandardCharsets.UTF_8);
-		
+
 		// increase index channelBuffer
 		tempBuffer.readerIndex(tempBuffer.readerIndex() + 2 + lenId);
 		short lenName = tempBuffer.readShort();
-		String name = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenName,
-				StandardCharsets.UTF_8);
+		String name = tempBuffer.toString(tempBuffer.readerIndex() + 2,
+				lenName, StandardCharsets.UTF_8);
 
-		System.out.println("Sign in: lenName: " + lenName + " name"
-				+ name);
-		
+		System.out.println("Sign in: lenName: " + lenName + " name" + name);
+
 		// ID only for testing
 		// String id = "e6b32074-de6e-42a4-a6a8-64a4a4c993a1";
 
@@ -264,7 +341,7 @@ public class Player
 		// Write elo
 		resLogin.writeShort(info.getElo());
 		Status = PlayerStatus.PLAYER_ONLINE;
-		
+
 		// update to DB
 		PlayerInformation newValue = new PlayerInformation();
 		newValue = info;
@@ -272,6 +349,11 @@ public class Player
 		newValue.setHighScore(highScore);
 		newValue.setHighScoreDateAdded(new Date(addedDateHighScore));
 		MongoDBConnection.GetInstance().Update(info, newValue);
+		
+		// test
+		MongoDBConnection.GetInstance().Top10Elo();
+		//MongoDBConnection.GetInstance().Top10Highscore();
+		MongoDBConnection.GetInstance().StandingPosition("b1040149-7951-4674-88ca-820e709148f1", 998, 55);
 		return resLogin;
 	}
 
@@ -286,7 +368,6 @@ public class Player
 		short lenId = tempBuffer.readShort();
 		String name = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
 				StandardCharsets.UTF_8);
-		
 
 		System.out.println("Sign up: " + name);
 
@@ -299,7 +380,7 @@ public class Player
 		playerInfo.setIDPlayer(newPlayerID);
 		playerInfo.setElo(SIGNUP_DEFAULT_ELO);
 		playerInfo.setName(name);
-		
+
 		// Information
 		Information = playerInfo;
 
@@ -357,40 +438,44 @@ public class Player
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_WIN);
-			newInfo.setElo(newInfo.getElo() + GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+			newInfo.setElo(newInfo.getElo()
+					+ GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 		}
 		else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_LOSE);
-			newInfo.setElo(newInfo.getElo() - GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+			newInfo.setElo(newInfo.getElo()
+					- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 		}
 		else
 		{
 			resResultGame.writeShort(0);
 			resResultGame.writeShort(Command.CMD_PVP_DRAW);
-			newInfo.setElo(newInfo.getElo() + GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
+			newInfo.setElo(newInfo.getElo()
+					+ GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
 		}
 		MongoDBConnection.GetInstance().Update(Information, newInfo);
 		Information.setElo(newInfo.getElo());
-		
+
 		// goi update elo
 		ChannelBuffer updateElo = ChannelBuffers.buffer(UPDATE_ELO_SIZE);
 		updateElo.writeShort(2);
 		updateElo.writeShort(Command.CMD_UPDATE_ELO);
-		updateElo.writeShort(Information.getElo());		
+		updateElo.writeShort(Information.getElo());
 		WriteToClient(resResultGame);
 		WriteToClient(updateElo);
 	}
-	
+
 	public void HandleResultDisconnectGame()
 	{
 		setLobbyID(null);
 		PlayerInformation newInfo = new PlayerInformation();
 		newInfo = Information;
-		
-		newInfo.setElo(newInfo.getElo() - GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
-		
+
+		newInfo.setElo(newInfo.getElo()
+				- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+
 		MongoDBConnection.GetInstance().Update(Information, newInfo);
 		Information.setElo(newInfo.getElo());
 	}
@@ -398,16 +483,16 @@ public class Player
 	public void HandleDisconnect(boolean b)
 	{
 		System.out.println("!!!!!!!!!!! Player dis - status = " + Status);
-		switch(Status)
+		switch (Status)
 		{
 		case PlayerStatus.PLAYER_FINDING_MATCH:
 			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
-			.FindingDisconect(this);
+					.FindingDisconect(this);
 			break;
 		case PlayerStatus.PLAYER_PLAYING:
 			ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
-			.PlayingDisconect(this);
-			break;		
+					.PlayingDisconect(this);
+			break;
 		}
 
 	}
