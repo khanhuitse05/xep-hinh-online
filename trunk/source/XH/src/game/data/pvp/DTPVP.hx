@@ -7,7 +7,13 @@ import game.tnk.Game;
  */
 class DTPVP
 {
+	// result
+	public static var R_WIN = 0;
+	public static var R_DRAW = 1;
+	public static var R_LOSE = 2;
+	public static var R_DISCONET = 3;
 	
+	// response PvP
 	public static var NEXT = 0;
 	public static var HOLD = 1;
 	public static var FALL = 2;
@@ -17,11 +23,13 @@ class DTPVP
 	public static var METEOR = 6;
 	
 	public var dataEnemy:DTEnemy;
-	public var dataMine:DTMine;
-	
+	public var dataMine:DTMine;	
 	public var infoEnemy:DTPlayerInfo;
 	public var infoMine:DTPlayerInfo;
 	public var dataRoom:DTPVPRoom;
+	
+	public var eloResult:Int;
+	public var result:Int;
 	
 	public function new() 
 	{
@@ -45,6 +53,9 @@ class DTPVP
 		infoMine.elo = Game.data.playerData.mUserInfo.elo;
 		infoMine.avatar = Game.data.playerData.mUserInfo.avatar;
 		infoMine.gift = 0;
+		
+		eloResult = 0;
+		result = 0;
 	}
 	
 }

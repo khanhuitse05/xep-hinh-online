@@ -9,7 +9,7 @@ import game.tnk.Game;
  * ...
  * @author KhanhTN
  */
-class RespPvPLose extends ResponsePacket
+class RespPvPDisConnet extends ResponsePacket
 {
 
 	public function new() 
@@ -19,7 +19,6 @@ class RespPvPLose extends ResponsePacket
 	override public function decode(data : ByteArray) : Void 
     {  
 		Game.data.playerData.dataPVP.eloResult = data.readShort();
-		Game.data.playerData.dataPVP.eloResult = DTPVP.R_LOSE;
+		Game.data.playerData.dataPVP.eloResult = DTPVP.R_DISCONET;
 	}
-	
 }
