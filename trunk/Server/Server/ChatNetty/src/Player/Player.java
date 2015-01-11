@@ -2,18 +2,15 @@ package Player;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-
-import javax.sound.midi.MidiDevice.Info;
+import java.util.UUID;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 
 import Connection.ConnectionManager;
-import Connection.Lobby;
 import Database.MongoDBConnection;
 import GamePlay.Command;
 import GamePlay.GamePlayVariables;
@@ -187,8 +184,8 @@ public class Player
 		int sizeEloBuffer = 0;
 		int sizeScoreBuffer = 0;
 
-		HashMap<String, Integer> eloStading = new HashMap<String, Integer>();
-		HashMap<String, Integer> scoreStading = new HashMap<String, Integer>();
+		LinkedHashMap<String, Integer> eloStading = new LinkedHashMap<String, Integer>();
+		LinkedHashMap<String, Integer> scoreStading = new LinkedHashMap<String, Integer>();
 		int[] stadingPosition = new int[2];
 
 		eloStading = MongoDBConnection.GetInstance().Top10Elo();
