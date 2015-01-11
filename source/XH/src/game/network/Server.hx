@@ -70,7 +70,7 @@ class Server extends EventDispatcher
         _responsedMapping[Command.CMD_PVP_WIN]                     	= RespPvPWin;
         _responsedMapping[Command.CMD_PVP_DRAW]                    	= RespPvPDraw;
         _responsedMapping[Command.CMD_PVP_LOSE]                    	= RespPvPLose;
-        _responsedMapping[Command.CMD_PVP_DISCONNET]	        	= RespEmpty;
+        _responsedMapping[Command.CMD_PVP_DISCONNET]	        	= RespPvPDisConnet;
 		// Data
         _responsedMapping[Command.CMD_DATA_ELO]	        			= RespDataElo;
         _responsedMapping[Command.CMD_RANK_ELO]	        			= RespRankElo;

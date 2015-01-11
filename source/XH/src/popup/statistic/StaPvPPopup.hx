@@ -4,6 +4,7 @@ import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
 import core.display.popup.PopupExBase;
 import core.resource.Defines;
+import game.data.pvp.DTPVP;
 import game.gameobject.skill.SkillDisplay;
 import game.gameobject.user.Avatar;
 import game.tnk.Game;
@@ -100,7 +101,8 @@ class StaPvPPopup extends PopupExBase
 		text[ENEMY][GIFT].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.gift);
 		text[MINE][ELO].setSysText("" + Game.data.playerData.dataPVP.infoMine.elo);
 		text[MINE][ELO].x = TEXT_X[MINE] - text[MINE][ELO].width;
-		text[ENEMY][ELO].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.elo);
+		text[ENEMY][ELO].setSysText("" + Game.data.playerData.dataPVP.infoEnemy.elo);		
+		
 		
 		btnOK = new SimpleButton();
 		btnOK.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_CONTINUE));
@@ -108,9 +110,36 @@ class StaPvPPopup extends PopupExBase
 		btnOK.setPosition(BTN_X, BTN_Y);
 		pane.addChild(btnOK);
 		
+		initChangeElo();
 		initSkill();
 		initWinner();
     }
+	public function initChangeElo()
+	{
+		text[MINE][ELO + 1] = new Lable();
+		text[MINE][ELO + 1].setFont(40, 0x00FF3C);
+		text[MINE][ELO + 1].setSysTextInfo(TEXT_X[MINE] - 150, TEXT_Y[ELO], "+");
+		pane.addChild(text[MINE][ELO + 1]);
+		
+		text[ENEMY][ELO + 1] = new Lable();
+		text[ENEMY][ELO + 1].setFont(40, 0x00FF3C);
+		text[ENEMY][ELO + 1].setSysTextInfo(TEXT_X[ENEMY] + 120, TEXT_Y[ELO], "-");
+		pane.addChild(text[ENEMY][ELO + 1]);
+		
+		if (Game.data.playerData.dataPVP.result == DTPVP.R_DRAW) 
+		{
+			text[MINE][ELO + 1].setSysText("+" + Game.data.playerData.dataPVP.eloResult);
+			text[ENEMY][ELO + 1].setSysText("+" + Game.data.playerData.dataPVP.eloResult);
+		}else if (Game.data.playerData.dataPVP.result == DTPVP.R_LOSE) 
+		{
+			text[MINE][ELO + 1].setSysText("-" + Game.data.playerData.dataPVP.eloResult);
+			text[ENEMY][ELO + 1].setSysText("+" + Game.data.playerData.dataPVP.eloResult);
+		}else 
+		{
+			text[MINE][ELO + 1].setSysText("+" + Game.data.playerData.dataPVP.eloResult);
+			text[ENEMY][ELO + 1].setSysText("-" + Game.data.playerData.dataPVP.eloResult);
+		}
+	}
 	public function initSkill()
 	{		
 		// mine
@@ -137,26 +166,30 @@ class StaPvPPopup extends PopupExBase
 	}
 	public function initWinner()
 	{		
-		winner = new Sprite();		
-		pane.addChild(winner);
-		winner.alpha = 0;
-		
-		var _line:Sprite = Game.resource.getSprite(Defines.GFX_LOGO_WINNER);
-		_line.x = 0 - _line.width / 2;
-		_line.y = 0 - mWidth / 2;
-		winner.addChild(_line);
-		
-		Actuate.timer(0.7).onComplete(onWinner);
+		if (Game.data.playerData.dataPVP.result != DTPVP.R_DRAW)
+		{
+			winner = new Sprite();		
+			pane.addChild(winner);
+			winner.alpha = 0;
+			
+			var _line:Sprite = Game.resource.getSprite(Defines.GFX_LOGO_WINNER);
+			_line.x = 0 - _line.width / 2;
+			_line.y = 0 - mWidth / 2;
+			winner.addChild(_line);
+			
+			Actuate.timer(0.7).onComplete(onWinner);
+		}
 	}
 	public function onWinner()
 	{		
 		
 		winner.y = 100;
-		if (Game.data.playerData.dataPVP.infoMine.gift >= Game.data.playerData.dataPVP.infoEnemy.gift) 
+		if (Game.data.playerData.dataPVP.result == DTPVP.R_WIN ||
+			Game.data.playerData.dataPVP.result == DTPVP.R_DISCONET) 
 		{
 			winnerIndex = MINE;
 			winner.x -= 150;
-		}else 
+		}else if (Game.data.playerData.dataPVP.result == DTPVP.R_LOSE)
 		{
 			winnerIndex = ENEMY;
 			winner.x += 150;

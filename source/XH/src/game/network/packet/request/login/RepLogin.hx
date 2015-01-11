@@ -24,10 +24,10 @@ class RepLogin extends RequestPacket
 	}
 	override public function encode(): ByteArray
     {
-		var _time:Float = Date.now().getTime();
+		//var _time:Float = Date.now().getTime();
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
 		data.writeShort(score);
-		data.writeFloat(_time);
+		//data.writeFloat(_time);
 		data.writeShort(id.length);
 		data.writeStr(id);
 		data.writeShort(userName.length);
