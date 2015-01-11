@@ -219,20 +219,20 @@ public class Lobby
 		if(Player1.getNumOfSentBrick() > Player2.getNumOfSentBrick())
 		{
 			// Player 1 win
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE, false);
 		}
 		else if(Player1.getNumOfSentBrick() < Player2.getNumOfSentBrick())
 		{
 			// Player 2 win
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE, false);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false);
 		}
 		else
 		{
 			// Draw
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false);
 			
 		}
 
@@ -264,12 +264,12 @@ public class Lobby
 	{
 		if(player == Player1)
 		{
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true);
 			Player1.HandleResultDisconnectGame();
 		}
 		else if(player == Player2)
 		{
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true);
 			Player2.HandleResultDisconnectGame();
 		}
 		else
