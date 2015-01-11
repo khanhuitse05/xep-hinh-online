@@ -33,6 +33,7 @@ class HudRight extends ExSprite
 	private var mPlanX:Sprite;
 	private var isBattle:Bool;
 		
+	private var mListPane:Array<Sprite>;
 	private var mListBlock:Array<CBlock>;
 	private var mXExpText:Lable;
 	/**
@@ -44,7 +45,6 @@ class HudRight extends ExSprite
 		isBattle = _is;
 		initValue();
 		init();
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	/**
 	 * 
@@ -63,51 +63,29 @@ class HudRight extends ExSprite
 	{
 		
 		mListBlock = new Array<CBlock>();
-		var _plan:Sprite;
-		switch (mMaxStack) 
+		mListPane = new Array<Sprite>();
+		for (i in 0...4) 
 		{
-			case 1:
-				_plan = Game.resource.getSprite(Defines.GFX_BOX_1);
-			case 2:
-				_plan = Game.resource.getSprite(Defines.GFX_BOX_2);
-			case 3:
-				_plan = Game.resource.getSprite(Defines.GFX_BOX_3);
-			default:
-				_plan = Game.resource.getSprite(Defines.GFX_BOX_4);
-		}
-		this.addChild(_plan);
-		for (i in 0...mMaxStack) 
-		{
+			mListPane[i] = Game.resource.getSprite(Defines.GFX_BOX_1 + i);
+			this.addChild(mListPane[i]);
+			mListPane[i].visible = false;
+			
 			// block
-			var _block:CBlock = new CBlock(mStackBlock[i].mType, BlockDirect.RIGHT);			
-			_block.mBlock.setSkill(mStackBlock[i].mSkill);
-			_block.scaleX = 0.5;
-			_block.scaleY = 0.5;
-			_block.x = POS_X + BLOCK_OFFSET_X;
-			_block.y = POS_Y + i * POS_OFFSET + BLOCK_OFFSET_Y;
-			if (_block.mBlock.mType == BlockType.I) 
-			{
-				_block.x -= 18;
-			}
-			mListBlock[i] = _block;
-			this.addChildForDel(mListBlock[i]);
+			mListBlock[i] = new CBlock(BlockType.I, BlockDirect.RIGHT);			
+			mListBlock[i].scaleX = 0.5;
+			mListBlock[i].scaleY = 0.5;
+			mListBlock[i].x = POS_X + BLOCK_OFFSET_X;
+			mListBlock[i].y = POS_Y + i * POS_OFFSET + BLOCK_OFFSET_Y;			
+			this.addChild(mListBlock[i]);
 		}
-		// plan
+		
+		// plan X
 		mPlanX = Game.resource.getSprite(Defines.GFX_BOX_1);
-		mPlanX.x = POS_X;
-		mPlanX.y = POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 40;
 		this.addChild(mPlanX);
-		if (isBattle && mMaxStack > 3) 
-		{			
-			mPlanX.x = POS_X - 106;
-			mPlanX.y = POS_Y + _plan.height - mPlanX.height;
-		}
 		// text XX
 		// note
 		mXExpText = new Lable();
 		mXExpText.setFont(50, 0xffffff);
-		mXExpText.setSysTextInfo(mPlanX.x + 15,
-					mPlanX.y + 40, "x"+mX);
         this.addChild(mXExpText);
 	}
 	/**
@@ -126,6 +104,41 @@ class HudRight extends ExSprite
 	/**
 	 * 
 	 */
+	public function onEnter()
+	{
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+		initValue();
+		Update();
+		Game.data.playerData.mDTingame.isUpdateStack = false;
+		
+		for (i in 0...4) 
+		{
+			mListPane[i].visible = false;
+			if (i < mMaxStack) 
+			{
+				mListBlock[i].visible = true;
+			}else 
+			{
+				mListBlock[i].visible = false;
+			}
+			
+		}
+		mListPane[mMaxStack - 1].visible = true;	
+		
+			
+		//plan X
+		mPlanX.x = POS_X;
+		mPlanX.y = POS_Y + (mMaxStack - 1)* POS_OFFSET + 137 + 40;		
+		if (isBattle && mMaxStack > 3) 
+		{			
+			mPlanX.x = POS_X - 106;
+			mPlanX.y = POS_Y + mListPane[mMaxStack - 1].height - mPlanX.height;
+		}		
+		mXExpText.setSysTextInfo(mPlanX.x + 15, mPlanX.y + 40, "x1");
+	}
+	/**
+	 * 
+	 */
 	public function onExit()
 	{
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
@@ -135,24 +148,18 @@ class HudRight extends ExSprite
 	 */
 	private function Update():Void
 	{
-		mStackBlock = new Array<InfoBlock>();
-		mListBlock = new Array<CBlock>();
 		mStackBlock = Game.data.playerData.mDTgameplay.mStackBlock;
-		this.removeAllAndDelChild();
 		for (i in 0...mMaxStack) 
 		{
 			// block
-			mListBlock[i] = new CBlock(mStackBlock[i].mType, BlockDirect.RIGHT);
+			mListBlock[i].setBlock(mStackBlock[i].mType, BlockDirect.RIGHT);
 			mListBlock[i].mBlock.setSkill(mStackBlock[i].mSkill);
-			mListBlock[i].scaleX = 0.5;
-			mListBlock[i].scaleY = 0.5;
 			mListBlock[i].x = POS_X + BLOCK_OFFSET_X;
 			mListBlock[i].y = POS_Y + i * POS_OFFSET + BLOCK_OFFSET_Y;			
 			if (mListBlock[i].mBlock.mType == BlockType.I) 
 			{
 				mListBlock[i].x -= 18;
 			}
-			this.addChildForDel(mListBlock[i]);
 		}
 	}
 }

@@ -4,12 +4,14 @@ package game.data.rank;
  * ...
  * @author KhanhTN
  */
-class DTRankHighScoreWeek extends DTRank
+class DTRankBase
 {
-
+	public var name:String;
+	public var id:String;
+	public var value:Int;
+	
 	public function new() 
 	{		
-		super();
 	}
 	
 }

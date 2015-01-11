@@ -55,7 +55,7 @@ class ExploringCache
 		so.data.hold = 1;
 		so.data.future = 1;
 		so.data.scores = 0;
-		so.data.scoresDate = Date.now().getTime();
+		so.data.scoresDate = Std.int(Date.now().getTime());
 		// skill
 		so.data.skill00 = 0;
 		so.data.skill01 = 0;
@@ -169,7 +169,7 @@ class ExploringCache
 		Game.data.playerData.mUserInfo.future =  so.data.future;
 		Game.data.playerData.mUserInfo.exp =  so.data.exp;
 		Game.data.playerData.mUserInfo.score =  so.data.score;
-		Game.data.playerData.mUserInfo.scoreDate =  so.data.scoreDate;
+		//Game.data.playerData.mUserInfo.scoreDate =  so.data.scoreDate;
 		// skill
 		Game.data.playerData.dataSkill.skill[0] =  so.data.skill00;
 		Game.data.playerData.dataSkill.skill[1] =  so.data.skill01;

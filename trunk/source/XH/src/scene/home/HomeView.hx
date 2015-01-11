@@ -6,11 +6,17 @@ import core.display.screen.ScreenID;
 import core.resource.Defines;
 import game.const.cache.ExploringCache;
 import game.gameobject.background.Background;
+import game.gameobject.board.CBlock;
+import game.gameobject.brick.BlockDirect;
+import game.gameobject.brick.BlockType;
+import game.gameobject.brick.Brick;
 import game.gameobject.gameplay.GameMode;
 import game.gameobject.loading.ConnetSever;
 import game.network.packet.request.login.RepLogin;
 import game.tnk.Game;
 import motion.Actuate;
+import openfl.display.BitmapData;
+import openfl.display.Sprite;
 import openfl.events.Event;
 import scene.hud.HudBottom;
 import scene.hud.HudInfo;
@@ -42,7 +48,6 @@ class HomeView extends SceneView
 	{
 		super();
 		init();
-		initFPS();
 		var connet:ConnetSever = new ConnetSever();
 		this.addChild(connet);
 	}
@@ -82,11 +87,6 @@ class HomeView extends SceneView
 		//listButton[MISSION].visible = false;
 	}	
 	
-	private function initFPS():Void
-	{
-		var _fps:FPS_Mem = new FPS_Mem(Game.GAME_WIDTH - 350, Game.GAME_HEIGHT - 50);
-		this.addChild(_fps);
-	}
 	/**
 	 * 
 	 * @param	e
@@ -100,6 +100,7 @@ class HomeView extends SceneView
 			Actuate.timer(1.1).onComplete(checkUser);
 		}
 	}
+	
 	/**
 	 * 
 	 */
@@ -173,8 +174,7 @@ class HomeView extends SceneView
 				ExploringCache.readData();
 				Game.server.sendPacket(new RepLogin(ExploringCache.getID(), 
 													Game.data.playerData.mUserInfo.userName,
-													Game.data.playerData.mUserInfo.score,
-													Game.data.playerData.mUserInfo.scoreDate));
+													Game.data.playerData.mUserInfo.score));
 			}
 			setOnline();
 		}else 
@@ -189,8 +189,28 @@ class HomeView extends SceneView
 		}
 		logData();
 		hudInfo.update();
+		//checkHighScore();
 		Game.hudTop.update();
+		
 	}
+	/**
+	 * check username
+	 */
+	/*private function checkHighScore():Void
+	{
+		var _now:Date = Date.now();
+		var len = Game.data.playerData.mUserInfo.scoreDate;
+		var _last:Date = Date.fromTime(Game.data.playerData.mUserInfo.scoreDate);
+		if (_now.getMonth() == _last.getMonth() && _now.getDate() == _last.getDate() && _now.getFullYear() == _last.getFullYear()) 
+		{
+			
+		}else
+		{
+			ExploringCache.writeScore(0);
+			Game.data.playerData.mUserInfo.score = 0;
+			Game.data.playerData.mUserInfo.scoreDate = Date.now().getTime();
+		}
+	}*/
 	/**
 	 * OFFLINE
 	 */

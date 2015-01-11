@@ -74,8 +74,7 @@ class Server extends EventDispatcher
 		// Data
         _responsedMapping[Command.CMD_DATA_ELO]	        			= RespDataElo;
         _responsedMapping[Command.CMD_RANK_ELO]	        			= RespRankElo;
-        _responsedMapping[Command.CMD_RANK_DAY]	        			= RespRankHighDay;
-        _responsedMapping[Command.CMD_RANK_WEEK]	        		= RespRankHighWeek;
+        _responsedMapping[Command.CMD_RANK_HIGHSCORE]	        	= RespRankHighScore;
     }
     
     public function isConnected():Bool

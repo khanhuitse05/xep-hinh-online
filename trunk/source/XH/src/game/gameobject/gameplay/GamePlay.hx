@@ -40,7 +40,6 @@ class GamePlay extends Sprite
 		super();
 		init();
 
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	private function init():Void
 	{
@@ -62,10 +61,7 @@ class GamePlay extends Sprite
 		mBoard.x = BOARD_X;
 		mBoard.y = BOARD_Y;
 		this.addChild(mBoard);
-		
-		var _countdown:CountDown = new CountDown();
-		this.addChild(_countdown);
-		
+				
 		mControl = new GameControl();
 		this.addChild(mControl);
 		
@@ -89,22 +85,39 @@ class GamePlay extends Sprite
 			this.removeEventListener(Event.ENTER_FRAME, gameLoop);
 		}
 	}
+	public function onEnter()
+	{		
+		mBoard.onEnter();
+		mHudLeft.onEnter();
+		mHudRight.onEnter();
+		mBackground.onEnter();
+		mScore.onEnter();
+		mTime.onEnter();	
+		mOneTouch.onEnter();
+		mControl.onEnter();
+		
+		var _countdown:CountDown = new CountDown();
+		this.addChild(_countdown);		
+		
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+	}
 	public function onExit()
 	{
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
-		this.removeChild(mBoard);
+		//this.removeChild(mBoard);
 		mBoard.onExit();
-		this.removeChild(mHudLeft);
+		//this.removeChild(mHudLeft);
 		mHudLeft.onExit();
-		this.removeChild(mHudRight);
+		//this.removeChild(mHudRight);
 		mHudRight.onExit();
-		this.removeChild(mBackground);
+		//this.removeChild(mBackground);
 		mBackground.onExit();
+		//this.removeChild(mScore);
 		this.mScore.onExit();
-		this.removeChild(mScore);
-		this.mTime.onExit();
-		this.removeChild(mTime);		
+		//this.removeChild(mTime);	
+		this.mTime.onExit();	
+		//this.removeChild(mOneTouch);
 		this.mOneTouch.onExit();
-		this.removeChild(mOneTouch);
+		mControl.onExit();
 	}
 }

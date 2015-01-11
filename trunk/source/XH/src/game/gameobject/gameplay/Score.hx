@@ -30,7 +30,8 @@ class Score extends Sprite
 		mTextScore.setFont(40, 0xffff00);
 		mTextScore.setSysTextInfo(-5, 0, "0");
 		mBG.addChild(mTextScore);
-		mBG.addEventListener(Event.ENTER_FRAME, gameLoop);
+		
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	/**
 	 * game loop
@@ -87,13 +88,18 @@ class Score extends Sprite
 		mBG.x = _x;
 		mBG.y = _y;
 	}
+	public function onEnter()
+	{		
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);		
+		mScore = 0;
+		mScoreMax = 0;
+	}
 	/**
 	 * 
 	 */
 	public function onExit()
 	{
-		mBG.removeEventListener(Event.ENTER_FRAME, gameLoop);
-		this.removeChild(mBG);		
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);	
 		mScore = 0;
 		mScoreMax = 0;
 	}

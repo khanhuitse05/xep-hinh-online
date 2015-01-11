@@ -38,8 +38,8 @@ class MeterorEffect extends Sprite
 		this.addChild(_brick);
 		// animate
 		var mAnim:Animx = Game.resource.getAnim(Defines.GFX_ANIM_METEROR_SKILL);
-		mAnim.x = 0;
-		mAnim.y = 0 - 2 * Game.BRICK_HEIGHT;
+		mAnim.x = 0 - (mAnim.mWidth / 2 - Game.BRICK_WIDTH / 2);
+		mAnim.y = 0 - mAnim.mHeight + Game.BRICK_HEIGHT + 15;
 		mAnim.animate();
 		this.addChild(mAnim);
 	}

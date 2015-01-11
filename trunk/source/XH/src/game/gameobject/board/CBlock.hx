@@ -52,6 +52,37 @@ class CBlock extends Sprite
 		mBlock.setDirect(mDirect);
 		this.addChild(mBlock);
 	}
+	public function setBlock(_type:Int, _direct:Int)
+	{
+		if (_type != mType) 
+		{			
+			mType = _type;
+			this.removeChild(mBlock);
+			mBlock.dispose();
+			mBlock = null;
+			switch (_type)
+			{
+				case BlockType.I:
+					mBlock = new Iblock(0, 0);
+				case BlockType.O:
+					mBlock = new Oblock(0, 0);
+				case BlockType.T:
+					mBlock = new Tblock(0, 0);
+				case BlockType.LL:
+					mBlock = new LLblock(0, 0);
+				case BlockType.LR:
+					mBlock = new LRblock(0, 0);
+				case BlockType.ZL:
+					mBlock = new ZLblock(0, 0);
+				case BlockType.ZR:				
+					mBlock = new ZRblock(0, 0);
+				default:				
+			}			
+			this.addChild(mBlock);
+		}
+		mDirect = _direct;
+		mBlock.setDirect(mDirect);
+	}
 	/**
 	 * 
 	 * @param	_x
@@ -111,5 +142,11 @@ class CBlock extends Sprite
 		{
 			this._onCompleteEffect();
 		}
+	}
+	public function dispose():Void
+	{
+		this.removeChild(mBlock);
+		mBlock.dispose();
+		mBlock = null;
 	}
 }

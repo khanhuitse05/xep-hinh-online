@@ -27,7 +27,7 @@ import openfl.geom.Point;
  * ...
  * @author KhanhTN
  */
-class Mine extends Sprite
+class Mine extends BoardBase
 {
 	public static var STATE_PREPARE = 0;
 	public static var STATE_START = 1;
@@ -36,25 +36,16 @@ class Mine extends Sprite
 	public static var STATE_SKILL = 4;
 	public static var STATE_END = 5;
 	
-	public static var TIME_CLEAR = 3;
-	
-	public static var COUNT_FALL = 500;
+	public static var TIME_CLEAR = 3;	
+	public static var COUNT_FALL = 200;
 	
 	private var mMaxCount:Int;
-	private var mCount:Int;
-	private var mState:Int;
 	private var mListSkill:Array<ConstSkill>;
-	private var mBg:BoardBG;
-	private var mBoard:Sprite;
-	private var mListID:Array<Array<Int>>;
-	private var mListBrick:Array<Array<Brick>>;
 	private var mListRow:Array<Array<InfoBlock>>;
 	private var mMinRow:Int;
 	private var mListClear:Array<Int>;
 	
-	private var mCurentBlock:CBlock;
 	private var mClearBG:ExSprite;
-	private var mMask:Sprite;
 	private var numClear:Int;
 	
 	private var numGrow:Int;
@@ -71,7 +62,7 @@ class Mine extends Sprite
 		mState = STATE_START;
 		mListSkill = new Array<ConstSkill>();
 		init();
-		initData();
+		initBrick();
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	/**
@@ -215,29 +206,6 @@ class Mine extends Sprite
 		mListSkill.remove(mListSkill[0]);
 		return true;
 	}
-	/**
-	 * Khởi tạo mãng 2 chiều
-	 */
-	private function initData():Void
-	{
-		mListID = new Array<Array<Int>>();
-		mListBrick = new Array<Array<Brick>>();
-		for (i in 0...Game.BOARD_HEIGHT) 
-		{
-			mListID[i] = new Array<Int>();
-			mListBrick[i] = new Array<Brick>();
-			for (j	in 0...Game.BOARD_WIDTH) 
-			{
-				mListID[i][j] = 0;		
-				mListBrick[i][j] = new Brick();		
-				mListBrick[i][j].setValue(0 + j * Game.BRICK_WIDTH,
-								(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( i * Game.BRICK_HEIGHT ),
-								0);
-				mBoard.addChild(mListBrick[i][j]);
-			}
-		}
-	}
-
 	public function onStartGame()
 	{		
 		Actuate.timer(0.5).onComplete(onFistBlock); 
@@ -245,6 +213,15 @@ class Mine extends Sprite
 	/**
 	 * 
 	 */
+	public function onEnter()
+	{		
+		mCount = 0;
+		mState = STATE_PREPARE;
+		mState = STATE_START;
+		mListSkill = new Array<ConstSkill>();
+		initData();
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+	}
 	public function onExit()
 	{
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
@@ -263,11 +240,7 @@ class Mine extends Sprite
 	{
 		//mCaseBG.removeAllAndDelChild();
 		Game.data.playerData.mDTingame.setCase();
-		if (mBoard.contains(mCurentBlock) == true) 
-		{
-			mBoard.removeChild(mCurentBlock);
-		}
-		// nextBlock
+		removeCurrentBlock();
 		// 
 		mCurentBlock = new CBlock(_info.mType, BlockDirect.TOP);
 		mCurentBlock.mBlock.setSkill(_info.mSkill);
@@ -283,11 +256,7 @@ class Mine extends Sprite
 	private function NextBlock():Void
 	{
 		mCount = 0;
-		if (mBoard.contains(mCurentBlock) == true) 
-		{
-			mBoard.removeChild(mCurentBlock);
-		}
-		// nextBlock
+		removeCurrentBlock();
 		Game.data.playerData.mDTgameplay.NextBlockPvP();
 		// 
 		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.RIGHT);
@@ -336,22 +305,7 @@ class Mine extends Sprite
 		Game.data.playerData.mDTingame.setCase(_listCase);
 				
 	}
-	/**
-	 * 
-	 * @param	_arr
-	 * @param	_x
-	 */
-	private function checkExist(_arr:Array<Int>, _x:Int):Bool
-	{
-		for (i in 0..._arr.length) 
-		{
-			if (_x == _arr[i]) 
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+	
 	private function SetListRowCurrent()
 	{
 		mListRow = new Array<Array<InfoBlock>>();
@@ -369,52 +323,7 @@ class Mine extends Sprite
 			}
 		}
 	}
-	/**
-	 * use fo block I
-	 */
-	private function getMinHeightRow()
-	{
-		var _height = getHeightColumn(0);
-		var _index = 0;
-		for (i in 1...Game.BOARD_WIDTH) 
-		{
-			if (getHeightColumn(i) < _height) 
-			{
-				_height = getHeightColumn(i);
-				_index = i;
-			}
-		}
-		return _index;
-	}
-	/**
-	 * 
-	 */
-	private function getMaxHeightRow():Int
-	{
-		var _height = getHeightColumn(0);
-		for (i in 1...Game.BOARD_WIDTH) 
-		{
-			if (getHeightColumn(i) > _height) 
-			{
-				_height = getHeightColumn(i);
-			}
-		}
-		return _height;
-	}
-	/**
-	 * 
-	 */
-	private function getMinHoldRow(_col:Int):Int
-	{
-		for (i in 0...Game.BOARD_HEIGHT) 
-		{
-			if (mListBrick[i][_col].mType <= 0) 
-			{
-				return i;
-			}
-		}
-		return 20;
-	}
+	
 	/**
 	 * 
 	 * @param	_column
@@ -490,23 +399,6 @@ class Mine extends Sprite
 		}
 		return _row;
 	}
-	/**
-	 * column's height
-	 * @param	_column
-	 * @return
-	 */
-	private function getHeightColumn(_column:Int):Int
-	{
-		var i:Int = Game.BOARD_HEIGHT;
-		while (i > 0) {	
-			if (mListBrick[i - 1][_column].mType > 0 ) 
-			{
-				return i;
-			}
-			i--;
-		}
-		return 0;
-	}
 	
 	// move block
 	public function ApplyEffect():Void 
@@ -535,13 +427,17 @@ class Mine extends Sprite
 					}
 					if (_row > Game.BOARD_HEIGHT - 2)
 					{
-						Game.data.playerData.mDTingame.stateGame = DTingame.STATE_OVER;
+						ExploreFullBrick();
 					}
 				}
 			}
 		}
 		mCurentBlock.visible = false;
 		CheckClear(mCurentBlock.mRow + 1);
+	}
+	public function ExploreFullBrick()
+	{
+		
 	}
 	///
 	public function CheckClear(_row:Int):Void
@@ -699,14 +595,6 @@ class Mine extends Sprite
 				}
 			}
 		}
-	}
-	public function visibleBrick(_row:Int, _col:Int):Void
-	{
-		if (mListBrick[_row][_col] != null) 
-		{
-			mBoard.removeChild(mListBrick[_row][_col]);				
-		}
-		mListBrick[_row][_col] = null;
 	}
 	//grow
 	private function sGrow():Void

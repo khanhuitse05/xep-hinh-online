@@ -29,29 +29,18 @@ import openfl.events.Event;
  * ...
  * @author KhanhTN
  */
-class Enemy extends Sprite
+class Enemy extends BoardBase
 {
 	public static var STATE_NORMAL = 0;
 	public static var STATE_EFFECT = 1;
 	
-	private var mState:Int;
 	private var numGrow:Int;	
 	private var vGrow:Array<Int>;	
 	private var vLasers:Array<Int>;	
 	private var vMeteor:Array<Int>;	
-	private var mListSkill:Array<Int>;	
-	private var mBg:BoardBG;
-	private var mBoard:Sprite;
-	private var mListID:Array<Array<Int>>;
-	private var mListBrick:Array<Array<Brick>>;
-	private var mListRow:Array<Array<InfoBlock>>;
-	private var mMinRow:Int;
+	private var mListSkill:Array<Int>;		
 	private var mListClear:Array<Int>;
-	private var mMask:Sprite;
 	
-	private var mCurentBlock:CBlock;
-	
-	private var mCount:Int;
 	
 	/**
 	 * 
@@ -62,32 +51,10 @@ class Enemy extends Sprite
 		mCount = 0;
 		mState = STATE_NORMAL;
 		init();
-		initData();
+		initBrick();
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
-	/**
-	 * init
-	 */
-	private function initData():Void
-	{
-		mListSkill = new Array<Int>();
-		mListID = new Array<Array<Int>>();
-		mListBrick = new Array<Array<Brick>>();
-		for (i in 0...Game.BOARD_HEIGHT) 
-		{
-			mListID[i] = new Array<Int>();
-			mListBrick[i] = new Array<Brick>();
-			for (j in 0...Game.BOARD_WIDTH ) 
-			{
-				mListID[i][j] = 0;
-				mListBrick[i][j] = new Brick();
-				mListBrick[i][j].setValue(0 + j * Game.BRICK_WIDTH,
-								(Game.BOARD_HEIGHT - 1) * Game.BRICK_HEIGHT - ( i * Game.BRICK_HEIGHT ),
-								0);				
-				mBoard.addChild(mListBrick[i][j]);
-			}
-		}
-	}
+	
 	private function init():Void
 	{
 		mBg = new BoardBG();
@@ -145,13 +112,19 @@ class Enemy extends Sprite
 			}
 		}
 	}
+	private function sNextBlock():Void
+	{
+		removeCurrentBlock();
+		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mType, BlockDirect.RIGHT);
+		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill);
+		mCurentBlock.mask = mMask;
+		mBoard.addChild(mCurentBlock);
+		mCurentBlock.setGrid(4, 19);
+	}
+	
 	private function ChangeBlock(_info:InfoBlock):Void
 	{
-		if (mBoard.contains(mCurentBlock) == true) 
-		{
-			mBoard.removeChild(mCurentBlock);
-		}
-		mCurentBlock = null;
+		removeCurrentBlock();
 		mCurentBlock = new CBlock(_info.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(_info.mSkill);
 		mCurentBlock.mask = mMask;
@@ -164,38 +137,19 @@ class Enemy extends Sprite
 	private function sHoldEmpty()
 	{		
 		// hold
-		if (mBoard.contains(mCurentBlock) == true) 
-		{
-			mBoard.removeChild(mCurentBlock);
-		}
+		removeCurrentBlock();
 	}
 	private function sHoldExist()
 	{		
 		// hold
-		if (mBoard.contains(mCurentBlock) == true) 
-		{
-			mBoard.removeChild(mCurentBlock);
-		}
-		mCurentBlock = null;
+		removeCurrentBlock();
 		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mType, BlockDirect.RIGHT);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
 		mCurentBlock.setGrid(4, 19);
 	}
-	private function sNextBlock():Void
-	{
-		if (mBoard.contains(mCurentBlock) == true) 
-		{
-			mBoard.removeChild(mCurentBlock);
-		}
-		mCurentBlock = null;
-		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mType, BlockDirect.RIGHT);
-		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill);
-		mCurentBlock.mask = mMask;
-		mBoard.addChild(mCurentBlock);
-		mCurentBlock.setGrid(4, 19);
-	}
+	
 	private function sFall():Void
 	{
 		ApplyEffect();
@@ -234,7 +188,14 @@ class Enemy extends Sprite
 		vMeteor = Game.data.playerData.dataPVP.dataEnemy.mMeteor;
 		onMeteor();
 	}
-	
+	public function onEnter()
+	{		
+		mCount = 0;
+		mState = STATE_NORMAL;
+		mListSkill = new Array<Int>();
+		initData();
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+	}
 	/**
 	 * 
 	 */
@@ -249,70 +210,7 @@ class Enemy extends Sprite
 	{
 		
 	}
-	/**
-	 * 
-	 * @param	_arr
-	 * @param	_x
-	 */
-	private function checkExist(_arr:Array<Int>, _x:Int):Bool
-	{
-		return true;
-	}
 	
-	
-	/**
-	 * 
-	 */
-	private function getMaxHeightRow():Int
-	{
-		var _height = getHeightColumn(0);
-		for (i in 1...Game.BOARD_WIDTH) 
-		{
-			if (getHeightColumn(i) > _height) 
-			{
-				_height = getHeightColumn(i);
-			}
-		}
-		return _height;
-	}
-	/**
-	 * 
-	 */
-	private function getMinHoldRow(_col:Int):Int
-	{
-		for (i in 0...Game.BOARD_HEIGHT) 
-		{
-			if (mListBrick[i][_col].mType <= 0) 
-			{
-				return i;
-			}
-		}
-		return 20;
-	}
-	
-	/**
-	 * 
-	 * @param	_column
-	 * @return
-	 */
-	
-	/**
-	 * column's height
-	 * @param	_column
-	 * @return
-	 */
-	private function getHeightColumn(_column:Int):Int
-	{
-		var i:Int = Game.BOARD_HEIGHT;
-		while (i > 0) {	
-			if (mListBrick[i - 1][_column].mType > 0 ) 
-			{
-				return i;
-			}
-			i--;
-		}
-		return 0;
-	}
 	
 	// move block
 	public function ApplyEffect():Void 
@@ -450,6 +348,10 @@ class Enemy extends Sprite
 			mBoard.addChild(_brick);
 		}
 	}
+	/**
+	 * 
+	 * @param	_row
+	 */
 	public function visibleRow(_row:Int):Void
 	{
 		for (j in 0...Game.BOARD_WIDTH) 
@@ -459,14 +361,6 @@ class Enemy extends Sprite
 				mBoard.removeChild(mListBrick[_row][j]);
 			}
 		}
-	}
-	public function visibleBrick(_row:Int, _col:Int):Void
-	{
-		if (mListBrick[_row][_col] != null) 
-		{
-			mBoard.removeChild(mListBrick[_row][_col]);				
-		}
-		mListBrick[_row][_col] = null;
 	}
 	/**
 	 * 

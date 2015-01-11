@@ -114,8 +114,16 @@ class ResourcePath
 		"img/gfx/info/textboxhold.png",
 		"img/gfx/info/textboxfuture.png",
 		"img/gfx/info/textboxbrick.png",
-		"img/gfx/ui/popupsmallbackg.png",
-		"img/gfx/ui/btnclosesmall.png",
+		"img/gfx/ui/popupsmallbackg.png", //106 POPUP SMALL
+		"img/gfx/ui/btnclosesmall.png", 
+		"img/gfx/tetrisbgblacd.png", //108 RANK
+		"img/gfx/abstractanimated.png",
+		"img/gfx/cubematrix2.png",
+		"img/gfx/rank/leftfindmath.png",
+		"img/gfx/rank/rightfindmath.png",
+		"img/gfx/rank/txtbackfindmath.png",
+		"img/gfx/rank/txtelo.png",
+		"img/gfx/rank/txtfindmath.png",
     ];
 	public static var BITMAPDATA_PATH =
     [

@@ -38,9 +38,7 @@ class GameBattle extends ExSprite
 	private var mScore:Score;
 	private var mBoard:Mine;
 	private var mEnemy:Enemy;
-	// show vituar block
 	private var mOneTouch:OneTouch;
-	// Control
 	private var mControl:GameControl;
 	
 	
@@ -48,8 +46,6 @@ class GameBattle extends ExSprite
 	{
 		super();
 		init();
-
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	private function init():Void
 	{
@@ -79,9 +75,6 @@ class GameBattle extends ExSprite
 		mEnemy.scaleY = 200 / 480;
 		this.addChild(mEnemy);
 		
-		var _countdown:CountDown = new CountDown();
-		this.addChild(_countdown);
-		
 		mControl = new GameControl();
 		this.addChild(mControl);
 		
@@ -98,51 +91,36 @@ class GameBattle extends ExSprite
 	}
 	public function gameLoop(e:Event):Void
 	{
-		if (Game.data.playerData.mDTingame.stateGame == DTingame.STATE_END) 
-		{			
-			Game.displayManager.toScreen(ScreenID.HOME);			
-			this.removeEventListener(Event.ENTER_FRAME, gameLoop);
-		}
+	}
+	public function onEnter()
+	{		
+		mBoard.onEnter();
+		mEnemy.onEnter();
+		mHudLeft.onEnter();
+		mHudRight.onEnter();
+		mBackground.onEnter();
+		mScore.onEnter();
+		mTime.onEnter();	
+		mOneTouch.onEnter();
+		mControl.onEnter();
+		
+		var _countdown:CountDown = new CountDown();
+		this.addChild(_countdown);		
+		
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	public function onExit()
 	{
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
-		
-		this.removeChild(mBoard);
 		mBoard.onExit();
-		mBoard = null;
-		
-		this.removeChild(mEnemy);
 		mEnemy.onExit();
-		mEnemy = null;
-		
-		this.removeChild(mHudLeft);
 		mHudLeft.onExit();
-		mHudLeft = null;
-		
-		this.removeChild(mHudRight);
 		mHudRight.onExit();
-		mHudRight = null;
-		
-		this.removeChild(mBackground);
-		this.mBackground.onExit();
-		mBackground = null;
-		
-		this.mScore.onExit();
-		this.removeChild(mScore);
-		mScore = null;
-		
-		this.mTime.onExit();
-		this.removeChild(mTime);
-		mTime = null;
-		
-		this.mOneTouch.onExit();
-		this.removeChild(mOneTouch);
-		mOneTouch = null;
-		
-		this.mControl.onExit();
-		this.removeChild(mControl);
-		mControl = null;
+		mBackground.onExit();
+		mScore.onExit();
+		mTime.onExit();	
+		mOneTouch.onExit();
+		mControl.onExit();
 	
 	}
 	

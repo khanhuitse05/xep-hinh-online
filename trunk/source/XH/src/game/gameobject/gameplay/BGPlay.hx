@@ -24,6 +24,10 @@ class BGPlay extends Background
 	{		
 	}
 	
+	public function onEnter()
+	{
+		
+	}
 	public function onExit()
 	{		
 	}

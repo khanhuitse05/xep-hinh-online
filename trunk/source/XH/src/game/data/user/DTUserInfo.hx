@@ -12,7 +12,7 @@ class DTUserInfo
     public var exp : Int;    
     public var elo : Int;    
     public var score : Int;    
-    public var scoreDate : Int;    
+    //public var scoreDate : Float;    
     public var gold : Int;   	
     public var avatar : Int;   	
     public var avatarEnemy : Int;   	

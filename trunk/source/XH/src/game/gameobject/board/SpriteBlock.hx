@@ -11,7 +11,7 @@ class SpriteBlock extends Sprite
 	
 	public function new()
 	{
-		
+		super();
 	}
 	
 }

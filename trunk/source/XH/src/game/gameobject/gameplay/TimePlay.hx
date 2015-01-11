@@ -37,7 +37,6 @@ class TimePlay extends Sprite
 		this.mWidth = _w;
 		this.mHeight = _h;
 		init();
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	private function init():Void
 	{
@@ -117,6 +116,14 @@ class TimePlay extends Sprite
 	private function onFinishStart()
 	{
 		mState = PLAY;
+	}
+	public function onEnter()
+	{
+		mState = START;
+		mValue = 0;
+		mMaxTime = 3600;
+		//mMaxTime = 1000;
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	public function onExit()
 	{

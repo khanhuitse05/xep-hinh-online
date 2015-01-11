@@ -13,6 +13,7 @@ import openfl.display.Sprite;
 class ResourceManager
 {
 	private var mListBimapData:Array<BitmapData>;
+	private var mListBimapSprite:Array<BitmapData>;
 	
 	var aLoadingAnim:Animx;
 	var aRowClearAnim:Animx;
@@ -37,6 +38,11 @@ class ResourceManager
 		for (i in 0...Defines.MAX_BITMAP) 
 		{
 			mListBimapData[i] = Assets.getBitmapData(ResourcePath.BITMAPDATA_PATH[i]);
+		}
+		mListBimapSprite = new Array<BitmapData>();
+		for (i in 0...Defines.MAX_SPRITE) 
+		{
+			mListBimapSprite[i] = Assets.getBitmapData(ResourcePath.SPRITE_PATH[i]);
 		}
 	}
 	/**
@@ -79,7 +85,7 @@ class ResourceManager
 	public function getSprite(_id:Int):Sprite
 	{
 		var _spr:Sprite = new Sprite();
-		_spr.addChild(new Bitmap(Assets.getBitmapData(ResourcePath.SPRITE_PATH[_id])));
+		_spr.addChild(new Bitmap(mListBimapSprite[_id]));
 		return _spr;
 	}
 	public function getAnim(_id:Int):Animx
@@ -96,7 +102,7 @@ class ResourceManager
 				_anim.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ROW_CLEAER_ANIM]);
 				return _anim;
 			case Defines.GFX_ANIM_METEROR_SKILL:
-				_anim = new Animx(3, 48, 144, 3);
+				_anim = new Animx(3, 72, 246, 3);
 				_anim.Init(ResourcePath.ANIMX_PATH[Defines.GFX_ANIM_METEROR_SKILL]);
 				return _anim;
 			default:

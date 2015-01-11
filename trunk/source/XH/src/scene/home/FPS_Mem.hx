@@ -32,7 +32,7 @@ class FPS_Mem extends TextField
 		
 		times = [];
 		addEventListener(Event.ENTER_FRAME, onEnter);
-		width = 300;
+		width = 600;
 		height = 70;
 	}
 	private function onEnter(e:Event)
@@ -48,7 +48,7 @@ class FPS_Mem extends TextField
 		
 		if (visible)
 		{	
-			text = "FPS: " + times.length + "  / MEM: " + mem + " MB";	
+			text = "FPS: " + times.length + "  / MEM: " + mem + " MB";
 		}
 	}
 }

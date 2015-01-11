@@ -17,11 +17,14 @@ class GameControl extends Sprite
 		this.graphics.beginFill(0, 0.0001);
 		this.graphics.drawRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 		this.graphics.endFill();
-		this.addEventListener(MouseEvent.MOUSE_DOWN, onCycle);
 	}
 	private function onCycle(e:Event):Void
 	{
 		Game.data.playerData.mDTingame.isCycle = true;
+	}
+	public function onEnter()
+	{		
+		this.addEventListener(MouseEvent.MOUSE_DOWN, onCycle);
 	}
 	public function onExit()
 	{
