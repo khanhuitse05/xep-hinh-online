@@ -298,7 +298,10 @@ public class Player
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
 		int highScore = tempBuffer.readShort();
-		int addedDateHighScore = (int) tempBuffer.readFloat();
+		// int addedDateHighScore = (int) tempBuffer.readFloat();
+
+		int addedDateHighScore = 1400000000;
+
 		short lenId = tempBuffer.readShort();
 		String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
 				StandardCharsets.UTF_8);
@@ -349,11 +352,12 @@ public class Player
 		newValue.setHighScore(highScore);
 		newValue.setHighScoreDateAdded(new Date(addedDateHighScore));
 		MongoDBConnection.GetInstance().Update(info, newValue);
-		
+
 		// test
 		MongoDBConnection.GetInstance().Top10Elo();
-		//MongoDBConnection.GetInstance().Top10Highscore();
-		MongoDBConnection.GetInstance().StandingPosition("b1040149-7951-4674-88ca-820e709148f1", 998, 55);
+		// MongoDBConnection.GetInstance().Top10Highscore();
+		MongoDBConnection.GetInstance().StandingPosition(
+				"b1040149-7951-4674-88ca-820e709148f1", 998, 55);
 		return resLogin;
 	}
 
@@ -428,7 +432,7 @@ public class Player
 		WriteToClient(resFoundMatch);
 	}
 
-	public void HandleResultGame(short isWin)
+	public void HandleResultGame(short isWin, boolean isDisconnect)
 	{
 		setLobbyID(null);
 		ChannelBuffer resResultGame = ChannelBuffers.buffer(RESULT_GAME_SIZE);
@@ -436,22 +440,32 @@ public class Player
 		newInfo = Information;
 		if (isWin == GamePlayVariables.GAMEPLAY_PVP_WIN)
 		{
-			resResultGame.writeShort(0);
-			resResultGame.writeShort(Command.CMD_PVP_WIN);
+			resResultGame.writeShort(2);
+			if (isDisconnect)
+			{
+				resResultGame.writeShort(Command.CMD_PVP_DISCONNECT);
+			}
+			else
+			{
+				resResultGame.writeShort(Command.CMD_PVP_WIN);
+			}
+			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 			newInfo.setElo(newInfo.getElo()
 					+ GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 		}
 		else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
 		{
-			resResultGame.writeShort(0);
+			resResultGame.writeShort(2);
 			resResultGame.writeShort(Command.CMD_PVP_LOSE);
+			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 			newInfo.setElo(newInfo.getElo()
 					- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 		}
 		else
 		{
-			resResultGame.writeShort(0);
+			resResultGame.writeShort(2);
 			resResultGame.writeShort(Command.CMD_PVP_DRAW);
+			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
 			newInfo.setElo(newInfo.getElo()
 					+ GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
 		}
