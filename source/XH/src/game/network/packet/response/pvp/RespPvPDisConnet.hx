@@ -19,6 +19,6 @@ class RespPvPDisConnet extends ResponsePacket
 	override public function decode(data : ByteArray) : Void 
     {  
 		Game.data.playerData.dataPVP.eloResult = data.readShort();
-		Game.data.playerData.dataPVP.eloResult = DTPVP.R_DISCONET;
+		Game.data.playerData.dataPVP.Result = DTPVP.R_DISCONET;
 	}
 }

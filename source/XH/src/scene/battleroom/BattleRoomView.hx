@@ -100,6 +100,7 @@ class BattleRoomView extends SceneView
 	}
 	public function onFinding(e:MouseEvent)
 	{
+		Game.data.playerData.dataPVP.setRefresh();
 		setFinding();
 		Game.server.sendPacket(new RepFinding());
 	}
