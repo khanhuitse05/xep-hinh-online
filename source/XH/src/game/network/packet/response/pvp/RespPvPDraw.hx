@@ -19,6 +19,6 @@ class RespPvPDraw extends ResponsePacket
 	override public function decode(data : ByteArray) : Void 
     {  
 		Game.data.playerData.dataPVP.eloResult = data.readShort();
-		Game.data.playerData.dataPVP.Result = DTPVP.R_DRAW;
+		Game.data.playerData.dataPVP.result = DTPVP.R_DRAW;
 	}
 }

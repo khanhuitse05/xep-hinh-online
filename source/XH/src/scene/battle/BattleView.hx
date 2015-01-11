@@ -80,25 +80,25 @@ class BattleView extends SceneView
 	public function sWin()
 	{
 		_result = new StaWIn();
-		this.addChild(_win);
+		this.addChild(_result);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	public function sLose()
 	{
 		_result = new StaLose();
-		this.addChild(_lose);
+		this.addChild(_result);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	public function sDisconnet()
 	{
 		_result = new StaDisconnetEnemy();
-		this.addChild(_dis);	
+		this.addChild(_result);	
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	public function sDraw()
 	{
 		_result = new StaLose();
-		this.addChild(_dis);
+		this.addChild(_result);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	/**

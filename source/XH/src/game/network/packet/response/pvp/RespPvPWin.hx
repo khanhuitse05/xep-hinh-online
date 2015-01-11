@@ -19,6 +19,6 @@ class RespPvPWin extends ResponsePacket
 	override public function decode(data : ByteArray) : Void 
     {  
 		Game.data.playerData.dataPVP.eloResult = data.readShort();
-		Game.data.playerData.dataPVP.Result = DTPVP.R_WIN;
+		Game.data.playerData.dataPVP.result = DTPVP.R_WIN;
 	}
 }
