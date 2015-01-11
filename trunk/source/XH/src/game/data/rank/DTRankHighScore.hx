@@ -11,5 +11,10 @@ class DTRankHighScore extends DTRankBase
 	{
 		super();		
 	}
-	
+	override public function setData():Void
+	{
+		this.id = "0";
+		this.name = "Ping";
+		this.value = 0;
+	}
 }

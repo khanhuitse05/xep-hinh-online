@@ -14,6 +14,11 @@ class DTRankManager
 	{
 		vElo = new Array<DTRankElo>();
 		vHigh = new Array<DTRankHighScore>();
+		for (i in 0...10) 
+		{
+			vElo[i] = new DTRankElo();
+			vHigh[i] = new DTRankHighScore();
+		}
 	}
 	
 }

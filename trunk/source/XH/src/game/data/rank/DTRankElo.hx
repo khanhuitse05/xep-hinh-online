@@ -10,4 +10,10 @@ class DTRankElo extends DTRankBase
 	{
 		super();
 	}
+	override public function setData():Void
+	{
+		this.id = "0";
+		this.name = "Pull";
+		this.value = 800;
+	}
 }

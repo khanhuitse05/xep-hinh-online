@@ -120,10 +120,12 @@ class ResourcePath
 		"img/gfx/abstractanimated.png",
 		"img/gfx/cubematrix2.png",
 		"img/gfx/rank/leftfindmath.png",
+		"img/gfx/rank/leftfindmath2.png",
 		"img/gfx/rank/rightfindmath.png",
+		"img/gfx/rank/rightfindmath2.png",
 		"img/gfx/rank/txtbackfindmath.png",
-		"img/gfx/rank/txtelo.png",
-		"img/gfx/rank/txtfindmath.png",
+		"img/gfx/rank/titlerank.png",
+		"img/gfx/rank/rankitembox.png",
     ];
 	public static var BITMAPDATA_PATH =
     [
@@ -136,6 +138,7 @@ class ResourcePath
 		"img/gfx/highscore/avatauser.png",
 		"img/gfx/highscore/avatachallgeneg.png",
 		"img/gfx/highscore/rankhighscore.png",
+		"img/gfx/rank/rankscore.png",
     ];
 	public static var ANIMX_PATH =
     [		

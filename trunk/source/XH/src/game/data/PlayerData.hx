@@ -45,6 +45,7 @@ class PlayerData extends EventDispatcher
 		dataSkill = new DTSkill();
 		dataStatictis = new DTStatictis();
 		dataOption = new DTOptions();
+		dataRank = new DTRankManager();
         Game.server.addEventListener(Server.SERVER_DATA, onServerData);
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
     }
