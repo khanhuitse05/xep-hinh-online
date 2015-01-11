@@ -101,6 +101,7 @@ class HudInfo extends Sprite
 	 */
 	private function onRank(e:Event):Void 
 	{		
+		Game.displayManager.toScreen(ScreenID.RANK);
 	}
 	/**
 	 * 

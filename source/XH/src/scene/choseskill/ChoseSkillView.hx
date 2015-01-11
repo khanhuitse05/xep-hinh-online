@@ -40,7 +40,6 @@ class ChoseSkillView extends SceneView
 	{
 		super();				
 		init();
-        this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	private function init():Void 
 	{
@@ -85,7 +84,8 @@ class ChoseSkillView extends SceneView
 	 * 
 	 */
     override public function onEnter() : Void
-    {
+    {		
+        this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		this.addChild(Game.hudTop);
 		Game.hudTop.setPosBack(SceneView.HOME);
 		Game.hudTop.update();
@@ -95,7 +95,8 @@ class ChoseSkillView extends SceneView
     }
 	
 	override public function onExit() : Void
-    {  
+    {  		
+        this.removeEventListener(Event.ENTER_FRAME, gameLoop);
         this.removeChild(Game.hudTop);
         this.removeChild(Game.hudBottom);
     }

@@ -16,6 +16,7 @@ import scene.login.*;
 import scene.mission.*;
 import scene.choseskill.*;
 import scene.highscore.*;
+import scene.rank.*;
 import scene.shop.*;
 import scene.singleplay.*;
 
@@ -37,6 +38,7 @@ class ScreenID
     public static var SKILL :           	SceneID = new SceneID(ChoseSkill, ChoseSkillView);
     public static var HIGHSCORE :           SceneID = new SceneID(HighScore, HighScoreView);
     public static var SHOP :          		SceneID = new SceneID(Shop, ShopView);
+    public static var RANK :          		SceneID = new SceneID(Rank, RankView);
 	
 	// popup
     public static var POPUP_LOGIN:           	PopupID = new PopupID(LoginPopup);

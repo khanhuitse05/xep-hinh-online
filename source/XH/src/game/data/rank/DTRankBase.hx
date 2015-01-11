@@ -12,6 +12,12 @@ class DTRankBase
 	
 	public function new() 
 	{		
+		setData();
 	}
-	
+	public function setData():Void
+	{
+		this.id = "0";
+		this.name = "Ping";
+		this.value = 0;
+	}
 }
