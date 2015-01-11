@@ -2,6 +2,7 @@ package Database;
 
 import java.net.UnknownHostException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import Player.PlayerInformation;
 
@@ -130,9 +131,9 @@ public class MongoDBConnection
 		return info;
 	}
 
-	public HashMap<String, Integer> Top10Elo()
+	public LinkedHashMap<String, Integer> Top10Elo()
 	{
-		HashMap<String, Integer> result = new HashMap<String, Integer>();
+		LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
 
 		DBCursor cursor = Collection.find().sort(new BasicDBObject(DB_Elo, -1).append(DB_Name, 1))
 				.limit(10);
@@ -148,9 +149,9 @@ public class MongoDBConnection
 		return result;
 	}
 
-	public HashMap<String, Integer> Top10Highscore()
+	public LinkedHashMap<String, Integer> Top10Highscore()
 	{
-		HashMap<String, Integer> result = new HashMap<String, Integer>();
+		LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
 
 		DBCursor cursor = Collection.find()
 				.sort(new BasicDBObject(DB_HighScore, -1).append(DB_Name, 1)).limit(10);
