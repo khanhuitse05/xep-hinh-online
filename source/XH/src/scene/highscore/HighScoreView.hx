@@ -56,7 +56,7 @@ class HighScoreView extends SceneView
 		mScroll = new HighScoreScroll();
 		mScroll.x = SCROLL_X;
 		mScroll.y = SCROLL_Y;
-		mBG.addChild(mScroll);
+		mBG.addChildForDel(mScroll);
 	}
 	/**
 	 * 

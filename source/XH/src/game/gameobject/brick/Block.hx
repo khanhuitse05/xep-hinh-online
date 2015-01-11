@@ -235,5 +235,24 @@ class Block extends Sprite
 			i.mType = _type;
 		}
 	}
-	
+	public function dispose():Void
+	{
+		// BRICK
+		for (i in 0...mListChild.length) 
+		{
+			this.removeChild(mListChild[i]);
+			mListChild[i].dispose();
+			mListChild[i] = null;
+		}
+		// BORDER
+		if (isBorder) 
+		{
+			for (i in 0...mListBorder.length) 
+			{
+				this.removeChild(mListBorder[i]);
+				mListBorder[i].dispose();
+				mListBorder[i] = null;
+			}
+		}
+	}
 }

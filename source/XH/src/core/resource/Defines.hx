@@ -121,7 +121,15 @@ class Defines
 	inline public static var GFX_INFO_BOX_BRICK:Int		= 105;
 	inline public static var GFX_POPUP_S_PANE:Int		= 106;	// popup smill
 	inline public static var GFX_POPUP_S_CLOSE:Int		= 107;
-	inline public static var MAX_SPRITE:Int 			= 108;
+	inline public static var GFX_BG_LOADDING:Int		= 108; // rank
+	inline public static var GFX_BG_RANK_CUBE_SMALL:Int = 109;
+	inline public static var GFX_BG_RANK_CUBE_MATRI:Int = 110;
+	inline public static var GFX_BTN_PAGE_LEFT:Int 		= 111;
+	inline public static var GFX_BTN_PAGE_RIGHT:Int 	= 112;
+	inline public static var GFX_BTN_PAGE_CENTER:Int 	= 113;
+	inline public static var GFX_BG_RANK_TEXT_ELO:Int 	= 114;
+	inline public static var GFX_BG_RANK_TEXT_SCORE:Int = 115;
+	inline public static var MAX_SPRITE:Int 			= 116;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;

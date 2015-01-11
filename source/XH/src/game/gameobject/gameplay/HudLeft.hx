@@ -33,13 +33,12 @@ class HudLeft extends Sprite
 	private var mX:Int;
 		
 	private var mListBlock:Array<CBlock>;
-	private var mListPlan:Array<ExSprite>;
+	private var mListPlan:Array<Sprite>;
 	public function new() 
 	{
 		super();
 		initValue();
 		init();
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 	private function initValue():Void
 	{
@@ -51,27 +50,35 @@ class HudLeft extends Sprite
 	{
 		
 		mListBlock = new Array<CBlock>();
-		mListPlan = new Array<ExSprite>();
-		for (i in 0...mMaxHold)
+		mListPlan = new Array<Sprite>();
+		for (i in 0...2)
 		{
 			// plan
-			var _plan:ExSprite = new ExSprite();
-			_plan.addChild(Game.resource.getSprite(Defines.GFX_BOX_1));
-			_plan.x = POS_X;
-			_plan.y = POS_Y + i * POS_OFFSET;
-			mListPlan[i] = _plan;
+			mListPlan[i] = new Sprite();
+			mListPlan[i].addChild(Game.resource.getSprite(Defines.GFX_BOX_1));
+			mListPlan[i].x = POS_X;
+			mListPlan[i].y = POS_Y + i * POS_OFFSET;
 			this.addChild(mListPlan[i]);
 			// lable
 			var _lable:Lable = new Lable();
 			_lable.setFont(25, 0xffffff);
-			_lable.setSysTextInfo(POS_X + 25, POS_Y + 138 + i * POS_OFFSET,"HOLD");
-			this.addChild(_lable);
-		}		
+			_lable.setSysTextInfo(0 + 25, 0 + 138,"HOLD");
+			mListPlan[i].addChild(_lable);
+			// brick
+			mListBlock[i] = new CBlock(BlockType.I, BlockDirect.TOP);
+			mListPlan[i].addChild(mListBlock[i]);
+			mListBlock[i].scaleX = 0.5;
+			mListBlock[i].scaleY = 0.5;
+			mListBlock[i].visible = false;			
+		}	
+		this.mListPlan[1].addEventListener(MouseEvent.MOUSE_DOWN, onTap2);
+		this.mListPlan[0].addEventListener(MouseEvent.MOUSE_DOWN, onTap);	
 		if (mMaxHold == 2) 
 		{
-			this.mListPlan[1].addEventListener(MouseEvent.MOUSE_DOWN, onTap2);
+		}else 
+		{
+			mListPlan[1].visible = false;
 		}
-		this.mListPlan[0].addEventListener(MouseEvent.MOUSE_DOWN, onTap);
 
 	}
 	/**
@@ -83,29 +90,45 @@ class HudLeft extends Sprite
 		if (Game.data.playerData.mDTingame.isHolded == true) 
 		{
 			Game.data.playerData.mDTingame.isHolded = false;
-			var _block:CBlock = new CBlock(Game.data.playerData.mDTingame.infoHold.mType, BlockDirect.TOP);
-			_block.mBlock.setSkill(Game.data.playerData.mDTingame.infoHold.mSkill);
-			_block.x = POS_X + 20;
-			_block.y = POS_Y + 100;
-			if (_block.mBlock.mType == BlockType.I) 
-			{
-				_block.x += 15;
-				_block.y += 15;
-			}
-			_block.scaleX = 0.5;
-			_block.scaleY = 0.5;
+			
+			
 			if (Game.data.playerData.mDTingame.indexHold == 0) 
 			{
-				mListBlock[0] = _block;
-				mListPlan[0].removeAllAndDelChild();
-				mListPlan[0].addChildForDel(_block);
+				mListBlock[0].setBlock(Game.data.playerData.mDTingame.infoHold.mType, BlockDirect.TOP);
+				mListBlock[0].mBlock.setSkill(Game.data.playerData.mDTingame.infoHold.mSkill);
+				mListBlock[0].x = POS_X + 20;
+				mListBlock[0].y = POS_Y + 100;
+				if (mListBlock[0].mBlock.mType == BlockType.I) 
+				{
+					mListBlock[0].x += 15;
+					mListBlock[0].y += 15;
+				}
+				mListBlock[0].visible = true;
 			}else 
 			{
-				mListBlock[1] = _block;
-				mListPlan[1].removeAllAndDelChild();
-				mListPlan[1].addChildForDel(_block);
+				mListBlock[1].setBlock(Game.data.playerData.mDTingame.infoHold.mType, BlockDirect.TOP);
+				mListBlock[1].mBlock.setSkill(Game.data.playerData.mDTingame.infoHold.mSkill);
+				mListBlock[1].x = POS_X + 20;
+				mListBlock[1].y = POS_Y + 100;
+				if (mListBlock[1].mBlock.mType == BlockType.I) 
+				{
+					mListBlock[1].x += 15;
+					mListBlock[1].y += 15;
+				}
+				mListBlock[1].visible = true;
 			}
 		}
+	}
+	public function onEnter()
+	{		
+		initValue();
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+		if (mMaxHold == 2) 
+		{
+			mListBlock[1].visible = false;
+			mListPlan[1].visible = true;
+		}
+		mListBlock[0].visible = false;
 	}
 	/**
 	 * 

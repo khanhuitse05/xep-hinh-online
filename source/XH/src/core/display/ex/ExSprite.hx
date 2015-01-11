@@ -50,10 +50,9 @@ class ExSprite extends Sprite
     {
 		if (m_pChilds != null) 
 		{
-			for (i in 0...m_pChilds.length) 
+			for (i in 0...m_pChilds.length)
 			{
-				super.removeChild(m_pChilds[i]);
-				m_pChilds[i] = null;
+				removeAndDelChild(m_pChilds[0]);
 			}
 			m_pChilds = null;
 		}

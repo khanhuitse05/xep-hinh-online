@@ -7,6 +7,7 @@ import core.sprites.Animx;
 import game.const.cache.ExploringCache;
 import game.const.Const;
 import game.tnk.Game;
+import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.text.TextFieldAutoSize;
 import openfl.text.TextFormatAlign;
@@ -18,6 +19,7 @@ import openfl.text.TextFormatAlign;
 class LoadFistView extends SceneView
 {
 	private var mAnim:Animx;
+	private var mBg:Sprite;
 	private var mNoteText:Lable;
 	private var mCount:Int;
 	
@@ -30,8 +32,13 @@ class LoadFistView extends SceneView
 		init();
 		loading();
 	}
-	
 	private function init():Void 
+	{
+		mBg = Game.resource.getSprite(Defines.GFX_BG_LOADDING);
+		this.addChild(mBg);
+		
+	}
+	private function init2():Void 
 	{
 		// fill background
 		this.graphics.beginFill(0x0);

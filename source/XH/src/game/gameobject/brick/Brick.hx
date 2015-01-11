@@ -29,6 +29,7 @@ class Brick extends Sprite
 	public var special:Int;
 	public var isMoving:Bool;
 	private var tilesheet:Tilesheet;
+	private var _bitmap:BitmapData;
 	
 	public function new() 
 	{
@@ -40,7 +41,7 @@ class Brick extends Sprite
 	}
 	public function init():Void
 	{
-		var _bitmap:BitmapData = Game.resource.getBitmap(Game.data.playerData.mBrickID + Defines.GFX_BRICK_001);
+		_bitmap = Game.resource.getBitmap(Game.data.playerData.mBrickID + Defines.GFX_BRICK_001);
 		tilesheet = new Tilesheet (_bitmap);
 		for (i in 0...21) 
 		{			
@@ -111,14 +112,20 @@ class Brick extends Sprite
 		Actuate.tween(this,  TIME_FALL, {scaleY: 1});	
 	}
 	
-	function set_column(value:Int):Int 
+	public function set_column(value:Int):Int 
 	{
 		return column = value;
 	}
 	
 	
-	function set_row(value:Int):Int 
+	public function set_row(value:Int):Int 
 	{
 		return row = value;
+	}
+	public function dispose():Void
+	{
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);		
+		this.tilesheet = null;
+		this._bitmap = null;
 	}
 }

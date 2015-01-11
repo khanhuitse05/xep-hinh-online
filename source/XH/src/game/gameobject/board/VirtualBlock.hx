@@ -57,7 +57,6 @@ class VirtualBlock extends Sprite
 	 */
 	public function onTap(e:Event):Void
 	{		
-		this.removeEventListener(MouseEvent.MOUSE_DOWN, onTap);
 		var _info:InfoBlock = new InfoBlock(mType, mDirect);
 		//_info.mSkill = mBlock.mSkill;
 		_info.mColumn = mColumn;
@@ -75,5 +74,12 @@ class VirtualBlock extends Sprite
 		mRow = _row;
 		this.x = mColumn * Game.BRICK_WIDTH;
 		this.y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - ( mRow * Game.BRICK_HEIGHT ) - Game.BRICK_HEIGHT;		
+	}
+	public function dispose():Void
+	{		
+		this.removeEventListener(MouseEvent.MOUSE_DOWN, onTap);
+		this.removeChild(mBlock);
+		mBlock.dispose();
+		mBlock = null;
 	}
 }

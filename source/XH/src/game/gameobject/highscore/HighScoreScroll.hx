@@ -1,5 +1,6 @@
 package game.gameobject.highscore;
 
+import core.display.ex.SimpleButton;
 import core.resource.Defines;
 import game.const.Const;
 import game.const.highscore.HighScoreInfo;
@@ -23,6 +24,7 @@ class HighScoreScroll extends Sprite
 	
     private var m_pChilds:Array<HighScorePane>;
 	private var mIndex:Int;
+	private var btnShare:SimpleButton;
 		
 	public function new() 
 	{
@@ -73,9 +75,21 @@ class HighScoreScroll extends Sprite
 				m_pChilds[i].setGoldIcon();
 			}
 		}
+		addShare();
 		UpdateAll();
 	}
-	
+	private function addShare()
+	{
+		if (m_pChilds[mIndex] != null) 
+		{
+			btnShare = new SimpleButton();
+			btnShare.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_SHARE));
+			btnShare.x = m_pChilds[mIndex].width - 100;
+			btnShare.y = m_pChilds[mIndex].height / 2;
+			btnShare.setMouseClick(onShare);
+			m_pChilds[mIndex].addChild(btnShare);
+		}
+	}
 	public function UpdateAll()
 	{
 		for (i in 0...m_pChilds.length) 
@@ -83,6 +97,9 @@ class HighScoreScroll extends Sprite
 			m_pChilds[i].y = ((m_pChilds.length-1)*HEIGHT) - i * HEIGHT;
 		}
 	}
-	
+	private function onShare(e:Event)
+	{
+		
+	}
 	
 }

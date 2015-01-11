@@ -6,6 +6,7 @@ import game.data.gameplay.DTingame;
 import game.data.gameplay.DTStatictis;
 import game.data.options.DTOptions;
 import game.data.pvp.DTPVP;
+import game.data.rank.DTRankManager;
 import game.data.skill.DTSkill;
 import game.data.user.DTUserInfo;
 import game.network.Server;
@@ -27,6 +28,7 @@ class PlayerData extends EventDispatcher
 	public var dataGame:DTGame;
 	public var dataStatictis:DTStatictis;
 	public var dataPVP:DTPVP;
+	public var dataRank:DTRankManager;
 	public var dataSkill:DTSkill;
 	public var dataOption:DTOptions;
 	

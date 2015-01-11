@@ -26,7 +26,7 @@ class BattleView extends SceneView
 	public function new() 
 	{
 		super();
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+		init();
 	}
 	
 	private function init():Void 
@@ -36,7 +36,10 @@ class BattleView extends SceneView
 		_gamePlay.y = 0;
 		this.addChild(_gamePlay);
 	}	
-	
+	public function onRefresh():Void 
+	{		
+		_gamePlay.onEnter();
+	}
 	private function gameLoop(e:Event):Void 
 	{
 	}
@@ -50,7 +53,9 @@ class BattleView extends SceneView
 		Game.data.playerData.mDTgameplay.onSetPvp();
 		Game.data.playerData.mDTingame.onRefresh();
 		Game.data.playerData.mDTgameplay.onRefresh();
-		init();
+		
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+		onRefresh();
     }
 
     /**
@@ -59,9 +64,7 @@ class BattleView extends SceneView
     override public function onExit()
     {
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
-        this.removeChild(_gamePlay);
 		_gamePlay.onExit();
-		_gamePlay = null;
     }
 	
 	/// sever

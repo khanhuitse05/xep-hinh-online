@@ -26,12 +26,13 @@ class Border extends Sprite
 	private var row:Int;
 	
 	private var tilesheet:Tilesheet;
+	private var _bitmap:BitmapData;
 	
 	public function new() 
 	{
 		super();
 		mType = -1;
-		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_BORDER_BRICK);
+		_bitmap = Game.resource.getBitmap(Defines.GFX_BORDER_BRICK);
 		tilesheet = new Tilesheet (_bitmap);
 		for (i in 0...4)
 		{			
@@ -66,5 +67,11 @@ class Border extends Sprite
 		{
 			this.graphics.clear();			
 		}
-    }	
+    }
+	public function dispose():Void
+	{
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);		
+		this.tilesheet = null;
+		this._bitmap = null;
+	}
 }

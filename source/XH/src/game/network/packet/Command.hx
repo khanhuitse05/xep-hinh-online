@@ -27,8 +27,7 @@ class Command
 	// data
 	public static var CMD_DATA_ELO					= 150; // sv gửi elo
 	public static var CMD_RANK_ELO					= 152; // sv gửi
-	public static var CMD_RANK_DAY					= 154; // sv gửi
-	public static var CMD_RANK_WEEK					= 156; // sv gửi
+	public static var CMD_RANK_HIGHSCORE			= 154; // sv gửi
 	
 	public static var CMD_DATE_SCORE				= 156; // Cập nhật score lên sever
 	

@@ -5,6 +5,7 @@ import game.tnk.Game;
 import motion.Actuate;
 import motion.easing.Quad;
 import openfl.display.Sprite;
+import scene.home.FPS_Mem;
 
 /**
  * ...
@@ -20,6 +21,7 @@ class Background extends Sprite
 	{
 		super();
 		init();
+		initFPS();
 	}
 	private function init():Void
 	{
@@ -34,4 +36,9 @@ class Background extends Sprite
 		Actuate.tween(mMid, 1.0, { y: -10 }).ease( Quad.easeOut).repeat();
 	}
 	
+	private function initFPS():Void
+	{
+		var _fps:FPS_Mem = new FPS_Mem(Game.GAME_WIDTH - 350, Game.GAME_HEIGHT - 50);
+		this.addChild(_fps);
+	}
 }
