@@ -10,6 +10,7 @@ import game.gameobject.pvp.StaWIn;
 import game.network.packet.request.pvp.RepCancel;
 import game.tnk.Game;
 import motion.Actuate;
+import openfl.display.Sprite;
 import openfl.events.MouseEvent;
 import openfl.events.Event;
 import openfl.events.KeyboardEvent;
@@ -65,30 +66,38 @@ class BattleView extends SceneView
     {
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
 		_gamePlay.onExit();
+		if (_result != null) 
+		{
+			if (this.contains(_result)) 
+			{
+				this.removeChild(_result);
+			}
+		}
     }
 	
 	/// sever
+	var _result:Sprite;
 	public function sWin()
 	{
-		var	_win:StaWIn = new StaWIn();
+		_result = new StaWIn();
 		this.addChild(_win);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	public function sLose()
 	{
-		var	_lose:StaLose = new StaLose();
+		_result = new StaLose();
 		this.addChild(_lose);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	public function sDisconnet()
 	{
-		var	_dis:StaDisconnetEnemy = new StaDisconnetEnemy();
+		_result = new StaDisconnetEnemy();
 		this.addChild(_dis);	
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
 	public function sDraw()
 	{
-		var	_dis:StaLose = new StaLose();
+		_result = new StaLose();
 		this.addChild(_dis);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 	}
