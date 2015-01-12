@@ -90,17 +90,17 @@ public class ConnectionManager
 		CurrentLobby.get(lobbyKey).TranfferData(sender, data);
 	}
 
-	public void FindMatch(Player playerFindMatch)
+	public void FindMatch(Player playerFindMatch, String password)
 	{
 		// Put user in a list
 		UserFindMatch.put(playerFindMatch.getPlayerID(), playerFindMatch);
 		
 		// Find match
-		JoinLobby(playerFindMatch);
+		JoinLobby(playerFindMatch, password);
 	}
 
 	// Player join lobby
-	public void JoinLobby(Player player)
+	public void JoinLobby(Player player, String password)
 	{
 		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 		
@@ -123,7 +123,7 @@ public class ConnectionManager
 				// Join
 				// if(tempLobby.EnterLobby(player))
 				// For testing join with elo
-				if (tempLobby.EnterLobbyWithElo(player))
+				if (tempLobby.EnterLobbyWithElo(player, password))
 				{
 					System.out.print("Enter");
 					isJoined = true;
@@ -140,7 +140,7 @@ public class ConnectionManager
 			// Join new lobby
 			// lobby.EnterLobby(player);
 			// For testing join with elo
-			lobby.EnterLobbyWithElo(player);
+			lobby.EnterLobbyWithElo(player, password);
 			isJoined = true;
 			// Put new lobby in CurrentLobby
 			CurrentLobby.put(lobby.getLobbyID(), lobby);

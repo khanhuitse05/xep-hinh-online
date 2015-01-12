@@ -99,7 +99,7 @@ public class Player
 			break;
 		case Command.CMD_FINDING_PVP:
 			// find match
-			ConnectionManager.GetInstance().FindMatch(this);
+			HandleFiddingMatch(buffer);
 			break;
 		case Command.CMD_PVP_CANCEL:
 			// cancel findmatch
@@ -172,6 +172,24 @@ public class Player
 			}
 			break;
 		}
+	}
+
+	private void HandleFiddingMatch(ChannelBuffer buffer)
+	{
+		ChannelBuffer tempBuffer = buffer.copy();
+		short len = tempBuffer.readShort();
+		short cmd = tempBuffer.readShort();
+		short lenPassword = tempBuffer.readShort();
+		String password = null;
+		if(lenPassword != 0)
+		{
+			password = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenPassword,
+					StandardCharsets.UTF_8);
+			System.out.println("PASSWORD: " + password);
+		}
+		
+		ConnectionManager.GetInstance().FindMatch(this, password);
+		
 	}
 
 	private void HandleUpdateHighScore(ChannelBuffer buffer)
@@ -445,56 +463,92 @@ public class Player
 		WriteToClient(resFoundMatch);
 	}
 
-	public void HandleResultGame(short isWin, boolean isDisconnect)
+	public void HandleResultGame(short isWin, boolean isDisconnect, boolean isPractice)
 	{
 		setLobbyID(null);
 		ChannelBuffer resResultGame = ChannelBuffers.buffer(RESULT_GAME_SIZE);
 		PlayerInformation newInfo = new PlayerInformation();
 		newInfo = Information;
-		if (isWin == GamePlayVariables.GAMEPLAY_PVP_WIN)
+		if(!isPractice)
 		{
-			resResultGame.writeShort(2);
-			if (isDisconnect)
+			if (isWin == GamePlayVariables.GAMEPLAY_PVP_WIN)
 			{
-				resResultGame.writeShort(Command.CMD_PVP_DISCONNECT);
+				resResultGame.writeShort(2);
+				if (isDisconnect)
+				{
+					resResultGame.writeShort(Command.CMD_PVP_DISCONNECT);
+				}
+				else
+				{
+					resResultGame.writeShort(Command.CMD_PVP_WIN);
+				}
+				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+				newInfo.setElo(newInfo.getElo()
+						+ GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+				newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_WIN);
+			}
+			else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
+			{
+				resResultGame.writeShort(2);
+				resResultGame.writeShort(Command.CMD_PVP_LOSE);
+				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+				newInfo.setElo(newInfo.getElo()
+						- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+				newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_LOSE);
 			}
 			else
 			{
-				resResultGame.writeShort(Command.CMD_PVP_WIN);
+				resResultGame.writeShort(2);
+				resResultGame.writeShort(Command.CMD_PVP_DRAW);
+				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
+				newInfo.setElo(newInfo.getElo()
+						+ GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
+				newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_DRAW);
 			}
-			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
-			newInfo.setElo(newInfo.getElo()
-					+ GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
-			newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_WIN);
-		}
-		else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
-		{
-			resResultGame.writeShort(2);
-			resResultGame.writeShort(Command.CMD_PVP_LOSE);
-			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
-			newInfo.setElo(newInfo.getElo()
-					- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
-			newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_LOSE);
 		}
 		else
 		{
-			resResultGame.writeShort(2);
-			resResultGame.writeShort(Command.CMD_PVP_DRAW);
-			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
-			newInfo.setElo(newInfo.getElo()
-					+ GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
-			newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_DRAW);
+			if (isWin == GamePlayVariables.GAMEPLAY_PVP_WIN)
+			{
+				resResultGame.writeShort(2);
+				if (isDisconnect)
+				{
+					resResultGame.writeShort(Command.CMD_PVP_DISCONNECT);
+				}
+				else
+				{
+					resResultGame.writeShort(Command.CMD_PVP_WIN);
+				}
+			}
+			else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
+			{
+				resResultGame.writeShort(2);
+				resResultGame.writeShort(Command.CMD_PVP_LOSE);
+			}
+			else
+			{
+				resResultGame.writeShort(2);
+				resResultGame.writeShort(Command.CMD_PVP_DRAW);
+			}
+			resResultGame.writeShort(0);
+		}	
+		
+		
+		if(!isPractice)
+		{
+
+			MongoDBConnection.GetInstance().Update(Information, newInfo);
+			Information.setElo(newInfo.getElo());
+			Information.setGameResult(isWin);
+			// goi update elo
+			ChannelBuffer updateElo = ChannelBuffers.buffer(UPDATE_ELO_SIZE);
+			updateElo.writeShort(2);
+			updateElo.writeShort(Command.CMD_UPDATE_ELO);
+			updateElo.writeShort(Information.getElo());
+			WriteToClient(updateElo);
 		}
-		MongoDBConnection.GetInstance().Update(Information, newInfo);
-		Information.setElo(newInfo.getElo());
-		Information.setGameResult(isWin);
-		// goi update elo
-		ChannelBuffer updateElo = ChannelBuffers.buffer(UPDATE_ELO_SIZE);
-		updateElo.writeShort(2);
-		updateElo.writeShort(Command.CMD_UPDATE_ELO);
-		updateElo.writeShort(Information.getElo());
+		
 		WriteToClient(resResultGame);
-		WriteToClient(updateElo);
 	}
 
 	public void HandleResultDisconnectGame()

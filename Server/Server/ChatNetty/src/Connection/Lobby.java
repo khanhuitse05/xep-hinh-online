@@ -16,6 +16,7 @@ public class Lobby
 	private boolean	IsFull;
 	private String	LobbyID;
 	private int CurrentEloRange;
+	private String LobbyPassword;
 
 	public String getLobbyID()
 	{
@@ -27,79 +28,136 @@ public class Lobby
 		IsFull = false;
 		LobbyID = UUID.randomUUID().toString();
 		CurrentEloRange = GamePlayVariables.FINDMATCH_ELO_RANGE;
+		LobbyPassword = null;
 	}
 
-	public boolean EnterLobbyWithElo(Player player)
+	public boolean EnterLobbyWithElo(Player player, String password)
 	{		
 		if (!IsFull)
 		{
-			if (Player1 == null)
+			if(password == null)
 			{
-				if(Player2 == null)
+				if (Player1 == null)
 				{
-					System.out.println("=>> join 1: ELO IN RANGE 2 EMPTY" + player.getInformation().getElo());
-					Player1 = player;
-					Player1.setLobbyID(LobbyID);
-					IsFull = false;
-					System.out.println("=>> join 1:  ROOMID " + LobbyID);
-					new java.util.Timer().schedule( 
-					        new java.util.TimerTask() 
-					        {
-					            @Override
-					            public void run() {
-					            	// Lenh them elo sau khi tim kiem qua lau
-					            	if(!IsFull)
-					            	{
-					            		CurrentEloRange+= GamePlayVariables.FINDMATCH_ELO_ADD_TO_FIND;
-					            	}         	
-					            }
-					        }, 
-					        GamePlayVariables.FINDMATCH_ELO_TIME_CHANGE
-					);
-					return true;
-				}
-				else
-				{					
-					int player1Elo = player.getInformation().getElo();
-					int player2Elo = Player2.getInformation().getElo();
-					if(player1Elo >= (player2Elo - CurrentEloRange) && player1Elo <= (player2Elo + CurrentEloRange))
+					if(Player2 == null)
 					{
-						System.out.println("=>> join 1:  ELO IN RANGE " + player1Elo);
+						System.out.println("=>> join 1: ELO IN RANGE 2 EMPTY" + player.getInformation().getElo());
 						Player1 = player;
 						Player1.setLobbyID(LobbyID);
+						IsFull = false;
+						System.out.println("=>> join 1:  ROOMID " + LobbyID);
+						new java.util.Timer().schedule( 
+						        new java.util.TimerTask() 
+						        {
+						            @Override
+						            public void run() {
+						            	// Lenh them elo sau khi tim kiem qua lau
+						            	if(!IsFull)
+						            	{
+						            		CurrentEloRange+= GamePlayVariables.FINDMATCH_ELO_ADD_TO_FIND;
+						            	}         	
+						            }
+						        }, 
+						        GamePlayVariables.FINDMATCH_ELO_TIME_CHANGE
+						);
+						return true;
+					}
+					else
+					{					
+						int player1Elo = player.getInformation().getElo();
+						int player2Elo = Player2.getInformation().getElo();
+						if(player1Elo >= (player2Elo - CurrentEloRange) && player1Elo <= (player2Elo + CurrentEloRange))
+						{
+							System.out.println("=>> join 1:  ELO IN RANGE " + player1Elo);
+							Player1 = player;
+							Player1.setLobbyID(LobbyID);
+							IsFull = true;
+							StartGame(IsFull);
+							System.out.println("=>> join 1:  ROOMID " + LobbyID);
+							return true;
+						}
+						else
+						{
+							System.out.println("=>> ELO OUT OF RANGE");
+							IsFull = false;
+							return false;
+						}
+					}
+					
+				}
+				else if (Player2 == null)
+				{
+					int player1Elo = Player1.getInformation().getElo();
+					int player2Elo = player.getInformation().getElo();
+					if(player2Elo >= (player1Elo - CurrentEloRange) && player2Elo <= (player1Elo + CurrentEloRange))
+					{
+						System.out.println("=>>PASSWORD    join 2:  ELO IN RANGE 2" + player2Elo + " - " + player1Elo);
+						Player2 = player;
+						Player2.setLobbyID(LobbyID);
 						IsFull = true;
 						StartGame(IsFull);
-						System.out.println("=>> join 1:  ROOMID " + LobbyID);
+						System.out.println("=>>PASSWORD   join 2:  ROOMID " + LobbyID);
 						return true;
 					}
 					else
 					{
-						System.out.println("=>> ELO OUT OF RANGE");
+						System.out.println("=>>PASSWORD   ELO OUT OF RANGE 2");
 						IsFull = false;
 						return false;
 					}
 				}
-				
 			}
-			else if (Player2 == null)
+			else
 			{
-				int player1Elo = Player1.getInformation().getElo();
-				int player2Elo = player.getInformation().getElo();
-				if(player2Elo >= (player1Elo - CurrentEloRange) && player2Elo <= (player1Elo + CurrentEloRange))
+				if (Player1 == null)
 				{
-					System.out.println("=>>  join 2:  ELO IN RANGE 2" + player2Elo + " - " + player1Elo);
-					Player2 = player;
-					Player2.setLobbyID(LobbyID);
-					IsFull = true;
-					StartGame(IsFull);
-					System.out.println("=>> join 2:  ROOMID " + LobbyID);
-					return true;
+					if(Player2 == null)
+					{
+						System.out.println("=>>PASSWORD  join 1: ELO IN RANGE 2 EMPTY" + player.getInformation().getElo());
+						Player1 = player;
+						LobbyPassword = password;
+						Player1.setLobbyID(LobbyID);
+						IsFull = false;
+						System.out.println("=>>PASSWORD  join 1:  ROOMID " + LobbyID);
+						return true;
+					}
+					else
+					{		
+						if(password.equals(LobbyPassword))
+						{
+							Player1 = player;
+							Player1.setLobbyID(LobbyID);
+							IsFull = true;
+							StartGame(IsFull);
+							System.out.println("=>>PASSWORD join 1:  ROOMID " + LobbyID);
+							return true;
+						}
+						else
+						{
+							System.out.println("=>>PASSWORD WRONG PASSWORD");
+							IsFull = false;
+							return false;
+						}
+					}
+					
 				}
-				else
+				else if (Player2 == null)
 				{
-					System.out.println("=>> ELO OUT OF RANGE 2");
-					IsFull = false;
-					return false;
+					if(password.equals(LobbyPassword))
+					{
+						Player2 = player;
+						Player2.setLobbyID(LobbyID);
+						IsFull = true;
+						StartGame(IsFull);
+						System.out.println("=>>PASSWORD  join 2:  ROOMID " + LobbyID);
+						return true;
+					}
+					else
+					{
+						System.out.println("=>>PASSWORD WRONG PASSWORD");
+						IsFull = false;
+						return false;
+					}
 				}
 			}
 		}
@@ -232,23 +290,24 @@ public class Lobby
 	{
 		System.out.println("Player1.getNumOfSentBrick()" + Player1.getNumOfSentBrick() 
 				+ "  2 " + Player2.getNumOfSentBrick());
+		boolean isPractice = (LobbyPassword == null) ? false:true;
 		if(Player1.getNumOfSentBrick() > Player2.getNumOfSentBrick())
 		{
 			// Player 1 win
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE, false);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false, isPractice);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE,false, isPractice);
 		}
 		else if(Player1.getNumOfSentBrick() < Player2.getNumOfSentBrick())
 		{
 			// Player 2 win
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE, false);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE, false, isPractice);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false, isPractice);
 		}
 		else
 		{
 			// Draw
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false, isPractice);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false, isPractice);
 			
 		}
 
@@ -273,19 +332,20 @@ public class Lobby
 		{
 			System.out.println("&*^&*%&^^(*&^*&^(**)*&^^^^");
 		}
-		
+		LobbyPassword = null;
 	}
 
 	public synchronized void PlayingDisconect(Player player)
 	{
+		boolean isPractice = (LobbyPassword == null) ? false:true;
 		if(player == Player1)
 		{
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true, isPractice);
 			Player1.HandleResultDisconnectGame();
 		}
 		else if(player == Player2)
 		{
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true, isPractice);
 			Player2.HandleResultDisconnectGame();
 		}
 		else
