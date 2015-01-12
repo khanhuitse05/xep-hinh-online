@@ -21,7 +21,7 @@ class SkillName extends Sprite
 	
 	private var info:SkillInfo;
 	private var tilesheet:Tilesheet;
-	
+	private var _bitmap:BitmapData;
 	public function new(_id:Int) 
 	{
 		super();
@@ -31,7 +31,7 @@ class SkillName extends Sprite
 	}
 	public function init():Void
 	{
-		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_SKILL_NAME);
+		_bitmap = Game.resource.getBitmap(Defines.GFX_SKILL_NAME);
 		tilesheet = new Tilesheet (_bitmap);
 		for (i in 0...11) 
 		{			
@@ -47,5 +47,11 @@ class SkillName extends Sprite
 		this.graphics.clear();
 		this.tilesheet.drawTiles(this.graphics, [0, 0,info.id]);
     }
-	
+	public function dispose():Void
+	{
+		this.removeEventListener(Event.ENTER_FRAME, gameLoop);		
+		this.tilesheet = null;
+		this._bitmap = null;
+		info = null;
+	}
 }

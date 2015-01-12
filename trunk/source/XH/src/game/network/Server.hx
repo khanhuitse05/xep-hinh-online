@@ -91,6 +91,7 @@ class Server extends EventDispatcher
     {
         Log.info("Server disconnected");
         Game.data.playerData.dataGame.isTry = true;
+		Game.data.playerData.dataGame.online = false;
         Game.data.playerData.dataGame.onDisconnected();
         this.dispatchEvent(event);
     }

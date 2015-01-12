@@ -13,12 +13,12 @@ class ResourcePath
 		"img/gfx/bghome.png",
 		"img/gfx/home/singleplayer.png",
 		"img/gfx/home/battle.png",
-		"img/gfx/home/withfriend.png",			//5
-		"img/gfx/home/mission.png",		
-		"img/gfx/home/singleplayerdisable.png",
+		"img/gfx/home/rank.png",			//5
+		"img/gfx/home/shop.png",		
+		"img/gfx/home/options.png",
 		"img/gfx/home/battledisable.png",
-		"img/gfx/home/withfrienddisable.png",
-		"img/gfx/home/missiondisable.png",			//10
+		"img/gfx/home/rankdisable.png",
+		"img/gfx/home/shopdisable.png",			//10
 		"img/gfx/home/backbutt.png",
 		"img/gfx/game/board001.png",
 		"img/gfx/game/board002.png",
@@ -33,10 +33,10 @@ class ResourcePath
 		"img/gfx/game/Gridboder2.png",
 		"img/gfx/game/popuptimeup.png",
 		"img/gfx/ui/playbutt.png",		
-		"img/gfx/game/lightpointgodown.png",
-		"img/gfx/game/lightpointgoleft.png",
-		"img/gfx/game/lightpointgoright.png",
-		"img/gfx/game/lightpointgoup.png",
+		"",
+		"",
+		"",
+		"",
 		"img/gfx/game/countdown200.png",
 		"img/gfx/game/countdown1.png",
 		"img/gfx/game/countdown2.png",
@@ -65,17 +65,17 @@ class ResourcePath
 		"img/gfx/ui/logogame.png",
 		"img/gfx/ui/topbarborder.png",	//55 HUDTOP
 		"img/gfx/ui/topbarbox.png",		// GOLD
-		"img/gfx/ui/goldicon.png",		
-		"img/gfx/ui/exbarwhite.png",		// 58 EXP
-		"img/gfx/ui/exbaryellow.png",	
-		"img/gfx/ui/exbarpoint.png",	
-		"img/gfx/ui/levelbox.png",
+		"img/gfx/ui/goldicon.png",	
+		"img/gfx/ui/eloicon.png",	
+		"",	
+		"",	
+		"",	
 		"img/gfx/ui/mainframe.png",	// 62 hud info
 		"img/gfx/ui/btnsetting.png",
 		"img/gfx/ui/btnshop.png",
 		"img/gfx/ui/btnrank.png",
 		"img/gfx/ui/btnwhell.png",
-		"img/gfx/ui/btnabout.png",
+		"",
 		"img/gfx/ui/hudbottom.png", // 68 huud bottom
 		"img/gfx/ui/btnPlay.png",
 		"img/gfx/chooseskill/bar.png",	// 70 CHOOSE SKILL

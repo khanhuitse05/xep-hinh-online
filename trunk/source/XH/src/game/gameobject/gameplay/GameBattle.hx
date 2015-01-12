@@ -54,7 +54,7 @@ class GameBattle extends ExSprite
 				
 		mScore = new Score();
 		this.addChild(mScore);
-		mScore.setPos(200, 30);
+		mScore.setPos(160, 25);
 		
 		mTime = new TimePlay(BOARD_X, BOARD_Y + 1064, false);
 		this.addChild(mTime);

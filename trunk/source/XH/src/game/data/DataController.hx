@@ -1,5 +1,6 @@
 package game.data;
 import game.const.cache.ExploringCache;
+import game.network.packet.request.data.RepNewScore;
 import game.tnk.Game;
 
 /**
@@ -50,6 +51,7 @@ class DataController
 			Game.data.playerData.mUserInfo.score = _num;
 			//Game.data.playerData.mUserInfo.scoreDate = Date.now().getTime();
 			ExploringCache.writeScore(_num);
+			Game.server.sendPacket(new RepNewScore(_num));
 		}
 	}
 	public static function onSkill(_id:Int, _num:Int):Void

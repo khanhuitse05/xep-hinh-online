@@ -20,5 +20,6 @@ class RespDataElo extends ResponsePacket
     {        
 		Game.data.playerData.mUserInfo.elo = data.readShort();
 		DataController.onElo(Game.data.playerData.mUserInfo.elo);
+		Game.hudTop.update();
     }
 }

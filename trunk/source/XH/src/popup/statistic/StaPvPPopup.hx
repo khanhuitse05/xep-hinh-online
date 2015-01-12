@@ -56,6 +56,9 @@ class StaPvPPopup extends PopupExBase
 	
 	override public function init() 
     {
+		Game.data.playerData.dataStatictis.onUpdate();
+		Game.data.playerData.dataStatictis.onExpleroData();
+		////
 		var _line:Sprite = Game.resource.getSprite(Defines.GFX_STA_BG_PVP);
 		_line.x = 0 - _line.width / 2;
 		_line.y = 0 - mWidth / 2;

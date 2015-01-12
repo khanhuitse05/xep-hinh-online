@@ -39,7 +39,7 @@ class DTStatictis
 		{
 			exp = 1634;
 		}
-		gold = Std.int(score / 20);
+		gold = Std.int(score / 10);
 		skill = Game.data.playerData.dataSkill.skillAct;
 		ultimate = Game.data.playerData.dataSkill.skillUtimate;
 		multiplier = Game.data.playerData.mDTingame.mX;

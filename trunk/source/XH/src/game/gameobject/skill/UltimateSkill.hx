@@ -13,13 +13,14 @@ class UltimateSkill extends Sprite
 {
 	private static var SCALE:Int = 6;
 	private static var TIME_SCALE:Float = 0.5;
-	private var mType:Int;
+	private var mType:Int;	
+	var _image:SkillDisplay;
 	
 	public function new() 
 	{
 		super();
 		mType = Game.data.playerData.dataSkill.skillUtimate;
-		var _image:SkillDisplay = new SkillDisplay(mType);		
+		_image = new SkillDisplay(mType);		
 		_image.x = 0 - SkillDisplay.SKILL_WIDTH / 2;
 		_image.y = 0 - SkillDisplay.SKILL_HEIGHT / 2;
 		this.addChild(_image);
@@ -41,7 +42,12 @@ class UltimateSkill extends Sprite
 	}
 	public function onFinishAppear() {
 		this.parent.removeChild(this);
+		this.removeChild(_image);
+		_image.dispose();
 		Game.data.playerData.mDTingame.stateGame = DTingame.STATE_ULTIMATE_SKILL;
 	}
-	
+	public function dispose():Void
+	{
+		_image.dispose();
+	}
 }
