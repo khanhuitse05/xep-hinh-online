@@ -13,8 +13,10 @@ import game.gameobject.brick.BlockType;
 import game.gameobject.brick.Brick;
 import game.gameobject.gameplay.GameMode;
 import game.gameobject.loading.ConnetSever;
+import game.network.packet.request.data.RepRank;
 import game.network.packet.request.login.RepLogin;
 import game.tnk.Game;
+import game.tnk.GameConfig;
 import motion.Actuate;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
@@ -35,9 +37,10 @@ class HomeView extends SceneView
 	
 	private static var SINGLE = 0;
 	private static var BATTLE = 1;
-	private static var FRIEND = 2;
-	private static var MISSION = 3;
-	private static var MAX_BUTTON = 4;
+	private static var RANK = 2;
+	private static var SHOP = 3;
+	private static var OPITION = 4;
+	private static var MAX_BUTTON = 5;
 	
 	private var mBg:Background;
 		
@@ -76,16 +79,15 @@ class HomeView extends SceneView
 		for (i in 0...MAX_BUTTON) 
 		{
 			listButton[i] = new SimpleButton();
-			listButton[i].setDisplay(Game.resource.getSprite(Defines.GFX_BTN_SINGLE + i), null, null, 
-									Game.resource.getSprite(Defines.GFX_BTN_SINGLE_D + i));
+			listButton[i].setDisplay(Game.resource.getSprite(Defines.GFX_BTN_SINGLE_H + i));
 			listButton[i].setPosition(BTN_X, BTN_Y + BTN_OFFSET * i);
 			this.addChild(listButton[i]);
 		}
 		listButton[SINGLE].setMouseClick(onSingle);
 		listButton[BATTLE].setMouseClick(onBattle);
-		listButton[FRIEND].setMouseClick(onFriend);
-		listButton[MISSION].setMouseClick(onMission);
-		//listButton[MISSION].visible = false;
+		listButton[RANK].setMouseClick(onRank);
+		listButton[SHOP].setMouseClick(onShop);
+		listButton[OPITION].setMouseClick(onOpition);
 	}	
 	override public function getSceneType():Int
 	{
@@ -140,26 +142,49 @@ class HomeView extends SceneView
 	 */
 	private function onBattle(e:Event):Void 
 	{
-		Game.data.playerData.dataGame.isConnet = true;
-		Game.data.playerData.dataSkill.mode = GameMode.PVP;
-		Game.displayManager.toScreen(ScreenID.SKILL);
+		if (Game.data.playerData.dataGame.online) 
+		{
+			Game.data.playerData.dataGame.isConnet = true;
+			Game.data.playerData.dataSkill.mode = GameMode.PVP;
+			Game.displayManager.toScreen(ScreenID.SKILL);
+		}else 
+		{
+			onReconnet();	
+		}
+		
 	}
 	/**
 	 * 
 	 * @param	e
 	 */
-	private function onFriend(e:Event):Void 
+	private function onRank(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.POPUP_DISCONNET);
-		//Game.data.playerData.dataGame.isConnet = true;
+		if (Game.data.playerData.dataGame.online) 
+		{
+			Game.server.sendPacket(new RepRank());
+		}else 
+		{
+			onReconnet();	
+		}
+		
 	}
 	/**
 	 * 
 	 * @param	e
 	 */
-	private function onMission(e:Event):Void 
+	private function onShop(e:Event):Void 
 	{
-		Game.displayManager.toScreen(ScreenID.POPUP_STA_PVP);
+		Game.displayManager.toScreen(ScreenID.SHOP);
+	}
+	private function onOpition(e:Event):Void 
+	{
+		Game.displayManager.toScreen(ScreenID.POPUP_OPTIONS);
+	}
+	private function onReconnet():Void 
+	{
+		Game.server.connect(GameConfig.SERVER, GameConfig.PORT);				
+		var connet:ConnetSever = new ConnetSever();
+		this.addChild(connet);
 	}
 	/**
 	 * check username

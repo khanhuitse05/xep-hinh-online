@@ -20,6 +20,7 @@ class SkillBase extends Sprite
 	private var mSkill:Int;
 	private var mRow:Int;
 	private var mColumn:Int;
+	var _image:SkillDisplay;
 	
 	public function new(_skill:Int, _row:Int, _col:Int) 
 	{
@@ -29,7 +30,7 @@ class SkillBase extends Sprite
 		mColumn = _col;
 		this.x = Game.BRICK_WIDTH * mColumn;
 		this.y = Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - Game.BRICK_HEIGHT * (mRow+2);
-		var _image:SkillDisplay = new SkillDisplay(mSkill);
+		_image = new SkillDisplay(mSkill);
 		_image.x = 0 - SkillDisplay.SKILL_WIDTH / 2;
 		_image.y = 0 - SkillDisplay.SKILL_HEIGHT / 2;
 		this.addChild(_image);
@@ -44,7 +45,12 @@ class SkillBase extends Sprite
 	}
 	public function onFinishAppear() {
 		this.parent.removeChild(this);
+		this.removeChild(_image);
+		_image.dispose();
 		Game.data.playerData.mDTingame.listSkill.push(mSkill);
 	}
-	
+	public function dispose():Void
+	{
+		_image.dispose();
+	}
 }

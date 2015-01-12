@@ -18,7 +18,7 @@ import openfl.text.TextFormat;
 
 /**
  * ...
- * @author anhtinh
+ * @author KhanhTN
  */
 class LoginView extends SceneView
 {
@@ -69,7 +69,7 @@ class LoginView extends SceneView
 		this.addChild(nameInputTf);
 		//
 		loginBtn = new SimpleButton();
-		loginBtn.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_SINGLE));
+		loginBtn.setDisplay(Game.resource.getSprite(Defines.GFX_BTN_SINGLE_H));
 		loginBtn.x = 100;
 		loginBtn.y = 400;
 		loginBtn.addEventListener(MouseEvent.CLICK, onLogin);

@@ -3,7 +3,7 @@ package scene.hud;
 import core.display.scene.SceneView;
 import core.resource.Defines;
 import game.gameobject.hud.BtnBack;
-import game.gameobject.hud.ExpHud;
+import game.gameobject.hud.EloHud;
 import game.gameobject.hud.GoldHud;
 import game.tnk.Game;
 import openfl.display.Sprite;
@@ -21,7 +21,7 @@ class HudTop extends Sprite
 	private static var BTN_Y = 50;
 	
 	private var hudGold:GoldHud;
-	private var hudExp:ExpHud;
+	private var hudExp:EloHud;
 	private var btnBack:BtnBack;
 	
 	public function new() 
@@ -41,7 +41,7 @@ class HudTop extends Sprite
 		hudGold = new GoldHud();
 		hudGold.x = GOLD_X;
 		this.addChild(hudGold);
-		hudExp = new ExpHud();
+		hudExp = new EloHud();
 		hudExp.x = EXP_X;
 		this.addChild(hudExp);
 		
