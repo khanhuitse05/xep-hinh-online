@@ -126,6 +126,8 @@ class ResourcePath
 		"img/gfx/rank/txtbackfindmath.png",
 		"img/gfx/rank/titlerank.png",
 		"img/gfx/rank/rankitembox.png",
+		"img/gfx/ui/ruletetrisspace.png", // 118RULE
+		"img/gfx/popupsmall/bgpopupdisconnet.png", 
     ];
 	public static var BITMAPDATA_PATH =
     [

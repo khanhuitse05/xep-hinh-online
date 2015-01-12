@@ -131,7 +131,9 @@ class Defines
 	inline public static var GFX_BTN_PAGE_CENTER:Int 	= 115;
 	inline public static var GFX_UI_TITLE_RANK:Int 		= 116;
 	inline public static var GFX_UI_RANK_BOX:Int 		= 117;
-	inline public static var MAX_SPRITE:Int 			= 118;
+	inline public static var GFX_UI_RULE:Int 			= 118; // rule
+	inline public static var GFX_UI_DIS_BG:Int 			= 119; 
+	inline public static var MAX_SPRITE:Int 			= 120;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;

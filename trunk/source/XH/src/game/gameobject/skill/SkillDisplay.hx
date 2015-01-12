@@ -34,7 +34,7 @@ class SkillDisplay extends Sprite
 	{
 		var _bitmap:BitmapData = Game.resource.getBitmap(Defines.GFX_SKILL_DISPLAY);
 		tilesheet = new Tilesheet (_bitmap);
-		for (i in 0...11) 
+		for (i in 0...12) 
 		{			
 			tilesheet.addTileRect(new Rectangle(i * SKILL_WIDTH, 0, SKILL_WIDTH, SKILL_HEIGHT), null);
 		}

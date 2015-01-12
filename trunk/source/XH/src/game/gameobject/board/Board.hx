@@ -37,7 +37,7 @@ class Board extends BoardBase
 	public static var STATE_END = 5;
 	
 	public static var TIME_CLEAR = 3;	
-	public static var COUNT_FALL = 200;
+	public static var COUNT_FALL = 400;
 	
 	private var mMaxCount:Int;
 	private var mListSkill:Array<ConstSkill>;

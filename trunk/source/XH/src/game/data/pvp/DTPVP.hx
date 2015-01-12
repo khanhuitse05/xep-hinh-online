@@ -49,7 +49,7 @@ class DTPVP
 		
 		infoMine.userName = Game.data.playerData.mUserInfo.userName;
 		infoMine.exp = Game.data.playerData.mUserInfo.exp;
-		infoMine.skill = Game.data.playerData.dataSkill.skill;
+		infoMine.skill = Game.data.playerData.dataSkill.skillAct;
 		infoMine.elo = Game.data.playerData.mUserInfo.elo;
 		infoMine.avatar = Game.data.playerData.mUserInfo.avatar;
 		infoMine.gift = 0;

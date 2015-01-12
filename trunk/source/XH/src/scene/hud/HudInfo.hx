@@ -4,6 +4,7 @@ import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
+import game.network.packet.request.data.RepRank;
 import game.tnk.Game;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -101,7 +102,8 @@ class HudInfo extends Sprite
 	 */
 	private function onRank(e:Event):Void 
 	{		
-		Game.displayManager.toScreen(ScreenID.RANK);
+		Game.server.sendPacket(new RepRank());
+		//Game.displayManager.toScreen(ScreenID.RANK);
 	}
 	/**
 	 * 

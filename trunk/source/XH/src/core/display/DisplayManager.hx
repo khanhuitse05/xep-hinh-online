@@ -12,7 +12,7 @@ import core.display.screen.ScreenManager;
 class DisplayManager
 {
 
-	private var m_pScreensManager:Array<Dynamic>;
+	public var m_pScreensManager:Array<Dynamic>;
     public var layerManager : LayerManager;
     public var m_pPopupManager : PopupManager;
     

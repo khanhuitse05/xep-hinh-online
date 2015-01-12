@@ -39,7 +39,7 @@ class StaPvPPopup extends PopupExBase
 	public static var PLAYER_Y 		= -200;
 	
 	public static var TEXT_X 		= [-100,100];
-	public static var TEXT_Y 		= [-100, 80, 155, 250,];
+	public static var TEXT_Y 		= [-100, 84, 156, 250,];
 	
 	private var btnOK:SimpleButton;
 	private var text:Array<Array<Lable>>;
@@ -155,7 +155,7 @@ class StaPvPPopup extends PopupExBase
 		// enemy
 		for (i in 0...3) 
 		{
-			var _skill:SkillDisplay = new SkillDisplay(Game.data.playerData.dataPVP.infoMine.skill[i]);
+			var _skill:SkillDisplay = new SkillDisplay(Game.data.playerData.dataPVP.infoEnemy.skill[i]);
 			_skill.scaleX = SKILL_SCALE;
 			_skill.scaleY = SKILL_SCALE;
 			_skill.x = 0 + (SKILL_X + i * 60);
@@ -178,6 +178,9 @@ class StaPvPPopup extends PopupExBase
 			winner.addChild(_line);
 			
 			Actuate.timer(0.7).onComplete(onWinner);
+		}else 
+		{
+			ready = true;
 		}
 	}
 	public function onWinner()

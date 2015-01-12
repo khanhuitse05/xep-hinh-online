@@ -37,7 +37,7 @@ class Mine extends BoardBase
 	public static var STATE_END = 5;
 	
 	public static var TIME_CLEAR = 3;	
-	public static var COUNT_FALL = 200;
+	public static var COUNT_FALL = 400;
 	
 	private var mMaxCount:Int;
 	private var mListSkill:Array<ConstSkill>;
@@ -193,6 +193,8 @@ class Mine extends BoardBase
 				actSkillX();
 			case SkillType.MAGNET:
 				actSkill_Magnet();
+			case SkillType.CLEAR_TOP:
+				actSkill_Lasers();
 			case SkillType.LASERS:
 				actSkill_Lasers();
 			case SkillType.EASY:
@@ -437,7 +439,7 @@ class Mine extends BoardBase
 	}
 	public function ExploreFullBrick()
 	{
-		
+		addSkill(new ConstSkill(SkillType.CLEAR_TOP, 19, 1));
 	}
 	///
 	public function CheckClear(_row:Int):Void

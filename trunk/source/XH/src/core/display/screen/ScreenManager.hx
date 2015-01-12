@@ -19,7 +19,10 @@ class ScreenManager
         m_pScreensList = new Array<ScreenBase>();
         m_pCurrentBase = null;
     }
-
+	public function getCurrentScene():ScreenBase
+	{
+		return m_pCurrentBase;
+	}
     public function toScreen(screenID:Screen)
     {
         cleanOldScreen();

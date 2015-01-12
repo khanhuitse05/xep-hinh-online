@@ -104,7 +104,7 @@ class DTgameplay
 		}
 		mStackBlock[3].mType = Game.data.playerData.dataPVP.dataMine.getFuture();
 		mStackBlock[3].mSkill = -1;
-		var _skill:Int = Std.random(5);
+		var _skill:Int = Std.random(10);
 		if (_skill < Game.data.playerData.dataSkill.skillAct.length &&
 			Game.data.playerData.dataSkill.skillAct[_skill] > 0) 
 		{
