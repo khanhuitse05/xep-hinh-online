@@ -123,8 +123,8 @@ public class Player
 		case Command.CMD_UPDATE_LEADERBOARD:
 			HandleUpdateLeaderboard();
 			break;
-		case 4:
-			// defuse match
+		case Command.CMD_UPDATE_HIGHSCORE:
+			HandleUpdateHighScore(buffer);
 			break;
 		case 5:
 			// data in game
@@ -172,6 +172,22 @@ public class Player
 			}
 			break;
 		}
+	}
+
+	private void HandleUpdateHighScore(ChannelBuffer buffer)
+	{		
+		ChannelBuffer tempBuffer = buffer.copy();
+		short len = tempBuffer.readShort();
+		short cmd = tempBuffer.readShort();
+		
+		int highScore = tempBuffer.readShort();
+		
+		// update to DB
+		PlayerInformation newValue = new PlayerInformation();
+		newValue = Information;
+		newValue.setHighScore(highScore);
+		MongoDBConnection.GetInstance().Update(Information, newValue);
+		System.out.println("UPDATED HIGHSCORE: " + highScore);
 	}
 
 	public void HandleUpdateLeaderboard()
@@ -351,10 +367,10 @@ public class Player
 		MongoDBConnection.GetInstance().Update(info, newValue);
 
 		// test
-		MongoDBConnection.GetInstance().Top10Elo();
+		//MongoDBConnection.GetInstance().Top10Elo();
 		// MongoDBConnection.GetInstance().Top10Highscore();
-		MongoDBConnection.GetInstance().StandingPosition(
-				"b1040149-7951-4674-88ca-820e709148f1", 998, 55);
+		//MongoDBConnection.GetInstance().StandingPosition(
+				//"b1040149-7951-4674-88ca-820e709148f1", 998, 55);
 		return resLogin;
 	}
 
@@ -471,7 +487,7 @@ public class Player
 		}
 		MongoDBConnection.GetInstance().Update(Information, newInfo);
 		Information.setElo(newInfo.getElo());
-
+		Information.setGameResult(isWin);
 		// goi update elo
 		ChannelBuffer updateElo = ChannelBuffers.buffer(UPDATE_ELO_SIZE);
 		updateElo.writeShort(2);

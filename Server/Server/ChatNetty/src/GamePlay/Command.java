@@ -28,4 +28,5 @@ public class Command
 	public static final short	CMD_UPDATE_LEADERBOARD			= 152;
 	public static final short	CMD_UPDATE_LEADERBOARD_ELO		= 152;
 	public static final short	CMD_UPDATE_LEADERBOARD_SCORE	= 154;
+	public static final short	CMD_UPDATE_HIGHSCORE			= 156;
 }
