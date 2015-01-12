@@ -15,6 +15,7 @@ public class Lobby
 	private Player	Player2;
 	private boolean	IsFull;
 	private String	LobbyID;
+	private int CurrentEloRange;
 
 	public String getLobbyID()
 	{
@@ -25,6 +26,7 @@ public class Lobby
 	{
 		IsFull = false;
 		LobbyID = UUID.randomUUID().toString();
+		CurrentEloRange = GamePlayVariables.FINDMATCH_ELO_RANGE;
 	}
 
 	public boolean EnterLobbyWithElo(Player player)
@@ -40,13 +42,27 @@ public class Lobby
 					Player1.setLobbyID(LobbyID);
 					IsFull = false;
 					System.out.println("=>> join 1:  ROOMID " + LobbyID);
+					new java.util.Timer().schedule( 
+					        new java.util.TimerTask() 
+					        {
+					            @Override
+					            public void run() {
+					            	// Lenh them elo sau khi tim kiem qua lau
+					            	if(!IsFull)
+					            	{
+					            		CurrentEloRange+= GamePlayVariables.FINDMATCH_ELO_ADD_TO_FIND;
+					            	}         	
+					            }
+					        }, 
+					        GamePlayVariables.FINDMATCH_ELO_TIME_CHANGE
+					);
 					return true;
 				}
 				else
 				{					
 					int player1Elo = player.getInformation().getElo();
 					int player2Elo = Player2.getInformation().getElo();
-					if(player1Elo >= (player2Elo - GamePlayVariables.FINDMATCH_ELO_RANGE) && player1Elo <= (player2Elo + GamePlayVariables.FINDMATCH_ELO_RANGE))
+					if(player1Elo >= (player2Elo - CurrentEloRange) && player1Elo <= (player2Elo + CurrentEloRange))
 					{
 						System.out.println("=>> join 1:  ELO IN RANGE " + player1Elo);
 						Player1 = player;
@@ -69,7 +85,7 @@ public class Lobby
 			{
 				int player1Elo = Player1.getInformation().getElo();
 				int player2Elo = player.getInformation().getElo();
-				if(player2Elo >= (player1Elo - GamePlayVariables.FINDMATCH_ELO_RANGE) && player2Elo <= (player1Elo + GamePlayVariables.FINDMATCH_ELO_RANGE))
+				if(player2Elo >= (player1Elo - CurrentEloRange) && player2Elo <= (player1Elo + CurrentEloRange))
 				{
 					System.out.println("=>>  join 2:  ELO IN RANGE 2" + player2Elo + " - " + player1Elo);
 					Player2 = player;
