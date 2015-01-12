@@ -10,10 +10,14 @@ import game.gameobject.pvp.FindingMatch;
 import game.network.packet.request.pvp.RepCancel;
 import game.network.packet.request.pvp.RepEnter;
 import game.network.packet.request.pvp.RepFinding;
+import game.network.packet.request.pvp.RespWithFriend;
 import game.tnk.Game;
+import openfl.text.TextField;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.text.TextFieldType;
+import openfl.text.TextFormat;
 
 /**
  * ...
@@ -30,6 +34,7 @@ class BattleRoomView extends SceneView
 	
 	private var hudBot:Sprite;
 	//private var btnBack:SimpleButton;
+	private var tfName:TextField;
 	private var btnFinding:SimpleButton;
 	private var btnCancel:SimpleButton;
 	
@@ -48,6 +53,25 @@ class BattleRoomView extends SceneView
 		var _bg:Sprite = Game.resource.getSprite(Defines.GFX_BATTLE_BG);
 		//var _bg:Background = new Background();
 		this.addChild(_bg);
+		
+		tfName = new TextField();
+		tfName.width = 350;
+		tfName.height = 55;
+		tfName.x = 200;
+		tfName.y = 185;
+		tfName.border = false;
+		tfName.background = false;
+		tfName.multiline =  false;
+		tfName.type = TextFieldType.INPUT;
+		tfName.maxChars = 30;
+		var textFM = new TextFormat();
+		textFM.size = 40;
+		textFM.color = 0x0;
+		tfName.text = "";
+		tfName.setTextFormat(textFM);
+		tfName.defaultTextFormat = textFM;
+		this.addChild(tfName);
+				
 		hudBot = Game.resource.getSprite(Defines.GFX_UI_HUDBOTTOM);
 		hudBot.x = 0;
 		hudBot.y = Game.GAME_HEIGHT - hudBot.height;
@@ -102,7 +126,14 @@ class BattleRoomView extends SceneView
 	{
 		Game.data.playerData.dataPVP.setRefresh();
 		setFinding();
-		Game.server.sendPacket(new RepFinding());
+		if (tfName.text == "") 
+		{
+			Game.server.sendPacket(new RepFinding());
+		}else 
+		{
+			Game.server.sendPacket(new RespWithFriend(tfName.text));
+		}
+		
 	}
 	
 	public function setFinding()
@@ -130,6 +161,7 @@ class BattleRoomView extends SceneView
 		Game.hudTop.setPosBack(SceneView.CHOOSEKILL_PVP);
 		Game.hudTop.update();
 		setWaiting();
+		tfName.text = "";
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
     }
 	override public function onExit() : Void
