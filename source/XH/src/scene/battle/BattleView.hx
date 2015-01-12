@@ -53,7 +53,6 @@ class BattleView extends SceneView
     {        		
 		Game.data.playerData.mDTgameplay.onSetPvp();
 		Game.data.playerData.mDTingame.onRefresh();
-		Game.data.playerData.mDTgameplay.onRefresh();
 		
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		onRefresh();

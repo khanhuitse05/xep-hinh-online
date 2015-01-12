@@ -41,5 +41,10 @@ class DTMine
 		}
 		return Std.random(7) + 1;
 	}
+	public function setFuture(_list:Array<Int>):Void 
+	{
+		mFuture = _list;
+		var a = 0;
+	}
 	
 }
