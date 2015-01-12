@@ -449,6 +449,7 @@ public class Player
 			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 			newInfo.setElo(newInfo.getElo()
 					+ GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+			newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_WIN);
 		}
 		else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
 		{
@@ -457,6 +458,7 @@ public class Player
 			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 			newInfo.setElo(newInfo.getElo()
 					- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+			newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_LOSE);
 		}
 		else
 		{
@@ -465,6 +467,7 @@ public class Player
 			resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
 			newInfo.setElo(newInfo.getElo()
 					+ GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
+			newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_DRAW);
 		}
 		MongoDBConnection.GetInstance().Update(Information, newInfo);
 		Information.setElo(newInfo.getElo());
@@ -486,7 +489,8 @@ public class Player
 
 		newInfo.setElo(newInfo.getElo()
 				- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
-
+		newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_LOSE);
+		
 		MongoDBConnection.GetInstance().Update(Information, newInfo);
 		Information.setElo(newInfo.getElo());
 	}

@@ -27,6 +27,10 @@ public class MongoDBConnection
 	final private String				DB_Skills				= "Skills";
 	final private String				DB_HighScore			= "HighScore";
 	final private String				DB_HighScoreAddedDate	= "HighScoreAddedDate";
+	final private String				DB_PlayedGame	= "PlayedGame";
+	final private String				DB_WinGame	= "WinGame";
+	final private String				DB_DrawGame	= "DrawGame";
+	final private String				DB_LostGame	= "LostGame";
 
 	private static MongoClient			MongoClientConnection	= null;
 	private static MongoDBConnection	Instance				= null;
@@ -64,6 +68,10 @@ public class MongoDBConnection
 		document.put(DB_Elo, info.getElo());
 		document.put(DB_HighScore, info.getHighScore());
 		document.put(DB_HighScoreAddedDate, info.getHighScoreDateAdded());
+		document.put(DB_PlayedGame, info.getPlayedGame());
+		document.put(DB_WinGame, info.getWinGame());
+		document.put(DB_DrawGame, info.getDrawGame());
+		document.put(DB_LostGame, info.getLostGame());
 
 		// BasicDBObject documentDetail = new BasicDBObject();
 		// for (int i = 0; i < 10; i++)
@@ -95,7 +103,11 @@ public class MongoDBConnection
 						.append(DB_HighScore, newValue.getHighScore())
 						.append(DB_HighScoreAddedDate,
 								newValue.getHighScoreDateAdded())
-						.append(DB_Name, newValue.getName()));
+						.append(DB_Name, newValue.getName())
+						.append(DB_PlayedGame, newValue.getPlayedGame())
+						.append(DB_WinGame, newValue.getWinGame())
+						.append(DB_DrawGame, newValue.getDrawGame())
+						.append(DB_LostGame, newValue.getLostGame()));
 
 		BasicDBObject searchQuery = new BasicDBObject().append(DB_ID,
 				oldValue.getIDPlayer());
@@ -122,6 +134,12 @@ public class MongoDBConnection
 			info.setName(result.get(DB_Name).toString());
 			info.setElo((int) result.get(DB_Elo));
 			info.setHighScore((int) result.get(DB_HighScore));
+//			info.setPlayedGame((int) result.get(DB_PlayedGame));
+//			info.setWinGame((int) result.get(DB_WinGame));
+//			info.setDrawGame((int) result.get(DB_DrawGame));
+//			info.setLostGame((int) result.get(DB_LostGame));
+
+			
 			// thieu addedDateHighScore
 			// int[] skills = news int[10];
 			// skills = (int[]) result.get(DB_Skills);
