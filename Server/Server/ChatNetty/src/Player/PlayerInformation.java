@@ -2,6 +2,8 @@ package Player;
 
 import java.util.Date;
 
+import GamePlay.GamePlayVariables;
+
 public class PlayerInformation
 {
 	private String	IDPlayer;
@@ -13,6 +15,50 @@ public class PlayerInformation
 	private int[]	Skills	= new int[10];
 	private int		HighScore;
 	private Date	HighScoreAddedDate;
+	private int		PlayedGame;
+	private int		WinGame;
+	private int		DrawGame;
+	private int		LostGame;
+
+	public int getPlayedGame()
+	{
+		return PlayedGame;
+	}
+
+	public void setPlayedGame(int playedGame)
+	{
+		PlayedGame = playedGame;
+	}
+
+	public int getWinGame()
+	{
+		return WinGame;
+	}
+
+	public void setWinGame(int winGame)
+	{
+		WinGame = winGame;
+	}
+
+	public int getDrawGame()
+	{
+		return DrawGame;
+	}
+
+	public void setDrawGame(int drawGame)
+	{
+		DrawGame = drawGame;
+	}
+
+	public int getLostGame()
+	{
+		return LostGame;
+	}
+
+	public void setLostGame(int lostGame)
+	{
+		LostGame = lostGame;
+	}
 
 	public int getHighScore()
 	{
@@ -44,6 +90,10 @@ public class PlayerInformation
 		Elo = 0;
 		HighScore = 0;
 		HighScoreAddedDate = new Date(0);
+		PlayedGame = 0;
+		WinGame = 0;
+		DrawGame = 0;
+		LostGame = 0;
 	}
 
 	public String getIDPlayer()
@@ -117,5 +167,22 @@ public class PlayerInformation
 	public void setElo(int elo)
 	{
 		Elo = elo;
+	}
+	
+	public void setGameResult(int result)
+	{
+		switch(result)
+		{
+		case GamePlayVariables.GAMEPLAY_PVP_WIN:
+			WinGame++;
+			break;
+		case GamePlayVariables.GAMEPLAY_PVP_DRAW:
+			DrawGame++;
+			break;
+		case GamePlayVariables.GAMEPLAY_PVP_LOSE:
+			LostGame++;
+			break;
+		}
+		PlayedGame++;
 	}
 }
