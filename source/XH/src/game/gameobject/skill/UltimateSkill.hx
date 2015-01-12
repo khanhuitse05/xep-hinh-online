@@ -19,7 +19,9 @@ class UltimateSkill extends Sprite
 	{
 		super();
 		mType = Game.data.playerData.dataSkill.skillUtimate;
-		var _image:SkillDisplay = new SkillDisplay(mType);
+		var _image:SkillDisplay = new SkillDisplay(mType);		
+		_image.x = 0 - SkillDisplay.SKILL_WIDTH / 2;
+		_image.y = 0 - SkillDisplay.SKILL_HEIGHT / 2;
 		this.addChild(_image);
 		this.scaleX = SCALE;
 		this.scaleY = SCALE;

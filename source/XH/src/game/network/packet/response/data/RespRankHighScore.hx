@@ -20,7 +20,8 @@ class RespRankHighScore extends ResponsePacket
 		var _len:Int = data.readShort();
 		for (i in 0..._len) 
 		{
-			Game.data.playerData.dataRank.vHigh[i].name = (cast(data, ByteArrayEx)).readStr();
+			var _lenght:Int = data.readShort();
+			Game.data.playerData.dataRank.vHigh[i].name = (cast(data, ByteArrayEx)).readStrBytes(_lenght);
 			Game.data.playerData.dataRank.vHigh[i].value = data.readShort();
 		}
     }

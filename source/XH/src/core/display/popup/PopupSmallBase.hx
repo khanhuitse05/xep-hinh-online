@@ -30,14 +30,14 @@ class PopupSmallBase extends PopupBase
 		
 		pane = Game.resource.getSprite(Defines.GFX_POPUP_S_PANE);
 		this.addChild(pane);
-		this.x = Game.GAME_WIDTH / 2 - pane.width / 2;
-		this.y = Game.GAME_HEIGHT / 2 - pane.height / 2;
+		pane.x = Game.GAME_WIDTH / 2 - pane.width / 2;
+		pane.y = Game.GAME_HEIGHT / 2 - pane.height / 2;
 		
 		btnClose = new SimpleButton();
 		btnClose.setDisplay(Game.resource.getSprite(Defines.GFX_POPUP_S_CLOSE));
-		btnClose.setPosition(pane.width - 30, 30);
+		btnClose.setPosition(pane.width - 30 + pane.x, 30 + pane.y);
 		btnClose.setMouseClick(onClose);
-		pane.addChild(btnClose);
+		this.addChild(btnClose);
     }
 
     override private function onHide(e:Event):Void 

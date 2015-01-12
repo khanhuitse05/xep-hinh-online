@@ -72,8 +72,8 @@ class BattleRoomView extends SceneView
 		hudBot.addChild(btnCancel);
 		
 		disFinding = new FindingMatch();
-		disFinding.x = Game.GAME_WIDTH / 2 - disFinding.width / 2;
-		disFinding.y = hudBot.y - disFinding.height;
+		disFinding.x = Game.GAME_WIDTH / 2;
+		disFinding.y = hudBot.y - 20;
 		this.addChild(disFinding);
 	}	
 	/**

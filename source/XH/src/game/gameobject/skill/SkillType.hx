@@ -18,4 +18,5 @@ class SkillType
 	public static var SHIELD = 8;
 	public static var HAMMER = 9;
 	public static var FINISH = 10;
+	public static var CLEAR_TOP = 11;
 }

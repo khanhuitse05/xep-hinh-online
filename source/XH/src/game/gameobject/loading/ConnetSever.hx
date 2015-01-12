@@ -59,7 +59,7 @@ class ConnetSever extends Sprite
 		
 		mNoteText = new Lable();
 		mNoteText.setFont(40, 0xffffff);
-		mNoteText.setSysTextInfo(120, 225, "Connet to sever...");
+		mNoteText.setSysTextInfo(120, 225, "Conneting to sever...");
         mBG.addChild(mNoteText);
 		
 	}

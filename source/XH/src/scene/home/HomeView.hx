@@ -3,6 +3,7 @@ import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
 import core.display.scene.*;
 import core.display.screen.ScreenID;
+import core.display.screen.ScreenView;
 import core.resource.Defines;
 import game.const.cache.ExploringCache;
 import game.gameobject.background.Background;
@@ -86,7 +87,10 @@ class HomeView extends SceneView
 		listButton[MISSION].setMouseClick(onMission);
 		//listButton[MISSION].visible = false;
 	}	
-	
+	override public function getSceneType():Int
+	{
+		return SceneView.HOME;
+	}
 	/**
 	 * 
 	 * @param	e
@@ -146,7 +150,7 @@ class HomeView extends SceneView
 	 */
 	private function onFriend(e:Event):Void 
 	{
-		//Game.displayManager.toScreen(ScreenID.FRIENDPLAY);
+		Game.displayManager.toScreen(ScreenID.POPUP_DISCONNET);
 		//Game.data.playerData.dataGame.isConnet = true;
 	}
 	/**
