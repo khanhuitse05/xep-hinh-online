@@ -8,18 +8,21 @@ import openfl.utils.ByteArray;
  * ...
  * @author KhanhTN
  */
-class RepFinding extends RequestPacket
+class RespWithFriend extends RequestPacket
 {
-
-	public function new() 
+	private var id:String;
+	
+	public function new(_id:String) 
     {
         super(Command.CMD_PVP_FINDING);
+		id = _id;
     }
 
     override public function encode(): ByteArray
     {
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
-		data.writeShort(0);
+		data.writeShort(id.length);
+		data.writeStr(id);
         return data;
     }
 	
