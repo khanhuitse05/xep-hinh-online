@@ -17,7 +17,6 @@ class RespPvPEnter extends ResponsePacket
 	}
 	override public function decode(data : ByteArray) : Void 
     {		
-		Game.data.playerData.dataPVP.setRefresh();
 		
 		Game.data.playerData.dataPVP.infoEnemy.userName = (cast(data, ByteArrayEx)).readStr();
 		Game.data.playerData.dataPVP.infoEnemy.exp = data.readInt();

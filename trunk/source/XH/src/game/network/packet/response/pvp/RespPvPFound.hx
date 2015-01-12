@@ -24,6 +24,6 @@ class RespPvPFound extends ResponsePacket
             vList[i] = data.readShort() + 1;
         }
 		
-		Game.data.playerData.dataPVP.dataMine.mFuture = vList;
+		Game.data.playerData.dataPVP.dataMine.setFuture(vList);
     }
 }

@@ -67,7 +67,7 @@ class BattleRoomView extends SceneView
 		var textFM = new TextFormat();
 		textFM.size = 40;
 		textFM.color = 0x0;
-		tfName.text = "";
+		tfName.text = "A";
 		tfName.setTextFormat(textFM);
 		tfName.defaultTextFormat = textFM;
 		this.addChild(tfName);
