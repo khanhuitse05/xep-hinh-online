@@ -198,7 +198,7 @@ public class Player
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
 		
-		int highScore = tempBuffer.readShort();
+		int highScore = tempBuffer.readInt();
 		
 		// update to DB
 		PlayerInformation newValue = new PlayerInformation();
@@ -328,7 +328,7 @@ public class Player
 		ChannelBuffer tempBuffer = buffer.copy();
 		short len = tempBuffer.readShort();
 		short cmd = tempBuffer.readShort();
-		int highScore = tempBuffer.readShort();
+		int highScore = tempBuffer.readInt();
 		// int addedDateHighScore = (int) tempBuffer.readFloat();
 
 		int addedDateHighScore = 1400000000;
@@ -337,9 +337,15 @@ public class Player
 		String id = tempBuffer.toString(tempBuffer.readerIndex() + 2, lenId,
 				StandardCharsets.UTF_8);
 
+		System.out.println("Sign in: id: " + id + " len" + lenId);
+		
 		// increase index channelBuffer
 		tempBuffer.readerIndex(tempBuffer.readerIndex() + 2 + lenId);
+		
 		short lenName = tempBuffer.readShort();
+
+
+		System.out.println("Sign in: len name:" + lenName);
 		String name = tempBuffer.toString(tempBuffer.readerIndex() + 2,
 				lenName, StandardCharsets.UTF_8);
 
