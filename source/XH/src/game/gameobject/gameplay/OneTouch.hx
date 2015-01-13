@@ -68,6 +68,7 @@ class OneTouch extends Sprite
 	{
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);		
 		mList = new Array<VirtualBlock>();
+		removeCase();
 	}
 	public function onExit()
 	{

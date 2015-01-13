@@ -222,7 +222,8 @@ class Mine extends BoardBase
 		mState = STATE_START;
 		mListSkill = new Array<ConstSkill>();
 		initData();
-		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+		this.addEventListener(Event.ENTER_FRAME, gameLoop);		
+		removeCurrentBlock();
 	}
 	public function onExit()
 	{
