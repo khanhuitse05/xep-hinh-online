@@ -185,6 +185,8 @@ class HomeView extends SceneView
 		Game.server.connect(GameConfig.SERVER, GameConfig.PORT);				
 		var connet:ConnetSever = new ConnetSever();
 		this.addChild(connet);
+		isCheck = false;
+		this.addEventListener(Event.ENTER_FRAME, gameCheck);  
 	}
 	/**
 	 * check username
