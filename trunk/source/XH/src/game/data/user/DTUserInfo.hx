@@ -24,5 +24,15 @@ class DTUserInfo
 		avatar = Std.random(5) + 1;
 		avatarEnemy = Std.random(4) + 6;
 	}
-	
+
+	//private var diamond : string;
+	//public int GetDiamond
+	//{
+	//return diamond XOR "assss"; 
+	//}
+	//
+	//public void SetDiamond(int value)\
+	//{
+	//diamond = value XOR "assss";
+	//}
 }

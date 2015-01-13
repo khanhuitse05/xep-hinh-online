@@ -26,7 +26,7 @@ class RepLogin extends RequestPacket
     {
 		//var _time:Float = Date.now().getTime();
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
-		data.writeShort(score);
+		data.writeInt(score);
 		//data.writeFloat(_time);
 		data.writeShort(id.length);
 		data.writeStr(id);

@@ -1,6 +1,7 @@
 package game.gameobject.chooseskill;
 
 import core.resource.Defines;
+import core.sound.Sound;
 import game.const.skill.SkillInfo;
 import game.gameobject.gameplay.GameMode;
 import game.gameobject.skill.SkillDisplay;
@@ -94,6 +95,7 @@ class SkillTop extends Sprite
     {
 		var _display:SkillDisplay = cast(e.currentTarget, SkillDisplay);
 		Game.data.playerData.dataSkill.cancelSkill(_display.info.id);
+		Sound.GetSound(Sound.CHOOSE_SKILL).Play();
 	}
 	public function onTapUtimate(e:MouseEvent):Void
     {

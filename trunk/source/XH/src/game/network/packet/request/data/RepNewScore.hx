@@ -20,7 +20,7 @@ class RepNewScore extends RequestPacket
     override public function encode(): ByteArray
     {
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);		
-        data.writeShort(score);
+        data.writeInt(score);
         return data;
     }
 	

@@ -1,5 +1,6 @@
 package core.display.ex;
 import core.display.ex.ExSprite;
+import core.sound.Sound;
 import flash.events.Event;
 import openfl.display.Bitmap;
 import openfl.display.DisplayObject;
@@ -200,6 +201,7 @@ class SimpleButton extends ExSprite
 				this._onMouseClick(e);
 			}
 		}
+		Sound.GetSound(Sound.BUTTON).Play();
 		_isDown = false;
     }
 	

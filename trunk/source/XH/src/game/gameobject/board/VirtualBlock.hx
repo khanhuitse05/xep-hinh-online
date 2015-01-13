@@ -1,5 +1,6 @@
 package game.gameobject.board;
 
+import core.sound.Sound;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.brick.*;
 import game.tnk.Game;
@@ -62,6 +63,7 @@ class VirtualBlock extends Sprite
 		_info.mColumn = mColumn;
 		_info.mRow = mRow;
 		Game.data.playerData.mDTingame.onClickVirtual(_info);
+		Sound.GetSound(Sound.VIRTUAL_BRICK).Play();
 	}
 	/**
 	 * 

@@ -2,6 +2,7 @@ package game.gameobject.chooseskill;
 
 import core.display.ex.Lable;
 import core.resource.Defines;
+import core.sound.Sound;
 import game.const.Const;
 import game.const.skill.SkillInfo;
 import game.data.skill.DTSkill;
@@ -139,6 +140,6 @@ class SkillChoose extends Sprite
 					
 			}
 		}
-			
+		//Sound.GetSound(Sound.CHOOSE_SKILL).Play();
 	}
 }
