@@ -54,7 +54,7 @@ class HomeView extends SceneView
 		super();
 		init();
 		var connet:ConnetSever = new ConnetSever();
-		this.addChild(connet);
+		this.addChild(connet);		
 	}
 	/**
 	 * 
@@ -123,10 +123,8 @@ class HomeView extends SceneView
 		{
 			hudInfo.update();
 		}
-		if (Game.data.playerData.dataGame.posSound == false) 
-		{
-			Sound.GetSound(Sound.MUSIC_HOME, false).Play();
-		}		
+		Game._soundHome.Pause();
+		Game._soundHome.Play();
     }
 	override public function onExit() : Void
     {  

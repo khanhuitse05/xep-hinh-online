@@ -99,8 +99,7 @@ class CountDown extends Sprite
 	}
 	public function onStartGame()
 	{
-		Game.data.playerData.dataGame.posSound = false; 
-		Sound.GetSound(Sound.MUSIC_BATTLE, false).Play();
+		Game._soundbattle.Play();
 		
 		Game.data.playerData.mDTingame.isFinishCountDown = true;
 		this.parent.removeChild(this);

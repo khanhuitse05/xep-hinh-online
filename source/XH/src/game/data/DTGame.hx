@@ -16,7 +16,6 @@ class DTGame
 	public var isTry:Bool;
 	public var isConnet:Bool;
 	public var isSound:Bool;
-	public var posSound:Bool;
 	
 	public function new() 
 	{
@@ -24,7 +23,6 @@ class DTGame
 		online = false;
 		isTry = false;
 		isConnet = false;
-		posSound = false;
 	}
 	public function onDisconnected():Void
 	{

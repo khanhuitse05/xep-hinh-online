@@ -69,7 +69,7 @@ class Sound
 			channel.addEventListener (Event.SOUND_COMPLETE, channel_onSoundComplete);
 		}
 	}
-		
+
 	public function Pause(fadeOut:Float = 1.2):Void {
 	
 		if (channel != null) {			
