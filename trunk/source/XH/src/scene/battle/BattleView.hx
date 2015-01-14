@@ -57,6 +57,7 @@ class BattleView extends SceneView
 		
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 		onRefresh();
+		Game._soundHome.Pause();
     }
 
     /**
@@ -73,6 +74,7 @@ class BattleView extends SceneView
 				this.removeChild(_result);
 			}
 		}
+		Game._soundbattle.Pause();
     }
 	
 	/// sever

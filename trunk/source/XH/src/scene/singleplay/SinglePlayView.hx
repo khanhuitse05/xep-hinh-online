@@ -65,6 +65,7 @@ class SinglePlayView extends SceneView
 		onRefresh();
 		
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
+		Game._soundHome.Pause();
     }
 
     /**
@@ -73,9 +74,8 @@ class SinglePlayView extends SceneView
     override public function onExit()
     {
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
-        //this.removeAndDelChild(_gamePlay);
 		_gamePlay.onExit();
-		//_gamePlay = null;
+		Game._soundbattle.Pause();
     }
 	
 }

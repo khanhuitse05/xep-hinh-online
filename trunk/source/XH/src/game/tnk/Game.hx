@@ -1,6 +1,7 @@
 package game.tnk;
 import core.display.DisplayManager;
 import core.resource.ResourceManager;
+import core.sound.Sound;
 import game.data.DataCenter;
 import game.network.Server;
 import openfl.display.Stage;
@@ -34,6 +35,11 @@ class Game
 	// hud
 	public static var hudTop:HudTop;
 	public static var hudBottom:HudBottom;
+	
+	// musice
+	
+	public static var _soundHome:Sound;
+	public static var _soundbattle:Sound;
 
     public static function initialize(gStage : Stage, main : Main):Void
     {
@@ -42,6 +48,8 @@ class Game
         resource = new ResourceManager();
         displayManager = new DisplayManager(main);
         data = new DataCenter();
+		_soundHome = Sound.GetSound(Sound.MUSIC_HOME, true);
+		_soundbattle = Sound.GetSound(Sound.MUSIC_BATTLE, true);
 
     }
 }
