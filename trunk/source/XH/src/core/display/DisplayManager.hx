@@ -1,6 +1,7 @@
 package core.display;
 import core.display.dialog.DialogManager;
 import core.display.layer.LayerManager;
+import core.display.note.InfoObject;
 import core.display.note.NoteObject;
 import core.display.popup.PopupManager;
 import core.display.screen.ScreenID;
@@ -15,6 +16,8 @@ class DisplayManager
 	public var m_pScreensManager:Array<Dynamic>;
     public var layerManager : LayerManager;
     public var m_pPopupManager : PopupManager;
+	
+    public var mInfoObject: InfoObject;
     
     public function new(main : Main) 
     {
@@ -31,6 +34,10 @@ class DisplayManager
             }
         }
         m_pPopupManager = m_pScreensManager[LayerManager.LAYER_POPUP];
+		
+		mInfoObject = new InfoObject();
+		layerManager.addToLayer(mInfoObject, LayerManager.LAYER_INFO);
+		mInfoObject.visible = false;
     }
 	/**
      * 
@@ -40,6 +47,15 @@ class DisplayManager
     {
         var _note:NoteObject = new NoteObject(_text);
 		layerManager.addToLayer(_note, LayerManager.LAYER_MESSAGE);
+    }
+	/**
+     * 
+     * @param    screenID
+     */
+    public function toInfo(_title:String, _info:String)
+    {
+		mInfoObject.visible = true;
+		mInfoObject.update(_title, _info);
     }
     /**
      * 

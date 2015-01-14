@@ -35,7 +35,7 @@ class PopupSmallBase extends PopupBase
 		
 		btnClose = new SimpleButton();
 		btnClose.setDisplay(Game.resource.getSprite(Defines.GFX_POPUP_S_CLOSE));
-		btnClose.setPosition(pane.width - 30 + pane.x, 30 + pane.y);
+		btnClose.setPosition(pane.width - 50 + pane.x, 50 + pane.y);
 		btnClose.setMouseClick(onClose);
 		this.addChild(btnClose);
     }

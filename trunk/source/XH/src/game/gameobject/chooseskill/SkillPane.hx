@@ -4,8 +4,8 @@ import core.display.ex.Lable;
 import core.display.ex.SimpleButton;
 import core.resource.Defines;
 import game.const.skill.SkillInfo;
-import game.gameobject.skill.SkillDisplay;
 import game.gameobject.skill.SkillName;
+import game.gameobject.skill.SkillTap;
 import game.tnk.Game;
 import openfl.display.Sprite;
 
@@ -31,7 +31,7 @@ class SkillPane extends Sprite
 	private var info:SkillInfo;
 
 	private var mBg:Sprite;
-	private var mSkill:SkillDisplay;
+	private var mSkill:SkillTap;
 	private var mName:SkillName;
 	private var mChoose:SkillChoose;
 
@@ -49,7 +49,7 @@ class SkillPane extends Sprite
 		mBg = Game.resource.getSprite(Defines.GFX_UI_SKILL_PANE);
 		this.addChild(mBg);
 		//display
-		mSkill = new SkillDisplay(info.id);
+		mSkill = new SkillTap(info.id);
 		mSkill.x = DISPLAY_X;
 		mSkill.y = DISPLAY_Y;		
 		mSkill.scaleX = SCALE_SKILL;

@@ -24,10 +24,10 @@ class OptionPopup extends PopupExBase
 	public static var BTN_X 		= 0;
 	public static var BTN_Y 		= 255;
 	
-	public static var POS_X 		= -160;
-	public static var ONE_Y 		= -102;
-	public static var SWIPE_Y 		= -57;
-	public static var MUSIC_Y 		= 98;
+	public static var POS_X 		= -180;
+	public static var ONE_Y 		= -120;
+	public static var SWIPE_Y 		= -75;
+	public static var MUSIC_Y 		= 80;
 	
 	private var btnOk:SimpleButton;
 	
@@ -89,7 +89,14 @@ class OptionPopup extends PopupExBase
 		pMusic = Game.resource.getSprite(Defines.GFX_CHECK);
 		btnMusic.addChild(pMusic);
 		
-		
+		pMusic.visible = Game.data.playerData.dataOption.music;
+		if (Game.data.playerData.dataOption.onetouch) 
+		{
+			pControl.y = ONE_Y;
+		}else 
+		{
+			pControl.y = SWIPE_Y;
+		}
     }
 	/**
 	 * 
@@ -132,5 +139,13 @@ class OptionPopup extends PopupExBase
 	{
 		pMusic.visible = !pMusic.visible;
 		Game.data.playerData.dataOption.music = pMusic.visible;
+		Game._soundHome.Pause();
+		if (Game.data.playerData.dataOption.music) 
+		{
+			Game._soundHome.Play();
+		}else 
+		{
+			Game._soundHome.Pause();
+		}
 	}
 }

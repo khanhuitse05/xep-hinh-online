@@ -63,7 +63,7 @@ class HudLeft extends Sprite
 			// lable
 			var _lable:Lable = new Lable();
 			_lable.setFont(25, 0xffffff);
-			_lable.setSysTextInfo(0 + 25, 0 + 138,"HOLD");
+			_lable.setSysTextInfo(0 + 5, 0 + 138,"HOLD");
 			mListPlan[i].addChild(_lable);
 			// brick
 			mListBlock[i] = new CBlock(BlockType.I, BlockDirect.TOP);

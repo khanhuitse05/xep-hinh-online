@@ -46,7 +46,7 @@ class Sound
 	public function new(soundName:String, loop:Bool = false)
 	{
 		this.loop = loop;
-		if (!Game.data.playerData.dataGame.isSound)
+		if (!Game.data.playerData.dataOption.music)
 			return;
 		//soundName = soundName.split(".")[0] + ".mp3";
 		sound = Assets.getSound ("img/sounds/" + soundName);
@@ -62,6 +62,8 @@ class Sound
 	
 	public function Play(position:Int = 0, fadeIn:Float = 1.0)
 	{
+		if (!Game.data.playerData.dataOption.music)
+			return;
 		this.position = position;
 		if (sound != null)
 		{
