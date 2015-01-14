@@ -1,4 +1,5 @@
 package game.gameobject.gameplay;
+import core.sound.Sound;
 import game.tnk.Game;
 import openfl.events.MouseEvent;
 import openfl.events.Event;
@@ -20,6 +21,7 @@ class GameControl extends Sprite
 	}
 	private function onCycle(e:Event):Void
 	{
+		Sound.GetSound(Sound.BUTTON).Play();
 		Game.data.playerData.mDTingame.isCycle = true;
 	}
 	public function onEnter()

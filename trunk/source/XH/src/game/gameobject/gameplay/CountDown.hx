@@ -1,6 +1,7 @@
 package game.gameobject.gameplay;
 
 import core.resource.Defines;
+import core.sound.Sound;
 import game.tnk.Game;
 import openfl.display.Sprite;
 import tweenx909.TweenX;
@@ -98,6 +99,9 @@ class CountDown extends Sprite
 	}
 	public function onStartGame()
 	{
+		Game.data.playerData.dataGame.posSound = false; 
+		Sound.GetSound(Sound.MUSIC_BATTLE, false).Play();
+		
 		Game.data.playerData.mDTingame.isFinishCountDown = true;
 		this.parent.removeChild(this);
 	}

@@ -95,7 +95,7 @@ class SkillTop extends Sprite
     {
 		var _display:SkillDisplay = cast(e.currentTarget, SkillDisplay);
 		Game.data.playerData.dataSkill.cancelSkill(_display.info.id);
-		Sound.GetSound(Sound.CHOOSE_SKILL).Play();
+		Sound.GetSound(Sound.BUTTON).Play();
 	}
 	public function onTapUtimate(e:MouseEvent):Void
     {

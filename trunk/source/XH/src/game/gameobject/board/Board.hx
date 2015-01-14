@@ -1,6 +1,7 @@
 package game.gameobject.board;
 
 import core.display.ex.ExSprite;
+import core.sound.Sound;
 import game.const.Const;
 import game.const.skill.ConstSkill;
 import game.data.gameplay.DTingame;
@@ -199,17 +200,21 @@ class Board extends BoardBase
 		{			
 			case SkillType.BOOM:
 				actSkillX();
+				Sound.GetSound(Sound.SKILL_BOOM).Play();
 			case SkillType.TIME:
 				actSkill_Time();
 			case SkillType.MAGNET:
+				Sound.GetSound(Sound.SKILL_MAGNET).Play();
 				actSkill_Magnet();
 			case SkillType.LASERS:
 				actSkill_Lasers();
+				Sound.GetSound(Sound.SKILL_LASERS).Play();
 			case SkillType.X2:
 				actSkill_X2();	
 			case SkillType.EASY:
 				actSkill_Easy();
 			case SkillType.METEOR:
+				Sound.GetSound(Sound.SKILL_METEOR).Play();
 				actSkill_Meteor();
 			default:
 				actSkillX();
@@ -513,12 +518,25 @@ class Board extends BoardBase
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
 														_score);
 			this.addChild(_scoreeffect);
-			if (mListClear.length > 3) 
+			switch (mListClear.length) 
 			{
-				var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
-														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
-														Game.data.playerData.mDTingame.mX + 1);
-				this.addChild(_Xeffect);
+				case 1:
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+				case 2:
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+				case 3:
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+				case 4:
+				{
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+					var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
+															Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
+															Game.data.playerData.mDTingame.mX + 1);
+					this.addChild(_Xeffect);
+				}
+	
+				default:
+					
 			}
 			Actuate.tween(this, EffectClear.TIME_LIVE, { }).onComplete(onBrickDown);
 		}
@@ -540,6 +558,7 @@ class Board extends BoardBase
 			onFinishSkillX();
 		}else
 		{			
+			Sound.GetSound(Sound.GAME_CLEAR01).Play();
 			Game.data.playerData.dataStatictis.addClear(mListClear.length);
 			var _score:Int = Const.getScore(mListClear.length) * Game.data.playerData.mDTingame.mX;
 			var _scoreeffect:ScoreEffect = new ScoreEffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH,
@@ -569,6 +588,7 @@ class Board extends BoardBase
 		}
 		if (mListClear.length > 0)
 		{			
+			Sound.GetSound(Sound.SKILL_FINISH).Play();
 			Game.data.playerData.dataStatictis.addClear(mListClear.length);
 			var _score:Int = Const.getScore(mListClear.length) * Game.data.playerData.mDTingame.mX;
 			if (isUseFinish) 
@@ -682,7 +702,7 @@ class Board extends BoardBase
 	///////////////////////SKILL////////////////////////////
 	
 	private function lastHuman():Void
-	{			
+	{
 		var maxTime:Float = 0;
 		for (i in 0...Game.BOARD_WIDTH) 
 		{
@@ -746,7 +766,7 @@ class Board extends BoardBase
 						mListEndGame[i][j] = BrickType.OTHER;
 					}
 				}
-			}			
+			}
 			onFillEnd();
 		}
 		else

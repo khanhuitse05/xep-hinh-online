@@ -3,6 +3,7 @@ package game.gameobject.gameplay;
 import core.display.ex.ExSprite;
 import core.display.ex.Lable;
 import core.resource.Defines;
+import core.sound.Sound;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.board.CBlock;
 import game.gameobject.brick.BlockDirect;
@@ -143,6 +144,7 @@ class HudLeft extends Sprite
 	 */
 	public function onTap(e:Event):Void
 	{
+		Sound.GetSound(Sound.BUTTON).Play();
 		if (mListBlock.length == 0 ) 
 		{
 			Game.data.playerData.mDTingame.onClickHold(null, 0);
@@ -156,6 +158,7 @@ class HudLeft extends Sprite
 	}
 	public function onTap2(e:Event):Void
 	{
+		Sound.GetSound(Sound.BUTTON).Play();
 		if (mListBlock.length == 0 ) 
 		{
 			Game.data.playerData.mDTingame.onClickHold(null, 0);

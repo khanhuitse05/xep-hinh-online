@@ -99,5 +99,23 @@ class Tblock extends Block
 		}
 		
 	}
+	override public function getMinHold()
+	{
+		var _temp = 0;
+		for (i in 0...mData[0].length) 
+		{
+			if (mData[0][i] == 0) 
+			{
+				_temp++;
+			}
+		}
+		if (_temp == 2) 
+		{
+			return 1;
+		}else 
+		{
+			return _temp;
+		}
+	}
 		
 }

@@ -1,6 +1,7 @@
 package game.gameobject.gameplay;
 
 import core.display.ex.Lable;
+import core.sound.Sound;
 import game.data.gameplay.DTingame;
 import game.tnk.Game;
 import openfl.display.Sprite;
@@ -42,7 +43,7 @@ class TimePlay extends Sprite
 	{
 		mState = START;
 		mValue = 0;
-		mMaxTime = 3600;
+		mMaxTime = 1700;
 		//mMaxTime = 1000;
 		mTexTime = new Lable();
 		mTexTime.setFont(25, 0xffff00);
@@ -73,6 +74,7 @@ class TimePlay extends Sprite
 				if (mValue == 300) 
 				{
 					Game.data.playerData.mDTingame.timeIsRuningOut = true;
+					Sound.GetSound(Sound.GAME_TICTAC).Play();
 				}
 			}else
 			{
@@ -99,7 +101,7 @@ class TimePlay extends Sprite
 			this.graphics.drawRect(0, 0, mWidth, mHeight);
 			this.graphics.endFill();
 			
-			mTexTime.setSysText("2:00");
+			mTexTime.setSysText("1:30");
 		}else 
 		{
 			this.graphics.clear();

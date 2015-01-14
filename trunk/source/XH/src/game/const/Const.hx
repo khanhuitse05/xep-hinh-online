@@ -113,7 +113,7 @@ class Const
 	public static function initScore():Void 
 	{
 		mConstScore = new Array<Int>();
-		for (i in 0...20) 
+		for (i in 0...21) 
 		{
 			mConstScore[i] = (i + 1) * 400;
 		}

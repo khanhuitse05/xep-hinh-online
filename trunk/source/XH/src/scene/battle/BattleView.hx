@@ -1,6 +1,7 @@
 package scene.battle;
 import core.display.scene.*;
 import core.display.screen.ScreenID;
+import core.sound.Sound;
 import game.gameobject.gameplay.GameBattle;
 import game.gameobject.gameplay.GamePlay;
 import game.gameobject.pvp.StaDisconnetEnemy;
@@ -81,24 +82,28 @@ class BattleView extends SceneView
 		_result = new StaWIn();
 		this.addChild(_result);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
+		Sound.GetSound(Sound.STA_WIN).Play();
 	}
 	public function sLose()
 	{
 		_result = new StaLose();
 		this.addChild(_result);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
+		Sound.GetSound(Sound.STA_LOSE).Play();
 	}
 	public function sDisconnet()
 	{
 		_result = new StaDisconnetEnemy();
 		this.addChild(_result);	
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
+		Sound.GetSound(Sound.STA_DICONNET).Play();
 	}
 	public function sDraw()
 	{
 		_result = new StaLose();
 		this.addChild(_result);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
+		Sound.GetSound(Sound.STA_DRAW).Play();
 	}
 	/**
 	 * 

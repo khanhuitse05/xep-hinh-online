@@ -1,5 +1,6 @@
 package game.data;
 import core.display.screen.ScreenID;
+import core.sound.Sound;
 import game.tnk.Game;
 
 /**
@@ -8,10 +9,14 @@ import game.tnk.Game;
  */
 class DTGame
 {
+	public static var POS_BG = 0;
+	public static var POS_BATTLE = 1;
+	
 	public var online:Bool;
 	public var isTry:Bool;
 	public var isConnet:Bool;
 	public var isSound:Bool;
+	public var posSound:Bool;
 	
 	public function new() 
 	{
@@ -19,6 +24,7 @@ class DTGame
 		online = false;
 		isTry = false;
 		isConnet = false;
+		posSound = false;
 	}
 	public function onDisconnected():Void
 	{

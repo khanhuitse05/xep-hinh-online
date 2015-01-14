@@ -3,6 +3,7 @@ package game.gameobject.gameplay;
 import core.display.ex.ExSprite;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
+import core.sound.Sound;
 import game.data.gameplay.DTingame;
 import game.gameobject.board.Board;
 import game.gameobject.board.Enemy;
@@ -104,6 +105,7 @@ class GameBattle extends ExSprite
 		mOneTouch.onEnter();
 		mControl.onEnter();
 		
+		Sound.GetSound(Sound.GAME_BEGIN).Play();
 		var _countdown:CountDown = new CountDown();
 		this.addChild(_countdown);		
 		
