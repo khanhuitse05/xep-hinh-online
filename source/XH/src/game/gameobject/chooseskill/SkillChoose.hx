@@ -121,25 +121,32 @@ class SkillChoose extends Sprite
 		if (type == LOCK) 
 		{
 			Game.displayManager.toMessage("Power_ups is lock");
+			Sound.GetSound(Sound.BUTTON).Play();
 		}else 
 		{
 			switch (Game.data.playerData.dataSkill.chooseSkill(info.id)) 
 			{
 				case DTSkill.LOCK:
 					Game.displayManager.toMessage("Power_ups is lock");
+					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.CHOOSED:
 					Game.displayManager.toMessage("Power_ups ready");
+					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.FULL:
 					Game.displayManager.toMessage("Power_ups full");
+					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.MODE:
 					Game.displayManager.toMessage("Power_ups is lock");
+					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.MONEY:
 					Game.displayManager.toMessage("Not enough money");
+					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.SUCCEED:
+					Sound.GetSound(Sound.CHOOSE_SKILL).Play();
 				default:
 					
 			}
 		}
-		//Sound.GetSound(Sound.CHOOSE_SKILL).Play();
+		
 	}
 }

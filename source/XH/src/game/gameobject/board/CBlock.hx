@@ -1,5 +1,6 @@
 package game.gameobject.board;
 
+import core.sound.Sound;
 import game.data.gameplay.InfoBlock;
 import game.gameobject.brick.*;
 import game.tnk.Game;
@@ -141,6 +142,7 @@ class CBlock extends Sprite
 		if (_onCompleteEffect != null) 
 		{
 			this._onCompleteEffect();
+			Sound.GetSound(Sound.GAME_FALL).Play();
 		}
 	}
 	public function dispose():Void

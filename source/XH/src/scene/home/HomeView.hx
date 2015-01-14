@@ -5,6 +5,7 @@ import core.display.scene.*;
 import core.display.screen.ScreenID;
 import core.display.screen.ScreenView;
 import core.resource.Defines;
+import core.sound.Sound;
 import game.const.cache.ExploringCache;
 import game.gameobject.background.Background;
 import game.gameobject.board.CBlock;
@@ -122,6 +123,10 @@ class HomeView extends SceneView
 		{
 			hudInfo.update();
 		}
+		if (Game.data.playerData.dataGame.posSound == false) 
+		{
+			Sound.GetSound(Sound.MUSIC_HOME, false).Play();
+		}		
     }
 	override public function onExit() : Void
     {  

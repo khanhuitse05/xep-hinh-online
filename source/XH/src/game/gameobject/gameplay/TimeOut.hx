@@ -1,6 +1,7 @@
 package game.gameobject.gameplay;
 
 import core.resource.Defines;
+import core.sound.Sound;
 import game.data.gameplay.DTingame;
 import game.tnk.Game;
 import openfl.display.Sprite;
@@ -21,6 +22,7 @@ class TimeOut extends Sprite
 	public function new() 
 	{
 		super();
+		Sound.GetSound(Sound.GAME_TIMEOUT).Play();
 		mTimeOut = Game.resource.getSprite(Defines.GFX_TIME_OUT);
 		onStart();
 	}

@@ -15,7 +15,7 @@ class RepMeteor extends RequestPacket
 
 	public function new(_list:Array<Int>) 
 	{
-		super(Command.CMD_PVP_SKILL_LASERS);
+		super(Command.CMD_PVP_SKILL_METEOR);
 		list = _list;
 	}
 	override public function encode(): ByteArray {

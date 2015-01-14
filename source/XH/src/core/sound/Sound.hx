@@ -10,27 +10,32 @@ import openfl.Assets;
 class Sound
 {
 	
-	public inline static var MUSIC_ABC				= ".mp3";
-	public inline static var MUSIC_HOME		 		= ".mp3";
+	public inline static var MUSIC_BATTLE			= "ingame.mp3";
+	public inline static var MUSIC_HOME		 		= "background.mp3";
 	
-	public inline static var STA_WIN		 		= ".mp3";
-	public inline static var STA_LOSE		 		= ".mp3";
-	public inline static var STA_DRAW		 		= ".mp3";
-	public inline static var STA_DICONNET		 	= ".mp3";
+	public inline static var STA_WIN		 		= "TABLE_win.wav";
+	public inline static var STA_LOSE		 		= "TABLE_lose.wav";
+	public inline static var STA_DRAW		 		= "TABLE_win.wav";
+	public inline static var STA_DICONNET		 	= "TABLE_win.wav";
+	public inline static var STA_HIGHSCORE		 	= "TABLE_trick.mp3";
 	
-	public inline static var SKILL_LASERS		 	= ".mp3";
-	public inline static var SKILL_METEOR		 	= "meterol.mp3";
-	public inline static var SKILL_MAGNET		 	= "magnet.mp3";
+	public inline static var SKILL_LASERS		 	= "skilllasers.mp3"; //v
+	public inline static var SKILL_METEOR		 	= "skillmeterol.mp3"; //v
+	public inline static var SKILL_MAGNET		 	= "skillmagnet.mp3"; //v
+	public inline static var SKILL_BOOM		 		= "skillboom.mp3"; //v
+	public inline static var SKILL_FINISH		 	= "skillfinish.mp3"; //v
 	
-	public inline static var GAME_FALL 				= ".mp3";
-	public inline static var GAME_CLEAR01		 	= "clear.mp3";
-	public inline static var GAME_CLEAR02		 	= "clear3.mp3";
-	public inline static var GAME_CLEAR03		 	= ".mp3";
-	public inline static var GAME_CLEAR04		 	= ".mp3";
+	public inline static var GAME_FALL 				= "fall.mp3"; //v
+	public inline static var GAME_CLEAR01		 	= "clear01.mp3"; //v
+	public inline static var GAME_CLEAR02		 	= "clear01.mp3";
+	public inline static var GAME_CLEAR03		 	= "clear01.mp3";
+	public inline static var GAME_CLEAR04		 	= "clear01.mp3";
+	public inline static var GAME_BEGIN  			= "defeat.mp3"; //v
+	public inline static var GAME_TIMEOUT  			= "TABLE_lose.wav"; //v
+	public inline static var GAME_TICTAC  			= "TABLE_timer.wav"; //v
 	
-	public inline static var VIRTUAL_BRICK		 	= "vituarlbrick.mp3";
-	public inline static var CHOOSE_SKILL		 	= ".mp3";
-	public inline static var BUTTON		 			= "button.mp3";
+	public inline static var CHOOSE_SKILL		 	= "chooseskill.mp3"; //v
+	public inline static var BUTTON		 			= "click1.mp3"; //v
 	
 	private var channel:SoundChannel;
 	private var position:Float;
@@ -90,4 +95,5 @@ class Sound
 		}
 	
 	}
+	
 }

@@ -1,6 +1,7 @@
 package game.gameobject.board;
 
 import core.display.ex.ExSprite;
+import core.sound.Sound;
 import game.const.Const;
 import game.const.skill.ConstSkill;
 import game.data.gameplay.DTingame;
@@ -191,16 +192,21 @@ class Mine extends BoardBase
 		{
 			case SkillType.BOOM:
 				actSkillX();
+				Sound.GetSound(Sound.SKILL_BOOM).Play();
 			case SkillType.MAGNET:
 				actSkill_Magnet();
+				Sound.GetSound(Sound.SKILL_MAGNET).Play();
 			case SkillType.CLEAR_TOP:
 				actSkill_Lasers();
+				Sound.GetSound(Sound.SKILL_LASERS).Play();
 			case SkillType.LASERS:
 				actSkill_Lasers();
+				Sound.GetSound(Sound.SKILL_LASERS).Play();
 			case SkillType.EASY:
 				actSkill_Easy();
 			case SkillType.METEOR:
 				actSkill_Meteor();
+				Sound.GetSound(Sound.SKILL_METEOR).Play();
 			default:
 				actSkillX();
 				
@@ -464,12 +470,22 @@ class Mine extends BoardBase
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
 														_score);
 			this.addChild(_scoreeffect);
-			if (mListClear.length > 3) 
+			switch (mListClear.length) 
 			{
-				var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
-														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
-														Game.data.playerData.mDTingame.mX + mListClear.length - 3);
-				this.addChild(_Xeffect);
+				case 1:
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+				case 2:
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+				case 3:
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+				case 4:
+				{
+					Sound.GetSound(Sound.GAME_CLEAR01).Play();
+					var _Xeffect:Xeffect = new Xeffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH + Game.BRICK_WIDTH,
+															Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,
+															Game.data.playerData.mDTingame.mX + mListClear.length - 3);
+					this.addChild(_Xeffect);
+				}
 			}
 			//+++++++++++++++
 			numClear = mListClear.length;
@@ -494,7 +510,8 @@ class Mine extends BoardBase
 		{
 			onFinishSkillX();
 		}else
-		{			
+		{
+			Sound.GetSound(Sound.GAME_CLEAR01).Play();
 			var _score:Int = Const.getScore(mListClear.length) * Game.data.playerData.mDTingame.mX;
 			var _scoreeffect:ScoreEffect = new ScoreEffect(Game.data.playerData.mDTingame.infoChose.mColumn * Game.BRICK_WIDTH,
 														Game.BOARD_HEIGHT * Game.BRICK_HEIGHT - (mListClear[0]+1) * Game.BRICK_HEIGHT,

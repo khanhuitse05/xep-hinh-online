@@ -3,6 +3,7 @@ package game.gameobject.gameplay;
 import core.display.screen.ScreenID;
 import core.resource.Defines;
 import core.resource.ResourceManager;
+import core.sound.Sound;
 import game.data.gameplay.DTingame;
 import game.gameobject.background.Background;
 import game.gameobject.board.Board;
@@ -96,6 +97,7 @@ class GamePlay extends Sprite
 		mOneTouch.onEnter();
 		mControl.onEnter();
 		
+		Sound.GetSound(Sound.GAME_BEGIN).Play();
 		var _countdown:CountDown = new CountDown();
 		this.addChild(_countdown);		
 		
