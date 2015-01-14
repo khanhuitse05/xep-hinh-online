@@ -35,9 +35,9 @@ class StaPvEPopup extends PopupExBase
 										-215,
 										-165,
 										-115,
-										-45,
-										20,
-										150,];
+										-48,
+										18,
+										140,];
 	
 	private var btnOK:SimpleButton;
 	private var text:Array<Lable>;
@@ -69,11 +69,11 @@ class StaPvEPopup extends PopupExBase
 		}
 		text[LINE].setSysText("" + Game.data.playerData.dataStatictis.linesClear);
 		text[MULTI].setSysText("" + Game.data.playerData.dataStatictis.multiplier);
-		text[EXP].setSysText("+" + Game.data.playerData.dataStatictis.exp + " EXP");
-		text[GOLD].setSysText("+" + Const.NumToString(Game.data.playerData.dataStatictis.gold) + " GOLD");
-		text[SKILL].setSysText("NONE");
+		text[EXP].setSysText("+" + Game.data.playerData.dataStatictis.exp + " exp");
+		text[GOLD].setSysText("+" + Const.NumToString(Game.data.playerData.dataStatictis.gold) + " gold");
+		text[SKILL].setSysText("none");
 		text[END_SCORE].setSysText("" + Game.data.playerData.dataStatictis.ultimateScore);
-		text[FINAL_SCORE].x = -50;
+		text[FINAL_SCORE].x = -75;
 		text[FINAL_SCORE].setFont(50, 0x00FF11);
 		text[FINAL_SCORE].setSysText("" + Const.NumToString(Game.data.playerData.dataStatictis.score));
 		

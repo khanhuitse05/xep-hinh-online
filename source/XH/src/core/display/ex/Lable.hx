@@ -30,9 +30,14 @@ class Lable extends TextField
 	public function setFont(nFontSize:Int, nFontColor:Int) : Void
     {
 		var pFormat:TextFormat = new TextFormat();
+		var pFont:Font = Assets.getFont("img/fonts/fontgame.TTF");
+		pFormat.font = pFont.fontName;
 		pFormat.size = nFontSize;
 		pFormat.color = nFontColor;
         this.defaultTextFormat = pFormat;
+		
+        this.selectable = false;
+        this.embedFonts = true;
 
     }
 	/**
@@ -44,6 +49,9 @@ class Lable extends TextField
 	public function setSystemFont(strFontName:String, nFontSize:Int, nFontColor:Int) : Void
     {
         this.defaultTextFormat = getSysFontFormat(strFontName, nFontSize, nFontColor);
+		
+        this.selectable = false;
+        this.embedFonts = true;
     }
 	/**
 	 * 
@@ -65,19 +73,22 @@ class Lable extends TextField
      * 
      * @param   str
      */
-    public function setSysText(str:String):Void
+    public function setSysText(str:String, _auto:Bool = true):Void
     {
         this.htmlText = str;
-		this.autoSize = TextFieldAutoSize.LEFT;
+		if (_auto) 
+		{
+			this.autoSize = TextFieldAutoSize.LEFT;
+		}
     }
 
     /**
      * 
      * @param    nWidth
      */
-    public function setSysTextInfo(x:Float, y:Float, str:String):Void
+    public function setSysTextInfo(x:Float, y:Float, str:String, _auto:Bool = true):Void
     {
-        setSysText(str);
+        setSysText(str, _auto);
         this.x = x;
         this.y = y;
     }

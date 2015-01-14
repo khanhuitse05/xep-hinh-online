@@ -12,6 +12,8 @@ import scene.battleroom.*;
 import scene.friendplay.*;
 import scene.home.*;
 import scene.loading.*;
+import scene.login.Login;
+import scene.login.LoginView;
 import scene.mission.*;
 import scene.choseskill.*;
 import scene.highscore.*;
@@ -28,6 +30,7 @@ class ScreenID
     // Scene
     public static var LOADFIST :           	SceneID = new SceneID(LoadFist, LoadFistView);
     public static var HOME :           		SceneID = new SceneID(Home, HomeView);
+    public static var LOGIN :           	SceneID = new SceneID(Login, LoginView);
     public static var BATTLE:           	SceneID = new SceneID(Battle, BattleView);
     public static var ROOM:           		SceneID = new SceneID(BattleRoom, BattleRoomView);
     public static var SINGLEPLAY :          SceneID = new SceneID(SinglePlay, SinglePlayView);

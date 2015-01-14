@@ -6,10 +6,11 @@ import core.display.screen.ScreenID;
 import core.resource.Defines;
 import game.const.Const;
 import game.data.DataController;
+import game.gameobject.background.Background;
 import game.gameobject.gameplay.GameBattle;
 import game.gameobject.gameplay.GameMode;
 import game.gameobject.gameplay.GamePlay;
-import game.gameobject.pvp.FindingMatch;
+import game.gameobject.room.FindingMatch;
 import game.gameobject.user.BrickChoose;
 import game.network.packet.request.pvp.RepCancel;
 import game.network.packet.request.pvp.RepEnter;
@@ -66,7 +67,8 @@ class ShopView extends SceneView
 	
 	private function init():Void 
 	{		
-		var _bg:Sprite = Game.resource.getSprite(Defines.GFX_UI_SKILL_BG);
+		//var _bg:Sprite = Game.resource.getSprite(Defines.GFX_UI_SKILL_BG);
+		var _bg:Background = new Background();
 		this.addChild(_bg);
 		var _title:Sprite = Game.resource.getSprite(Defines.GFX_INFO_TITLE);
 		_title.y = POS_Y[0];

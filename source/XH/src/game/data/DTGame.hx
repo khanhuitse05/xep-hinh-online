@@ -15,11 +15,9 @@ class DTGame
 	public var online:Bool;
 	public var isTry:Bool;
 	public var isConnet:Bool;
-	public var isSound:Bool;
 	
 	public function new() 
 	{
-		isSound = true;
 		online = false;
 		isTry = false;
 		isConnet = false;

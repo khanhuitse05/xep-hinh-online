@@ -45,8 +45,8 @@ class RankView extends SceneView
 	{
 		super();
 		init();
-		initButton();
 		initPage();
+		initButton();
 	}
 	private function init():Void 
 	{

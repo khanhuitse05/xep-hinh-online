@@ -59,7 +59,7 @@ class ConnetSever extends Sprite
 		
 		mNoteText = new Lable();
 		mNoteText.setFont(40, 0xffffff);
-		mNoteText.setSysTextInfo(120, 225, "Conneting to sever...");
+		mNoteText.setSysTextInfo(40, 225, "Conneting to sever...");
         mBG.addChild(mNoteText);
 		
 	}
@@ -94,13 +94,13 @@ class ConnetSever extends Sprite
 	}
 	public function setOnline():Void 
 	{
-		mNoteText.setSysText("Conneted!");
+		mNoteText.setSysTextInfo(120, 225, "Conneted!");
 		Actuate.timer(2).onComplete(onClose);
 		
 	}
 	public function setOffline():Void 
 	{
-		mNoteText.setSysText("Connet fail!");
+		mNoteText.setSysTextInfo(120, 225, "Connet fail!");
 		Actuate.timer(2).onComplete(onClose);
 	}
 	public function onClose()
