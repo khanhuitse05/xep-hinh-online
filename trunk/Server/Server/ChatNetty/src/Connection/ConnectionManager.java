@@ -101,11 +101,7 @@ public class ConnectionManager
 
 	// Player join lobby
 	public void JoinLobby(Player player, String password)
-	{
-		final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-		
-		System.out.print("=> Current thread : " + ste[ste.length - 1].getMethodName());
-		
+	{		
 		boolean isJoined = false;
 		// Loop in current lobby for searching empty slot
 		for (Entry<String, Lobby> entry : CurrentLobby.entrySet())

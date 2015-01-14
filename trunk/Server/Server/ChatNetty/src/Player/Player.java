@@ -238,7 +238,7 @@ public class Player
 		sizeScoreBuffer += 4;
 		for (Entry<String, Integer> entry : scoreStading.entrySet())
 		{
-			sizeScoreBuffer += entry.getKey().getBytes(StandardCharsets.UTF_8).length + 4;
+			sizeScoreBuffer += entry.getKey().getBytes(StandardCharsets.UTF_8).length + 6;
 		}
 
 		bufferOutElo.writeShort(sizeEloBuffer);
@@ -274,7 +274,7 @@ public class Player
 			bufferOutScore.writeBytes(entry.getKey().getBytes(
 					StandardCharsets.UTF_8));
 			// elo
-			bufferOutScore.writeShort(entry.getValue().intValue());
+			bufferOutScore.writeInt(entry.getValue().intValue());
 		}
 
 		WriteToClient(bufferOutElo);

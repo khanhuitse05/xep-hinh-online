@@ -199,7 +199,13 @@ public class Lobby
 			Player2 = null;
 			System.out.println("Leave Player 2");
 		}
+		
 		IsFull = false;
+		if(Player1 == null && Player2 == null)
+		{
+	    	ConnectionManager.CurrentLobby.remove(LobbyID);
+			System.out.println("@@@@@@@@@@@ Remove lobby");
+		}
 	}
 
 	public boolean LoobyFull()
