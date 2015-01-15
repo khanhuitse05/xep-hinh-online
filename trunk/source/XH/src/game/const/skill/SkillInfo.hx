@@ -24,7 +24,7 @@ class SkillInfo
 		{
 			case SkillType.METEOR:
 				name = "METEOR STORM";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "drop 4 bricks that can go through others to empty position";
 				mode = GameMode.NON;
 				changeBoard = true;
 				endGame = false;
@@ -32,7 +32,7 @@ class SkillInfo
 				isLock = false;
 			case SkillType.BOOM:
 				name = "BOOM";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "clear a small area around the explosion ";
 				mode = GameMode.NON;
 				changeBoard = true;
 				endGame = false;
@@ -40,7 +40,7 @@ class SkillInfo
 				isLock = true;
 			case SkillType.HAMMER:
 				name = "FLASH HAMMER";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "ultimate skill for finish the game";
 				mode = GameMode.PVE;
 				changeBoard = false;
 				endGame = true;
@@ -48,7 +48,7 @@ class SkillInfo
 				isLock = true;
 			case SkillType.TIME:
 				name = "TIME MACHINE";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "add 3 seconds more in single play mode";
 				mode = GameMode.PVE;
 				changeBoard = true;
 				endGame = false;				
@@ -64,7 +64,7 @@ class SkillInfo
 				isLock = false;
 			case SkillType.SHIELD:
 				name = "SHIELD";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "when the opponent send to you a line or more, your screen won't be pushed up";
 				mode = GameMode.PVP;
 				changeBoard = false;
 				endGame = false;
@@ -72,7 +72,7 @@ class SkillInfo
 				isLock = false;
 			case SkillType.LASERS:
 				name = "LASERS";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "clear random 3 continual lines";
 				mode = GameMode.NON;
 				changeBoard = true;
 				endGame = false;
@@ -80,7 +80,7 @@ class SkillInfo
 				isLock = false;
 			case SkillType.FINISH:
 				name = "FINISH";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "ultimate skill for finish the game";
 				mode = GameMode.PVE;
 				changeBoard = false;
 				endGame = true;
@@ -88,15 +88,15 @@ class SkillInfo
 				isLock = false;
 			case SkillType.X2:
 				name = "X2";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "give you multiple score when you get 4 lines or there is a x2 score brick in your clear line";
 				mode = GameMode.PVE;
 				changeBoard = true;
 				endGame = false;
 				price = 7100;
 				isLock = false;
 			case SkillType.EASY:
-				name = "EASY";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				name = "INTERESTING";
+				info = "all bricks in Future brick become I brick";
 				mode = GameMode.NON;
 				changeBoard = false;
 				endGame = false;
@@ -104,7 +104,7 @@ class SkillInfo
 				isLock = false;
 			default:
 				name = "NONE";
-				info = "skill abc xyz có khả năng abc xyz tất cả mọi thứ";
+				info = "kill off";
 				mode = GameMode.NON;
 				changeBoard = false;
 				endGame = false;

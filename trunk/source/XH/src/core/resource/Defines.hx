@@ -7,11 +7,12 @@ package core.resource;
 class Defines
 {
 	// ANIMATION
-	inline public static var GFX_LOADING_ANIM:Int = 0;
-	inline public static var GFX_ROW_CLEAER_ANIM:Int = 1;
-	inline public static var GFX_ANIM_LASES_SKILL:Int = 2;
+	inline public static var GFX_LOADING_ANIM:Int 		= 0;
+	inline public static var GFX_ROW_CLEAER_ANIM:Int 	= 1;
+	inline public static var GFX_ANIM_LASES_SKILL:Int 	= 2;
 	inline public static var GFX_ANIM_METEROR_SKILL:Int = 3;
-	inline public static var MAX_ANIM:Int = 4;
+	inline public static var GFX_ANIM_CUBE:Int 			= 4;
+	inline public static var MAX_ANIM:Int 				= 5;
 	// SPRITE
 	inline public static var GFX_MENU_TITLE:Int 		= 0;
 	inline public static var GFX_LOADING_BG:Int 		= 1;
@@ -38,10 +39,10 @@ class Defines
 	inline public static var GFX_BOARD_BODER:Int 		= 22;
 	inline public static var GFX_TIME_OUT:Int			= 23;
 	inline public static var GFX_BTN_PLAY:Int			= 24;
-	inline public static var temp05:Int	= 25;
-	inline public static var temp06:Int	= 26;
-	inline public static var temp07:Int	= 27;
-	inline public static var temp08:Int	= 28;
+	inline public static var GFX_FIND_PN_PUBLIC:Int		= 25; //FIDING
+	inline public static var GFX_FIND_BTN_PUBLIC:Int	= 26;
+	inline public static var GFX_FIND_PN_RANK:Int		= 27;
+	inline public static var GFX_FIND_BTN_RANK:Int		= 28;
 	inline public static var GFX_TIME200:Int			= 29;
 	inline public static var GFX_TIME1:Int				= 30;
 	inline public static var GFX_TIME2:Int	 			= 31;
@@ -72,15 +73,15 @@ class Defines
 	inline public static var GFX_UI_HUD_PANE:Int	 	= 56;
 	inline public static var GFX_UI_HUD_GOLD_ICON:Int 	= 57;
 	inline public static var GFX_UI_HUD_ELO_ICON:Int 	= 58;
-	inline public static var temp01:Int 	= 56;
-	inline public static var temp02:Int 	= 60;
+	inline public static var GFX_UI_POPUP_GREEN:Int 	= 56;
+	inline public static var GFX_UI_POPUP_BLUES:Int 	= 60;
 	inline public static var temp03:Int 	= 61;
 	inline public static var GFX_UI_HUDINFO:Int	 		= 62;	// HUD info
 	inline public static var GFX_UI_BTN_SETTING:Int	 	= 63;	
 	inline public static var GFX_UI_BTN_SHOP:Int	 	= 64;	
 	inline public static var GFX_UI_BTN_RANK:Int	 	= 65;	
 	inline public static var GFX_UI_BTN_WHELL:Int	 	= 66;	
-	inline public static var temp04:Int	 	= 67;	
+	inline public static var GFX_UI_BTN_CANCEL:Int	 	= 67;	
 	inline public static var GFX_UI_HUDBOTTOM:Int	 	= 68;	// HUD BOTTOM
 	inline public static var GFX_UI_BTN_PLAY:Int	 	= 69; 	
 	inline public static var GFX_UI_SKILL_BAR:Int	 	= 70;  	// choskill	
@@ -104,8 +105,8 @@ class Defines
 	inline public static var GFX_CONNET_BG:Int			= 88;
 	inline public static var GFX_SHOW_WIN:Int			= 89; // SHOW
 	inline public static var GFX_SHOW_LOSE:Int			= 90;
-	inline public static var GFX_SHOW_DISCONNET_M:Int	= 91;
-	inline public static var GFX_SHOW_DISCONNET_E:Int	= 92;
+	inline public static var GFX_SHOW_DRAW:Int			= 91;
+	inline public static var GFX_SHOW_DISCONNET:Int		= 92;
 	inline public static var GFX_INFO_BRICK01:Int		= 93; // info
 	inline public static var GFX_INFO_BRICK02:Int		= 94;
 	inline public static var GFX_INFO_BRICK03:Int		= 95;
@@ -122,8 +123,8 @@ class Defines
 	inline public static var GFX_POPUP_S_PANE:Int		= 106;	// popup smill
 	inline public static var GFX_POPUP_S_CLOSE:Int		= 107;
 	inline public static var GFX_BG_LOADDING:Int		= 108; // rank
-	inline public static var GFX_BG_RANK_CUBE_SMALL:Int = 109;
-	inline public static var GFX_BG_RANK_CUBE_MATRI:Int = 110;
+	inline public static var GFX_UI_POINT_BLACK:Int 	= 109;
+	inline public static var GFX_UI_POINT_WHITE:Int 	= 110;
 	inline public static var GFX_RANK_ELO_W:Int 		= 111;
 	inline public static var GFX_RANK_ELO_Y:Int 		= 112;
 	inline public static var GFX_RANK_SCORE_W:Int 		= 113;
@@ -133,7 +134,13 @@ class Defines
 	inline public static var GFX_UI_RANK_BOX:Int 		= 117;
 	inline public static var GFX_UI_RULE:Int 			= 118; // rule
 	inline public static var GFX_UI_DIS_BG:Int 			= 119; 
-	inline public static var MAX_SPRITE:Int 			= 120;
+	inline public static var GFX_UI_TIP_BG:Int 			= 120; // finding
+	inline public static var GFX_UI_TIP_00:Int 			= 121; 
+	inline public static var GFX_UI_TIP_01:Int 			= 122; 
+	inline public static var GFX_UI_TIP_02:Int 			= 123; 
+	inline public static var GFX_UI_TIP_03:Int 			= 124; 
+	inline public static var GFX_UI_TIP_04:Int 			= 125; 
+	inline public static var MAX_SPRITE:Int 			= 126;
 	// BITMAPDATA
 	inline public static var GFX_BRICK_001:Int 			= 0;
 	inline public static var GFX_BRICK_002:Int 			= 1;

@@ -26,18 +26,17 @@ class BtnRank extends Sprite
 	}
 	public function init():Void
 	{			
-		_bg = Game.resource.getSprite(Defines.GFX_BATTLE_FINDING);
+		_bg = Game.resource.getSprite(Defines.GFX_FIND_PN_RANK);
 		this.addChild(_bg);
-		//anim
 		// lable pass word
 		lbInfo = new Lable();
 		lbInfo.setFont(40, 0xffffff);
-		lbInfo.setSysTextInfo(10, 10, "" + Game.data.playerData.mUserInfo.elo);
+		lbInfo.setSysTextInfo(100, 90,"" + Game.data.playerData.mUserInfo.elo);
 		this.addChild(lbInfo);
 		//btn
 		var _btn:SimpleButton = new SimpleButton();
-		_btn.setDisplay(Game.resource.getSprite(0));
-		_btn.setPosition(_bg.width / 2, _bg.height - 35);
+		_btn.setDisplay(Game.resource.getSprite(Defines.GFX_FIND_BTN_RANK));
+		_btn.setPosition(_bg.width / 2, _bg.height - 40);
 		_btn.setMouseClick(onRank);
 		this.addChild(_btn);
 	}

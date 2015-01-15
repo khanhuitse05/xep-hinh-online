@@ -33,11 +33,11 @@ class ResourcePath
 		"img/gfx/game/Gridboder2.png",
 		"img/gfx/game/popuptimeup.png",
 		"img/gfx/ui/playbutt.png",		
-		"",
-		"",
-		"",
-		"",
-		"img/gfx/game/countdown200.png",
+		"img/gfx/room/xpublic.png", // 25 FIDING
+		"img/gfx/room/xpublicbutt.png",
+		"img/gfx/room/xrank.png",
+		"img/gfx/room/xrankbutt.png",
+		"img/gfx/game/countdown200.png", // condown
 		"img/gfx/game/countdown1.png",
 		"img/gfx/game/countdown2.png",
 		"img/gfx/game/countdown3.png",	//32
@@ -67,15 +67,15 @@ class ResourcePath
 		"img/gfx/ui/topbarbox.png",		// GOLD
 		"img/gfx/ui/goldicon.png",	
 		"img/gfx/ui/eloicon.png",	
-		"",	
-		"",	
+		"img/gfx/ui/popupgrean.png",	
+		"img/gfx/ui/popupblues.png",	
 		"",	
 		"img/gfx/ui/mainframe.png",	// 62 hud info
 		"img/gfx/ui/btnsetting.png",
 		"img/gfx/ui/btnshop.png",
 		"img/gfx/ui/btnrank.png",
 		"img/gfx/ui/btnwhell.png",
-		"",
+		"img/gfx/ui/btncancelll.png",
 		"img/gfx/ui/hudbottom.png", // 68 huud bottom
 		"img/gfx/ui/btnPlay.png",
 		"img/gfx/chooseskill/bar.png",	// 70 CHOOSE SKILL
@@ -117,8 +117,8 @@ class ResourcePath
 		"img/gfx/ui/popupsmallbackg.png", //106 POPUP SMALL
 		"img/gfx/ui/btnclosesmall.png", 
 		"img/gfx/tetrisbgblacd.png", //108 RANK
-		"img/gfx/abstractanimated.png",
-		"img/gfx/cubematrix2.png",
+		"img/gfx/room/blackpoint.png",
+		"img/gfx/room/whitepoint.png",
 		"img/gfx/rank/leftfindmath.png",
 		"img/gfx/rank/leftfindmath2.png",
 		"img/gfx/rank/rightfindmath.png",
@@ -128,6 +128,12 @@ class ResourcePath
 		"img/gfx/rank/rankitembox.png",
 		"img/gfx/ui/ruletetrisspace.png", // 118RULE
 		"img/gfx/popupsmall/bgpopupdisconnet.png", 
+		"img/gfx/room/panetoptip.png", 
+		"img/gfx/room/toptep001.png", 
+		"img/gfx/room/toptep002.png", 
+		"img/gfx/room/toptep003.png", 
+		"img/gfx/room/toptep004.png", 
+		"img/gfx/room/toptep005.png", 
     ];
 	public static var BITMAPDATA_PATH =
     [
@@ -148,6 +154,7 @@ class ResourcePath
 		"img/gfx/game/Spriteeffect.png",
 		"img/gfx/sprite/animelases.png",
 		"img/gfx/sprite/meteoreffect.png",
+		"img/gfx/Spriteloading128.png",
     ];
 	public static var AUDIO_PATH =
     [

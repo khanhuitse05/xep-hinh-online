@@ -29,12 +29,12 @@ import openfl.text.TextFormat;
  */
 class BattleRoomView extends SceneView
 {
-	private static var HUD_PUBLIC_X = 10;
-	private static var HUD_PUBLIC_Y = 700;
-	private static var HUD_RANK_X = 370;
-	private static var HUD_RANK_Y = 700;	
-	private static var TOPTIP_X = 20;
-	private static var TOPTIP_Y = 200;
+	private static var HUD_PUBLIC_X = 54;
+	private static var HUD_PUBLIC_Y = 850;
+	private static var HUD_RANK_X = 360;
+	private static var HUD_RANK_Y = 850;	
+	private static var TOPTIP_X = Game.GAME_WIDTH / 2;
+	private static var TOPTIP_Y = 55;
 	
 	private var hudBot:Sprite;
 	private var hudPublic:BtnPublic;
@@ -67,7 +67,7 @@ class BattleRoomView extends SceneView
 		//public
 		hudPublic = new BtnPublic(onPublic);
 		hudPublic.x = HUD_PUBLIC_X;
-		hudPublic.y = HUD_PUBLIC_X;
+		hudPublic.y = HUD_PUBLIC_Y;
 		this.addChild(hudPublic);
 		//totip
 		hudRank = new BtnRank(onRank);
@@ -112,7 +112,7 @@ class BattleRoomView extends SceneView
 	 */
     override public function onEnter() : Void
     {
-		this.addChild(Game.hudTop);
+		this.addChildAt(Game.hudTop, 3);
 		Game.hudTop.setPosBack(SceneView.CHOOSEKILL_PVP);
 		Game.hudTop.update();
 		hudFinding.visible = false;

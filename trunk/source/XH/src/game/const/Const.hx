@@ -1,5 +1,6 @@
 package game.const;
 import game.const.highscore.HighScoreInfo;
+import game.const.tip.ConstTip;
 import game.tnk.Game;
 import haxe.Constraints.Function;
 
@@ -20,6 +21,15 @@ class Const
 		Const.initExp();
 		Const.initScore();
 		Const.initUserInfo();
+		Const.initTip();
+	}
+	/////////////////////////////////////////////
+	// tip
+	/////////////////////////////////////////////
+	public static var tipInfo:ConstTip;
+	public static function initTip():Void 
+	{
+		tipInfo = new ConstTip();
 	}
 	/////////////////////////////////////////////
 	// user info

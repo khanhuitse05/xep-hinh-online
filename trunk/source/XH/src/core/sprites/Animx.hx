@@ -71,7 +71,7 @@ class Animx extends Sprite
         tilesheet = new Tilesheet (bitmapData);
 		for (i in 0...mTotalFrame) 
 		{			
-			tilesheet.addTileRect(new Rectangle((i % 4) * mWidth, Std.int(i / 4) * mHeight, mWidth, mHeight), null);
+			tilesheet.addTileRect(new Rectangle((i % mColumnFrame) * mWidth, Std.int(i / mColumnFrame) * mHeight, mWidth, mHeight), null);
 		}
 
 	}

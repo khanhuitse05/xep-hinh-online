@@ -4,8 +4,8 @@ import core.display.screen.ScreenID;
 import core.sound.Sound;
 import game.gameobject.gameplay.GameBattle;
 import game.gameobject.gameplay.GamePlay;
-import game.gameobject.pvp.StaDisconnetEnemy;
-import game.gameobject.pvp.StaDisconnetMine;
+import game.gameobject.pvp.StaDisconnet;
+import game.gameobject.pvp.StaDraw;
 import game.gameobject.pvp.StaLose;
 import game.gameobject.pvp.StaWIn;
 import game.network.packet.request.pvp.RepCancel;
@@ -95,14 +95,14 @@ class BattleView extends SceneView
 	}
 	public function sDisconnet()
 	{
-		_result = new StaDisconnetEnemy();
+		_result = new StaDisconnet();
 		this.addChild(_result);	
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 		Sound.GetSound(Sound.STA_DICONNET).Play();
 	}
 	public function sDraw()
 	{
-		_result = new StaLose();
+		_result = new StaDraw();
 		this.addChild(_result);
 		Actuate.timer(TIME_DELAY).onComplete(onBack);
 		Sound.GetSound(Sound.STA_DRAW).Play();

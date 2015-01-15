@@ -7,8 +7,10 @@ import core.sprites.Animx;
 import game.network.packet.request.pvp.RespWithFriend;
 import game.tnk.Game;
 import openfl.text.TextFormat;
+import openfl.text.Font;
 import openfl.text.TextField;
 import openfl.events.MouseEvent;
+import openfl.Assets;
 import openfl.display.Sprite;
 import openfl.text.TextFieldType;
 
@@ -18,8 +20,9 @@ import openfl.text.TextFieldType;
  */
 class BtnPublic extends Sprite
 {
-	private static var TEXT_X = 10;
-	private static var TEXT_Y = 700;
+	private static var TEXT_X = 45;
+	private static var TEXT_Y = 93;
+	private static var BTN_Y = 120;
 	
 	var _bg:Sprite;
 	public var tfName:TextField;
@@ -32,31 +35,34 @@ class BtnPublic extends Sprite
 	}
 	public function init():Void
 	{			
-		_bg = Game.resource.getSprite(Defines.GFX_BATTLE_FINDING);
+		_bg = Game.resource.getSprite(Defines.GFX_FIND_PN_PUBLIC);
 		this.addChild(_bg);
 		// lable pass word
 		// tf
 		tfName = new TextField();
-		tfName.width = TEXT_X;
-		tfName.height = TEXT_Y;
-		tfName.x = 10;
-		tfName.y = 3;
+		tfName.width = 245;
+		tfName.height = 130;
+		tfName.maxChars = 12;
+		tfName.x = TEXT_X;
+		tfName.y = TEXT_Y;
 		tfName.border = false;
 		tfName.background = false;
 		tfName.multiline =  false;
 		tfName.type = TextFieldType.INPUT;
 		tfName.maxChars = 20;
-		var textFM = new TextFormat();
-		textFM.size = 40;
-		textFM.color = 0x0;
+		var pFormat:TextFormat = new TextFormat();
+		var pFont:Font = Assets.getFont("img/fonts/fontgame.TTF");
+		pFormat.font = pFont.fontName;
+		pFormat.size = 40;
+		pFormat.color = 0xffffff;
 		tfName.text = "A";
-		tfName.setTextFormat(textFM);
-		tfName.defaultTextFormat = textFM;
+		tfName.setTextFormat(pFormat);
+		tfName.defaultTextFormat = pFormat;
 		this.addChild(tfName); 
 		//btn
 		var _btn:SimpleButton = new SimpleButton();
-		_btn.setDisplay(Game.resource.getSprite(0));
-		_btn.setPosition(_bg.width / 2, _bg.height - 35);
+		_btn.setDisplay(Game.resource.getSprite(Defines.GFX_FIND_BTN_PUBLIC));
+		_btn.setPosition(_bg.width / 2, _bg.height - 40);
 		_btn.setMouseClick(onPublic);
 		this.addChild(_btn);
 	}
