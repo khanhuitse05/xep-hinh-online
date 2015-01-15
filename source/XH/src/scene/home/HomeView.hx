@@ -145,14 +145,14 @@ class HomeView extends SceneView
 	 */
 	private function onBattle(e:Event):Void 
 	{
-		if (Game.data.playerData.dataGame.online) 
+		//if (Game.data.playerData.dataGame.online) 
 		{
 			Game.data.playerData.dataGame.isConnet = true;
 			Game.data.playerData.dataSkill.mode = GameMode.PVP;
 			Game.displayManager.toScreen(ScreenID.SKILL);
-		}else 
-		{
-			onReconnet();	
+		//}else 
+		//{
+			//onReconnet();	
 		}
 		
 	}
