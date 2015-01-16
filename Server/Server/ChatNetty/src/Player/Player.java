@@ -107,6 +107,7 @@ public class Player
 					.LeaveLobby(this);
 			break;
 		case Command.CMD_PVP_SEND:
+			System.out.println("Send = " + LobbyID);
 			if (LobbyID != null)
 			{
 				ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
@@ -469,7 +470,7 @@ public class Player
 		WriteToClient(resFoundMatch);
 	}
 
-	public void HandleResultGame(short isWin, boolean isDisconnect, boolean isPractice)
+	public void HandleResultGame(short isWin, boolean isDisconnect, boolean isPractice, int numBrickOpponent)
 	{
 		setLobbyID(null);
 		ChannelBuffer resResultGame = ChannelBuffers.buffer(RESULT_GAME_SIZE);
@@ -479,7 +480,7 @@ public class Player
 		{
 			if (isWin == GamePlayVariables.GAMEPLAY_PVP_WIN)
 			{
-				resResultGame.writeShort(2);
+				resResultGame.writeShort(6);
 				if (isDisconnect)
 				{
 					resResultGame.writeShort(Command.CMD_PVP_DISCONNECT);
@@ -488,25 +489,32 @@ public class Player
 				{
 					resResultGame.writeShort(Command.CMD_PVP_WIN);
 				}
-				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);				
+				resResultGame.writeShort(NumOfSentBrick);				
+				resResultGame.writeShort(numBrickOpponent);
+				
 				newInfo.setElo(newInfo.getElo()
 						+ GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 				newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_WIN);
 			}
 			else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
 			{
-				resResultGame.writeShort(2);
+				resResultGame.writeShort(6);
 				resResultGame.writeShort(Command.CMD_PVP_LOSE);
-				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
+				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);		
+				resResultGame.writeShort(NumOfSentBrick);				
+				resResultGame.writeShort(numBrickOpponent);
 				newInfo.setElo(newInfo.getElo()
 						- GamePlayVariables.GAMEPLAY_PVP_ELO_WIN);
 				newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_LOSE);
 			}
 			else
 			{
-				resResultGame.writeShort(2);
+				resResultGame.writeShort(6);
 				resResultGame.writeShort(Command.CMD_PVP_DRAW);
-				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
+				resResultGame.writeShort(GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);		
+				resResultGame.writeShort(NumOfSentBrick);				
+				resResultGame.writeShort(numBrickOpponent);
 				newInfo.setElo(newInfo.getElo()
 						+ GamePlayVariables.GAMEPLAY_PVP_ELO_DRAW);
 				newInfo.setGameResult(GamePlayVariables.GAMEPLAY_PVP_DRAW);
@@ -516,7 +524,7 @@ public class Player
 		{
 			if (isWin == GamePlayVariables.GAMEPLAY_PVP_WIN)
 			{
-				resResultGame.writeShort(2);
+				resResultGame.writeShort(6);
 				if (isDisconnect)
 				{
 					resResultGame.writeShort(Command.CMD_PVP_DISCONNECT);
@@ -528,15 +536,17 @@ public class Player
 			}
 			else if (isWin == GamePlayVariables.GAMEPLAY_PVP_LOSE)
 			{
-				resResultGame.writeShort(2);
+				resResultGame.writeShort(6);
 				resResultGame.writeShort(Command.CMD_PVP_LOSE);
 			}
 			else
 			{
-				resResultGame.writeShort(2);
+				resResultGame.writeShort(6);
 				resResultGame.writeShort(Command.CMD_PVP_DRAW);
 			}
-			resResultGame.writeShort(0);
+			resResultGame.writeShort(0);		
+			resResultGame.writeShort(NumOfSentBrick);				
+			resResultGame.writeShort(numBrickOpponent);
 		}	
 		
 		
