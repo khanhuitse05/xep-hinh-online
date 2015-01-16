@@ -418,6 +418,7 @@ class Mine extends BoardBase
 	public function OnApplyToCompleteFinal():Void
 	{
 		var _skill = mCurentBlock.mBlock.mSkill;
+		var _isFull = false;
 		for (i in 0...mCurentBlock.mBlock.mData.length) 
 		{
 			for (j in 0...mCurentBlock.mBlock.mData[0].length) 
@@ -436,10 +437,14 @@ class Mine extends BoardBase
 					}
 					if (_row > Game.BOARD_HEIGHT - 2)
 					{
-						ExploreFullBrick();
+						_isFull = true;
 					}
 				}
 			}
+		}
+		if (_isFull) 
+		{
+			ExploreFullBrick();		
 		}
 		mCurentBlock.visible = false;
 		CheckClear(mCurentBlock.mRow + 1);
@@ -1041,7 +1046,7 @@ class Mine extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function finish_Meteor02():Void
@@ -1052,7 +1057,7 @@ class Mine extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function finish_Meteor03():Void
@@ -1063,7 +1068,7 @@ class Mine extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function finish_Meteor04():Void
@@ -1074,7 +1079,7 @@ class Mine extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function getMaxHeight_Meteor():Int
