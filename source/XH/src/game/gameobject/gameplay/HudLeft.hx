@@ -145,7 +145,7 @@ class HudLeft extends Sprite
 	public function onTap(e:Event):Void
 	{
 		Sound.GetSound(Sound.BUTTON).Play();
-		if (mListBlock.length == 0 ) 
+		if (mListBlock[0].visible == false) 
 		{
 			Game.data.playerData.mDTingame.onClickHold(null, 0);
 		}else
@@ -159,11 +159,11 @@ class HudLeft extends Sprite
 	public function onTap2(e:Event):Void
 	{
 		Sound.GetSound(Sound.BUTTON).Play();
-		if (mListBlock.length == 0 ) 
+		if (mListBlock[0].visible == false) 
 		{
 			Game.data.playerData.mDTingame.onClickHold(null, 0);
 		}else
-		if (mListBlock.length == 1 ) 
+		if (mListBlock[1].visible == false) 
 		{
 			Game.data.playerData.mDTingame.onClickHold(null, 1);
 		}else

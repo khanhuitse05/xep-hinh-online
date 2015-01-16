@@ -2,6 +2,7 @@ package game.network.packet.request.pvp;
 
 import core.util.ByteArrayEx;
 import game.network.packet.RequestPacket;
+import game.tnk.Game;
 import openfl.utils.ByteArray;
 
 /**
@@ -18,7 +19,7 @@ class RepSendGift extends RequestPacket
 		gift = _gift;
 	}
 	override public function encode(): ByteArray {
-        
+        //Game.data.playerData.dataPVP.infoMine.gift += gift;
         var data : ByteArrayEx = cast(super.encode(), ByteArrayEx);
         data.writeShort(gift);
         return data;

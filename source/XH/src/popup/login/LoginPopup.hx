@@ -68,7 +68,7 @@ class LoginPopup extends PopupExBase
 		tfName.background = false;
 		tfName.multiline =  false;
 		tfName.type = TextFieldType.INPUT;
-		tfName.maxChars = 10;
+		tfName.maxChars = 7;
 		var textFM = new TextFormat();
 		textFM.size = 40;
 		textFM.color = 0x5E5E5E;

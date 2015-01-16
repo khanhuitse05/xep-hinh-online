@@ -115,7 +115,7 @@ class Enemy extends BoardBase
 	private function sNextBlock():Void
 	{
 		removeCurrentBlock();
-		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mType, BlockDirect.RIGHT);
+		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mType, BlockDirect.TOP);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
@@ -125,7 +125,7 @@ class Enemy extends BoardBase
 	private function ChangeBlock(_info:InfoBlock):Void
 	{
 		removeCurrentBlock();
-		mCurentBlock = new CBlock(_info.mType, BlockDirect.RIGHT);
+		mCurentBlock = new CBlock(_info.mType, BlockDirect.TOP);
 		mCurentBlock.mBlock.setSkill(_info.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
@@ -143,7 +143,7 @@ class Enemy extends BoardBase
 	{		
 		// hold
 		removeCurrentBlock();
-		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mType, BlockDirect.RIGHT);
+		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mType, BlockDirect.TOP);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
@@ -165,7 +165,9 @@ class Enemy extends BoardBase
 		vGrow = Game.data.playerData.dataPVP.dataEnemy.vGift;
 		if (Game.data.playerData.dataPVP.infoEnemy.checkSkill(SkillType.SHIELD)) 
 		{
-			mState = STATE_NORMAL;			
+			mState = STATE_NORMAL;	
+			var _skill =  new SkillBase(SkillType.SHIELD, 19, 1);
+			this.addChild(_skill);
 		}else 
 		{
 			onGrow();

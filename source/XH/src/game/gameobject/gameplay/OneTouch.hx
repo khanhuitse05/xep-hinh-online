@@ -54,11 +54,10 @@ class OneTouch extends Sprite
 		{
 			for (i in 0...mList.length) 
 			{
-				var _block:VirtualBlock = mList[0];
+				removeChild(mList[0]);
+				mList[0].dispose();
+				mList[0] = null;
 				mList.remove(mList[0]);
-				removeChild(_block);
-				_block.dispose();
-				_block = null;
 				
 			}
 		}	
