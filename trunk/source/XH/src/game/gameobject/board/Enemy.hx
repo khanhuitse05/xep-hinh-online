@@ -567,7 +567,7 @@ class Enemy extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function finish_Meteor02():Void
@@ -578,7 +578,7 @@ class Enemy extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function finish_Meteor03():Void
@@ -589,7 +589,7 @@ class Enemy extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function finish_Meteor04():Void
@@ -600,7 +600,7 @@ class Enemy extends BoardBase
 		{
 			//check
 			mState = STATE_EFFECT;
-			CheckClearAll(getMaxHeight_Meteor());
+			CheckClearAll(getMaxHeight_Meteor() + 1);
 		}
 	}
 	private function getMaxHeight_Meteor():Int
