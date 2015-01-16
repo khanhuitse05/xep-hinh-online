@@ -19,6 +19,8 @@ class RespPvPLose extends ResponsePacket
 	override public function decode(data : ByteArray) : Void 
     {  
 		Game.data.playerData.dataPVP.eloResult = data.readShort();
+		Game.data.playerData.dataPVP.infoMine.gift = data.readShort();
+		Game.data.playerData.dataPVP.infoEnemy.gift = data.readShort();
 		Game.data.playerData.dataPVP.result = DTPVP.R_LOSE;
 	}
 	

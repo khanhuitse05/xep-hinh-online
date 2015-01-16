@@ -268,7 +268,7 @@ class Mine extends BoardBase
 		removeCurrentBlock();
 		Game.data.playerData.mDTgameplay.NextBlockPvP();
 		// 
-		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.RIGHT);
+		mCurentBlock = new CBlock(Game.data.playerData.mDTgameplay.mcurrentBlock.mType, BlockDirect.TOP);
 		mCurentBlock.mBlock.setSkill(Game.data.playerData.mDTgameplay.mcurrentBlock.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
@@ -623,7 +623,9 @@ class Mine extends BoardBase
 		listGrow = new Array<Int>();
 		if (Game.data.playerData.dataPVP.infoMine.checkSkill(SkillType.SHIELD)) 
 		{
-			
+			// add shield effect
+			var _skill =  new SkillBase(SkillType.SHIELD, 19, 1);
+			this.addChild(_skill);
 		}else 
 		{
 			Game.data.playerData.mDTingame.setCase();

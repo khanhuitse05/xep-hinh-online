@@ -109,10 +109,12 @@ class DTgameplay
 			Game.data.playerData.dataSkill.skillAct[_skill] > 0) 
 		{
 			var _skillInfo:SkillInfo = new SkillInfo(Game.data.playerData.dataSkill.skillAct[_skill]);
-			if (_skillInfo.id != SkillType.SHIELD ||
+			if (_skillInfo.id == SkillType.SHIELD ||
 				_skillInfo.id <= 0 ||
-				_skillInfo.id != SkillType.HAMMER||
-				_skillInfo.id != SkillType.FINISH) 
+				_skillInfo.id == SkillType.HAMMER||
+				_skillInfo.id == SkillType.FINISH) 
+			{}
+			else
 			{
 				mStackBlock[3].mSkill = Game.data.playerData.dataSkill.skillAct[_skill];
 			}
