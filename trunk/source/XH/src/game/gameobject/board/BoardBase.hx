@@ -174,7 +174,7 @@ class BoardBase extends Sprite
 	{
 		if (mListBrick[_row][_col] != null) 
 		{
-			mListBrick[_row][_col].mType = -1;
+			mListBrick[_row][_col].mType = 0;
 			mListBrick[_row][_col].mSkill = -1;
 		}
 	}
