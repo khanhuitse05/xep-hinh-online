@@ -9,6 +9,7 @@ import openfl.net.SharedObject;
 class ExploringCache
 {
 	private static var mLocal = "abcxyz-2112-1515-1055-354";
+	private static var XOR_O = 13096;
 	// userID
 	// userName
 	// elo
@@ -50,7 +51,7 @@ class ExploringCache
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
 		so.data.userName = "Ping";
 		so.data.elo = 0;
-		so.data.gold = 10000;
+		so.data.gold = 10000 ^ XOR_O;
 		so.data.exp = 0;
 		so.data.hold = 1;
 		so.data.future = 1;
@@ -102,7 +103,7 @@ class ExploringCache
 	public static function writeGold(_str:Int)
 	{
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
-		so.data.gold = _str;
+		so.data.gold = _str ^ XOR_O;
 		so.flush();
 	}
 	public static function writeExp(_str:Int)
@@ -164,7 +165,7 @@ class ExploringCache
 		Game.data.playerData.mUserInfo.userName =  so.data.userName;
 		Game.data.playerData.mUserInfo.elo =  so.data.elo;
 		Game.data.playerData.mUserInfo.userID =  so.data.userID;
-		Game.data.playerData.mUserInfo.gold =  so.data.gold;
+		Game.data.playerData.mUserInfo.gold =  so.data.gold ^ XOR_O;
 		Game.data.playerData.mUserInfo.hold =  so.data.hold;
 		Game.data.playerData.mUserInfo.future =  so.data.future;
 		Game.data.playerData.mUserInfo.exp =  so.data.exp;

@@ -127,16 +127,16 @@ class SkillChoose extends Sprite
 			switch (Game.data.playerData.dataSkill.chooseSkill(info.id)) 
 			{
 				case DTSkill.LOCK:
-					Game.displayManager.toMessage("Power_ups is lock");
+					Game.displayManager.toMessage("Power_ups is locked");
 					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.CHOOSED:
-					Game.displayManager.toMessage("Power_ups ready");
+					Game.displayManager.toMessage("Power_ups is ready");
 					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.FULL:
-					Game.displayManager.toMessage("Power_ups full");
+					Game.displayManager.toMessage("Maximum 3 Power_ups");
 					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.MODE:
-					Game.displayManager.toMessage("Power_ups is lock");
+					Game.displayManager.toMessage("Power_ups is locked");
 					Sound.GetSound(Sound.BUTTON).Play();
 				case DTSkill.MONEY:
 					Game.displayManager.toMessage("Not enough money");

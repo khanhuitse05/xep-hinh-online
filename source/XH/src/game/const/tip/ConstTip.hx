@@ -10,7 +10,7 @@ class ConstTip
 	public function new() 
 	{
 		tip = [ 
-			"Clear two or more lines to send a line attack to the opponent",
+			"Clear two or more lines to send a attack line to the opponent",
 			"Try to clear 4 lines, you will get more score",
 			"Use shield skill will make your screen become unattackable",
 			"In public mode, you can play with your friend by using a password",

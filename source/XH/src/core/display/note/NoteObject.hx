@@ -23,7 +23,7 @@ class NoteObject extends Sprite
 		super();	
 		mText = _text;
 		mPane = new Lable();
-		mPane.setFont(50, 0x05DC22);
+		mPane.setFont(50, 0xffffff);
         mPane.setSysTextInfo(0, 0, mText);
         this.addChild(mPane);
 		

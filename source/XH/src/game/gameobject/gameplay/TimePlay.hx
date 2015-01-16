@@ -43,7 +43,7 @@ class TimePlay extends Sprite
 	{
 		mState = START;
 		mValue = 0;
-		mMaxTime = 1700;
+		mMaxTime = 2700;
 		//mMaxTime = 1000;
 		mTexTime = new Lable();
 		mTexTime.setFont(25, 0xffff00);
@@ -123,7 +123,7 @@ class TimePlay extends Sprite
 	{
 		mState = START;
 		mValue = 0;
-		mMaxTime = 3600;
+		mMaxTime = 2700;
 		//mMaxTime = 1000;
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
