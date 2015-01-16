@@ -23,6 +23,7 @@ public class Command
 	public static final short	CMD_PVP_SKILL_LASERS			= 132;
 	public static final short	CMD_PVP_SKILL_MAGNET			= 134;
 	public static final short	CMD_PVP_SKILL_METEOR			= 136;
+	public static final short	CMD_PVP_SKILL_FULL				= 138;
 
 	public static final short	CMD_UPDATE_ELO					= 150;
 	public static final short	CMD_UPDATE_LEADERBOARD			= 152;
