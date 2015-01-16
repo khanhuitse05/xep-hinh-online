@@ -694,6 +694,7 @@ class Board extends BoardBase
 						addSkill(new ConstSkill(mListBrick[_row][j].mSkill, _row, j));
 					}
 				}
+				mListBrick[_row][j].dispose();
 			}
 		}
 	}

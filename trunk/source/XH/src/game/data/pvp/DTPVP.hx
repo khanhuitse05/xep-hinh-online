@@ -21,6 +21,7 @@ class DTPVP
 	public static var LASERS = 4;
 	public static var MAGNET = 5;
 	public static var METEOR = 6;
+	public static var FULL = 7;
 	
 	public var dataEnemy:DTEnemy;
 	public var dataMine:DTMine;	

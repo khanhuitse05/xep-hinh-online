@@ -107,6 +107,8 @@ class Enemy extends BoardBase
 					sMagnet();
 				case DTPVP.METEOR:
 					sMeteor();
+				case DTPVP.FULL:
+					sFull();
 				default:
 					
 			}
@@ -166,12 +168,17 @@ class Enemy extends BoardBase
 		if (Game.data.playerData.dataPVP.infoEnemy.checkSkill(SkillType.SHIELD)) 
 		{
 			mState = STATE_NORMAL;	
-			var _skill =  new SkillBase(SkillType.SHIELD, 19, 1);
+			var _skill =  new SkillBase(SkillType.SHIELD, 1, 1);
 			this.addChild(_skill);
 		}else 
 		{
 			onGrow();
 		}
+	}
+	private function sFull():Void
+	{		
+		mState = STATE_EFFECT;
+		onFull();
 	}
 	private function sLasers():Void
 	{		
@@ -361,6 +368,7 @@ class Enemy extends BoardBase
 			if (mListBrick[_row][j] != null) 
 			{
 				mBoard.removeChild(mListBrick[_row][j]);
+				mListBrick[_row][j].dispose();
 			}
 		}
 	}
@@ -415,6 +423,16 @@ class Enemy extends BoardBase
 		{
 			mState = STATE_NORMAL;
 		}			
+	}
+	public function onFull():Void
+	{
+		for (i in 15...Game.BOARD_HEIGHT) 
+		{
+			refreshRow(i);			
+			var _lases:LasersEffect = new LasersEffect(i);
+			this.addChild(_lases);
+		}
+		Actuate.timer(EffectClear.TIME_LIVE + 0.1).onComplete(onFinishSkillX);
 	}
 	/**
 	 * 

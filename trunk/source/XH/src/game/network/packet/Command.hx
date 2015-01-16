@@ -23,6 +23,7 @@ class Command
 	public static var CMD_PVP_SKILL_LASERS	        = 132; // skill lasers
 	public static var CMD_PVP_SKILL_MAGNET	        = 134; // skill magnet
 	public static var CMD_PVP_SKILL_METEOR	       	= 136; // skill meteor
+	public static var CMD_PVP_FULL			       	= 138; // skill meteor
 	
 	// data
 	public static var CMD_DATA_ELO					= 150; // sv gửi elo
