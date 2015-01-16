@@ -35,7 +35,7 @@ class PlayerData extends EventDispatcher
     public function new() 
     {
         super();
-		mBrickID = Std.random(3);
+		mBrickID = 0;
 		
 		mDTgameplay = new DTgameplay();
 		mDTingame = new DTingame();
