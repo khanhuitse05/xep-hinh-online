@@ -140,6 +140,7 @@ public class Player
 		case Command.CMD_PVP_SKILL_LASERS:
 		case Command.CMD_PVP_SKILL_MAGNET:
 		case Command.CMD_PVP_SKILL_METEOR:
+		case Command.CMD_PVP_SKILL_FULL:
 			if (LobbyID != null)
 			{
 				ConnectionManager.GetInstance().CurrentLobby.get(LobbyID)
