@@ -170,4 +170,19 @@ class BoardBase extends Sprite
 			mCurentBlock = null;
 		}
 	}
+	public function refreshBrick(_row:Int, _col:Int):Void
+	{
+		if (mListBrick[_row][_col] != null) 
+		{
+			mListBrick[_row][_col].mType = -1;
+			mListBrick[_row][_col].mSkill = -1;
+		}
+	}
+	public function refreshRow(_row:Int):Void
+	{
+		for (i in 0...Game.BOARD_WIDTH) 
+		{
+			refreshBrick(_row, i);
+		}
+	}
 }

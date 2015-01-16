@@ -12,6 +12,10 @@ class GiftEffect extends Sprite
 	public function new() 
 	{
 		super();
+		init();
+	}
+	public function init():Void
+	{
 		
 	}
 	

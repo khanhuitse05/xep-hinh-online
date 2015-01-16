@@ -68,10 +68,14 @@ class OneTouch extends Sprite
 		this.addEventListener(Event.ENTER_FRAME, gameLoop);		
 		mList = new Array<VirtualBlock>();
 		removeCase();
+		Game.data.playerData.mDTingame.isSetCase = false;
+		Game.data.playerData.mDTingame.isRemoveCase = false;
 	}
 	public function onExit()
 	{
 		this.removeEventListener(Event.ENTER_FRAME, gameLoop);
 		removeCase();
+		Game.data.playerData.mDTingame.isSetCase = false;
+		Game.data.playerData.mDTingame.isRemoveCase = false;
 	}
 }

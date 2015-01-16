@@ -197,7 +197,7 @@ class Mine extends BoardBase
 				actSkill_Magnet();
 				Sound.GetSound(Sound.SKILL_MAGNET).Play();
 			case SkillType.CLEAR_TOP:
-				actSkill_Lasers();
+				actFull();
 				Sound.GetSound(Sound.SKILL_LASERS).Play();
 			case SkillType.LASERS:
 				actSkill_Lasers();
@@ -447,6 +447,7 @@ class Mine extends BoardBase
 	public function ExploreFullBrick()
 	{
 		addSkill(new ConstSkill(SkillType.CLEAR_TOP, 19, 1));
+		cFull();
 	}
 	///
 	public function CheckClear(_row:Int):Void
@@ -613,6 +614,7 @@ class Mine extends BoardBase
 						addSkill(new ConstSkill(mListBrick[_row][j].mSkill, _row, j));
 					}
 				}
+				mListBrick[_row][j].dispose();
 			}
 		}
 	}
@@ -624,7 +626,7 @@ class Mine extends BoardBase
 		if (Game.data.playerData.dataPVP.infoMine.checkSkill(SkillType.SHIELD)) 
 		{
 			// add shield effect
-			var _skill =  new SkillBase(SkillType.SHIELD, 19, 1);
+			var _skill =  new SkillBase(SkillType.SHIELD, 1, 1);
 			this.addChild(_skill);
 		}else 
 		{
@@ -807,9 +809,10 @@ class Mine extends BoardBase
         //Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.METEOR);
 		//+++++++++++++++++++++++
 	}
-	private function cFixBrick()
+	private function cFull()
 	{
 		// send
+		Game.server.sendPacket(new RepFull());
 	}
 	
 	///////////////////////SKILL////////////////////////////
@@ -832,6 +835,23 @@ class Mine extends BoardBase
 		}
 	}
 	/**
+	 * skill full
+	 */
+	private function actFull()
+	{
+		Actuate.timer(EffectClear.TIME_LIVE + 0.1).onComplete(actFullStart);
+	}
+	private function actFullStart()
+	{
+		for (i in 15...Game.BOARD_HEIGHT) 
+		{
+			refreshRow(i);			
+			var _lases:LasersEffect = new LasersEffect(i);
+			this.addChild(_lases);
+		}		
+		Actuate.timer(EffectClear.TIME_LIVE + 0.1).onComplete(onFinishSkillX);
+	}
+	/**
 	 * skill lasers
 	 */
 	private function actSkill_Lasers()
@@ -844,7 +864,9 @@ class Mine extends BoardBase
 		mListClear = new Array<Int>();
 		_listRowLasers = new Array<Int>();
 		_listRowLasers = getRowLasers();
+		//+++++++++++++++++++++++
 		cLasers();
+		//+++++++++++++++++++++++
 		for (i in 0..._listRowLasers.length) 
 		{
 			var _lases:LasersEffect = new LasersEffect(_listRowLasers[i]);
