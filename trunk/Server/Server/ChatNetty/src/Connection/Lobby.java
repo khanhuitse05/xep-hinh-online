@@ -300,20 +300,20 @@ public class Lobby
 		if(Player1.getNumOfSentBrick() > Player2.getNumOfSentBrick())
 		{
 			// Player 1 win
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false, isPractice);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE,false, isPractice);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false, isPractice, Player2.getNumOfSentBrick());
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE,false, isPractice, Player1.getNumOfSentBrick());
 		}
 		else if(Player1.getNumOfSentBrick() < Player2.getNumOfSentBrick())
 		{
 			// Player 2 win
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE, false, isPractice);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false, isPractice);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_LOSE, false, isPractice, Player2.getNumOfSentBrick());
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, false, isPractice, Player1.getNumOfSentBrick());
 		}
 		else
 		{
 			// Draw
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false, isPractice);
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false, isPractice);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false, isPractice, Player2.getNumOfSentBrick());
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_DRAW, false, isPractice, Player1.getNumOfSentBrick());
 			
 		}
 
@@ -346,12 +346,12 @@ public class Lobby
 		boolean isPractice = (LobbyPassword == null) ? false:true;
 		if(player == Player1)
 		{
-			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true, isPractice);
+			Player2.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true, isPractice, Player1.getNumOfSentBrick());
 			Player1.HandleResultDisconnectGame();
 		}
 		else if(player == Player2)
 		{
-			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true, isPractice);
+			Player1.HandleResultGame(GamePlayVariables.GAMEPLAY_PVP_WIN, true, isPractice, Player2.getNumOfSentBrick());
 			Player2.HandleResultDisconnectGame();
 		}
 		else
