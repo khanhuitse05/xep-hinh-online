@@ -15,12 +15,16 @@ import openfl.display.Sprite;
  */
 class FindingMatch extends Sprite
 {
-	private static var TYPE_X = 20;
-	private static var TYPE_Y = 200;
+	
+	private static var FIND_X = 175;
+	private static var FIND_Y = 185;
+	private static var TYPE_X = 80;
+	private static var TYPE_Y = 250;
 	private static var INFO_X = 175;
-	private static var INFO_Y = 275;
+	private static var INFO_Y = 325;
 	
 	var _bg:Sprite;
+	private var lbFind:Lable;
 	private var lbInfo:Lable;
 	private var lbType:Lable;
 	public function new() 
@@ -41,10 +45,14 @@ class FindingMatch extends Sprite
 		//anim
 		var _anim:Animx = Game.resource.getAnim(Defines.GFX_ANIM_CUBE);
 		_anim.x = ( _bg.width - _anim.mWidth) / 2;
-		_anim.y = 50;
+		_anim.y = 40;
 		_anim.animate2(5, -1);
 		_bg.addChild(_anim);
 		//lable
+		lbFind = new Lable();
+		lbFind.setFont(40, 0xFFFFFF);
+		lbFind.setSysTextInfo(FIND_X, FIND_Y, "FINDING");
+		_bg.addChild(lbFind);
 		lbInfo = new Lable();
 		lbInfo.setFont(40, 0xFF8000);
 		lbInfo.setSysTextInfo(INFO_X, INFO_Y, "");
@@ -63,12 +71,12 @@ class FindingMatch extends Sprite
 	public function setFindRank()
 	{
 		lbInfo.setSysTextInfo(INFO_X, INFO_Y,"Elo: " + Game.data.playerData.mUserInfo.elo);
-		lbType.setSysText("FINDING RANK MATCH...");
+		lbType.setSysText("RANKED MATCH...");
 	}
 	public function setFindPublic(_text:String)
 	{
-		lbInfo.setSysTextInfo(TYPE_X + 10, INFO_Y,"Password: " + _text);
-		lbType.setSysText("FINDING PUBLIC MATCH...");
+		lbInfo.setSysTextInfo(TYPE_X, INFO_Y,"Password: " + _text);
+		lbType.setSysText("FRIENDLY MATCH...");
 	}
 	public function onCancel(e:MouseEvent)
 	{

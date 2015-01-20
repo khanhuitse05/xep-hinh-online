@@ -122,7 +122,7 @@ class ShopView extends SceneView
 		
 		infoGold = new Lable();
 		infoGold.setFont(40, 0x05DC22);
-		infoGold.setSysTextInfo(550, 35, "" + Std.int(Const.goldPrice / 1000) + "k");
+		infoGold.setSysTextInfo(540, 35, "" + Std.int(Const.goldPrice / 1000) + "k");
 		bgGold.addChild(infoGold);
 		
 		btnGold =  new SimpleButton();
@@ -139,7 +139,7 @@ class ShopView extends SceneView
 		
 		infoHold = new Lable();
 		infoHold.setFont(40, 0x05DC22);
-		infoHold.setSysTextInfo(550, 35, "");
+		infoHold.setSysTextInfo(540, 35, "");
 		bgHold.addChild(infoHold);
 		
 		btnHold =  new SimpleButton();
@@ -156,7 +156,7 @@ class ShopView extends SceneView
 		
 		infoFuture = new Lable();
 		infoFuture.setFont(40, 0x05DC22);
-		infoFuture.setSysTextInfo(550, 35, "");
+		infoFuture.setSysTextInfo(540, 35, "");
 		bgFuture.addChild(infoFuture);
 		
 		btnFuture =  new SimpleButton();

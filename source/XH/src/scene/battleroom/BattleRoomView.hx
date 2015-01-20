@@ -132,6 +132,7 @@ class BattleRoomView extends SceneView
 	}
 	public function sReady()
 	{
+		Game.data.playerData.dataSkill.onPlay();
 		Game.displayManager.toScreen(ScreenID.BATTLE);
 	}
 	public function sCancel()

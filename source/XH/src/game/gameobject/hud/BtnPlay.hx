@@ -32,13 +32,14 @@ class BtnPlay extends SimpleButton
 	}
 	public function onPlay(e:MouseEvent)
 	{
-		Game.data.playerData.dataSkill.onPlay();
+		
 		switch (pos) 
 		{
 			case -1:
 				this.visible = false;
 			case 0:
 				this.visible = true;
+				Game.data.playerData.dataSkill.onPlay();
 				Game.displayManager.toScreen(ScreenID.SINGLEPLAY);
 			case 1:
 				this.visible = true;

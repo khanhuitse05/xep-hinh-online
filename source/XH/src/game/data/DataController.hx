@@ -55,8 +55,12 @@ class DataController
 		}
 	}
 	public static function onSkill(_id:Int, _num:Int):Void
-	{
+	{		
 		Game.data.playerData.dataSkill.skill[_id - 1] += _num;
+		if (Game.data.playerData.dataSkill.skill[_id - 1] < 0) 
+		{
+			Game.data.playerData.dataSkill.skill[_id - 1] = 0;
+		}
 		ExploringCache.writeSkill(_id, Game.data.playerData.dataSkill.skill[_id - 1]);
 	}
 	
