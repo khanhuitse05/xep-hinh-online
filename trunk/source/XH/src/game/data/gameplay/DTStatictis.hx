@@ -35,11 +35,7 @@ class DTStatictis
 	public function onUpdate() 
 	{		
 		exp = Std.int(score / 60);
-		if (exp > 1634) 
-		{
-			exp = 1634;
-		}
-		gold = Std.int(score / 10);
+		gold = Std.int(score / 3);
 		skill = Game.data.playerData.dataSkill.skillAct;
 		ultimate = Game.data.playerData.dataSkill.skillUtimate;
 		multiplier = Game.data.playerData.mDTingame.mX;

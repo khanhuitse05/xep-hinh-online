@@ -20,7 +20,7 @@
 	<haxelib name="tweenx" />
 	
 	<!-- assets -->
-	<icon path="assets/openfl.svg" />
+	<icon path="assets/icon.png" />
 	<assets path="assets/img" rename="img" />
 	
 	<!-- optimize output

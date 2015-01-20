@@ -186,25 +186,34 @@ class Mine extends BoardBase
 			return false;
 		}
 		mState = STATE_SKILL;
-		var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
-		this.addChild(_skill);
 		switch (mListSkill[0].skill) 
 		{
 			case SkillType.BOOM:
+				var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
+				this.addChild(_skill);
 				actSkillX();
 				Sound.GetSound(Sound.SKILL_BOOM).Play();
 			case SkillType.MAGNET:
+				var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
+				this.addChild(_skill);
 				actSkill_Magnet();
 				Sound.GetSound(Sound.SKILL_MAGNET).Play();
 			case SkillType.CLEAR_TOP:
+				Game.displayManager.toMessage("Clear top line to continue");
 				actFull();
 				Sound.GetSound(Sound.SKILL_LASERS).Play();
 			case SkillType.LASERS:
+				var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
+				this.addChild(_skill);
 				actSkill_Lasers();
 				Sound.GetSound(Sound.SKILL_LASERS).Play();
 			case SkillType.EASY:
+				var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
+				this.addChild(_skill);
 				actSkill_Easy();
 			case SkillType.METEOR:
+				var _skill =  new SkillBase(mListSkill[0].skill, mListSkill[0].row, mListSkill[0].column);
+				this.addChild(_skill);
 				actSkill_Meteor();
 				Sound.GetSound(Sound.SKILL_METEOR).Play();
 			default:

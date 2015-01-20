@@ -21,7 +21,7 @@ class Background extends Sprite
 	{
 		super();
 		init();
-		initFPS();
+		//initFPS();
 	}
 	private function init():Void
 	{

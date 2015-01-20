@@ -75,7 +75,7 @@ class HighScoreScroll extends Sprite
 				m_pChilds[i].setGoldIcon();
 			}
 		}
-		addShare();
+		//addShare();
 		UpdateAll();
 	}
 	private function addShare()
