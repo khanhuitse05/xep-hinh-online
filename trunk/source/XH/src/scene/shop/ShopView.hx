@@ -124,12 +124,14 @@ class ShopView extends SceneView
 		infoGold.setFont(40, 0x05DC22);
 		infoGold.setSysTextInfo(540, 35, "" + Std.int(Const.goldPrice / 1000) + "k");
 		bgGold.addChild(infoGold);
+		infoGold.visible = false;
 		
 		btnGold =  new SimpleButton();
 		btnGold.setDisplay(Game.resource.getSprite(Defines.GFX_INFO_BTN_BUY));
 		btnGold.setPosition(450, bgGold.height / 2);
 		btnGold.setMouseClick(onGold);
 		bgGold.addChild(btnGold);
+		btnGold.visible = false;
 		
 		// hold
 		textHold = new Lable();
@@ -273,6 +275,7 @@ class ShopView extends SceneView
 		}
 		updateInfo();
 		Game.hudTop.update();
+		textGold.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.gold));
 	}
 	/**
 	 * 
@@ -298,6 +301,7 @@ class ShopView extends SceneView
 		}
 		updateInfo();
 		Game.hudTop.update();
+		textGold.setSysText("" + Const.NumToString(Game.data.playerData.mUserInfo.gold));
 	}
 	/**
 	 * 

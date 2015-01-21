@@ -124,6 +124,8 @@ class HomeView extends SceneView
 			hudInfo.update();
 		}
 		Game._soundHome.Pause();
+		Game._soundHome.Pause();
+		Game._soundHome.Pause();
 		Game._soundHome.Play();
     }
 	override public function onExit() : Void

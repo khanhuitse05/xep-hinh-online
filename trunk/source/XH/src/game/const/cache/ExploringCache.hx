@@ -51,7 +51,7 @@ class ExploringCache
 		var so:SharedObject = SharedObject.getLocal(mLocal,  false);
 		so.data.userName = "Ping";
 		so.data.elo = 0;
-		so.data.gold = 10000 ^ XOR_O;
+		so.data.gold = 300000 ^ XOR_O;
 		so.data.exp = 0;
 		so.data.hold = 1;
 		so.data.future = 1;
