@@ -12,7 +12,7 @@ class HighScoreInfo
 	
 	private static var MAX:Int = 25;
 	private static var NAMES:Array<String> = ["Jameadr", "BullDog", "Duck", "Aloha", "ZzZkra",
-												"Tèo", "HeadShot", "Phoenix", "QQkaius", "Qmfuyfyfa",
+												"Teoo", "HeadShot", "Phoenix", "QQkaius", "Qmfuyfyfa",
 												"Titititi", "Ciaciacia", "KKKKKKzua", "Drakula", "KingofGuarsf",
 												"Bito", "Pen", "Kenzslf", "Critiano", "XAAAAAA",
 												"Ping", "Ping Ping", "Ping kaka", "Ping", "Ping",
