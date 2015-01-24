@@ -24,7 +24,7 @@ class RespPvPLasers extends ResponsePacket
             vList[i] = data.readByte();
         }
 		
-		Game.data.playerData.dataPVP.dataEnemy.mLasers = vList;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.LASERS);
+		Game.data.playerData.dataPVP.dataEnemy.addLasers(vList);
+        Game.data.playerData.dataPVP.dataEnemy.addAct(DTPVP.LASERS);
     }
 }

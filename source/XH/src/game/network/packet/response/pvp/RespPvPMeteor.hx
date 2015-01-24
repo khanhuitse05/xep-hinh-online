@@ -24,7 +24,7 @@ class RespPvPMeteor extends ResponsePacket
             vList[i] = data.readByte();
         }
 		
-		Game.data.playerData.dataPVP.dataEnemy.mMeteor = vList;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.METEOR);
+		Game.data.playerData.dataPVP.dataEnemy.addMeteor(vList);
+        Game.data.playerData.dataPVP.dataEnemy.addAct(DTPVP.METEOR);
     }
 }

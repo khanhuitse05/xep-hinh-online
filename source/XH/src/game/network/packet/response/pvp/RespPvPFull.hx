@@ -20,6 +20,6 @@ class RespPvPFull extends ResponsePacket
 	}
 	override public function decode(data : ByteArray) : Void 
     {		
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.FULL);
+        Game.data.playerData.dataPVP.dataEnemy.addAct(DTPVP.FULL);
     }
 }

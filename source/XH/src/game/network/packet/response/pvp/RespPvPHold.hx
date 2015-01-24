@@ -33,6 +33,6 @@ class RespPvPHold extends ResponsePacket
 			Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mColumn = data.readInt();
 			Game.data.playerData.dataPVP.dataEnemy.mHoldBlock.mSkill = data.readInt();
 		}
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.HOLD);
+        Game.data.playerData.dataPVP.dataEnemy.addAct(DTPVP.HOLD);
     }
 }

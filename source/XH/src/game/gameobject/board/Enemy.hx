@@ -40,6 +40,8 @@ class Enemy extends BoardBase
 	private var vMeteor:Array<Int>;	
 	private var mListSkill:Array<Int>;		
 	private var mListClear:Array<Int>;
+	private var mFalll:InfoBlock;
+	private var mCurrent:InfoBlock;
 	
 	
 	/**
@@ -117,8 +119,9 @@ class Enemy extends BoardBase
 	private function sNextBlock():Void
 	{
 		removeCurrentBlock();
-		mCurentBlock = new CBlock(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mType, BlockDirect.TOP);
-		mCurentBlock.mBlock.setSkill(Game.data.playerData.dataPVP.dataEnemy.mcurrentBlock.mSkill);
+		mCurrent = Game.data.playerData.dataPVP.dataEnemy.getCurBlock();
+		mCurentBlock = new CBlock(mCurrent.mType, BlockDirect.TOP);
+		mCurentBlock.mBlock.setSkill(mCurrent.mSkill);
 		mCurentBlock.mask = mMask;
 		mBoard.addChild(mCurentBlock);
 		mCurentBlock.setGrid(4, 19);
@@ -154,6 +157,7 @@ class Enemy extends BoardBase
 	
 	private function sFall():Void
 	{
+		mFalll = Game.data.playerData.dataPVP.dataEnemy.getFallBlock();
 		ApplyEffect();
 		mState = STATE_EFFECT;
 	}
@@ -163,8 +167,8 @@ class Enemy extends BoardBase
 	private function sGrow():Void
 	{		
 		mState = STATE_EFFECT;
-		numGrow = Game.data.playerData.dataPVP.dataEnemy.mNumGift;
-		vGrow = Game.data.playerData.dataPVP.dataEnemy.vGift;
+		numGrow = Game.data.playerData.dataPVP.dataEnemy.getNumGift();
+		vGrow = Game.data.playerData.dataPVP.dataEnemy.getVGift();
 		if (Game.data.playerData.dataPVP.infoEnemy.checkSkill(SkillType.SHIELD)) 
 		{
 			mState = STATE_NORMAL;	
@@ -183,7 +187,7 @@ class Enemy extends BoardBase
 	private function sLasers():Void
 	{		
 		mState = STATE_EFFECT;
-		vLasers = Game.data.playerData.dataPVP.dataEnemy.mLasers;
+		vLasers = Game.data.playerData.dataPVP.dataEnemy.getLasers();
 		onLasers();
 	}
 	private function sMagnet():Void
@@ -194,7 +198,7 @@ class Enemy extends BoardBase
 	private function sMeteor():Void
 	{		
 		mState = STATE_EFFECT;
-		vMeteor = Game.data.playerData.dataPVP.dataEnemy.mMeteor;
+		vMeteor = Game.data.playerData.dataPVP.dataEnemy.getMeteor();
 		onMeteor();
 	}
 	public function onEnter()
@@ -224,23 +228,23 @@ class Enemy extends BoardBase
 	// move block
 	public function ApplyEffect():Void 
 	{
-		ChangeBlock(Game.data.playerData.dataPVP.dataEnemy.mFallBlock);
-		mCurentBlock.ApplyEffect(Game.data.playerData.dataPVP.dataEnemy.mFallBlock, OnApplyToCompleteFinal);
+		ChangeBlock(mFalll);
+		mCurentBlock.ApplyEffect(mFalll, OnApplyToCompleteFinal);
 	}
 	public function OnApplyToCompleteFinal():Void
 	{
-		var _skill = Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mSkill;
+		var _skill = mFalll.mSkill;
 		for (i in 0...mCurentBlock.mBlock.mData.length) 
 		{
 			for (j in 0...mCurentBlock.mBlock.mData[0].length) 
 			{
 				if (mCurentBlock.mBlock.mData[i][j] == 1) 
 				{
-					var _row:Int = i + Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mRow + 1;
-					var _column:Int = j + Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mColumn;
+					var _row:Int = i + mFalll.mRow + 1;
+					var _column:Int = j + mFalll.mColumn;
 					if (_row < Game.BOARD_HEIGHT && _column < Game.BOARD_WIDTH) 
 					{
-						mListBrick[_row][_column].mType = Game.data.playerData.dataPVP.dataEnemy.mFallBlock.mType;
+						mListBrick[_row][_column].mType = mFalll.mType;
 						mListBrick[_row][_column].mSkill = _skill;
 						_skill = -1;
 						mListBrick[_row][_column].x = 0 + _column * Game.BRICK_WIDTH;
