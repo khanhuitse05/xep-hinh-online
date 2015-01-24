@@ -20,11 +20,14 @@ class VirtualBlock extends Sprite
 		
 	public var mColumn:Int;
 	public var mRow:Int;
+	public var isTap:Bool;
+	
 	
 	public function new(_type:Int, _direct:Int)
 	{
 		super();
 		mType = _type;
+		isTap = true;
 		mDirect = _direct;
 		switch (_type)
 		{
@@ -58,12 +61,16 @@ class VirtualBlock extends Sprite
 	 */
 	public function onTap(e:Event):Void
 	{		
-		var _info:InfoBlock = new InfoBlock(mType, mDirect);
-		//_info.mSkill = mBlock.mSkill;
-		_info.mColumn = mColumn;
-		_info.mRow = mRow;
-		Game.data.playerData.mDTingame.onClickVirtual(_info);
-		Sound.GetSound(Sound.BUTTON).Play();
+		if (isTap) 
+		{
+			isTap = false;
+			var _info:InfoBlock = new InfoBlock(mType, mDirect);
+			//_info.mSkill = mBlock.mSkill;
+			_info.mColumn = mColumn;
+			_info.mRow = mRow;
+			Game.data.playerData.mDTingame.onClickVirtual(_info);
+			Sound.GetSound(Sound.BUTTON).Play();
+		}
 	}
 	/**
 	 * 

@@ -20,14 +20,14 @@ class RespPvPGrow extends ResponsePacket
 	override public function decode(data : ByteArray) : Void 
     {        
 		var nLen:Int = data.readShort();
-		Game.data.playerData.dataPVP.dataEnemy.mNumGift = nLen;
+		Game.data.playerData.dataPVP.dataEnemy.addNumGift(nLen);
 		var vList:Array<Int> = new Array<Int>();
 		for (i in 0...nLen)
         {
             vList[i] = data.readByte();
         }
 		
-		Game.data.playerData.dataPVP.dataEnemy.vGift = vList;
-        Game.data.playerData.dataPVP.dataEnemy.mAction.push(DTPVP.GROW);
+		Game.data.playerData.dataPVP.dataEnemy.addVGift(vList);
+        Game.data.playerData.dataPVP.dataEnemy.addAct(DTPVP.GROW);
     }
 }

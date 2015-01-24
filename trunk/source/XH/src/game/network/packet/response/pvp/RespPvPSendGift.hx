@@ -18,7 +18,7 @@ class RespPvPSendGift extends ResponsePacket
 	}
 	override public function decode(data : ByteArray) : Void 
     {        
-		Game.data.playerData.dataPVP.dataMine.mNumGift = data.readShort();
+		Game.data.playerData.dataPVP.dataMine.addNumGift(data.readShort());
         Game.data.playerData.dataPVP.dataMine.mAction.push(DTPVP.GROW);
 		
         //Game.data.playerData.dataPVP.infoEnemy.gift += Game.data.playerData.dataPVP.dataMine.mNumGift;

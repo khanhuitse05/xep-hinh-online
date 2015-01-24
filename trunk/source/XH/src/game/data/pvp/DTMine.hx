@@ -10,7 +10,7 @@ class DTMine
 	// refresh
 	public var mNumRefresh:Int;	
 	// gift
-	public var mNumGift:Int;
+	private var mNumGift:Array<Int>;
 	// is
 	public var mAction:Array<Int>;
 	public var mFuture:Array<Int>;
@@ -19,6 +19,7 @@ class DTMine
 	{
 		mAction = new Array<Int>();
 		mFuture = new Array<Int>();
+		mNumGift = new Array<Int>();
 	}
 	public function getAct():Int 
 	{
@@ -30,6 +31,21 @@ class DTMine
 			return _act;
 		}
 		return -1;
+	}
+	public function addNumGift(_n:Int):Void
+	{
+		mNumGift.push(_n);
+	}
+	public function getNumGift():Int 
+	{
+		var _act:Int;
+		if (mNumGift.length > 0) 
+		{
+			_act = mNumGift[0];
+			mNumGift.remove(mNumGift[0]);
+			return _act;
+		}
+		return 0;
 	}
 	public function getFuture():Int 
 	{

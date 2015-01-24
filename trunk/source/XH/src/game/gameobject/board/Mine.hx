@@ -635,7 +635,7 @@ class Mine extends BoardBase
 	//grow
 	private function sGrow():Void
 	{
-		numGrow = Game.data.playerData.dataPVP.dataMine.mNumGift;		
+		numGrow = Game.data.playerData.dataPVP.dataMine.getNumGift();		
 		listGrow = new Array<Int>();
 		if (Game.data.playerData.dataPVP.infoMine.checkSkill(SkillType.SHIELD)) 
 		{
